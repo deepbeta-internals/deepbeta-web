@@ -102,23 +102,25 @@ export default function Home() {
   return (
     <main className="min-h-screen bg-[var(--bg-base)] text-[var(--text-primary)]">
       <header className="sticky top-0 z-50 border-b border-[var(--border)] bg-[rgba(24,24,26,0.88)] backdrop-blur-xl">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
-          <a href="#top" className="font-heading text-xl font-semibold tracking-tight text-[var(--text-primary)]">
-            Deepbeta <span className="text-[var(--accent-gold)]">β</span>
-          </a>
-          <nav className="hidden items-center gap-8 text-sm text-[var(--text-secondary)] md:flex">
+        <div className="mx-auto flex max-w-7xl flex-col gap-4 px-4 py-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between gap-4">
+            <a href="#top" className="font-heading text-xl font-semibold tracking-tight text-[var(--text-primary)]">
+              Deepbeta <span className="text-[var(--accent-gold)]">β</span>
+            </a>
+            <a
+              href="#contact"
+              className="rounded-full border border-[var(--accent-gold)] px-4 py-2 text-sm font-medium text-[var(--text-primary)] transition hover:bg-[rgba(201,168,76,0.14)]"
+            >
+              Request Access
+            </a>
+          </div>
+          <nav className="flex flex-wrap gap-5 text-sm text-[var(--text-secondary)] md:items-center md:justify-center">
             {navigation.map((item) => (
               <a key={item.href} href={item.href} className="transition hover:text-[var(--text-primary)]">
                 {item.label}
               </a>
             ))}
           </nav>
-          <a
-            href="#contact"
-            className="rounded-full border border-[var(--accent-gold)] px-4 py-2 text-sm font-medium text-[var(--text-primary)] transition hover:bg-[rgba(201,168,76,0.14)]"
-          >
-            Request Access
-          </a>
         </div>
       </header>
 
