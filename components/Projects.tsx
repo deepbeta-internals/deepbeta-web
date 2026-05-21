@@ -18,6 +18,7 @@ export function Projects() {
   return (
     <section id="projects" className="border-y border-border bg-surface/35 py-20 md:py-24">
       <div className="section-shell">
+        <span id="research" className="block h-0 -translate-y-24" aria-hidden />
         <div className="fade-in-up max-w-3xl">
           <span className="section-label">13 Quant ML Projects</span>
           <h2 className="font-heading text-3xl font-semibold text-foreground sm:text-4xl">
