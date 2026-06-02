@@ -1,0 +1,387 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>DeepBeta Capital · 13 Quant · ML Investing Platform</title>
+  <meta name="description" content="DeepBeta Capital — a 13-model quantitative machine-learning investing platform. Backtested cross-asset alpha across equities, indexes, commodities, FX, crypto, leveraged stocks and CFDs." />
+  <meta name="theme-color" content="#0e1014" />
+  <meta property="og:title" content="DeepBeta Capital · 13 Quant ML Investing Platform" />
+  <meta property="og:description" content="Cross-asset, backtested ML alpha. Cutting-edge research, decision layers, constrained risk management and SOTA execution." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://www.deepbeta.com/" />
+  <link rel="icon" type="image/png" href="logo/deepbeta-logo-dark.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!--
+    Brainy demo access (private — remove before public DNS cutover):
+    URL:  https://brainy.deepbeta.mn/
+    Pass: ii11120304
+  -->
+
+  <!-- TOP BAR -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#top" aria-label="DeepBeta Capital home">
+        <img src="logo/deepbeta-logo-light.png" alt="" class="brand-logo" />
+        <span class="brand-text">
+          <span class="brand-line-1">BRAINY ·</span>
+          <span class="brand-line-2">DEEPBETA</span>
+        </span>
+      </a>
+      <nav class="topnav" aria-label="Primary">
+        <a href="#models">models</a>
+        <a href="#assets">assets</a>
+        <a href="#features">features</a>
+        <a href="#stack">stack</a>
+        <a href="#performance">performance</a>
+        <a href="#research">research</a>
+        <a href="#contact">contact</a>
+      </nav>
+      <div class="topctas">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span class="status-text">live · refresh 60s</span>
+        <a class="btn btn-ghost" href="https://www.upwork.com/fl/nyamochirbold" target="_blank" rel="noopener">▼ Upwork</a>
+        <a class="btn btn-primary" href="https://brainy.deepbeta.mn/" target="_blank" rel="noopener">▶ Open Brainy</a>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <div class="kicker"><span class="dot"></span> DEEPBETA CAPITAL · QUANT ML · CROSS-ASSET</div>
+          <h1>
+            <span class="num">13</span> quant ML models.
+            <span class="acc">One backtested</span> alpha engine.
+          </h1>
+          <p class="lede">
+            DeepBeta runs a unified research-to-execution stack: thirteen specialized
+            machine-learning models — UP, BREAKOUT, REGRESSION and ten more — score
+            every asset every bar, then route signals through constrained risk
+            management and a state-of-the-art execution layer.
+          </p>
+          <div class="hero-ctas">
+            <a class="btn btn-primary lg" href="https://brainy.deepbeta.mn/" target="_blank" rel="noopener">▶ Launch Brainy platform</a>
+            <a class="btn btn-ghost lg" href="#performance">View backtest results</a>
+          </div>
+          <div class="hero-meta">
+            <div><b>www.deepbeta.com</b> · deepbeta.mn</div>
+            <div>Founder · <a href="https://www.linkedin.com/in/nyamochirbold/" target="_blank" rel="noopener">Nyam-Ochir Bold</a></div>
+          </div>
+        </div>
+
+        <!-- Live tickers, styled like the Brainy dashboard -->
+        <aside class="tickers" aria-label="Live tickers">
+          <div class="ticker-row" data-class="crypto">
+            <div class="row-head">
+              <span class="dot"></span>
+              <span class="row-label">LIVE</span>
+              <span class="row-class">CRYPTO · MAJORS</span>
+              <span class="row-time" data-clock></span>
+            </div>
+            <div class="row-cards">
+              <div class="card" data-sym="BTCUSD" data-px="69585.51" data-chg="-4.25"></div>
+              <div class="card" data-sym="ETHUSD" data-px="1976.01" data-chg="-0.34"></div>
+              <div class="card" data-sym="SOLUSD" data-px="79.2623" data-chg="-2.15"></div>
+              <div class="card" data-sym="BNBUSD" data-px="677.39" data-chg="-3.44"></div>
+              <div class="card" data-sym="XRPUSD" data-px="1.2626" data-chg="-3.19"></div>
+            </div>
+          </div>
+          <div class="ticker-row" data-class="macro">
+            <div class="row-head">
+              <span class="dot"></span>
+              <span class="row-label">MACRO</span>
+              <span class="row-class">DXY · S&amp;P 500 · NASDAQ · AAPL · NVDA</span>
+              <span class="row-time" data-clock></span>
+            </div>
+            <div class="row-cards">
+              <div class="card" data-sym="DXY"    data-px="99.1380" data-chg="-0.04"></div>
+              <div class="card" data-sym="SP500"  data-px="7599.96" data-chg="0.26"></div>
+              <div class="card" data-sym="NASDAQ" data-px="27086.81" data-chg="0.42"></div>
+              <div class="card" data-sym="AAPL"   data-px="306.31"  data-chg="-1.84"></div>
+              <div class="card" data-sym="NVDA"   data-px="224.36"  data-chg="6.26"></div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- 13 MODELS -->
+    <section id="models" class="panel">
+      <div class="panel-head">
+        <h2><span class="bar"></span> 13 MODEL FAMILY · ONE PLATFORM</h2>
+        <p class="muted">Each model is independently trained, walk-forward validated, and ranked by Sharpe / Calmar / Drawdown / Return.</p>
+      </div>
+      <div class="model-grid">
+        <article class="model"><h3>UP</h3><p>Directional long-bias classifier. Probabilistic up-move signal across horizons.</p></article>
+        <article class="model"><h3>BREAKOUT</h3><p>Range-expansion detector with regime gating and volatility scaling.</p></article>
+        <article class="model"><h3>REGRESSION</h3><p>Continuous return forecast — calibrated for portfolio sizing.</p></article>
+        <article class="model"><h3>MEAN-REVERT</h3><p>Short-horizon reversion in equities, FX and indexes.</p></article>
+        <article class="model"><h3>MOMENTUM</h3><p>Cross-sectional and time-series momentum across universes.</p></article>
+        <article class="model"><h3>TREND</h3><p>Persistence model fed by price, volume and macro features.</p></article>
+        <article class="model"><h3>VOL-REGIME</h3><p>Volatility state classifier driving leverage and gating.</p></article>
+        <article class="model"><h3>NEWS-SENT</h3><p>News &amp; social sentiment encoder for event-driven alpha.</p></article>
+        <article class="model"><h3>EARNINGS</h3><p>Pre/post earnings drift with surprise and guidance features.</p></article>
+        <article class="model"><h3>MACRO</h3><p>Rates, DXY, credit and liquidity overlay across all assets.</p></article>
+        <article class="model"><h3>PAIRS</h3><p>Statistical arbitrage on cointegrated baskets.</p></article>
+        <article class="model"><h3>OPTIONS-FLOW</h3><p>Implied-vol &amp; flow signals where derivatives data exists.</p></article>
+        <article class="model"><h3>META-ENSEMBLE</h3><p>Stacking layer that combines the 12 specialists into the production signal.</p></article>
+      </div>
+    </section>
+
+    <!-- ASSETS -->
+    <section id="assets" class="panel">
+      <div class="panel-head">
+        <h2><span class="bar"></span> ASSET COVERAGE · GLOBAL CROSS-ASSET</h2>
+        <p class="muted">From US large-cap to Asia-Pac and crypto majors — one feature pipeline, one risk book.</p>
+      </div>
+      <div class="asset-grid">
+        <div class="asset-card">
+          <h3>US Equities</h3>
+          <p>S&amp;P 500 and NASDAQ constituents · ETFs · sectors · top indexes.</p>
+        </div>
+        <div class="asset-card">
+          <h3>Asia-Pacific</h3>
+          <p>KRX (Korea), JPX (Japan — TSE / OSE), HKEX (Hong Kong) — equities &amp; indexes.</p>
+        </div>
+        <div class="asset-card">
+          <h3>London (LSE)</h3>
+          <p>FTSE products, ETPs and listed structured instruments.</p>
+        </div>
+        <div class="asset-card">
+          <h3>Indexes &amp; Futures</h3>
+          <p>SPX, NDX, DXY, FTSE, Nikkei, HSI, KOSPI — index futures and CFDs.</p>
+        </div>
+        <div class="asset-card">
+          <h3>Commodities</h3>
+          <p>Energy, metals and agriculturals — futures &amp; CFD instruments.</p>
+        </div>
+        <div class="asset-card">
+          <h3>FX</h3>
+          <p>Majors and crosses — G10 plus selected EM pairs.</p>
+        </div>
+        <div class="asset-card">
+          <h3>Crypto Majors</h3>
+          <p>BTC, ETH and top liquid pairs — spot and perpetuals.</p>
+        </div>
+        <div class="asset-card">
+          <h3>Leveraged &amp; CFDs</h3>
+          <p>Leveraged equity products and contracts-for-difference where licensed.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="features" class="panel">
+      <div class="panel-head">
+        <h2><span class="bar"></span> FEATURE ENGINE · MULTI-MODAL INPUTS</h2>
+        <p class="muted">Features are generated in major parts and fused before any model sees a bar.</p>
+      </div>
+      <div class="feat-grid">
+        <div class="feat">
+          <span class="feat-tag">PRICE / VOL</span>
+          <h3>Microstructure &amp; technicals</h3>
+          <p>Multi-timeframe returns, realized vol, order-flow proxies, gap statistics, range expansion and breadth.</p>
+        </div>
+        <div class="feat">
+          <span class="feat-tag">FUNDAMENTALS</span>
+          <h3>Company &amp; earnings</h3>
+          <p>Earnings surprise, guidance deltas, revisions, valuation z-scores, calendar proximity.</p>
+        </div>
+        <div class="feat">
+          <span class="feat-tag">MACRO</span>
+          <h3>Economic conditions</h3>
+          <p>Rates, curve shape, DXY, credit spreads, liquidity and global risk-on/off regime tags.</p>
+        </div>
+        <div class="feat">
+          <span class="feat-tag">NEWS</span>
+          <h3>News &amp; events</h3>
+          <p>Headline embeddings, event tagging, central-bank calendars, geopolitical shock flags.</p>
+        </div>
+        <div class="feat">
+          <span class="feat-tag">SENTIMENT</span>
+          <h3>Sentiment &amp; flow</h3>
+          <p>News sentiment, social signal, options flow, ETF creations/redemptions where available.</p>
+        </div>
+        <div class="feat">
+          <span class="feat-tag">CROSS-ASSET</span>
+          <h3>Linkages</h3>
+          <p>Cross-asset correlations, lead-lag features and basis between spot / futures / CFD.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STACK -->
+    <section id="stack" class="panel">
+      <div class="panel-head">
+        <h2><span class="bar"></span> ARCHITECTURE · RESEARCH TO EXECUTION</h2>
+        <p class="muted">Each layer is independently testable and replaceable.</p>
+      </div>
+      <ol class="stack">
+        <li>
+          <span class="step">01</span>
+          <h3>Data &amp; Feature layer</h3>
+          <p>Tick / bar / fundamentals / macro / news ingest → versioned feature store with point-in-time correctness.</p>
+        </li>
+        <li>
+          <span class="step">02</span>
+          <h3>13 ML models</h3>
+          <p>Specialists trained per family, walk-forward and purged-CV validated.</p>
+        </li>
+        <li>
+          <span class="step">03</span>
+          <h3>Decision-making layer</h3>
+          <p>Ensembling, regime gating, signal calibration and conviction scoring.</p>
+        </li>
+        <li>
+          <span class="step">04</span>
+          <h3>Strategy layer</h3>
+          <p>Horizon, sizing, holding-period and universe rules — per-asset and portfolio.</p>
+        </li>
+        <li>
+          <span class="step">05</span>
+          <h3>Risk management</h3>
+          <p>Organization-specific constrained RM (mandate / exposure / liquidity caps) plus standard RM (VaR, drawdown, vol-target, correlation, stress).</p>
+        </li>
+        <li>
+          <span class="step">06</span>
+          <h3>Execution layer</h3>
+          <p>SOTA execution with adaptive scheduling, slippage modeling, smart routing and venue selection.</p>
+        </li>
+        <li>
+          <span class="step">07</span>
+          <h3>Mitigation &amp; monitoring</h3>
+          <p>Live drift detection, kill-switches, circuit breakers and post-trade attribution.</p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- PERFORMANCE -->
+    <section id="performance" class="panel">
+      <div class="panel-head">
+        <h2><span class="bar"></span> PERFORMANCE · BACKTESTED MODELS</h2>
+        <p class="muted">Validation-window aggregates across the production model family. Indicative — past performance is not a guarantee of future results.</p>
+      </div>
+      <div class="perf-grid">
+        <div class="perf-card">
+          <div class="perf-k">SHARPE</div>
+          <div class="perf-v" data-count="2.41" data-decimals="2">0.00</div>
+          <div class="perf-sub">portfolio · best-UP per asset</div>
+        </div>
+        <div class="perf-card">
+          <div class="perf-k">CALMAR</div>
+          <div class="perf-v" data-count="3.12" data-decimals="2">0.00</div>
+          <div class="perf-sub">return / max drawdown</div>
+        </div>
+        <div class="perf-card">
+          <div class="perf-k">MAX DD</div>
+          <div class="perf-v" data-count="-9.7" data-decimals="1" data-suffix="%">0.0%</div>
+          <div class="perf-sub">worst peak-to-trough</div>
+        </div>
+        <div class="perf-card">
+          <div class="perf-k">CAGR</div>
+          <div class="perf-v" data-count="38.4" data-decimals="1" data-suffix="%">0.0%</div>
+          <div class="perf-sub">validation window</div>
+        </div>
+        <div class="perf-card">
+          <div class="perf-k">HIT RATE</div>
+          <div class="perf-v" data-count="58.2" data-decimals="1" data-suffix="%">0.0%</div>
+          <div class="perf-sub">directional, all assets</div>
+        </div>
+        <div class="perf-card">
+          <div class="perf-k">UNIVERSE</div>
+          <div class="perf-v" data-count="1240" data-decimals="0">0</div>
+          <div class="perf-sub">tradable instruments</div>
+        </div>
+      </div>
+
+      <div class="chart-wrap">
+        <div class="chart-head">
+          <div>
+            <div class="chart-title">PORTFOLIO BACKTEST · ALL ASSETS · BEST 'UP' MODEL EACH</div>
+            <div class="chart-sub muted">Aggregated equity curve summing each asset's best-up backtest ($10K start each)</div>
+          </div>
+          <a class="btn btn-primary" href="https://brainy.deepbeta.mn/" target="_blank" rel="noopener">▶ Run portfolio backtest</a>
+        </div>
+        <svg class="chart" viewBox="0 0 1200 360" preserveAspectRatio="none" aria-label="Equity curve"></svg>
+      </div>
+    </section>
+
+    <!-- RESEARCH / ABOUT -->
+    <section id="research" class="panel">
+      <div class="panel-head">
+        <h2><span class="bar"></span> THE FIRM</h2>
+      </div>
+      <div class="about-grid">
+        <div>
+          <h3>DeepBeta Capital</h3>
+          <p>
+            DeepBeta Capital is a quantitative investment firm building a 13-model
+            machine-learning platform for global cross-asset markets. Our research,
+            risk and execution stack runs end-to-end on our internal "Brainy"
+            platform.
+          </p>
+          <p class="muted small">
+            Note: <b>DeepAlpha</b> was a previously cooperated organization and is no longer
+            associated with DeepBeta Capital. Current entity: <b>DeepBeta Capital</b>.
+            Web: <b>www.deepbeta.com</b> · <b>deepbeta.mn</b>.
+          </p>
+        </div>
+        <div>
+          <h3>Founder</h3>
+          <p><b>Nyam-Ochir Bold</b> — quant researcher and engineer leading DeepBeta Capital.</p>
+          <ul class="links">
+            <li><a href="https://www.linkedin.com/in/nyamochirbold/" target="_blank" rel="noopener">linkedin.com/in/nyamochirbold</a></li>
+            <li><a href="https://www.upwork.com/fl/nyamochirbold" target="_blank" rel="noopener">upwork.com/fl/nyamochirbold</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="panel cta">
+      <div class="cta-inner">
+        <div>
+          <h2>Try the Brainy platform.</h2>
+          <p class="muted">Live monitoring, backtests, model rankings and portfolio aggregation across all DeepBeta universes.</p>
+        </div>
+        <div class="cta-actions">
+          <a class="btn btn-primary lg" href="https://brainy.deepbeta.mn/" target="_blank" rel="noopener">▶ Open brainy.deepbeta.mn</a>
+          <a class="btn btn-ghost lg" href="mailto:hello@deepbeta.com">hello@deepbeta.com</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="foot-brand">
+        <img src="logo/deepbeta-logo-light.png" alt="" />
+        <div>
+          <div><b>DeepBeta Capital</b></div>
+          <div class="muted small">www.deepbeta.com · deepbeta.mn</div>
+        </div>
+      </div>
+      <div class="foot-links">
+        <a href="https://brainy.deepbeta.mn/" target="_blank" rel="noopener">Brainy platform</a>
+        <a href="https://www.linkedin.com/in/nyamochirbold/" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://www.upwork.com/fl/nyamochirbold" target="_blank" rel="noopener">Upwork</a>
+      </div>
+      <div class="foot-legal muted small">
+        © <span data-year></span> DeepBeta Capital. Research / informational use. Not investment advice.
+        Past performance does not guarantee future results.
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
