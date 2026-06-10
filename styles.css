@@ -171,6 +171,22 @@ p { margin: 0 0 0.6em; }
 .card .chg.down { color: var(--red); }
 .card .vol { color: var(--muted-2); font-size: 10.5px; margin-top: 2px; }
 
+/* live price tick flash */
+.card { transition: border-color 0.4s ease, box-shadow 0.4s ease; }
+.card.tick-up   { animation: tickUp   0.6s ease; }
+.card.tick-down { animation: tickDown 0.6s ease; }
+@keyframes tickUp {
+  0%   { border-color: var(--green); box-shadow: 0 0 0 1px var(--green); }
+  100% { border-color: var(--line-soft); box-shadow: none; }
+}
+@keyframes tickDown {
+  0%   { border-color: var(--red); box-shadow: 0 0 0 1px var(--red); }
+  100% { border-color: var(--line-soft); box-shadow: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .card.tick-up, .card.tick-down { animation: none; }
+}
+
 /* ---------- PANELS ---------- */
 .panel {
   max-width: 1480px; margin: 22px auto;
