@@ -9,9 +9,9 @@ import "@fontsource/space-grotesk/700.css";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Deepbeta.co | Quantitative Intelligence, Engineered",
+  title: "Deep Beta Technology LLC | Advanced Analytics & AI Solutions",
   description:
-    "Deepbeta.co builds 13 quantitative machine learning projects spanning signal generation, portfolio construction, execution, and risk systems.",
+    "Deep Beta Technology LLC delivers advanced analytics, backtesting on financial products, and AI solutions to enterprises. Quantitative ML research and systematic strategies.",
 };
 
 export default function RootLayout({

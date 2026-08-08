@@ -1,7 +1,7 @@
 const pillars = [
-  "Quantitative research and ML engineering focused on systematic strategies",
-  "Model-driven alpha generation backed by rigorous backtesting",
-  "Ensemble methods built to adapt across asset classes and market regimes",
+  "Advanced analytics and AI engineering for systematic enterprise strategies",
+  "Backtesting on financial products backed by rigorous walk-forward validation",
+  "Ensemble methods and AI solutions built to adapt across asset classes and market regimes",
 ];
 
 export function About() {
@@ -11,11 +11,11 @@ export function About() {
         <div className="fade-in-up">
           <span className="section-label">About</span>
           <h2 className="font-heading text-3xl font-semibold text-foreground sm:text-4xl">
-            A quantitative research partner built for systematic edge.
+            An advanced analytics and AI partner built for systematic enterprise edge.
           </h2>
           <p className="mt-6 text-base leading-8 text-muted sm:text-lg">
-            Deepbeta.co is a quantitative research and machine learning
-            engineering firm focused on extracting signals from noisy markets.
+            Deep Beta Technology LLC is a technology firm delivering advanced analytics,
+            backtesting on financial products, and AI solutions to enterprises.
             The platform is designed around disciplined data handling, robust
             feature engineering, and portfolio-aware model deployment.
           </p>

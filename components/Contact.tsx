@@ -7,11 +7,12 @@ export function Contact() {
             <div>
               <span className="section-label">Get In Touch</span>
               <h2 className="font-heading text-3xl font-semibold text-foreground sm:text-4xl">
-                Request access to Deepbeta research and deployment workflows.
+                Partner with Deep Beta Technology LLC for advanced analytics and AI solutions.
               </h2>
               <p className="mt-5 max-w-2xl text-base leading-8 text-muted sm:text-lg">
-                Reach out to discuss partnership opportunities, model access, and
-                quantitative research collaboration.
+                Reach out to discuss enterprise AI partnerships, financial product
+                backtesting, advanced analytics solutions, and quantitative research
+                collaboration.
               </p>
             </div>
 
@@ -32,9 +33,9 @@ export function Contact() {
           </div>
 
           <div className="mt-10 rounded-2xl border border-border bg-background/60 p-5 text-sm leading-7 text-muted">
-            Legal disclaimer: Deepbeta.co provides research, software, and
-            infrastructure information for informational purposes only. Not
-            financial advice. For qualified investors only.
+            Legal disclaimer: Deep Beta Technology LLC provides advanced analytics,
+            backtesting, software, and AI infrastructure for informational and enterprise
+            use only. Not financial advice. For qualified investors only.
           </div>
         </div>
       </div>

@@ -19,10 +19,10 @@ export function Footer() {
       <div className="section-shell flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
         <div>
           <div className="font-heading text-lg font-medium text-foreground">
-            Deepbeta.co
+            Deep Beta Technology LLC
           </div>
           <div className="mt-2 text-sm text-muted">
-            © 2025 Deepbeta.co. All rights reserved.
+            © 2025 Deep Beta Technology LLC. All rights reserved.
           </div>
           <div className="mt-1 text-sm text-muted">
             Not financial advice. For qualified investors only.
