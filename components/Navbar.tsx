@@ -18,10 +18,10 @@ export function Navbar() {
             </span>
             <div>
               <div className="font-heading text-lg font-semibold text-foreground">
-                Deepbeta.co
+                Deep Beta Technology LLC
               </div>
               <div className="text-xs uppercase tracking-[0.22em] text-muted">
-                Quantitative ML Research
+                Advanced Analytics &amp; AI Solutions
               </div>
             </div>
           </a>

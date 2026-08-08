@@ -1,4 +1,4 @@
-/* DeepBeta Capital — interactions */
+/* Deep Beta Technology LLC — interactions */
 (() => {
   const $  = (s, r=document) => r.querySelector(s);
   const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));

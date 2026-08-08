@@ -1,8 +1,8 @@
 import { Stats } from "@/components/Stats";
 
 const highlights = [
-  "Systematic alpha generation",
-  "Backtests designed for robustness",
+  "Advanced analytics & backtesting on financial products",
+  "Enterprise-grade AI solutions",
   "Ensemble models across signal horizons",
 ];
 
@@ -14,17 +14,18 @@ export function Hero() {
     >
       <div className="section-shell grid gap-12 py-20 md:py-28 xl:grid-cols-[1.15fr_0.85fr] xl:items-center">
         <div className="fade-in-up max-w-3xl">
-          <span className="section-label">Deepbeta.co</span>
+          <span className="section-label">Deep Beta Technology LLC</span>
           <h1 className="font-heading text-5xl font-semibold leading-tight sm:text-6xl lg:text-7xl">
             <span className="text-gradient">
-              Quantitative Intelligence,
+              Advanced Analytics &amp; AI,
             </span>{" "}
             Engineered.
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-muted sm:text-xl">
-            Where machine learning meets markets. Deepbeta.co develops 13
-            cutting-edge quantitative ML projects across alpha research, risk,
-            and execution infrastructure.
+            Deep Beta Technology LLC delivers advanced analytics, rigorous backtesting
+            on financial products, and AI solutions to enterprises. Our platform
+            combines 13 quantitative ML models across alpha research, risk, and
+            execution infrastructure.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a
@@ -47,11 +48,11 @@ export function Hero() {
           <div className="grid gap-4">
             <div className="rounded-2xl border border-accent/30 bg-accent/10 p-5">
               <p className="text-xs uppercase tracking-[0.24em] text-highlight">
-                Research Mandate
+                Enterprise Mandate
               </p>
               <p className="mt-3 font-heading text-2xl text-foreground">
-                13 model programs competing, combining, and adapting in live
-                systematic workflows.
+                Advanced analytics, financial backtesting, and AI solutions
+                powering systematic enterprise workflows.
               </p>
             </div>
             <div className="grid gap-4 sm:grid-cols-3 xl:grid-cols-1">
