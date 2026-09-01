@@ -12,6 +12,13 @@ export const metadata: Metadata = {
   title: "Deep Beta Technology LLC | Advanced Analytics & AI Solutions",
   description:
     "Deep Beta Technology LLC delivers advanced analytics, backtesting on financial products, and AI solutions to enterprises. Quantitative ML research and systematic strategies.",
+  alternates: {
+    languages: {
+      en: "/",
+      mn: "/mn",
+      ko: "/ko",
+    },
+  },
 };
 
 export default function RootLayout({

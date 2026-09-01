@@ -1,13 +1,16 @@
-const links = [
-  { href: "#about", label: "About" },
-  { href: "#projects", label: "Projects" },
-  { href: "#models", label: "Models" },
-  { href: "#process", label: "Process" },
-  { href: "#technology", label: "Technology" },
-  { href: "#contact", label: "Contact" },
-];
+import { LANGS, getDict, type Lang } from "@/lib/i18n";
 
-export function Navbar() {
+export function Navbar({ lang }: { lang: Lang }) {
+  const t = getDict(lang);
+  const links = [
+    { href: "#about", label: t.nav.links.about },
+    { href: "#projects", label: t.nav.links.projects },
+    { href: "#models", label: t.nav.links.models },
+    { href: "#process", label: t.nav.links.process },
+    { href: "#technology", label: t.nav.links.technology },
+    { href: "#contact", label: t.nav.links.contact },
+  ];
+
   return (
     <header className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur-xl">
       <div className="section-shell py-4">
@@ -21,7 +24,7 @@ export function Navbar() {
                 Deep Beta Technology LLC
               </div>
               <div className="text-xs uppercase tracking-[0.22em] text-muted">
-                Advanced Analytics &amp; AI Solutions
+                {t.nav.tagline}
               </div>
             </div>
           </a>
@@ -38,12 +41,34 @@ export function Navbar() {
             ))}
           </nav>
 
-          <a
-            href="#contact"
-            className="rounded-full border border-accent bg-accent px-4 py-2 text-sm font-medium text-background transition hover:bg-highlight"
-          >
-            Request Access
-          </a>
+          <div className="flex items-center gap-3">
+            <nav
+              aria-label="Language"
+              className="flex items-center gap-1 rounded-full border border-border bg-surface/70 p-1 text-xs font-medium"
+            >
+              {LANGS.map((l) => (
+                <a
+                  key={l.code}
+                  href={l.path}
+                  aria-current={l.code === lang ? "page" : undefined}
+                  className={
+                    l.code === lang
+                      ? "rounded-full bg-accent px-2.5 py-1 text-background"
+                      : "rounded-full px-2.5 py-1 text-muted transition hover:text-highlight"
+                  }
+                >
+                  {l.label}
+                </a>
+              ))}
+            </nav>
+
+            <a
+              href="#contact"
+              className="hidden rounded-full border border-accent bg-accent px-4 py-2 text-sm font-medium text-background transition hover:bg-highlight sm:block"
+            >
+              {t.nav.requestAccess}
+            </a>
+          </div>
         </div>
 
         <nav className="mt-4 flex gap-3 overflow-x-auto pb-1 text-sm text-muted md:hidden">

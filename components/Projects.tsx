@@ -1,3 +1,7 @@
+import { getDict, type Lang } from "@/lib/i18n";
+
+// Project names and one-line descriptions are technical quant/ML terms and
+// intentionally stay in English across all language versions.
 const projects = [
   ["Alpha Signal Engine", "Momentum & mean-reversion detection"],
   ["Regime Classifier", "Market regime identification via HMM"],
@@ -14,20 +18,20 @@ const projects = [
   ["Execution Quality AI", "Smart order routing & execution"],
 ] as const;
 
-export function Projects() {
+export function Projects({ lang }: { lang: Lang }) {
+  const t = getDict(lang);
+
   return (
     <section id="projects" className="border-y border-border bg-surface/35 py-20 md:py-24">
       <div className="section-shell">
         <span id="research" className="block h-0 -translate-y-24" aria-hidden />
         <div className="fade-in-up max-w-3xl">
-          <span className="section-label">13 Quant ML Projects</span>
+          <span className="section-label">{t.projects.label}</span>
           <h2 className="font-heading text-3xl font-semibold text-foreground sm:text-4xl">
-            A research suite spanning the full quantitative trading stack.
+            {t.projects.heading}
           </h2>
           <p className="mt-5 text-base leading-8 text-muted sm:text-lg">
-            Each project targets a distinct source of edge, from market regime
-            detection and feature-rich forecasting to execution intelligence and
-            portfolio construction.
+            {t.projects.paragraph}
           </p>
         </div>
 
@@ -43,7 +47,7 @@ export function Projects() {
                   {String(index + 1).padStart(2, "0")}
                 </span>
                 <span className="text-xs uppercase tracking-[0.24em] text-muted transition group-hover:text-highlight">
-                  Project
+                  {t.projects.chip}
                 </span>
               </div>
               <h3 className="mt-5 font-heading text-2xl font-medium text-foreground">

@@ -1,5 +1,9 @@
 // Fetches best models from brainy.deepbeta.mn at request time.
 // Set BRAINY_API_KEY in your environment / Vercel dashboard.
+// Model names, descriptions, and benchmark labels come from the API (or the
+// fallback below) and stay in English in every language version.
+
+import { getDict, type Lang } from "@/lib/i18n";
 
 type ModelPerf = { label: string; value: string };
 
@@ -129,7 +133,8 @@ function groupByFamily(models: BrainyModel[]) {
 // ---------------------------------------------------------------------------
 // Component
 // ---------------------------------------------------------------------------
-export async function BestModels() {
+export async function BestModels({ lang }: { lang: Lang }) {
+  const t = getDict(lang);
   const models = await fetchModels();
   const families = groupByFamily(models);
 
@@ -139,22 +144,21 @@ export async function BestModels() {
         <span id="models-anchor" className="block h-0 -translate-y-24" aria-hidden />
 
         <div className="fade-in-up max-w-3xl">
-          <span className="section-label">Best Models</span>
+          <span className="section-label">{t.models.label}</span>
           <h2 className="font-heading text-3xl font-semibold text-foreground sm:text-4xl">
-            Top-performing models on{" "}
+            {t.models.headingPre}
             <a
               href="https://brainy.deepbeta.mn"
               target="_blank"
               rel="noopener noreferrer"
               className="text-highlight transition hover:underline"
             >
-              Brainy
+              {t.models.headingLink}
             </a>
-            , by family.
+            {t.models.headingPost}
           </h2>
           <p className="mt-5 text-base leading-8 text-muted sm:text-lg">
-            Each model family targets a different capability profile — from
-            general reasoning to quant-specialised inference and code generation.
+            {t.models.paragraph}
           </p>
         </div>
 
@@ -164,7 +168,8 @@ export async function BestModels() {
               {/* Family header */}
               <div className="mb-6 flex items-center gap-3">
                 <span className="inline-flex items-center gap-2 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-medium uppercase tracking-[0.24em] text-highlight">
-                  {family} Family
+                  {family}
+                  {t.models.familySuffix}
                 </span>
                 <div className="h-px flex-1 bg-border" />
               </div>
@@ -180,7 +185,7 @@ export async function BestModels() {
                     {/* Best badge */}
                     {model.isBest && (
                       <span className="absolute right-4 top-4 rounded-full border border-highlight/40 bg-highlight/10 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-highlight">
-                        Best
+                        {t.models.bestBadge}
                       </span>
                     )}
 
@@ -225,7 +230,7 @@ export async function BestModels() {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 rounded-full border border-accent bg-accent px-6 py-3 text-sm font-semibold text-background transition hover:bg-highlight"
           >
-            Explore all models on Brainy
+            {t.models.cta}
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden>
               <path d="M2.5 7h9M7 2.5l4.5 4.5L7 11.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>

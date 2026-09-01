@@ -1,28 +1,23 @@
-const pillars = [
-  "Advanced analytics and AI engineering for systematic enterprise strategies",
-  "Backtesting on financial products backed by rigorous walk-forward validation",
-  "Ensemble methods and AI solutions built to adapt across asset classes and market regimes",
-];
+import { getDict, type Lang } from "@/lib/i18n";
 
-export function About() {
+export function About({ lang }: { lang: Lang }) {
+  const t = getDict(lang);
+
   return (
     <section id="about" className="py-20 md:py-24">
       <div className="section-shell grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
         <div className="fade-in-up">
-          <span className="section-label">About</span>
+          <span className="section-label">{t.about.label}</span>
           <h2 className="font-heading text-3xl font-semibold text-foreground sm:text-4xl">
-            An advanced analytics and AI partner built for systematic enterprise edge.
+            {t.about.heading}
           </h2>
           <p className="mt-6 text-base leading-8 text-muted sm:text-lg">
-            Deep Beta Technology LLC is a technology firm delivering advanced analytics,
-            backtesting on financial products, and AI solutions to enterprises.
-            The platform is designed around disciplined data handling, robust
-            feature engineering, and portfolio-aware model deployment.
+            {t.about.paragraph}
           </p>
         </div>
 
         <div className="grid gap-4">
-          {pillars.map((pillar, index) => (
+          {t.about.pillars.map((pillar, index) => (
             <div
               key={pillar}
               className="panel fade-in-up flex gap-4 p-6"
