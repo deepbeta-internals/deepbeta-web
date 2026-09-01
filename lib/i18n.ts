@@ -21,7 +21,6 @@ const en = {
     links: {
       about: "About",
       projects: "Projects",
-      models: "Models",
       process: "Process",
       technology: "Technology",
       contact: "Contact",
@@ -69,17 +68,6 @@ const en = {
     paragraph:
       "Each project targets a distinct source of edge, from market regime detection and feature-rich forecasting to execution intelligence and portfolio construction.",
     chip: "Project",
-  },
-  models: {
-    label: "Best Models",
-    headingPre: "Top-performing models on ",
-    headingLink: "Brainy",
-    headingPost: ", by family.",
-    paragraph:
-      "Each model family targets a different capability profile — from general reasoning to quant-specialised inference and code generation.",
-    familySuffix: " Family",
-    bestBadge: "Best",
-    cta: "Explore all models on Brainy",
   },
   process: {
     label: "How It Works",
@@ -149,7 +137,6 @@ const mn: Dict = {
     links: {
       about: "Бидний тухай",
       projects: "Төслүүд",
-      models: "Моделүүд",
       process: "Үйл явц",
       technology: "Технологи",
       contact: "Холбоо барих",
@@ -197,17 +184,6 @@ const mn: Dict = {
     paragraph:
       "Төсөл бүр зах зээлийн горим таних, feature-ээр баялаг таамаглалаас эхлээд гүйцэтгэлийн интеллект, багц бүрдүүлэлт хүртэл давуу талын тус тусын эх үүсвэрт чиглэдэг.",
     chip: "Төсөл",
-  },
-  models: {
-    label: "Шилдэг моделүүд",
-    headingPre: "",
-    headingLink: "Brainy",
-    headingPost: " дээрх хамгийн өндөр гүйцэтгэлтэй моделүүд, бүлгээр.",
-    paragraph:
-      "Модель бүл бүр ерөнхий сэтгэлгээнээс квант чиглэлийн inference, код үүсгэлт хүртэл өөр өөр чадварын профайлд чиглэдэг.",
-    familySuffix: " бүл",
-    bestBadge: "Best",
-    cta: "Brainy дээрх бүх моделийг үзэх",
   },
   process: {
     label: "Хэрхэн ажилладаг вэ",
@@ -276,7 +252,6 @@ const ko: Dict = {
     links: {
       about: "소개",
       projects: "프로젝트",
-      models: "모델",
       process: "프로세스",
       technology: "기술",
       contact: "문의",
@@ -323,17 +298,6 @@ const ko: Dict = {
     paragraph:
       "각 프로젝트는 시장 국면 탐지와 피처 기반 예측부터 실행 인텔리전스, 포트폴리오 구성까지 서로 다른 엣지의 원천을 겨냥합니다.",
     chip: "프로젝트",
-  },
-  models: {
-    label: "베스트 모델",
-    headingPre: "",
-    headingLink: "Brainy",
-    headingPost: "에서 가장 뛰어난 성능을 보이는 모델, 패밀리별 정리.",
-    paragraph:
-      "각 모델 패밀리는 일반 추론부터 퀀트 특화 추론, 코드 생성까지 서로 다른 역량 프로파일을 목표로 합니다.",
-    familySuffix: " 패밀리",
-    bestBadge: "Best",
-    cta: "Brainy에서 전체 모델 보기",
   },
   process: {
     label: "작동 방식",

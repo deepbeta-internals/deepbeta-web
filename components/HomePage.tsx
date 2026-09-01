@@ -1,5 +1,4 @@
 import { About } from "@/components/About";
-import { BestModels } from "@/components/BestModels";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 import { Hero } from "@/components/Hero";
@@ -19,7 +18,6 @@ export function HomePage({ lang }: { lang: Lang }) {
         <Hero lang={lang} />
         <About lang={lang} />
         <Projects lang={lang} />
-        <BestModels lang={lang} />
         <HowItWorks lang={lang} />
         <TechStack lang={lang} />
         <Contact lang={lang} />

@@ -5,7 +5,6 @@ export function Navbar({ lang }: { lang: Lang }) {
   const links = [
     { href: "#about", label: t.nav.links.about },
     { href: "#projects", label: t.nav.links.projects },
-    { href: "#models", label: t.nav.links.models },
     { href: "#process", label: t.nav.links.process },
     { href: "#technology", label: t.nav.links.technology },
     { href: "#contact", label: t.nav.links.contact },
