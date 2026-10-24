@@ -13,6 +13,27 @@ Pure static — no build step.
 - [styles.css](styles.css)
 - [script.js](script.js)
 - `logo/` — brand assets
+- `data/focus-book.json` — the focus 5 paper book behind the performance chart
+
+## Performance chart · focus 5 paper book
+
+The `#performance` section draws the Brainy **Paper Desk** book of the five focus
+products (GOLD, NAS100, WTI, BTCUSD, ETHUSD): KPI tiles, equity / drawdown /
+exposure panes, P&L by asset and the coin-flip baseline. The page reads a static
+snapshot; refresh it with [tools/export_focus_book.py](tools/export_focus_book.py)
+(needs Python with `pandas` + `pyarrow` for the local mode) and commit the JSON:
+
+```bash
+# from the local book of record (default ../brainy-deepbeta/reports/paperdesk)
+python tools/export_focus_book.py
+python tools/export_focus_book.py --reports /path/to/reports/paperdesk
+
+# or straight from the live server (HTTP Basic auth, read from the environment)
+BRAINY_USER=... BRAINY_PASSWORD=... python tools/export_focus_book.py --url https://brainy.deepbeta.mn
+```
+
+Only the numbers the page shows are exported — no alerts, journals, drivers or
+open-ticket levels.
 
 ## Local preview
 

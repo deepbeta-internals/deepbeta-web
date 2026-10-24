@@ -266,51 +266,48 @@
     <!-- PERFORMANCE -->
     <section id="performance" class="panel">
       <div class="panel-head">
-        <h2 data-i18n="perf.h2"><span class="bar"></span> PERFORMANCE · BACKTESTED MODELS</h2>
-        <p class="muted" data-i18n="perf.sub">Validation-window aggregates across the production model family. Indicative — past performance is not a guarantee of future results.</p>
-      </div>
-      <div class="perf-grid">
-        <div class="perf-card">
-          <div class="perf-k">SHARPE</div>
-          <div class="perf-v" data-count="2.41" data-decimals="2">0.00</div>
-          <div class="perf-sub">portfolio · best-UP per asset</div>
-        </div>
-        <div class="perf-card">
-          <div class="perf-k">CALMAR</div>
-          <div class="perf-v" data-count="3.12" data-decimals="2">0.00</div>
-          <div class="perf-sub">return / max drawdown</div>
-        </div>
-        <div class="perf-card">
-          <div class="perf-k">MAX DD</div>
-          <div class="perf-v" data-count="-9.7" data-decimals="1" data-suffix="%">0.0%</div>
-          <div class="perf-sub">worst peak-to-trough</div>
-        </div>
-        <div class="perf-card">
-          <div class="perf-k">CAGR</div>
-          <div class="perf-v" data-count="38.4" data-decimals="1" data-suffix="%">0.0%</div>
-          <div class="perf-sub">validation window</div>
-        </div>
-        <div class="perf-card">
-          <div class="perf-k">HIT RATE</div>
-          <div class="perf-v" data-count="58.2" data-decimals="1" data-suffix="%">0.0%</div>
-          <div class="perf-sub">directional, all assets</div>
-        </div>
-        <div class="perf-card">
-          <div class="perf-k">UNIVERSE</div>
-          <div class="perf-v" data-count="1240" data-decimals="0">0</div>
-          <div class="perf-sub">tradable instruments</div>
-        </div>
+        <h2 data-i18n="perf.h2"><span class="bar"></span> PERFORMANCE · FOCUS 5 PAPER BOOK</h2>
+        <p class="muted" data-i18n="perf.sub">Every call of our five focus products — GOLD, NAS100, WTI, BTCUSD and ETHUSD on 1-, 2- and 4-day horizons — traded on a simulated $100K book with live 15-minute prices, spread and funding costs. Paper trading, not a live account — past performance does not guarantee future results.</p>
       </div>
 
-      <div class="chart-wrap">
-        <div class="chart-head">
-          <div>
-            <div class="chart-title">PORTFOLIO BACKTEST · ALL ASSETS · BEST 'UP' MODEL EACH</div>
-            <div class="chart-sub muted">Aggregated equity curve summing each asset's best-up backtest ($10K start each)</div>
+      <!-- Paper Desk book of the focus 5 — filled by script.js from data/focus-book.json -->
+      <div class="book is-loading" data-book-root>
+        <p class="book-note" data-book="note"></p>
+        <div class="kpi-grid" data-book="kpis"></div>
+
+        <div class="book-grid">
+          <div class="book-card book-chart">
+            <div class="bc-head">
+              <h3 class="bc-title">EQUITY</h3>
+              <div class="seg" role="group" aria-label="Chart view" data-book="view">
+                <button type="button" data-view="book" class="active" aria-pressed="true">book</button>
+                <button type="button" data-view="assets" aria-pressed="false">by asset</button>
+              </div>
+              <div class="seg" role="group" aria-label="Resolution" data-book="res">
+                <button type="button" data-res="1h" aria-pressed="false">1h</button>
+                <button type="button" data-res="4h" class="active" aria-pressed="true">4h</button>
+                <button type="button" data-res="1d" aria-pressed="false">1d</button>
+              </div>
+              <a class="btn btn-ghost bc-cta" href="https://brainy.deepbeta.mn/" target="_blank" rel="noopener" data-i18n="perf.cta">▶ Open the paper desk</a>
+            </div>
+            <div class="bc-legend" data-book="legend"></div>
+            <div class="bc-plot" data-book="plot" tabindex="0" role="group"
+                 aria-label="Paper book equity, drawdown and exposure over time. Use the left and right arrow keys to step through time."></div>
+            <div class="bc-months" data-book="months"></div>
           </div>
-          <a class="btn btn-primary" href="https://brainy.deepbeta.mn/" target="_blank" rel="noopener" data-i18n="perf.cta">▶ Run portfolio backtest</a>
+
+          <aside class="book-side">
+            <div class="book-card">
+              <h3 class="side-title">FOCUS 5 <span class="muted">· P&amp;L by asset</span></h3>
+              <ul class="asset-list" data-book="assets"></ul>
+            </div>
+            <div class="book-card">
+              <h3 class="side-title">EDGE VS COIN-FLIP</h3>
+              <div data-book="coinflip"></div>
+            </div>
+          </aside>
         </div>
-        <svg class="chart" viewBox="0 0 1200 360" preserveAspectRatio="none" aria-label="Equity curve"></svg>
+        <p class="book-empty muted small" hidden>Paper book data is unavailable right now — open the paper desk on Brainy for the live book.</p>
       </div>
     </section>
 
