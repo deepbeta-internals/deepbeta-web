@@ -6,24 +6,23 @@ Two sources, same output:
     python tools/export_focus_book.py
     python tools/export_focus_book.py --reports /srv/brainy/reports/paperdesk
 
-    # live server, HTTP Basic auth from the environment (never on the command line)
-    BRAINY_USER=... BRAINY_PASSWORD=... python tools/export_focus_book.py --url https://brainy.deepbeta.mn
+    # live server (https://brainy.deepbeta.mn unless a URL is given); the access key comes from
+    # BRAINY_API_KEY in the environment or the repo's .env - never from the command line
+    python tools/export_focus_book.py --url
 
 Only numbers the public page shows are exported - no alerts, journals, drivers or open-ticket levels.
 """
 from __future__ import annotations
 
 import argparse
-import base64
 import json
 import math
-import os
 import sys
-import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+from brainy_client import BRAINY_URL, ROOT, get_json, require_auth
+
 DEFAULT_REPORTS = ROOT.parent / 'brainy-deepbeta' / 'reports' / 'paperdesk'
 DEFAULT_OUT = ROOT / 'data' / 'focus-book.json'
 SYMBOLS = ('GOLD', 'NAS100', 'WTI', 'BTCUSD', 'ETHUSD')
@@ -91,15 +90,10 @@ def load_local(reports: Path):
 
 
 def load_remote(url: str):
-    user, pw = os.environ.get('BRAINY_USER', ''), os.environ.get('BRAINY_PASSWORD', '')
-    if not (user and pw):
-        sys.exit('set BRAINY_USER and BRAINY_PASSWORD for --url')
-    token = base64.b64encode(f'{user}:{pw}'.encode()).decode()
+    headers = require_auth()
 
     def get(path):
-        req = urllib.request.Request(url.rstrip('/') + path, headers={'Authorization': 'Basic ' + token})
-        with urllib.request.urlopen(req, timeout=60) as r:
-            return json.loads(r.read().decode('utf-8'))
+        return get_json(url.rstrip('/') + path, headers)
 
     overview = get('/paperdesk/api/overview')
     points = get('/paperdesk/api/equity?res=1h').get('points', [])
@@ -169,7 +163,7 @@ def main():
     ap = argparse.ArgumentParser(description=__doc__.split('\n')[0])
     src = ap.add_mutually_exclusive_group()
     src.add_argument('--reports', type=Path, default=DEFAULT_REPORTS, help='paperdesk reports directory')
-    src.add_argument('--url', help='Brainy base URL, e.g. https://brainy.deepbeta.mn')
+    src.add_argument('--url', nargs='?', const=BRAINY_URL, help=f'read the live server (default {BRAINY_URL})')
     ap.add_argument('--out', type=Path, default=DEFAULT_OUT)
     a = ap.parse_args()
 

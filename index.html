@@ -32,6 +32,7 @@
         <a href="#features" data-i18n="nav.features">features</a>
         <a href="#stack" data-i18n="nav.stack">stack</a>
         <a href="#performance" data-i18n="nav.performance">performance</a>
+        <a href="#platform" data-i18n="nav.platform">platform</a>
         <a href="#research" data-i18n="nav.research">research</a>
         <a href="#partners" data-i18n="nav.partners">partners</a>
         <a href="#contact" data-i18n="nav.contact">contact</a>
@@ -288,7 +289,7 @@
                 <button type="button" data-res="4h" class="active" aria-pressed="true">4h</button>
                 <button type="button" data-res="1d" aria-pressed="false">1d</button>
               </div>
-              <a class="btn btn-ghost bc-cta" href="https://brainy.deepbeta.mn/" target="_blank" rel="noopener" data-i18n="perf.cta">▶ Open the paper desk</a>
+              <a class="btn btn-ghost bc-cta" href="https://brainy.deepbeta.mn/paperdesk/" target="_blank" rel="noopener" data-i18n="perf.cta">▶ Open the paper desk</a>
             </div>
             <div class="bc-legend" data-book="legend"></div>
             <div class="bc-plot" data-book="plot" tabindex="0" role="group"
@@ -308,6 +309,233 @@
           </aside>
         </div>
         <p class="book-empty muted small" hidden>Paper book data is unavailable right now — open the paper desk on Brainy for the live book.</p>
+      </div>
+    </section>
+
+    <!-- BRAINY PLATFORM · desks, access instructions and the endpoint catalogue -->
+    <section id="platform" class="panel">
+      <div class="panel-head">
+        <h2 data-i18n="platform.h2"><span class="bar"></span> BRAINY PLATFORM · EVERY DESK, EVERY ENDPOINT</h2>
+        <p class="muted" data-i18n="platform.sub">Thirteen desks and services behind one access key. Open a desk in the browser, or call its JSON API from your own code — every route is listed below with a working example link.</p>
+      </div>
+
+      <!-- how to connect -->
+      <ol class="pf-steps">
+        <li class="pf-step">
+          <span class="step">01</span>
+          <h3 data-i18n="platform.s1h">Get an access key</h3>
+          <p data-i18n="platform.s1p">Brainy is private. Clients and partners receive a key from <a href="mailto:contact@deepbeta.mn">contact@deepbeta.mn</a>. Investor keys open the investor portal only (<code>/investor/*</code>).</p>
+        </li>
+        <li class="pf-step">
+          <span class="step">02</span>
+          <h3 data-i18n="platform.s2h">In the browser</h3>
+          <p data-i18n="platform.s2p">Open any desk or endpoint link below. The first visit shows a sign-in form; enter the key once and a session keeps you signed in on that host for 24 hours.</p>
+        </li>
+        <li class="pf-step">
+          <span class="step">03</span>
+          <h3 data-i18n="platform.s3h">From code</h3>
+          <p data-i18n="platform.s3p">Send the key in the <code>X-Access-Key</code> header. <code>?access_key=</code> also works for one-off curl lines, and HTTP Basic (any user name, key as password) for older tools. <code>/health</code> is public.</p>
+        </li>
+      </ol>
+
+      <div class="pf-code book-card">
+        <div class="bc-head">
+          <h3 class="bc-title">QUICK START</h3>
+          <div class="seg" role="group" aria-label="Example language" data-pf="lang">
+            <button type="button" data-lang-code="curl" class="active" aria-pressed="true">curl</button>
+            <button type="button" data-lang-code="python" aria-pressed="false">Python</button>
+            <button type="button" data-lang-code="node" aria-pressed="false">Node.js</button>
+          </div>
+          <button type="button" class="btn btn-ghost pf-copy" data-pf="copy-snippet">copy</button>
+        </div>
+<pre class="pf-pre" data-code="curl"><code>export BRAINY_KEY=…   # your access key: keep it in the environment, never in code
+
+# the paper book behind the performance chart above
+curl -H "X-Access-Key: $BRAINY_KEY" https://brainy.deepbeta.mn/paperdesk/api/overview
+
+# today's model call for one asset, with backtest-aligned TP / SL
+curl -H "X-Access-Key: $BRAINY_KEY" https://brainy.deepbeta.mn/api/inference/GOLD
+
+# the technical desk's full read of one asset
+curl -H "X-Access-Key: $BRAINY_KEY" https://technical.deepbeta.mn/api/asset/GOLD
+
+# health of every agent, service, job and pipeline
+curl -H "X-Access-Key: $BRAINY_KEY" https://agents.deepbeta.mn/api/agents
+
+# live updates as server-sent events (-N: don't buffer)
+curl -N -H "X-Access-Key: $BRAINY_KEY" https://technical.deepbeta.mn/api/stream</code></pre>
+<pre class="pf-pre" data-code="python" hidden><code>import os
+import requests
+
+s = requests.Session()
+s.headers["X-Access-Key"] = os.environ["BRAINY_KEY"]   # never hard-code the key
+
+book = s.get("https://brainy.deepbeta.mn/paperdesk/api/overview", timeout=60).json()
+print(book["equity"]["equity"], book["equity"]["return_pct"])
+
+call = s.get("https://brainy.deepbeta.mn/api/inference/GOLD", timeout=60).json()
+tech = s.get("https://technical.deepbeta.mn/api/asset/GOLD", timeout=60).json()</code></pre>
+<pre class="pf-pre" data-code="node" hidden><code>// Node 18+, server side only: never ship the key to a browser
+const headers = { 'X-Access-Key': process.env.BRAINY_KEY };
+
+const book = await (await fetch('https://brainy.deepbeta.mn/paperdesk/api/overview', { headers })).json();
+console.log(book.equity.equity, book.equity.return_pct);
+
+const call = await (await fetch('https://brainy.deepbeta.mn/api/inference/GOLD', { headers })).json();
+const tech = await (await fetch('https://technical.deepbeta.mn/api/asset/GOLD', { headers })).json();</code></pre>
+        <ul class="pf-notes">
+          <li data-i18n="platform.n1"><b>Path parameters</b> are in <code>{braces}</code>. The focus desks take <code>GOLD</code>, <code>NAS100</code>, <code>WTI</code>, <code>BTCUSD</code> or <code>ETHUSD</code>; the dashboard covers the full universe listed at <code>/dashboard/assets</code>.</li>
+          <li data-i18n="platform.n2"><span class="ep-x">compute</span> routes run a backtest or sweep on request and can take a minute. <span class="ep-x">stream</span> routes are server-sent events. <span class="ep-x">file</span> routes download CSV / XLSX.</li>
+          <li data-i18n="platform.n3"><b>POST</b> routes change state (demo orders, training jobs, desk runs). Use them deliberately.</li>
+          <li data-i18n="platform.n4"><b>Interactive docs:</b> <a href="https://brainy.deepbeta.mn/docs" target="_blank" rel="noopener">Swagger</a> · <a href="https://brainy.deepbeta.mn/redoc" target="_blank" rel="noopener">ReDoc</a> · <a href="https://brainy.deepbeta.mn/api/inference/schema" target="_blank" rel="noopener">inference row schema</a> · <a href="https://technical.deepbeta.mn/api/docs" target="_blank" rel="noopener">technical desk</a> · <a href="https://brainy.deepbeta.mn/livedash/docs" target="_blank" rel="noopener">live dashboard</a> · <a href="https://brainy.deepbeta.mn/train/docs" target="_blank" rel="noopener">training GUI</a>.</li>
+        </ul>
+      </div>
+
+      <!-- desk directory: endpoint counts and lists are filled by script.js from data/brainy-platform.json -->
+      <div class="svc-grid" data-pf="services">
+        <article class="svc" data-svc="brainy">
+          <div class="svc-top"><span class="svc-tag">CORE</span><span class="svc-host">brainy.deepbeta.mn</span></div>
+          <h3>Brainy dashboard</h3>
+          <p>Monitoring, backtests, model rankings, predictions and live inference across the full asset universe.</p>
+          <div class="svc-links">
+            <a class="btn btn-ghost" href="https://brainy.deepbeta.mn/" target="_blank" rel="noopener">Open ↗</a>
+            <a href="https://brainy.deepbeta.mn/docs" target="_blank" rel="noopener">API docs ↗</a>
+            <button type="button" class="svc-eps" data-show="brainy" hidden></button>
+          </div>
+        </article>
+        <article class="svc" data-svc="paperdesk">
+          <div class="svc-top"><span class="svc-tag">TRADING</span><span class="svc-host">brainy.deepbeta.mn/paperdesk</span></div>
+          <h3>Paper Desk</h3>
+          <p>Simulated live book of the five focus products, and the source of the performance chart above: equity, tickets, journal, what-if and risk tracks.</p>
+          <div class="svc-links">
+            <a class="btn btn-ghost" href="https://brainy.deepbeta.mn/paperdesk/" target="_blank" rel="noopener">Open ↗</a>
+            <button type="button" class="svc-eps" data-show="paperdesk" hidden></button>
+          </div>
+        </article>
+        <article class="svc" data-svc="tradingview">
+          <div class="svc-top"><span class="svc-tag">CHARTS</span><span class="svc-host">brainy.deepbeta.mn/tradingview</span></div>
+          <h3>Live chart · TradingView</h3>
+          <p>TradingView lightweight-charts view of the focus products with paper-book, backtest and IG tickets and the newest model calls.</p>
+          <div class="svc-links">
+            <a class="btn btn-ghost" href="https://brainy.deepbeta.mn/tradingview/" target="_blank" rel="noopener">Open ↗</a>
+            <button type="button" class="svc-eps" data-show="tradingview" hidden></button>
+          </div>
+        </article>
+        <article class="svc" data-svc="technical">
+          <div class="svc-top"><span class="svc-tag">RESEARCH</span><span class="svc-host">technical.deepbeta.mn</span></div>
+          <h3>Technical desk</h3>
+          <p>Indicator consensus, the indicator lab, news, sentiment, macro and crypto-derivatives reads for the focus products, run by the desk's agents.</p>
+          <div class="svc-links">
+            <a class="btn btn-ghost" href="https://technical.deepbeta.mn/" target="_blank" rel="noopener">Open ↗</a>
+            <a href="https://technical.deepbeta.mn/api/docs" target="_blank" rel="noopener">API docs ↗</a>
+            <button type="button" class="svc-eps" data-show="technical" hidden></button>
+          </div>
+        </article>
+        <article class="svc" data-svc="agents">
+          <div class="svc-top"><span class="svc-tag">OPERATIONS</span><span class="svc-host">agents.deepbeta.mn</span></div>
+          <h3>Agents board</h3>
+          <p>Health of every agent, service, scheduled job, daemon and pipeline on the platform, with a live activity feed.</p>
+          <div class="svc-links">
+            <a class="btn btn-ghost" href="https://agents.deepbeta.mn/" target="_blank" rel="noopener">Open ↗</a>
+            <button type="button" class="svc-eps" data-show="agents" hidden></button>
+          </div>
+        </article>
+        <article class="svc" data-svc="igtrading">
+          <div class="svc-top"><span class="svc-tag">TRADING</span><span class="svc-host">brainy.deepbeta.mn/ig-trading</span></div>
+          <h3>IG trading</h3>
+          <p>IG demo accounts: holdings, close schedule, performance, venues, the insights pipeline and the daily digest, plus the demo order API.</p>
+          <div class="svc-links">
+            <a class="btn btn-ghost" href="https://brainy.deepbeta.mn/ig-trading/" target="_blank" rel="noopener">Open ↗</a>
+            <button type="button" class="svc-eps" data-show="igtrading" hidden></button>
+          </div>
+        </article>
+        <article class="svc" data-svc="options">
+          <div class="svc-top"><span class="svc-tag">RESEARCH</span><span class="svc-host">options.deepbeta.mn</span></div>
+          <h3>Options desk</h3>
+          <p>Crypto options read: squeeze and next move, direction lean, cheap-premium watch, desk calls, term structure and a live signal feed.</p>
+          <div class="svc-links">
+            <a class="btn btn-ghost" href="https://options.deepbeta.mn/" target="_blank" rel="noopener">Open ↗</a>
+            <button type="button" class="svc-eps" data-show="options" hidden></button>
+          </div>
+        </article>
+        <article class="svc" data-svc="focus">
+          <div class="svc-top"><span class="svc-tag">MODELS</span><span class="svc-host">brainy.deepbeta.mn/focus1d</span></div>
+          <h3>Focus products</h3>
+          <p>Train, infer, version and promote the focus products; the 1d / 2d / 4d horizons side by side; the focus dashboard and report.</p>
+          <div class="svc-links">
+            <a class="btn btn-ghost" href="https://brainy.deepbeta.mn/focus1d/" target="_blank" rel="noopener">Open ↗</a>
+            <a href="https://brainy.deepbeta.mn/focus1d/horizons" target="_blank" rel="noopener">horizons ↗</a>
+            <a href="https://brainy.deepbeta.mn/focus_dashboard" target="_blank" rel="noopener">dashboard ↗</a>
+            <button type="button" class="svc-eps" data-show="focus" hidden></button>
+          </div>
+        </article>
+        <article class="svc" data-svc="investor">
+          <div class="svc-top"><span class="svc-tag">CLIENTS</span><span class="svc-host">brainy.deepbeta.mn/investor</span></div>
+          <h3>Investor portal</h3>
+          <p>Read-only scorecards, best models, backtests and portfolio growth. The only area an investor key opens.</p>
+          <div class="svc-links">
+            <a class="btn btn-ghost" href="https://brainy.deepbeta.mn/investor/" target="_blank" rel="noopener">Open ↗</a>
+            <button type="button" class="svc-eps" data-show="investor" hidden></button>
+          </div>
+        </article>
+        <article class="svc" data-svc="livedash">
+          <div class="svc-top"><span class="svc-tag">TRADING</span><span class="svc-host">brainy.deepbeta.mn/livedash</span></div>
+          <h3>Live dashboard</h3>
+          <p>Real-time snapshot of the live accounts: equity, positions, pending orders, divergences and the trading journal.</p>
+          <div class="svc-links">
+            <a class="btn btn-ghost" href="https://brainy.deepbeta.mn/livedash/" target="_blank" rel="noopener">Open ↗</a>
+            <a href="https://brainy.deepbeta.mn/livedash/docs" target="_blank" rel="noopener">API docs ↗</a>
+            <button type="button" class="svc-eps" data-show="livedash" hidden></button>
+          </div>
+        </article>
+        <article class="svc" data-svc="train">
+          <div class="svc-top"><span class="svc-tag">MODELS</span><span class="svc-host">brainy.deepbeta.mn/train</span></div>
+          <h3>Training GUI</h3>
+          <p>Train, backtest, compare and finalise model configurations, and manage the best-per-ticker table.</p>
+          <div class="svc-links">
+            <a class="btn btn-ghost" href="https://brainy.deepbeta.mn/train/" target="_blank" rel="noopener">Open ↗</a>
+            <a href="https://brainy.deepbeta.mn/train/docs" target="_blank" rel="noopener">API docs ↗</a>
+            <button type="button" class="svc-eps" data-show="train" hidden></button>
+          </div>
+        </article>
+        <article class="svc" data-svc="monitoring">
+          <div class="svc-top"><span class="svc-tag">OPERATIONS</span><span class="svc-host">brainy.deepbeta.mn/monitoring</span></div>
+          <h3>Server monitor</h3>
+          <p>Traffic, latency, failures, security rejections, pipeline freshness and host resources.</p>
+          <div class="svc-links">
+            <a class="btn btn-ghost" href="https://brainy.deepbeta.mn/monitoring/" target="_blank" rel="noopener">Open ↗</a>
+            <button type="button" class="svc-eps" data-show="monitoring" hidden></button>
+          </div>
+        </article>
+        <article class="svc" data-svc="mlflow">
+          <div class="svc-top"><span class="svc-tag">MODELS</span><span class="svc-host">brainy.deepbeta.mn/mlflow</span></div>
+          <h3>MLflow</h3>
+          <p>Experiment tracking for every training run, with the standard MLflow REST API.</p>
+          <div class="svc-links">
+            <a class="btn btn-ghost" href="https://brainy.deepbeta.mn/mlflow/" target="_blank" rel="noopener">Open ↗</a>
+            <button type="button" class="svc-eps" data-show="mlflow" hidden></button>
+          </div>
+        </article>
+      </div>
+
+      <!-- endpoint explorer: filled by script.js from data/brainy-platform.json -->
+      <div class="ep book-card" data-pf="explorer" hidden>
+        <div class="bc-head ep-bar">
+          <h3 class="bc-title">ENDPOINTS</h3>
+          <label class="ep-search">
+            <span class="sr-only">Filter endpoints</span>
+            <input type="search" data-pf="q" placeholder="Filter by path or words…" autocomplete="off" spellcheck="false" />
+          </label>
+          <select data-pf="svc" aria-label="Desk"><option value="">all desks</option></select>
+          <div class="seg" role="group" aria-label="Method" data-pf="method">
+            <button type="button" data-m="" class="active" aria-pressed="true">all</button>
+            <button type="button" data-m="GET" aria-pressed="false">GET</button>
+            <button type="button" data-m="POST" aria-pressed="false">POST</button>
+          </div>
+          <span class="ep-count muted small" data-pf="count" aria-live="polite"></span>
+        </div>
+        <div class="ep-list" data-pf="list"></div>
+        <p class="ep-foot muted small" data-pf="foot"></p>
       </div>
     </section>
 
@@ -429,6 +657,10 @@
       </div>
       <div class="foot-links">
         <a href="https://brainy.deepbeta.mn/" target="_blank" rel="noopener">Brainy platform</a>
+        <a href="https://brainy.deepbeta.mn/paperdesk/" target="_blank" rel="noopener">Paper Desk</a>
+        <a href="https://technical.deepbeta.mn/" target="_blank" rel="noopener">Technical desk</a>
+        <a href="https://agents.deepbeta.mn/" target="_blank" rel="noopener">Agents</a>
+        <a href="#platform">API &amp; endpoints</a>
         <a href="https://www.linkedin.com/in/nyamochirbold/" target="_blank" rel="noopener">LinkedIn</a>
         <a href="https://www.upwork.com/fl/nyamochirbold" target="_blank" rel="noopener">Upwork</a>
       </div>

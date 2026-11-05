@@ -1,0 +1,1605 @@
+{
+ "v": 1,
+ "generated_utc": "2026-11-05 08:29:40",
+ "versions": {
+  "main": "0.3.0",
+  "livedash": "0.1.0",
+  "train": "1.0.0",
+  "technical": "1.0"
+ },
+ "services": {
+  "brainy": {
+   "host": "https://brainy.deepbeta.mn",
+   "endpoints": [
+    {
+     "m": "GET",
+     "p": "/api/bests",
+     "d": "Tabular view of the per-ticker best mapping.",
+     "opt": [
+      "interval"
+     ],
+     "try": "https://brainy.deepbeta.mn/api/bests"
+    },
+    {
+     "m": "GET",
+     "p": "/api/inference/{symbol}",
+     "d": "Per-asset prediction enriched with backtest-aligned TP/SL and a recent confidence + price range envelope.",
+     "opt": [
+      "interval",
+      "family",
+      "horizon",
+      "model_name",
+      "feature_set",
+      "date",
+      "range_window",
+      "fee_rate",
+      "slippage_bps",
+      "utilization_margin",
+      "prefer",
+      "focus_horizon",
+      "refresh"
+     ],
+     "try": "https://brainy.deepbeta.mn/api/inference/GOLD"
+    },
+    {
+     "m": "GET",
+     "p": "/api/inference/{symbol}/{n}",
+     "d": "Last-N bars of inference outputs with realised OHLC and signal-conditional return.",
+     "opt": [
+      "interval",
+      "family",
+      "horizon",
+      "model_name",
+      "feature_set",
+      "date"
+     ],
+     "try": "https://brainy.deepbeta.mn/api/inference/GOLD/20"
+    },
+    {
+     "m": "GET",
+     "p": "/api/system",
+     "d": "Host CPU / memory / disk / load / top-processes snapshot.",
+     "try": "https://brainy.deepbeta.mn/api/system"
+    },
+    {
+     "m": "GET",
+     "p": "/assets",
+     "d": "Every asset the inference API serves, with ticker and category",
+     "try": "https://brainy.deepbeta.mn/assets"
+    },
+    {
+     "m": "GET",
+     "p": "/dashboard/asset_profile",
+     "d": "Asset profile: fundamentals, news, earnings calendar, volume stats.",
+     "req": [
+      "symbol"
+     ],
+     "opt": [
+      "interval",
+      "refresh"
+     ],
+     "try": "https://brainy.deepbeta.mn/dashboard/asset_profile?symbol=GOLD"
+    },
+    {
+     "m": "GET",
+     "p": "/dashboard/assets",
+     "d": "Dashboard asset universe with names, categories and key-market flags",
+     "try": "https://brainy.deepbeta.mn/dashboard/assets"
+    },
+    {
+     "m": "GET",
+     "p": "/dashboard/available_models",
+     "d": "Trained model names for one symbol / family / horizon",
+     "req": [
+      "symbol"
+     ],
+     "opt": [
+      "family",
+      "horizon",
+      "interval"
+     ],
+     "try": "https://brainy.deepbeta.mn/dashboard/available_models?symbol=GOLD"
+    },
+    {
+     "m": "GET",
+     "p": "/dashboard/backtest",
+     "d": "Backtest one (symbol, family, horizon, model) selection: equity, trades and metrics",
+     "req": [
+      "symbol"
+     ],
+     "opt": [
+      "family",
+      "horizon",
+      "model_name",
+      "window",
+      "interval",
+      "fee_rate",
+      "slippage_bps",
+      "intrabar_resolution",
+      "monthly_reset",
+      "utilization_margin",
+      "trailing_sl",
+      "trailing_tp",
+      "risk_profile",
+      "sl_tp_mode",
+      "sl_pct",
+      "tp_pct",
+      "initial_cash",
+      "leverage",
+      "alloc_pct",
+      "entry_short_max",
+      "entry_long_min",
+      "standard_defaults"
+     ],
+     "try": "https://brainy.deepbeta.mn/dashboard/backtest?symbol=GOLD",
+     "x": [
+      "compute"
+     ]
+    },
+    {
+     "m": "GET",
+     "p": "/dashboard/backtest/trades_export",
+     "d": "Run a backtest and download the full trade ledger as CSV / XLSX.",
+     "req": [
+      "symbol"
+     ],
+     "opt": [
+      "family",
+      "horizon",
+      "model_name",
+      "window",
+      "interval",
+      "fee_rate",
+      "slippage_bps",
+      "intrabar_resolution",
+      "monthly_reset",
+      "utilization_margin",
+      "trailing_sl",
+      "trailing_tp",
+      "risk_profile",
+      "sl_tp_mode",
+      "sl_pct",
+      "tp_pct",
+      "initial_cash",
+      "leverage",
+      "alloc_pct",
+      "entry_short_max",
+      "entry_long_min",
+      "standard_defaults",
+      "format"
+     ],
+     "try": "https://brainy.deepbeta.mn/dashboard/backtest/trades_export?symbol=GOLD",
+     "x": [
+      "file"
+     ]
+    },
+    {
+     "m": "GET",
+     "p": "/dashboard/backtest_portfolio",
+     "d": "Portfolio backtest using each asset's best 'up' model.",
+     "opt": [
+      "interval",
+      "window",
+      "fee_rate",
+      "slippage_bps",
+      "intrabar_resolution",
+      "monthly_reset",
+      "symbols",
+      "trailing_sl",
+      "trailing_tp",
+      "risk_profile",
+      "sl_tp_mode",
+      "sl_pct",
+      "tp_pct",
+      "utilization_margin",
+      "leverage",
+      "entry_short_max",
+      "entry_long_min",
+      "standard_defaults",
+      "per_symbol_timeout",
+      "use_tuned_zones"
+     ],
+     "try": "https://brainy.deepbeta.mn/dashboard/backtest_portfolio",
+     "x": [
+      "compute"
+     ]
+    },
+    {
+     "m": "GET",
+     "p": "/dashboard/best_models_backtest",
+     "d": "Best (family, horizon, model) per asset, ranked by validation backtest Sharpe / Calmar / drawdown / return",
+     "opt": [
+      "interval"
+     ],
+     "try": "https://brainy.deepbeta.mn/dashboard/best_models_backtest"
+    },
+    {
+     "m": "GET",
+     "p": "/dashboard/best_up_assets",
+     "d": "Symbols that have a deployable best 'up' backtest entry at the interval",
+     "opt": [
+      "interval"
+     ],
+     "try": "https://brainy.deepbeta.mn/dashboard/best_up_assets"
+    },
+    {
+     "m": "GET",
+     "p": "/dashboard/best_up_models",
+     "d": "Ranked best 'up' family model per asset on a robust composite score (overfit / underfit aware), with raw AUC retained for display.",
+     "opt": [
+      "interval"
+     ],
+     "try": "https://brainy.deepbeta.mn/dashboard/best_up_models"
+    },
+    {
+     "m": "GET",
+     "p": "/dashboard/cfd_prices",
+     "d": "Dealable IG CFD quotes (bid / offer / spread / day stats) for the traded instruments, in model units",
+     "opt": [
+      "symbols"
+     ],
+     "try": "https://brainy.deepbeta.mn/dashboard/cfd_prices"
+    },
+    {
+     "m": "GET",
+     "p": "/dashboard/cryptos",
+     "d": "Crypto sub-universe — used by the dashboard live ticker.",
+     "try": "https://brainy.deepbeta.mn/dashboard/cryptos"
+    },
+    {
+     "m": "GET",
+     "p": "/dashboard/efficient_frontier",
+     "d": "Compute the long-only mean-variance efficient frontier across each asset's best 'up' model.",
+     "opt": [
+      "interval",
+      "window",
+      "fee_rate",
+      "slippage_bps",
+      "monthly_reset",
+      "symbols",
+      "n_samples"
+     ],
+     "try": "https://brainy.deepbeta.mn/dashboard/efficient_frontier",
+     "x": [
+      "compute"
+     ]
+    },
+    {
+     "m": "GET",
+     "p": "/dashboard/families",
+     "d": "Return the families actually produced by target generation.",
+     "try": "https://brainy.deepbeta.mn/dashboard/families"
+    },
+    {
+     "m": "GET",
+     "p": "/dashboard/horizons",
+     "d": "Return the prediction horizons valid for the requested interval.",
+     "opt": [
+      "interval"
+     ],
+     "try": "https://brainy.deepbeta.mn/dashboard/horizons"
+    },
+    {
+     "m": "GET",
+     "p": "/dashboard/insights",
+     "d": "Run a single-symbol backtest and return the structured insight bundle (summary, observations, recommendations, tier / monthly breakdowns).",
+     "req": [
+      "symbol"
+     ],
+     "opt": [
+      "family",
+      "horizon",
+      "model_name",
+      "interval",
+      "window",
+      "fee_rate",
+      "slippage_bps",
+      "monthly_reset"
+     ],
+     "try": "https://brainy.deepbeta.mn/dashboard/insights?symbol=GOLD",
+     "x": [
+      "compute"
+     ]
+    },
+    {
+     "m": "GET",
+     "p": "/dashboard/intervals",
+     "d": "Intervals supported for an asset.",
+     "opt": [
+      "symbol"
+     ],
+     "try": "https://brainy.deepbeta.mn/dashboard/intervals"
+    },
+    {
+     "m": "GET",
+     "p": "/dashboard/investor/models",
+     "d": "List the curated set of (symbol, model) bundles investors may backtest.",
+     "try": "https://brainy.deepbeta.mn/dashboard/investor/models"
+    },
+    {
+     "m": "GET",
+     "p": "/dashboard/key_markets",
+     "d": "Operator-designated key markets — the flagship models the desk actively trades and retrains.",
+     "try": "https://brainy.deepbeta.mn/dashboard/key_markets"
+    },
+    {
+     "m": "GET",
+     "p": "/dashboard/live/status",
+     "d": "Equity, open trades, utilisation for the configured live broker.",
+     "try": "https://brainy.deepbeta.mn/dashboard/live/status"
+    },
+    {
+     "m": "GET",
+     "p": "/dashboard/live/trades",
+     "d": "Return persisted live-trade records (no broker call).",
+     "opt": [
+      "status",
+      "limit"
+     ],
+     "try": "https://brainy.deepbeta.mn/dashboard/live/trades"
+    },
+    {
+     "m": "GET",
+     "p": "/dashboard/live/trades_export",
+     "d": "Download the live trade ledger as CSV or XLSX.",
+     "opt": [
+      "status",
+      "format"
+     ],
+     "try": "https://brainy.deepbeta.mn/dashboard/live/trades_export",
+     "x": [
+      "file"
+     ]
+    },
+    {
+     "m": "GET",
+     "p": "/dashboard/live_price",
+     "d": "Live spot quotes, cached and computed single-flight; a stale strip is served while it refreshes.",
+     "req": [
+      "symbols"
+     ],
+     "try": "https://brainy.deepbeta.mn/dashboard/live_price?symbols=GOLD%2CBTCUSD"
+    },
+    {
+     "m": "GET",
+     "p": "/dashboard/manifest",
+     "d": "Data manifest: raw, macro, feature and processed sets on disk",
+     "try": "https://brainy.deepbeta.mn/dashboard/manifest"
+    },
+    {
+     "m": "GET",
+     "p": "/dashboard/model_garden",
+     "d": "Model-garden coverage and tags (detail=true adds every combo row)",
+     "opt": [
+      "symbols",
+      "detail"
+     ],
+     "try": "https://brainy.deepbeta.mn/dashboard/model_garden"
+    },
+    {
+     "m": "GET",
+     "p": "/dashboard/model_garden/jobs",
+     "d": "Recent model-garden build jobs",
+     "opt": [
+      "tail"
+     ],
+     "try": "https://brainy.deepbeta.mn/dashboard/model_garden/jobs"
+    },
+    {
+     "m": "GET",
+     "p": "/dashboard/model_history",
+     "d": "Latest trained history + performance for one (symbol, family, horizon, model_name, interval) selection.",
+     "req": [
+      "symbol",
+      "model_name"
+     ],
+     "opt": [
+      "family",
+      "horizon",
+      "interval"
+     ],
+     "try": "https://brainy.deepbeta.mn/dashboard/model_history?symbol=GOLD&model_name=lightgbm"
+    },
+    {
+     "m": "GET",
+     "p": "/dashboard/ohlcv",
+     "d": "OHLCV bars for one symbol and interval",
+     "req": [
+      "symbol"
+     ],
+     "opt": [
+      "window",
+      "interval"
+     ],
+     "try": "https://brainy.deepbeta.mn/dashboard/ohlcv?symbol=GOLD"
+    },
+    {
+     "m": "GET",
+     "p": "/dashboard/prediction_detail",
+     "d": "Drill-down for a single prediction point.",
+     "req": [
+      "symbol",
+      "date"
+     ],
+     "opt": [
+      "family",
+      "horizon",
+      "model_name",
+      "interval",
+      "context_bars"
+     ]
+    },
+    {
+     "m": "GET",
+     "p": "/dashboard/predictions",
+     "d": "Time series of prediction vs. realised outcome and close price",
+     "req": [
+      "symbol"
+     ],
+     "opt": [
+      "family",
+      "horizon",
+      "model_name",
+      "window",
+      "interval",
+      "tail"
+     ],
+     "try": "https://brainy.deepbeta.mn/dashboard/predictions?symbol=GOLD"
+    },
+    {
+     "m": "GET",
+     "p": "/dashboard/predictions_multi",
+     "d": "Stacked predictions across all trained horizons.",
+     "req": [
+      "symbol"
+     ],
+     "opt": [
+      "family",
+      "model_name",
+      "window",
+      "interval",
+      "tail"
+     ],
+     "try": "https://brainy.deepbeta.mn/dashboard/predictions_multi?symbol=GOLD"
+    },
+    {
+     "m": "GET",
+     "p": "/dashboard/ranked_models",
+     "d": "Per-(symbol, family, horizon) ranking of EVERY trained model_name by a ROBUST composite score (overfit / underfit / trade-activity aware), not raw validation AUC alone.",
+     "req": [
+      "symbol"
+     ],
+     "opt": [
+      "family",
+      "horizon",
+      "interval"
+     ],
+     "try": "https://brainy.deepbeta.mn/dashboard/ranked_models?symbol=GOLD",
+     "x": [
+      "compute"
+     ]
+    },
+    {
+     "m": "GET",
+     "p": "/dashboard/recent_signals",
+     "d": "The latest signal per champion, priced and sized exactly as backtested.",
+     "opt": [
+      "interval",
+      "symbols",
+      "equity",
+      "history",
+      "actionable_only",
+      "refresh"
+     ],
+     "try": "https://brainy.deepbeta.mn/dashboard/recent_signals"
+    },
+    {
+     "m": "GET",
+     "p": "/dashboard/risk_profiles",
+     "d": "List the organizations whose mandate the backtest can enforce.",
+     "opt": [
+      "interval"
+     ],
+     "try": "https://brainy.deepbeta.mn/dashboard/risk_profiles"
+    },
+    {
+     "m": "GET",
+     "p": "/dashboard/signal_stats",
+     "d": "Emergence counts/rates for each confidence sizing tier.",
+     "req": [
+      "symbol"
+     ],
+     "opt": [
+      "family",
+      "horizon",
+      "model_name",
+      "window",
+      "interval"
+     ],
+     "try": "https://brainy.deepbeta.mn/dashboard/signal_stats?symbol=GOLD"
+    },
+    {
+     "m": "GET",
+     "p": "/dashboard/slippage_defaults",
+     "d": "Expose the per-asset / per-category slippage table.",
+     "opt": [
+      "symbol"
+     ],
+     "try": "https://brainy.deepbeta.mn/dashboard/slippage_defaults"
+    },
+    {
+     "m": "GET",
+     "p": "/dashboard/sltp_sweep",
+     "d": "Sweep allocation size x stop x target for one asset's champion.",
+     "req": [
+      "symbol"
+     ],
+     "opt": [
+      "interval",
+      "horizon",
+      "model_name",
+      "feature_set",
+      "fast",
+      "tune_entry_bands",
+      "mode",
+      "persist",
+      "timeout"
+     ],
+     "try": "https://brainy.deepbeta.mn/dashboard/sltp_sweep?symbol=GOLD",
+     "x": [
+      "compute"
+     ]
+    },
+    {
+     "m": "GET",
+     "p": "/dashboard/sltp_zones",
+     "d": "Per-asset tuned sizing + stop/target zones, joined with the champions.",
+     "opt": [
+      "interval"
+     ],
+     "try": "https://brainy.deepbeta.mn/dashboard/sltp_zones"
+    },
+    {
+     "m": "GET",
+     "p": "/dashboard/targets",
+     "d": "Generated training targets for one symbol and family",
+     "req": [
+      "symbol"
+     ],
+     "opt": [
+      "family",
+      "window",
+      "interval"
+     ],
+     "try": "https://brainy.deepbeta.mn/dashboard/targets?symbol=GOLD"
+    },
+    {
+     "m": "GET",
+     "p": "/dashboard/top_markets_assets",
+     "d": "Curated top-markets symbol set used as the dashboard default filter",
+     "try": "https://brainy.deepbeta.mn/dashboard/top_markets_assets"
+    },
+    {
+     "m": "GET",
+     "p": "/health",
+     "d": "Liveness probe - public, no key needed",
+     "try": "https://brainy.deepbeta.mn/health"
+    },
+    {
+     "m": "GET",
+     "p": "/health/ready",
+     "d": "Readiness probe: at least one usable model and feature set is on disk - public, no key needed",
+     "try": "https://brainy.deepbeta.mn/health/ready"
+    },
+    {
+     "m": "POST",
+     "p": "/dashboard/admin/restart_api",
+     "d": "Exit this API process so the ServicesWatchdog task (every 5 min) relaunches it with the code currently on disk."
+    },
+    {
+     "m": "POST",
+     "p": "/dashboard/investor/backtest",
+     "d": "Run a backtest restricted to the operator-curated whitelist.",
+     "req": [
+      "symbol"
+     ],
+     "opt": [
+      "family",
+      "horizon",
+      "model_name",
+      "window",
+      "interval",
+      "fee_rate",
+      "slippage_bps",
+      "monthly_reset"
+     ]
+    },
+    {
+     "m": "POST",
+     "p": "/dashboard/investor/backtest_upload",
+     "d": "Run an investor backtest against *uploaded* OHLCV data.",
+     "req": [
+      "symbol"
+     ],
+     "opt": [
+      "family",
+      "horizon",
+      "model_name",
+      "window",
+      "interval",
+      "fee_rate",
+      "slippage_bps",
+      "monthly_reset"
+     ]
+    },
+    {
+     "m": "POST",
+     "p": "/dashboard/model_garden/build",
+     "d": "Launch a bounded background build of the next missing combos.",
+     "opt": [
+      "limit",
+      "symbols",
+      "force"
+     ]
+    }
+   ]
+  },
+  "focus": {
+   "host": "https://brainy.deepbeta.mn",
+   "endpoints": [
+    {
+     "m": "GET",
+     "p": "/api/focus_dashboard",
+     "d": "Aggregate payload for the focus-dashboard asset grid.",
+     "opt": [
+      "symbols"
+     ],
+     "try": "https://brainy.deepbeta.mn/api/focus_dashboard",
+     "x": [
+      "compute"
+     ]
+    },
+    {
+     "m": "GET",
+     "p": "/api/focus_dashboard/applied",
+     "d": "The applied-models registry: the model each focus product serves",
+     "opt": [
+      "symbols",
+      "refresh",
+      "oos"
+     ],
+     "try": "https://brainy.deepbeta.mn/api/focus_dashboard/applied"
+    },
+    {
+     "m": "GET",
+     "p": "/api/focus_dashboard/oos_compare",
+     "d": "Side-by-side OOS scorecards for one asset's served model.",
+     "req": [
+      "symbol"
+     ],
+     "opt": [
+      "windows",
+      "model_name",
+      "family",
+      "horizon",
+      "feature_set",
+      "train_years",
+      "refresh",
+      "leverage",
+      "margin_pct",
+      "sl_tp_mode",
+      "sl_pct",
+      "tp_pct",
+      "fee_rate",
+      "slippage_bps",
+      "funding_annual_rate",
+      "entry_short_max",
+      "entry_long_min",
+      "intrabar_resolution",
+      "initial_cash"
+     ],
+     "try": "https://brainy.deepbeta.mn/api/focus_dashboard/oos_compare?symbol=GOLD",
+     "x": [
+      "compute"
+     ]
+    },
+    {
+     "m": "GET",
+     "p": "/api/focus_dashboard/report",
+     "d": "Generate the focus report as HTML or CSV (save=false skips the stored copy)",
+     "opt": [
+      "format",
+      "symbols",
+      "save"
+     ],
+     "try": "https://brainy.deepbeta.mn/api/focus_dashboard/report?save=false",
+     "x": [
+      "compute"
+     ]
+    },
+    {
+     "m": "GET",
+     "p": "/focus1d/api/best_selected",
+     "d": "Latest inference from the BEST-SELECTED grid pipeline per asset.",
+     "try": "https://brainy.deepbeta.mn/focus1d/api/best_selected"
+    },
+    {
+     "m": "GET",
+     "p": "/focus1d/api/horizons",
+     "d": "1d / 2d / 4d product families side by side for every focus product",
+     "opt": [
+      "symbol",
+      "refresh"
+     ],
+     "try": "https://brainy.deepbeta.mn/focus1d/api/horizons"
+    },
+    {
+     "m": "GET",
+     "p": "/focus1d/api/horizons/jobs",
+     "d": "Running and recent horizon train / infer jobs",
+     "opt": [
+      "tail"
+     ],
+     "try": "https://brainy.deepbeta.mn/focus1d/api/horizons/jobs"
+    },
+    {
+     "m": "GET",
+     "p": "/focus1d/api/horizons/sltp/{symbol}",
+     "d": "Per-side stop / target bands of the served product at the asset's mandated leverage (or leverage).",
+     "opt": [
+      "leverage"
+     ],
+     "try": "https://brainy.deepbeta.mn/focus1d/api/horizons/sltp/GOLD"
+    },
+    {
+     "m": "GET",
+     "p": "/focus1d/api/jobs",
+     "d": "Running and recent focus 1D train / infer jobs",
+     "opt": [
+      "tail"
+     ],
+     "try": "https://brainy.deepbeta.mn/focus1d/api/jobs"
+    },
+    {
+     "m": "GET",
+     "p": "/focus1d/api/options/{symbol}",
+     "d": "What 1-3 day Deribit option prices say, with model-vs-market EV - BTCUSD / ETHUSD",
+     "opt": [
+      "view"
+     ],
+     "try": "https://brainy.deepbeta.mn/focus1d/api/options/BTCUSD"
+    },
+    {
+     "m": "GET",
+     "p": "/focus1d/api/overview",
+     "d": "Focus 1D products at a glance, one row per asset",
+     "try": "https://brainy.deepbeta.mn/focus1d/api/overview"
+    },
+    {
+     "m": "GET",
+     "p": "/focus1d/api/sltp/{symbol}",
+     "d": "Per-side stop / target bands at a given leverage - BTCUSD / ETHUSD",
+     "opt": [
+      "leverage"
+     ],
+     "try": "https://brainy.deepbeta.mn/focus1d/api/sltp/BTCUSD"
+    },
+    {
+     "m": "GET",
+     "p": "/focus1d/api/versions/{symbol}",
+     "d": "Recorded training versions per asset (newest first), all for every asset.",
+     "try": "https://brainy.deepbeta.mn/focus1d/api/versions/GOLD"
+    },
+    {
+     "m": "GET",
+     "p": "/focus1d/horizons",
+     "d": "The horizons page (HTML)",
+     "try": "https://brainy.deepbeta.mn/focus1d/horizons"
+    },
+    {
+     "m": "POST",
+     "p": "/focus1d/api/horizons/infer/{symbol}/{k}",
+     "d": "Start inference for one product at a k-day horizon"
+    },
+    {
+     "m": "POST",
+     "p": "/focus1d/api/horizons/train/{symbol}/{k}",
+     "d": "Start training one product at a k-day horizon",
+     "opt": [
+      "select_models"
+     ]
+    },
+    {
+     "m": "POST",
+     "p": "/focus1d/api/infer/{symbol}",
+     "d": "Start inference for one focus 1D product"
+    },
+    {
+     "m": "POST",
+     "p": "/focus1d/api/promote/{symbol}/{version}",
+     "d": "Copy a recorded version back into the served directory (blocks while the asset trains)."
+    },
+    {
+     "m": "POST",
+     "p": "/focus1d/api/train/{symbol}",
+     "d": "Start training one focus 1D product (select_models=true runs the champion CV sweep first)",
+     "opt": [
+      "select_models"
+     ]
+    }
+   ]
+  },
+  "igtrading": {
+   "host": "https://brainy.deepbeta.mn",
+   "endpoints": [
+    {
+     "m": "GET",
+     "p": "/api/paper/account",
+     "d": "Demo account snapshot: balance + configured demo roles.",
+     "opt": [
+      "role"
+     ],
+     "try": "https://brainy.deepbeta.mn/api/paper/account"
+    },
+    {
+     "m": "GET",
+     "p": "/api/paper/journal",
+     "d": "Most recent paper-trading audit records (newest last).",
+     "opt": [
+      "limit"
+     ],
+     "try": "https://brainy.deepbeta.mn/api/paper/journal"
+    },
+    {
+     "m": "GET",
+     "p": "/api/paper/positions",
+     "d": "Open positions on the demo account (live from IG).",
+     "opt": [
+      "role"
+     ],
+     "try": "https://brainy.deepbeta.mn/api/paper/positions"
+    },
+    {
+     "m": "GET",
+     "p": "/ig-trading/api/asset/{symbol}",
+     "d": "One asset on the IG accounts: holdings, closed and unfilled tickets, by book / role / side, call quality",
+     "opt": [
+      "live"
+     ],
+     "try": "https://brainy.deepbeta.mn/ig-trading/api/asset/GOLD"
+    },
+    {
+     "m": "GET",
+     "p": "/ig-trading/api/digest/{day}",
+     "d": "The daily IG accounts digest (markdown) for a YYYY-MM-DD day",
+     "try": "https://brainy.deepbeta.mn/ig-trading/api/digest/2026-11-05"
+    },
+    {
+     "m": "GET",
+     "p": "/ig-trading/api/overview",
+     "d": "Accounts, holdings, close schedule, performance, assets, asset-to-asset, venues, health and insights.",
+     "opt": [
+      "live",
+      "force"
+     ],
+     "try": "https://brainy.deepbeta.mn/ig-trading/api/overview"
+    },
+    {
+     "m": "GET",
+     "p": "/ig-trading/api/pipeline",
+     "d": "The insights pipeline: scheduler, last passes, the flagged-insight history and the newest digest.",
+     "opt": [
+      "n"
+     ],
+     "try": "https://brainy.deepbeta.mn/ig-trading/api/pipeline"
+    },
+    {
+     "m": "POST",
+     "p": "/api/paper/close",
+     "d": "Close one open position on the demo account."
+    },
+    {
+     "m": "POST",
+     "p": "/api/paper/order",
+     "d": "Place ONE market order on the IG demo account."
+    },
+    {
+     "m": "POST",
+     "p": "/ig-trading/api/run",
+     "d": "Launch one insights pass now (reads the IG demo accounts)"
+    }
+   ]
+  },
+  "paperdesk": {
+   "host": "https://brainy.deepbeta.mn",
+   "endpoints": [
+    {
+     "m": "GET",
+     "p": "/paperdesk/api/book_config",
+     "d": "The rules the paper book runs on (defaults + the operator's saved settings) and the leverage choices.",
+     "try": "https://brainy.deepbeta.mn/paperdesk/api/book_config"
+    },
+    {
+     "m": "GET",
+     "p": "/paperdesk/api/chart/{symbol}",
+     "d": "Candles, calls, tickets and key features for one focus product",
+     "opt": [
+      "tf",
+      "days"
+     ],
+     "try": "https://brainy.deepbeta.mn/paperdesk/api/chart/GOLD"
+    },
+    {
+     "m": "GET",
+     "p": "/paperdesk/api/daily",
+     "d": "The daily desk report as markdown (date=YYYY-MM-DD, newest by default)",
+     "opt": [
+      "date"
+     ],
+     "try": "https://brainy.deepbeta.mn/paperdesk/api/daily"
+    },
+    {
+     "m": "GET",
+     "p": "/paperdesk/api/equity",
+     "d": "Equity, balance, drawdown, exposure, margin and open-risk curve (res=1h / 4h / 1d)",
+     "opt": [
+      "res"
+     ],
+     "try": "https://brainy.deepbeta.mn/paperdesk/api/equity"
+    },
+    {
+     "m": "GET",
+     "p": "/paperdesk/api/journal",
+     "d": "Book journal events with counts by kind and origin",
+     "opt": [
+      "limit",
+      "kind",
+      "symbol",
+      "origin"
+     ],
+     "try": "https://brainy.deepbeta.mn/paperdesk/api/journal"
+    },
+    {
+     "m": "GET",
+     "p": "/paperdesk/api/overview",
+     "d": "Headline numbers, alerts, product matrix, open positions, latest calls, run status.",
+     "try": "https://brainy.deepbeta.mn/paperdesk/api/overview"
+    },
+    {
+     "m": "GET",
+     "p": "/paperdesk/api/presets",
+     "d": "The rule presets the what-if desk can compare",
+     "try": "https://brainy.deepbeta.mn/paperdesk/api/presets"
+    },
+    {
+     "m": "GET",
+     "p": "/paperdesk/api/products",
+     "d": "The focus product matrix with feature importance",
+     "try": "https://brainy.deepbeta.mn/paperdesk/api/products"
+    },
+    {
+     "m": "GET",
+     "p": "/paperdesk/api/runs",
+     "d": "Recent desk runs, log tail and scheduler state",
+     "opt": [
+      "limit"
+     ],
+     "try": "https://brainy.deepbeta.mn/paperdesk/api/runs"
+    },
+    {
+     "m": "GET",
+     "p": "/paperdesk/api/tracks",
+     "d": "The risk tracks (the book at 1 / 2 / 3 / 5 % risk per call): summaries + % return curves.",
+     "opt": [
+      "res"
+     ],
+     "try": "https://brainy.deepbeta.mn/paperdesk/api/tracks"
+    },
+    {
+     "m": "GET",
+     "p": "/paperdesk/api/trades",
+     "d": "Every ticket of the book, filterable by status, symbol, family and tier",
+     "opt": [
+      "status",
+      "symbol",
+      "family",
+      "tier",
+      "limit"
+     ],
+     "try": "https://brainy.deepbeta.mn/paperdesk/api/trades"
+    },
+    {
+     "m": "POST",
+     "p": "/paperdesk/api/book_config",
+     "d": "Save the paper book's settings; new positions follow them from the next run (journalled as CONFIG)."
+    },
+    {
+     "m": "POST",
+     "p": "/paperdesk/api/margin_levels/compare",
+     "d": "The what-if rules under every margin budget (the most margin posted at once: 1 / 2 / 3 / 5 % of the balance, levels overrides); never touches the record."
+    },
+    {
+     "m": "POST",
+     "p": "/paperdesk/api/presets/compare",
+     "d": "Every preset over the same calls, feed, sizing and costs (never touches the record).",
+     "opt": [
+      "start"
+     ]
+    },
+    {
+     "m": "POST",
+     "p": "/paperdesk/api/risk_levels/compare",
+     "d": "The what-if rules (the form, or {} = the book's rules) at every risk per call; never touches the record."
+    },
+    {
+     "m": "POST",
+     "p": "/paperdesk/api/run",
+     "d": "Run the desk now (kind=mark by default)",
+     "opt": [
+      "kind"
+     ]
+    },
+    {
+     "m": "POST",
+     "p": "/paperdesk/api/whatif",
+     "d": "Re-simulate the whole period under other rules (never touches the book of record)."
+    }
+   ]
+  },
+  "monitoring": {
+   "host": "https://brainy.deepbeta.mn",
+   "endpoints": [
+    {
+     "m": "GET",
+     "p": "/monitoring/api/clients",
+     "d": "Clients seen in the window",
+     "opt": [
+      "window",
+      "include_self"
+     ],
+     "try": "https://brainy.deepbeta.mn/monitoring/api/clients"
+    },
+    {
+     "m": "GET",
+     "p": "/monitoring/api/endpoints",
+     "d": "Per-route traffic in the window, filterable by service",
+     "opt": [
+      "window",
+      "include_self",
+      "service"
+     ],
+     "try": "https://brainy.deepbeta.mn/monitoring/api/endpoints"
+    },
+    {
+     "m": "GET",
+     "p": "/monitoring/api/failures",
+     "d": "Grouped failures and HTTP 5xx in the window",
+     "opt": [
+      "window",
+      "include_ignored"
+     ],
+     "try": "https://brainy.deepbeta.mn/monitoring/api/failures"
+    },
+    {
+     "m": "GET",
+     "p": "/monitoring/api/overview",
+     "d": "Server-monitor headline numbers for the window",
+     "opt": [
+      "window",
+      "include_self"
+     ],
+     "try": "https://brainy.deepbeta.mn/monitoring/api/overview"
+    },
+    {
+     "m": "GET",
+     "p": "/monitoring/api/pipelines",
+     "d": "Freshness of the data update, inference, paper desk and morning brief pipelines",
+     "try": "https://brainy.deepbeta.mn/monitoring/api/pipelines"
+    },
+    {
+     "m": "GET",
+     "p": "/monitoring/api/requests",
+     "d": "Tail of the request log, filterable by IP, route, status and service",
+     "opt": [
+      "limit",
+      "ip",
+      "route",
+      "status",
+      "service",
+      "include_self"
+     ],
+     "try": "https://brainy.deepbeta.mn/monitoring/api/requests"
+    },
+    {
+     "m": "GET",
+     "p": "/monitoring/api/security",
+     "d": "Rejected (unauthenticated) requests by client and path",
+     "opt": [
+      "window"
+     ],
+     "try": "https://brainy.deepbeta.mn/monitoring/api/security"
+    },
+    {
+     "m": "GET",
+     "p": "/monitoring/api/system",
+     "d": "Host CPU / memory / disk series, services, systemd units, collector and log files",
+     "opt": [
+      "window"
+     ],
+     "try": "https://brainy.deepbeta.mn/monitoring/api/system"
+    },
+    {
+     "m": "GET",
+     "p": "/monitoring/api/traffic",
+     "d": "Request volume, status classes and p95 latency per time bucket",
+     "opt": [
+      "window",
+      "include_self"
+     ],
+     "try": "https://brainy.deepbeta.mn/monitoring/api/traffic"
+    },
+    {
+     "m": "POST",
+     "p": "/monitoring/api/ip_label",
+     "d": "Label an IP address in the monitor"
+    }
+   ]
+  },
+  "investor": {
+   "host": "https://brainy.deepbeta.mn",
+   "endpoints": [
+    {
+     "m": "GET",
+     "p": "/investor/api/backtest/{symbol}",
+     "d": "Run the preassigned best model's backtest and return a demo equity curve + summary stats for the given symbol.",
+     "opt": [
+      "interval"
+     ],
+     "try": "https://brainy.deepbeta.mn/investor/api/backtest/GOLD",
+     "x": [
+      "compute"
+     ]
+    },
+    {
+     "m": "GET",
+     "p": "/investor/api/bests",
+     "d": "Return the preassigned best model per (symbol, interval).",
+     "try": "https://brainy.deepbeta.mn/investor/api/bests"
+    },
+    {
+     "m": "GET",
+     "p": "/investor/api/portfolio",
+     "d": "Current accounts + open positions (read-only, cached 60s).",
+     "try": "https://brainy.deepbeta.mn/investor/api/portfolio"
+    },
+    {
+     "m": "GET",
+     "p": "/investor/api/portfolio/growth",
+     "d": "Daily total-equity series for the selected window.",
+     "opt": [
+      "window"
+     ],
+     "try": "https://brainy.deepbeta.mn/investor/api/portfolio/growth"
+    },
+    {
+     "m": "GET",
+     "p": "/investor/api/report/{symbol}",
+     "d": "Return the machine-readable report payload (both kinds of data).",
+     "opt": [
+      "broker",
+      "preset",
+      "accounts",
+      "interval"
+     ],
+     "try": "https://brainy.deepbeta.mn/investor/api/report/GOLD"
+    },
+    {
+     "m": "GET",
+     "p": "/investor/api/summary",
+     "d": "Portfolio-level scorecard aggregated from best-per-ticker entries.",
+     "try": "https://brainy.deepbeta.mn/investor/api/summary"
+    }
+   ]
+  },
+  "livedash": {
+   "host": "https://brainy.deepbeta.mn",
+   "endpoints": [
+    {
+     "m": "GET",
+     "p": "/livedash/api/accounts",
+     "d": "List configured MT5 accounts (credentials redacted).",
+     "try": "https://brainy.deepbeta.mn/livedash/api/accounts"
+    },
+    {
+     "m": "GET",
+     "p": "/livedash/api/exchanges",
+     "d": "Per-exchange/per-account snapshot: equity, positions, pending orders.",
+     "try": "https://brainy.deepbeta.mn/livedash/api/exchanges"
+    },
+    {
+     "m": "GET",
+     "p": "/livedash/api/health",
+     "d": "Liveness of the live dashboard service",
+     "try": "https://brainy.deepbeta.mn/livedash/api/health"
+    },
+    {
+     "m": "GET",
+     "p": "/livedash/api/journal",
+     "d": "Live trading journal events",
+     "opt": [
+      "limit",
+      "since_ts"
+     ],
+     "try": "https://brainy.deepbeta.mn/livedash/api/journal"
+    },
+    {
+     "m": "GET",
+     "p": "/livedash/api/journal/report",
+     "d": "Risk-compliance journal report against a mandate risk profile",
+     "opt": [
+      "risk_profile",
+      "equity"
+     ],
+     "try": "https://brainy.deepbeta.mn/livedash/api/journal/report"
+    },
+    {
+     "m": "GET",
+     "p": "/livedash/api/snapshot",
+     "d": "Combined real-time snapshot: equity, positions (server + broker), pending orders, divergences, recent journal events.",
+     "try": "https://brainy.deepbeta.mn/livedash/api/snapshot"
+    }
+   ]
+  },
+  "train": {
+   "host": "https://brainy.deepbeta.mn",
+   "endpoints": [
+    {
+     "m": "GET",
+     "p": "/train/api/assets",
+     "d": "Assets available to train",
+     "try": "https://brainy.deepbeta.mn/train/api/assets"
+    },
+    {
+     "m": "GET",
+     "p": "/train/api/best",
+     "d": "The best-per-ticker table",
+     "opt": [
+      "interval"
+     ],
+     "try": "https://brainy.deepbeta.mn/train/api/best"
+    },
+    {
+     "m": "GET",
+     "p": "/train/api/comparison",
+     "d": "Training, held-out validation and portfolio-backtest scorecards for one configuration",
+     "req": [
+      "symbol"
+     ],
+     "opt": [
+      "family",
+      "horizon",
+      "model_name",
+      "interval",
+      "feature_set",
+      "initial_cash",
+      "fee_rate",
+      "slippage_bps",
+      "monthly_reset"
+     ],
+     "try": "https://brainy.deepbeta.mn/train/api/comparison?symbol=GOLD",
+     "x": [
+      "compute"
+     ]
+    },
+    {
+     "m": "GET",
+     "p": "/train/api/health",
+     "d": "Liveness of the training GUI service",
+     "try": "https://brainy.deepbeta.mn/train/api/health"
+    },
+    {
+     "m": "GET",
+     "p": "/train/api/models",
+     "d": "Model names, families, horizons, intervals and feature sets on offer",
+     "try": "https://brainy.deepbeta.mn/train/api/models"
+    },
+    {
+     "m": "POST",
+     "p": "/train/api/backtest",
+     "d": "Backtest a configuration"
+    },
+    {
+     "m": "POST",
+     "p": "/train/api/best/clear",
+     "d": "Clear the best entry of one symbol",
+     "req": [
+      "symbol"
+     ],
+     "opt": [
+      "interval"
+     ]
+    },
+    {
+     "m": "POST",
+     "p": "/train/api/best/recompute",
+     "d": "Recompute the best-per-ticker table"
+    },
+    {
+     "m": "POST",
+     "p": "/train/api/best/submit",
+     "d": "Submit a configuration as the best for its ticker"
+    },
+    {
+     "m": "POST",
+     "p": "/train/api/finalize",
+     "d": "Re-fit the chosen configuration on the full history and persist it for live inference"
+    },
+    {
+     "m": "POST",
+     "p": "/train/api/train",
+     "d": "Train a configuration"
+    }
+   ]
+  },
+  "technical": {
+   "host": "https://technical.deepbeta.mn",
+   "endpoints": [
+    {
+     "m": "GET",
+     "p": "/api/agents",
+     "d": "Desk agents with health and start time",
+     "try": "https://technical.deepbeta.mn/api/agents"
+    },
+    {
+     "m": "GET",
+     "p": "/api/agents/{agent_id}/runs",
+     "d": "Recent runs of one desk agent",
+     "opt": [
+      "limit"
+     ],
+     "try": "https://technical.deepbeta.mn/api/agents/bar-feed/runs"
+    },
+    {
+     "m": "GET",
+     "p": "/api/asset/{sym}",
+     "d": "Everything on one asset: quote, signal, technical summary, sentiment, AI read, macro, derivatives, lab",
+     "try": "https://technical.deepbeta.mn/api/asset/GOLD"
+    },
+    {
+     "m": "GET",
+     "p": "/api/bars/{sym}",
+     "d": "Completed bars for one asset (tf, n)",
+     "opt": [
+      "tf",
+      "n"
+     ],
+     "try": "https://technical.deepbeta.mn/api/bars/GOLD"
+    },
+    {
+     "m": "GET",
+     "p": "/api/derivs",
+     "d": "Crypto derivatives read for BTCUSD and ETHUSD",
+     "try": "https://technical.deepbeta.mn/api/derivs"
+    },
+    {
+     "m": "GET",
+     "p": "/api/events",
+     "d": "Desk event feed, filterable by asset and agent",
+     "opt": [
+      "limit",
+      "asset",
+      "agent",
+      "min"
+     ],
+     "try": "https://technical.deepbeta.mn/api/events"
+    },
+    {
+     "m": "GET",
+     "p": "/api/indicators/{sym}",
+     "d": "Indicator consensus, score and evidence for one asset and timeframe",
+     "opt": [
+      "tf"
+     ],
+     "try": "https://technical.deepbeta.mn/api/indicators/GOLD"
+    },
+    {
+     "m": "GET",
+     "p": "/api/lab",
+     "d": "Indicator-lab summary across assets and timeframes",
+     "try": "https://technical.deepbeta.mn/api/lab"
+    },
+    {
+     "m": "GET",
+     "p": "/api/lab/{sym}/{tf}",
+     "d": "Indicator-lab table for one asset and timeframe: score bands and out-of-sample tests",
+     "try": "https://technical.deepbeta.mn/api/lab/GOLD/1h"
+    },
+    {
+     "m": "GET",
+     "p": "/api/macro",
+     "d": "Macro read: moves, tilts, regime, FX, calendar, event risk and treasuries",
+     "try": "https://technical.deepbeta.mn/api/macro"
+    },
+    {
+     "m": "GET",
+     "p": "/api/news",
+     "d": "Recent news, filterable by asset (hours, limit)",
+     "opt": [
+      "asset",
+      "hours",
+      "limit"
+     ],
+     "try": "https://technical.deepbeta.mn/api/news"
+    },
+    {
+     "m": "GET",
+     "p": "/api/overview",
+     "d": "Desk overview: assets with quotes, health, macro, agents and performance",
+     "try": "https://technical.deepbeta.mn/api/overview"
+    },
+    {
+     "m": "GET",
+     "p": "/api/performance",
+     "d": "Signal performance by asset, grade and block over the window",
+     "try": "https://technical.deepbeta.mn/api/performance"
+    },
+    {
+     "m": "GET",
+     "p": "/api/searches",
+     "d": "Recent market searches run by the desk",
+     "opt": [
+      "limit"
+     ],
+     "try": "https://technical.deepbeta.mn/api/searches"
+    },
+    {
+     "m": "GET",
+     "p": "/api/signals",
+     "d": "Signals issued by the desk, filterable by asset and window",
+     "opt": [
+      "asset",
+      "hours",
+      "limit"
+     ],
+     "try": "https://technical.deepbeta.mn/api/signals"
+    },
+    {
+     "m": "GET",
+     "p": "/api/stream",
+     "d": "Live desk updates as a server-sent event stream",
+     "try": "https://technical.deepbeta.mn/api/stream",
+     "x": [
+      "stream"
+     ]
+    },
+    {
+     "m": "POST",
+     "p": "/api/agents/{agent_id}/run",
+     "d": "Start one run of a desk agent now"
+    }
+   ]
+  },
+  "tradingview": {
+   "host": "https://brainy.deepbeta.mn",
+   "endpoints": [
+    {
+     "m": "GET",
+     "p": "/tradingview/api/chart/{symbol}",
+     "d": "Candles with the paper-book, backtest-track or archived tickets and the newest calls",
+     "opt": [
+      "tf",
+      "book",
+      "days"
+     ],
+     "try": "https://brainy.deepbeta.mn/tradingview/api/chart/GOLD?tf=1h&book=record&days=30"
+    },
+    {
+     "m": "GET",
+     "p": "/tradingview/api/live/{symbol}",
+     "d": "The forming candle, volume and live quote",
+     "opt": [
+      "tf"
+     ],
+     "try": "https://brainy.deepbeta.mn/tradingview/api/live/GOLD"
+    },
+    {
+     "m": "GET",
+     "p": "/tradingview/api/meta",
+     "d": "Symbols, timeframes, default windows and the books the chart can draw",
+     "try": "https://brainy.deepbeta.mn/tradingview/api/meta"
+    },
+    {
+     "m": "GET",
+     "p": "/tradingview/api/quotes",
+     "d": "Latest quote of every focus product",
+     "try": "https://brainy.deepbeta.mn/tradingview/api/quotes"
+    }
+   ]
+  },
+  "agents": {
+   "host": "https://agents.deepbeta.mn",
+   "endpoints": [
+    {
+     "m": "GET",
+     "p": "/api/agents",
+     "d": "The board: every agent, service, scheduled job, daemon and pipeline with its health",
+     "try": "https://agents.deepbeta.mn/api/agents"
+    },
+    {
+     "m": "GET",
+     "p": "/api/agents/{agent_id}",
+     "d": "One agent: role, status, last / next run, cadence, errors and summary",
+     "try": "https://agents.deepbeta.mn/api/agents/bar-feed"
+    },
+    {
+     "m": "GET",
+     "p": "/api/events",
+     "d": "Live activity feed across all agents",
+     "opt": [
+      "limit"
+     ],
+     "try": "https://agents.deepbeta.mn/api/events"
+    },
+    {
+     "m": "GET",
+     "p": "/health",
+     "d": "Liveness probe - public, no key needed",
+     "try": "https://agents.deepbeta.mn/health"
+    },
+    {
+     "m": "POST",
+     "p": "/api/agents/{agent_id}/run",
+     "d": "Start one run of an agent now"
+    }
+   ]
+  },
+  "options": {
+   "host": "https://options.deepbeta.mn",
+   "endpoints": [
+    {
+     "m": "GET",
+     "p": "/api/alerts",
+     "d": "Signal feed, newest first",
+     "opt": [
+      "after",
+      "n"
+     ],
+     "try": "https://options.deepbeta.mn/api/alerts"
+    },
+    {
+     "m": "GET",
+     "p": "/api/alerts/stream",
+     "d": "Signal feed as a server-sent event stream",
+     "opt": [
+      "after"
+     ],
+     "try": "https://options.deepbeta.mn/api/alerts/stream",
+     "x": [
+      "stream"
+     ]
+    },
+    {
+     "m": "GET",
+     "p": "/api/state",
+     "d": "Desk state: squeeze, direction lean, options activity, desk calls, term structure, move radar",
+     "try": "https://options.deepbeta.mn/api/state"
+    }
+   ]
+  },
+  "mlflow": {
+   "host": "https://brainy.deepbeta.mn",
+   "endpoints": [
+    {
+     "m": "GET",
+     "p": "/mlflow/api/2.0/mlflow/experiments/search",
+     "d": "MLflow REST API: tracked experiments (the full MLflow 2.0 REST surface is served here)",
+     "opt": [
+      "max_results",
+      "filter"
+     ],
+     "try": "https://brainy.deepbeta.mn/mlflow/api/2.0/mlflow/experiments/search?max_results=20"
+    }
+   ]
+  }
+ }
+}

@@ -709,6 +709,154 @@
       });
   }
 
+  /* ---- Brainy platform: quick-start tabs, desk cards and the endpoint explorer ----
+     Data: data/brainy-platform.json, written by tools/export_platform.py. It holds paths, methods,
+     descriptions and example links only; the access key is never part of the page. */
+  const pfRoot = $('#platform');
+  if (pfRoot) {
+    const pf = name => $(`[data-pf="${name}"]`, pfRoot);
+    const smooth = !window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+
+    const flashLabel = (btn, msg) => {
+      if (!btn.dataset.label) btn.dataset.label = btn.textContent;
+      btn.textContent = msg;
+      clearTimeout(btn._t);
+      btn._t = setTimeout(() => { btn.textContent = btn.dataset.label; }, 1400);
+    };
+    const copyText = (text, btn) => {
+      const done = () => flashLabel(btn, 'copied');
+      if (navigator.clipboard?.writeText) navigator.clipboard.writeText(text).then(done, () => flashLabel(btn, 'copy failed'));
+      else flashLabel(btn, 'copy failed');
+    };
+
+    /* quick start: one snippet per language */
+    const snippets = $$('.pf-pre', pfRoot);
+    let codeLang = 'curl';
+    pf('lang').addEventListener('click', e => {
+      const b = e.target.closest('button[data-lang-code]');
+      if (!b) return;
+      codeLang = b.dataset.langCode;
+      $$('button', pf('lang')).forEach(x => { const on = x === b; x.classList.toggle('active', on); x.setAttribute('aria-pressed', String(on)); });
+      snippets.forEach(p => { p.hidden = p.dataset.code !== codeLang; });
+    });
+    pf('copy-snippet').addEventListener('click', e => {
+      const pre = snippets.find(p => p.dataset.code === codeLang);
+      if (pre) copyText(pre.textContent, e.currentTarget);
+    });
+
+    /* endpoint explorer */
+    const explorer = pf('explorer'), list = pf('list'), search = pf('q'), pick = pf('svc');
+    const st = { cat: null, order: [], svc: '', m: '', q: '', open: new Set() };
+    const label = sid => $(`.svc[data-svc="${sid}"] h3`, pfRoot)?.textContent || sid;
+    const bare = url => url.replace(/^https?:\/\//, '');
+    const curlFor = (svc, e) => {
+      const flags = (e.m === 'GET' ? '' : `-X ${e.m} `) + ((e.x || []).includes('stream') ? '-N ' : '');
+      return `curl ${flags}-H "X-Access-Key: $BRAINY_KEY" '${e.try || svc.host + e.p}'`;
+    };
+    const matches = (sid, e) => {
+      if (st.svc && sid !== st.svc) return false;
+      if (st.m && e.m !== st.m) return false;
+      if (!st.q) return true;
+      const hay = `${e.m} ${e.p} ${e.d} ${label(sid)} ${(e.req || []).join(' ')} ${(e.opt || []).join(' ')} ${(e.x || []).join(' ')}`.toLowerCase();
+      return st.q.split(/\s+/).every(w => hay.includes(w));
+    };
+
+    const rowHtml = (sid, e, i) => {
+      const path = esc(e.p).replace(/\{(\w+)\}/g, '<i>{$1}</i>');
+      const head = e.try
+        ? `<a class="ep-p" href="${esc(e.try)}" target="_blank" rel="noopener" title="Open the example: ${esc(e.try)}">${path}</a>`
+        : `<span class="ep-p">${path}</span>`;
+      const needs = (e.req || []).length ? ` · needs <code>${e.req.map(esc).join('=</code> <code>')}=</code>` : '';
+      const opt = (e.opt || []).length ? ` <span class="ep-opt">· params ${esc(e.opt.join(' · '))}</span>` : '';
+      return `<li class="ep-row">
+        <span class="ep-m ${e.m === 'GET' ? 'get' : 'set'}">${esc(e.m)}</span>
+        <div>${head}${(e.x || []).map(f => `<span class="ep-x">${esc(f)}</span>`).join('')}
+          <div class="ep-d">${esc(e.d)}${needs}${opt}</div></div>
+        <button type="button" class="ep-copy" data-copy="${esc(sid)}|${i}" aria-label="Copy a curl command for ${esc(e.m)} ${esc(e.p)}">curl</button>
+      </li>`;
+    };
+
+    const renderExplorer = () => {
+      const filtered = !!(st.q || st.svc || st.m);
+      let shown = 0, total = 0;
+      const html = st.order.map(sid => {
+        const svc = st.cat.services[sid], all = svc.endpoints;
+        total += all.length;
+        const rows = all.map((e, i) => (matches(sid, e) ? rowHtml(sid, e, i) : '')).filter(Boolean);
+        if (!rows.length) return '';
+        shown += rows.length;
+        const open = filtered || st.open.has(sid);
+        return `<details class="ep-g" data-sid="${esc(sid)}"${open ? ' open' : ''}>
+          <summary><span class="ep-g-name">${esc(label(sid))}</span><span class="ep-g-host">${esc(bare(svc.host))}</span>
+            <span class="ep-g-n">${rows.length === all.length ? all.length : `${rows.length} of ${all.length}`} endpoint${all.length === 1 ? '' : 's'}</span></summary>
+          <ul class="ep-rows">${rows.join('')}</ul>
+        </details>`;
+      }).join('');
+      list.innerHTML = html || '<p class="ep-empty">No endpoint matches. Try fewer words, or set the desk to “all desks”.</p>';
+      pf('count').textContent = filtered ? `${shown} of ${total} endpoints` : `${total} endpoints · ${st.order.length} desks`;
+    };
+
+    const showDesk = sid => {
+      st.svc = sid; pick.value = sid;
+      renderExplorer();
+      explorer.scrollIntoView({ behavior: smooth ? 'smooth' : 'auto', block: 'start' });
+    };
+
+    const initPlatform = cat => {
+      if (!cat || !cat.services) throw new Error('catalogue has no services');
+      st.cat = cat;
+      /* the cards' order first, then any group the server grew that has no card yet */
+      const carded = $$('.svc[data-svc]', pfRoot).map(c => c.dataset.svc).filter(sid => cat.services[sid]);
+      st.order = [...carded, ...Object.keys(cat.services).filter(sid => !carded.includes(sid))];
+      pick.innerHTML = '<option value="">all desks</option>' +
+        st.order.map(sid => `<option value="${esc(sid)}">${esc(label(sid))}</option>`).join('');
+      $$('.svc-eps[data-show]', pfRoot).forEach(b => {
+        const svc = cat.services[b.dataset.show];
+        if (!svc) return;
+        const n = svc.endpoints.length;
+        b.textContent = `${n} endpoint${n === 1 ? '' : 's'} →`;
+        b.setAttribute('aria-label', `Show the ${n} ${label(b.dataset.show)} endpoints`);
+        b.hidden = false;
+      });
+      pf('foot').innerHTML = `Example links fill path parameters with sample values (GOLD, BTCUSD, bar-feed …) and open in a new tab; sign in once per host.
+        The <b>curl</b> button copies the command with <code>$BRAINY_KEY</code> in place of your key.
+        Catalogue read from the live OpenAPI specs on ${esc(String(cat.generated_utc || '').slice(0, 16))} UTC.`;
+
+      pfRoot.addEventListener('click', e => {
+        const b = e.target.closest('.svc-eps[data-show]');
+        if (b) showDesk(b.dataset.show);
+      });
+      list.addEventListener('click', e => {
+        const b = e.target.closest('.ep-copy[data-copy]');
+        if (!b) return;
+        const [sid, i] = b.dataset.copy.split('|'), svc = st.cat.services[sid];
+        copyText(curlFor(svc, svc.endpoints[+i]), b);
+      });
+      list.addEventListener('toggle', e => {  /* remember what was opened while no filter is set */
+        const g = e.target.closest?.('.ep-g');
+        if (!g || st.q || st.svc || st.m) return;
+        if (g.open) st.open.add(g.dataset.sid); else st.open.delete(g.dataset.sid);
+      }, true);
+      search.addEventListener('input', () => { st.q = search.value.trim().toLowerCase(); renderExplorer(); });
+      pick.addEventListener('change', () => { st.svc = pick.value; renderExplorer(); });
+      pf('method').addEventListener('click', e => {
+        const b = e.target.closest('button[data-m]');
+        if (!b) return;
+        st.m = b.dataset.m;
+        $$('button', pf('method')).forEach(x => { const on = x === b; x.classList.toggle('active', on); x.setAttribute('aria-pressed', String(on)); });
+        renderExplorer();
+      });
+
+      explorer.hidden = false;
+      renderExplorer();
+    };
+
+    fetch('data/brainy-platform.json', { cache: 'no-cache' })
+      .then(r => { if (!r.ok) throw new Error(`catalogue ${r.status}`); return r.json(); })
+      .then(initPlatform)
+      .catch(err => console.warn('[deepbeta] endpoint catalogue unavailable:', err.message)); /* the desk cards still link out */
+  }
+
   /* ---- i18n (EN default) ----
      English is snapshotted from the markup itself. Only keys listed below are
      translated; anything too technical to translate well is deliberately
@@ -744,6 +892,18 @@
       'perf.h2': '<span class="bar"></span> ГҮЙЦЭТГЭЛ · ФОКУС 5 · ЗАГВАР АРИЛЖААНЫ БАГЦ',
       'perf.sub': 'Манай таван фокус бүтээгдэхүүн — GOLD, NAS100, WTI, BTCUSD, ETHUSD-ийн 1, 2, 4 өдрийн хугацаат сигнал бүрийг $100K-ийн загвар (paper) багц дээр шууд 15 минутын үнэ, спред, санхүүжилтийн зардлыг тооцон арилжсан. Энэ нь бодит данс биш, загвар арилжаа — өнгөрсөн гүйцэтгэл ирээдүйн үр дүнг баталгаажуулахгүй.',
       'perf.cta': '▶ Paper desk нээх',
+      'nav.platform': 'платформ',
+      'platform.h2': '<span class="bar"></span> BRAINY ПЛАТФОРМ · БҮХ DESK, БҮХ ENDPOINT',
+      'platform.sub': 'Нэг нэвтрэх түлхүүрээр арван гурван desk, үйлчилгээ. Desk-ээ хөтөч дээр нээх эсвэл JSON API-г өөрийн кодоос дуудаарай — бүх route-ыг доор ажиллах жишээ холбоосын хамт жагсаав.',
+      'platform.s1h': 'Нэвтрэх түлхүүр авах',
+      'platform.s1p': 'Brainy бол хаалттай платформ. Харилцагч, түншүүд түлхүүрээ <a href="mailto:contact@deepbeta.mn">contact@deepbeta.mn</a>-ээс авна. Хөрөнгө оруулагчийн түлхүүр зөвхөн investor порталыг (<code>/investor/*</code>) нээнэ.',
+      'platform.s2h': 'Хөтөч дээр',
+      'platform.s2p': 'Доорх desk эсвэл endpoint-ийн холбоосыг нээнэ үү. Анх орохад нэвтрэх маягт гарна; түлхүүрээ нэг удаа оруулахад тухайн host дээр 24 цагийн турш нэвтэрсэн хэвээр байна.',
+      'platform.s3h': 'Кодоос',
+      'platform.s3p': 'Түлхүүрээ <code>X-Access-Key</code> header-ээр илгээнэ. Нэг удаагийн curl мөрөнд <code>?access_key=</code>, хуучин хэрэгслүүдэд HTTP Basic (дурын хэрэглэгчийн нэр, нууц үг нь түлхүүр) мөн ажиллана. <code>/health</code> нээлттэй.',
+      'platform.n1': '<b>Path параметрүүд</b> <code>{ }</code> хаалтанд байна. Фокус desk-үүд <code>GOLD</code>, <code>NAS100</code>, <code>WTI</code>, <code>BTCUSD</code>, <code>ETHUSD</code>-г авна; dashboard нь <code>/dashboard/assets</code>-д жагсаасан бүх universe-ийг хамарна.',
+      'platform.n2': '<span class="ep-x">compute</span> route нь хүсэлт ирэхэд бэктест эсвэл sweep ажиллуулдаг тул нэг минут хүртэл үргэлжилж болно. <span class="ep-x">stream</span> route нь server-sent event дамжуулна. <span class="ep-x">file</span> route нь CSV / XLSX файл татна.',
+      'platform.n3': '<b>POST</b> route-ууд төлөв өөрчилнө (демо захиалга, сургалтын ажил, desk-ийн ажиллагаа). Санаатайгаар ашиглаарай.',
       'firm.h2': '<span class="bar"></span> КОМПАНИ',
       'firm.p': 'Deep Beta Technology LLC нь байгууллагуудад дэвшилтэт аналитик, санхүүгийн бүтээгдэхүүний бэктест, AI шийдлүүдийг хүргэдэг технологийн компани юм. Манай үйлчилгээ Treasury буюу мөнгөн хөрөнгийн удирдлага, байгууллагын AI шийдлүүд, квант ML ба AI алгоритмын арилжааг хамардаг. Судалгаа, эрсдэл, гүйцэтгэлийн стек нь глобал кросс-ассет зах зээлд зориулсан 13 моделийн machine-learning хөдөлгүүртэй, дотоод "Brainy" платформ дээр бүрэн ажилладаг.',
       'firm.model': 'Бид зөвхөн технологийн нийлүүлэгчийн хувиар ажилладаг: үйлчлүүлэгчид манай шийдэл, үйлчилгээ, квант моделүүдийг лицензийн төлбөрөөр ашигладаг. Бид үйлчлүүлэгчийн данс, хөрөнгийг хэзээ ч кастодид (custody) авдаггүй, ашиг хуваадаггүй.',
@@ -791,6 +951,18 @@
       'perf.h2': '<span class="bar"></span> 성과 · 포커스 5 모의 트레이딩 북',
       'perf.sub': '다섯 개 포커스 상품(GOLD, NAS100, WTI, BTCUSD, ETHUSD)의 1·2·4일 호라이즌 시그널을 모두 실시간 15분 가격과 스프레드·펀딩 비용을 반영해 $100K 모의(페이퍼) 북에서 거래했습니다. 실제 계좌가 아닌 모의 거래이며, 과거 성과가 미래 결과를 보장하지 않습니다.',
       'perf.cta': '▶ 페이퍼 데스크 열기',
+      'nav.platform': '플랫폼',
+      'platform.h2': '<span class="bar"></span> BRAINY 플랫폼 · 모든 데스크, 모든 엔드포인트',
+      'platform.sub': '하나의 액세스 키로 13개의 데스크와 서비스를 이용할 수 있습니다. 브라우저에서 데스크를 열거나 직접 작성한 코드에서 JSON API를 호출하세요. 모든 라우트가 작동하는 예시 링크와 함께 아래에 나열되어 있습니다.',
+      'platform.s1h': '액세스 키 발급',
+      'platform.s1p': 'Brainy는 비공개 플랫폼입니다. 고객과 파트너는 <a href="mailto:contact@deepbeta.mn">contact@deepbeta.mn</a>에서 키를 발급받습니다. 투자자 키로는 투자자 포털(<code>/investor/*</code>)만 열 수 있습니다.',
+      'platform.s2h': '브라우저에서',
+      'platform.s2p': '아래의 데스크 또는 엔드포인트 링크를 여세요. 처음 방문하면 로그인 양식이 표시되며, 키를 한 번 입력하면 해당 호스트에서 24시간 동안 로그인 상태가 유지됩니다.',
+      'platform.s3h': '코드에서',
+      'platform.s3p': '키를 <code>X-Access-Key</code> 헤더로 보내세요. 일회성 curl 명령에는 <code>?access_key=</code>, 구형 도구에는 HTTP Basic(사용자 이름은 임의, 비밀번호는 키)도 사용할 수 있습니다. <code>/health</code>는 공개되어 있습니다.',
+      'platform.n1': '<b>경로 파라미터</b>는 <code>{중괄호}</code>로 표시됩니다. 포커스 데스크는 <code>GOLD</code>, <code>NAS100</code>, <code>WTI</code>, <code>BTCUSD</code>, <code>ETHUSD</code>를 받으며, 대시보드는 <code>/dashboard/assets</code>에 나열된 전체 유니버스를 다룹니다.',
+      'platform.n2': '<span class="ep-x">compute</span> 라우트는 요청 시 백테스트나 스윕을 실행하므로 최대 1분 정도 걸릴 수 있습니다. <span class="ep-x">stream</span> 라우트는 서버 전송 이벤트(SSE)입니다. <span class="ep-x">file</span> 라우트는 CSV / XLSX 파일을 내려받습니다.',
+      'platform.n3': '<b>POST</b> 라우트는 상태를 변경합니다(데모 주문, 학습 작업, 데스크 실행). 신중하게 사용하세요.',
       'firm.h2': '<span class="bar"></span> 회사 소개',
       'firm.p': 'Deep Beta Technology LLC는 기업에 고급 애널리틱스, 금융 상품 백테스팅, AI 솔루션을 제공하는 기술 기업입니다. 서비스는 트레저리(자금) 관리, 엔터프라이즈 AI 솔루션, 퀀트 ML & AI 알고리즘 트레이딩을 아우릅니다. 리서치·리스크·실행 스택은 글로벌 크로스애셋 시장을 위한 13개 모델 머신러닝 엔진과 함께 내부 "Brainy" 플랫폼에서 엔드투엔드로 구동됩니다.',
       'firm.model': '당사는 순수 기술 공급자로 운영됩니다. 고객은 라이선스 비용으로 당사의 솔루션·서비스·퀀트 모델을 이용하며, 당사는 고객의 계좌나 자산을 수탁(커스터디)하지 않고 수익을 배분하지도 않습니다.',

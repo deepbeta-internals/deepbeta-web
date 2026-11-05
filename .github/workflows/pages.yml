@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+  schedule:
+    - cron: '23 */3 * * *'   # every 3 hours: redeploy with the latest Paper Desk numbers
   workflow_dispatch:
 
 permissions:
@@ -30,6 +32,20 @@ jobs:
         uses: actions/configure-pages@v5
         with:
           enablement: true
+
+      # Pull the newest focus 5 paper book from the live desk. Needs the repository secret
+      # BRAINY_API_KEY; without it, or if the desk is unreachable, the committed snapshot ships.
+      # The key is only sent to brainy.deepbeta.mn - the exported JSON never contains it.
+      - name: Refresh the paper book from the live Paper Desk
+        continue-on-error: true
+        env:
+          BRAINY_API_KEY: ${{ secrets.BRAINY_API_KEY }}
+        run: |
+          if [ -z "$BRAINY_API_KEY" ]; then
+            echo "::notice::BRAINY_API_KEY secret not set - deploying the committed data/focus-book.json"
+            exit 0
+          fi
+          python3 tools/export_focus_book.py --url
 
       - name: Collect static files
         run: |
