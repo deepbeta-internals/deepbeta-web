@@ -7,15 +7,35 @@ A 13-model quantitative ML investing platform. The site links to the internal
 
 ## Stack
 
-Pure static — no build step.
+Static — no bundler. One standard-library Python step at deploy generates the `/mn/` and
+`/ko/` pages (see *Languages & SEO*); on any other host, run it into the output directory too.
 
 - [index.html](index.html)
 - [styles.css](styles.css)
 - [script.js](script.js)
-- `logo/` — brand assets
+- `logo/` — brand assets (the pages use the small `deepbeta-logo-sm.webp`, icons and `og-image.jpg`)
+- `i18n/mn.json`, `i18n/ko.json` — Mongolian / Korean page text and meta tags
+- `robots.txt`, `sitemap.xml`, `favicon.ico`
 - `data/focus-book.json` — the focus 5 paper book behind the performance chart
 - `data/brainy-platform.json` — the Brainy endpoint catalogue behind the platform section
-- `tools/` — exporters that write the two JSON files (not deployed)
+- `tools/` — exporters that write the two JSON files, and the language-page builder (not deployed)
+
+## Languages & SEO
+
+Each language is its own URL so search engines index all three:
+`/` (English, `index.html`), `/mn/` and `/ko/`. The two translated pages are **generated
+at deploy time** by [tools/build_i18n_pages.py](tools/build_i18n_pages.py): it copies
+`index.html`, swaps in the translations from `i18n/<lang>.json` (every element with a
+`data-i18n` key; keys without a translation stay English) and rewrites `<html lang>`, the
+title, description, canonical and social tags (the head tags marked `data-seo`). It fails
+the deploy if the markup stops matching, so a broken page never ships.
+
+- To change or add a translation, edit `i18n/<lang>.json`, not `script.js`.
+- New translatable text in `index.html` needs a `data-i18n="key"` and an entry in each JSON.
+- Use root-absolute paths (`/styles.css`, `/data/…`) in `index.html` and `script.js`:
+  the same markup is served from `/mn/` and `/ko/`.
+- The canonical host is `https://www.deepbeta.mn/` — the canonical/hreflang tags, JSON-LD,
+  `sitemap.xml` and `robots.txt` all use it. Adding a page means adding it to `sitemap.xml`.
 
 ## Brainy access key
 
@@ -87,8 +107,9 @@ desk, add its card to `index.html` with a matching `data-svc` id.
 ## Local preview
 
 ```bash
+python3 tools/build_i18n_pages.py .   # writes mn/ and ko/ (git-ignored); re-run after edits
 python3 -m http.server 8080
-# then open http://localhost:8080
+# then open http://localhost:8080  (and /mn/, /ko/)
 ```
 
 ## Deploy to deepbeta.mn
@@ -108,9 +129,10 @@ npx netlify deploy --prod --dir .
 ```
 Then add `deepbeta.mn` and `www.deepbeta.com` as custom domains.
 
-### GitHub Pages
-- Settings → Pages → Source: `main` / root.
-- Add a `CNAME` file containing `deepbeta.mn`.
+### GitHub Pages (current)
+- Deployed by [.github/workflows/pages.yml](.github/workflows/pages.yml) (Settings → Pages → Source: GitHub Actions).
+- `CNAME` contains `www.deepbeta.mn`; the apex `deepbeta.mn` should only have GitHub's four A records
+  (185.199.108–111.153) so it redirects to `www` over HTTPS.
 
 ## Brainy access for visitors
 

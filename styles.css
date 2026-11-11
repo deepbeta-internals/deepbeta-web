@@ -69,14 +69,14 @@ p { margin: 0 0 0.6em; }
   display: flex; gap: 2px; padding: 2px;
   border: 1px solid var(--line); border-radius: 8px; background: var(--bg-2);
 }
-.lang-switch button {
-  background: none; border: 0; cursor: pointer; border-radius: 6px;
+.lang-switch a {
+  border-radius: 6px;
   padding: 4px 8px; font: 600 11px var(--mono); letter-spacing: 0.08em;
   color: var(--muted);
 }
-.lang-switch button:hover { color: var(--yellow); }
-.lang-switch button.active { background: var(--yellow); color: var(--bg); }
-.lang-switch button.active:hover { color: var(--bg); }
+.lang-switch a:hover { color: var(--yellow); }
+.lang-switch a.active { background: var(--yellow); color: var(--bg); }
+.lang-switch a.active:hover { color: var(--bg); }
 .status-dot {
   width: 8px; height: 8px; border-radius: 50%;
   background: var(--green); box-shadow: 0 0 10px var(--green);

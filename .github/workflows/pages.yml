@@ -50,9 +50,14 @@ jobs:
       - name: Collect static files
         run: |
           mkdir _site
-          cp index.html styles.css script.js CNAME _site/
+          cp index.html styles.css script.js CNAME robots.txt sitemap.xml favicon.ico _site/
           cp -r logo _site/logo
           cp -r data _site/data
+
+      # /mn/ and /ko/: index.html with the translations from i18n/*.json baked in, so search
+      # engines index all three languages. Fails the deploy if the markup no longer matches.
+      - name: Build the Mongolian and Korean pages
+        run: python3 tools/build_i18n_pages.py _site
 
       - name: Upload static site
         uses: actions/upload-pages-artifact@v3

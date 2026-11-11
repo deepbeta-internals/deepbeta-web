@@ -3,25 +3,121 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Deep Beta Technology LLC · Advanced Analytics &amp; AI Solutions</title>
-  <meta name="description" content="Deep Beta Technology LLC — advanced analytics, backtesting on financial products, and AI solutions for enterprises. 13-model quantitative ML platform across equities, indexes, commodities, FX, crypto and CFDs." />
+  <!-- a returning visitor who picked МН / KO before goes straight to that page (set by the
+       language links in script.js; crawlers have no stored choice and are never redirected) -->
+  <script>
+    try {
+      var dbLang = { mn: '/mn/', ko: '/ko/' }[localStorage.getItem('deepbeta-lang')];
+      if (dbLang && document.documentElement.lang === 'en') location.replace(dbLang + location.hash);
+    } catch (e) {}
+  </script>
+  <!-- SEO: tools/build_i18n_pages.py rewrites the tags marked data-seo for /mn/ and /ko/.
+       Keep each marked tag on one line. -->
+  <title data-seo="title">Deep Beta Technology · Quant ML, Backtesting &amp; AI Solutions</title>
+  <meta name="description" data-seo="description" content="Quant ML models, backtesting on financial products and AI solutions for enterprises. 13-model engine across equities, indexes, FX, commodities and crypto." />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="canonical" data-seo="canonical" href="https://www.deepbeta.mn/" />
+  <link rel="alternate" hreflang="en" href="https://www.deepbeta.mn/" />
+  <link rel="alternate" hreflang="mn" href="https://www.deepbeta.mn/mn/" />
+  <link rel="alternate" hreflang="ko" href="https://www.deepbeta.mn/ko/" />
+  <link rel="alternate" hreflang="x-default" href="https://www.deepbeta.mn/" />
   <meta name="theme-color" content="#0e1014" />
-  <meta property="og:title" content="Deep Beta Technology LLC · Advanced Analytics &amp; AI Solutions" />
-  <meta property="og:description" content="Advanced analytics, backtesting on financial products and AI solutions for enterprises. Cross-asset backtested ML alpha with cutting-edge research and execution." />
+
+  <!-- social cards -->
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://deepbeta.mn/" />
-  <link rel="icon" type="image/png" href="logo/deepbeta-logo-dark.png" />
+  <meta property="og:site_name" content="DeepBeta" />
+  <meta property="og:title" data-seo="title" content="Deep Beta Technology · Quant ML, Backtesting &amp; AI Solutions" />
+  <meta property="og:description" data-seo="description" content="Quant ML models, backtesting on financial products and AI solutions for enterprises. 13-model engine across equities, indexes, FX, commodities and crypto." />
+  <meta property="og:url" data-seo="canonical" content="https://www.deepbeta.mn/" />
+  <meta property="og:locale" data-seo="locale" content="en_US" />
+  <meta property="og:locale:alternate" data-seo="locale-alt" content="mn_MN" />
+  <meta property="og:locale:alternate" data-seo="locale-alt" content="ko_KR" />
+  <meta property="og:image" content="https://www.deepbeta.mn/logo/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="DeepBeta — Quant ML models, backtesting and AI solutions" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" data-seo="title" content="Deep Beta Technology · Quant ML, Backtesting &amp; AI Solutions" />
+  <meta name="twitter:description" data-seo="description" content="Quant ML models, backtesting on financial products and AI solutions for enterprises. 13-model engine across equities, indexes, FX, commodities and crypto." />
+  <meta name="twitter:image" content="https://www.deepbeta.mn/logo/og-image.jpg" />
+
+  <!-- icons -->
+  <link rel="icon" href="/favicon.ico" sizes="48x48" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/logo/icon-192.png" />
+  <link rel="apple-touch-icon" href="/logo/apple-touch-icon.png" />
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="/styles.css" />
+
+  <!-- structured data: who the site belongs to (Google knowledge panel / rich results) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://www.deepbeta.mn/#organization",
+        "name": "Deep Beta Technology LLC",
+        "alternateName": ["DeepBeta", "Deep Beta Technology"],
+        "url": "https://www.deepbeta.mn/",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://www.deepbeta.mn/logo/deepbeta-logo-512.png",
+          "width": 512,
+          "height": 512
+        },
+        "image": "https://www.deepbeta.mn/logo/og-image.jpg",
+        "description": "Technology firm delivering advanced analytics, backtesting on financial products and AI solutions to enterprises, built on a 13-model quantitative machine-learning platform for global cross-asset markets.",
+        "email": "contact@deepbeta.mn",
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "sales",
+          "email": "contact@deepbeta.mn",
+          "availableLanguage": ["English", "Mongolian", "Korean"]
+        },
+        "founder": { "@id": "https://www.deepbeta.mn/#founder" },
+        "knowsAbout": [
+          "Quantitative finance",
+          "Machine learning",
+          "Algorithmic trading",
+          "Backtesting",
+          "Risk management",
+          "Treasury management",
+          "Enterprise AI"
+        ]
+      },
+      {
+        "@type": "Person",
+        "@id": "https://www.deepbeta.mn/#founder",
+        "name": "Nyam-Ochir Bold",
+        "alternateName": "Ням-Очир Болд",
+        "jobTitle": "Founder",
+        "worksFor": { "@id": "https://www.deepbeta.mn/#organization" },
+        "sameAs": [
+          "https://www.linkedin.com/in/nyamochirbold/",
+          "https://www.upwork.com/fl/nyamochirbold"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://www.deepbeta.mn/#website",
+        "url": "https://www.deepbeta.mn/",
+        "name": "DeepBeta",
+        "publisher": { "@id": "https://www.deepbeta.mn/#organization" },
+        "inLanguage": ["en", "mn", "ko"]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <!-- TOP BAR -->
   <header class="topbar">
     <div class="topbar-inner">
       <a class="brand" href="#top" aria-label="Deep Beta Technology LLC home">
-        <img src="logo/deepbeta-logo-light.png" alt="" class="brand-logo" />
+        <img src="/logo/deepbeta-logo-sm.webp" alt="" class="brand-logo" width="28" height="28" />
         <span class="brand-text">
           <span class="brand-line-2">DEEPBETA</span>
         </span>
@@ -38,10 +134,11 @@
         <a href="#contact" data-i18n="nav.contact">contact</a>
       </nav>
       <div class="topctas">
+        <!-- each language is its own crawlable page; build_i18n_pages.py moves the active state -->
         <div class="lang-switch" role="group" aria-label="Language">
-          <button type="button" data-lang="en" class="active">EN</button>
-          <button type="button" data-lang="mn">МН</button>
-          <button type="button" data-lang="ko">KO</button>
+          <a href="/" hreflang="en" lang="en" data-lang="en" class="active" aria-current="page">EN</a>
+          <a href="/mn/" hreflang="mn" lang="mn" data-lang="mn">МН</a>
+          <a href="/ko/" hreflang="ko" lang="ko" data-lang="ko">KO</a>
         </div>
         <span class="status-dot" aria-hidden="true"></span>
         <span class="status-text">live · refresh 60s</span>
@@ -649,7 +746,7 @@ const tech = await (await fetch('https://technical.deepbeta.mn/api/asset/GOLD', 
   <footer class="footer">
     <div class="footer-inner">
       <div class="foot-brand">
-        <img src="logo/deepbeta-logo-light.png" alt="" />
+        <img src="/logo/deepbeta-logo-sm.webp" alt="" width="32" height="32" loading="lazy" />
         <div>
           <div><b>Deep Beta Technology LLC</b></div>
           <div class="muted small">deepbeta.mn</div>
@@ -673,6 +770,6 @@ const tech = await (await fetch('https://technical.deepbeta.mn/api/asset/GOLD', 
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="/script.js"></script>
 </body>
 </html>
