@@ -841,6 +841,29 @@
     }
   }
 
+  /* ---- daily clock ----
+     The run follows the daily candle, which closes at 00:00 UTC = 08:00 in Ulaanbaatar (UTC+8, no
+     daylight saving). The schedule itself is static HTML; this adds the local time there, the
+     countdown to the next run, and lights the step in progress during the 40-minute run. */
+  const dayClock = $('[data-clock]');
+  if (dayClock) {
+    const nowEl = $('[data-clock-now]', dayClock), ubEl = $('[data-ub-time]', dayClock), nextEl = $('[data-ub-next]', dayClock);
+    const stops = $$('.clock-line li[data-at]', dayClock), pad2 = n => String(n).padStart(2, '0');
+    const tickClock = () => {
+      const d = new Date(), s = d.getUTCHours() * 3600 + d.getUTCMinutes() * 60 + d.getUTCSeconds();
+      const ub = (s + 8 * 3600) % 86400, left = 86400 - s, min = s / 60;
+      ubEl.textContent = `${pad2(Math.floor(ub / 3600))}:${pad2(Math.floor((ub % 3600) / 60))}`;
+      nextEl.textContent = `${pad2(Math.floor(left / 3600))}:${pad2(Math.floor((left % 3600) / 60))}:${pad2(left % 60)}`;
+      stops.forEach((li, i) => {
+        const from = +li.dataset.at, to = i < stops.length - 1 ? +stops[i + 1].dataset.at : 45;
+        li.classList.toggle('now', min >= from && min < to);
+      });
+      nowEl.hidden = false;
+    };
+    tickClock();
+    setInterval(tickClock, 1000);
+  }
+
   /* ---- menu (small screens: the primary nav becomes a full-screen sheet) ---- */
   const root = document.documentElement, menuBtn = $('[data-menu]'), siteNav = $('#site-nav');
   const navLinks = siteNav ? $$('a', siteNav) : [];

@@ -53,6 +53,25 @@ One page, told as numbered chapters. Each chapter is a `<section data-chapter="N
 - The hero terrain is decoration drawn from noise, not data. Keep performance numbers in
   `#performance`, next to their paper-trading disclaimer.
 
+## Dated figures (update by hand)
+
+Some sections state results as of a fixed date. They are plain HTML, not live data, and each
+carries its date on the page. They come from the Brainy record as presented in the pitch deck
+of 11 Nov 2026 (figures as of 9 Nov 2026). When the record moves on, update the English text in
+`index.html` and the same keys in `i18n/mn.json` and `i18n/ko.json`:
+
+| Where | Keys | What |
+|-------|------|------|
+| `#stack` | `glance.*`, `clock.*`, `lane.*`, `flows.*` | The daily run, its clock, the three side pipelines, integrations |
+| `#selection` | `select.*`, `split.*`, `lesson.*`, `team.p` | How a model is chosen (70 / 20 / 10, the October lesson) |
+| `#performance` | `ladder.*`, `check.*` | The four steps to real money, the daily checks |
+| `#evidence` | `ev.*`, `res.*`, `fact.*` | Results by kind of account, and what the live record shows |
+| `#evidence` | `np.*` | What is not proven yet. Keep this block whenever results are shown |
+
+Rules for these blocks: every result names its account type (real money, demo, paper), its
+start date and its caveat; a pro-forma figure says so; nothing is called live. The countdown
+in the daily clock is computed in the browser from 00:00 UTC, when the daily candle closes.
+
 ## Languages & SEO
 
 Each language is its own URL so search engines index all three:
