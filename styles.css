@@ -247,6 +247,7 @@ button { font: inherit; color: inherit; }
   display: flex; align-items: center; gap: 10px; flex: none; padding: 0 18px 0 var(--gut);
   border-right: 1px solid var(--line); color: var(--mute); letter-spacing: 0.12em; white-space: nowrap;
 }
+.tape-label i { font-style: normal; }
 .tape-view { flex: 1; min-width: 0; overflow: hidden;
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent);
           mask-image: linear-gradient(90deg, transparent, #000 4%, #000 96%, transparent); }
@@ -1043,6 +1044,93 @@ a.ep-p:hover { text-decoration: underline; }
   transition-delay: calc(var(--d, 0) * 90ms);
 }
 .js [data-rv].in { opacity: 1; transform: none; }
+
+/* ---------- PHONES ----------
+   Three aims: a shorter page (long grids become compact lists or a swipe row), controls a thumb
+   can hit (about 40px tall), and small labels that stay readable (11px floor). */
+@media (max-width: 640px) {
+  :root { --head: 68px; }
+
+  /* rhythm: less air between chapters and inside cards */
+  .chapter { padding-block: 64px; }
+  .numbers { padding-top: 48px; }
+  .cta { padding-block: 88px; }
+  .block, .block-gap { margin-top: 56px; }
+  .chap-head { row-gap: 16px; margin-bottom: 30px; }
+  .block-head { margin-bottom: 22px; }
+  .creed { margin-top: 48px; gap: 30px; }
+  .clock { margin-top: 32px; padding: 20px 18px; }
+  .feat, .flow, .pf-step { padding: 20px 18px 22px; }
+  .feat h4 { margin-top: 16px; }
+  .pf-step h3 { margin-top: 18px; }
+  .market { padding: 16px 18px 18px; }
+  .split, .lesson, .founder, .res, .collab-card { padding: 20px 18px; }
+  .unproven { padding: 24px 18px; }
+  .book-card { padding: 16px; }
+  .sessions { padding: 20px 18px 16px; }
+  .practice-row { padding-block: 24px; }
+
+  /* numbers: two by two instead of four stacked */
+  .num-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .num { padding: 18px 16px 20px; }
+  .num-v { font-size: clamp(58px, 19vw, 88px); padding-bottom: 22px; }
+  .num-k { font-size: 15px; }
+  .num-s { font-size: 13.5px; }
+
+  /* the 13 models: one compact row each (number, name, one line of what it does) */
+  .models { grid-template-columns: 1fr; }
+  .model { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 3px 10px; min-height: 0; padding: 14px 16px 15px; }
+  .model-n { grid-row: 1 / span 2; padding-top: 3px; }
+  .model h3 { margin: 0; font-size: 13.5px; }
+  .model p { font-size: 14px; line-height: 1.5; }
+  .model--meta { grid-template-columns: 28px minmax(0, 1fr); gap: 8px 10px; padding: 20px 16px; }
+  .model--meta .model-n { grid-row: auto; padding-top: 6px; }
+  .model--meta h3 { font-size: 24px; }
+  .model--meta p, .model--meta .model-tag { grid-column: 2; }
+
+  /* the 13 desks: one swipe row instead of a column 3,000px tall; the next card peeks in */
+  .svc-grid {
+    display: flex; gap: 12px; overflow-x: auto; overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory; scroll-padding-inline: var(--gut);
+    margin-inline: calc(var(--gut) * -1); padding: 0 var(--gut) 6px;
+    scrollbar-width: none;
+  }
+  .svc-grid::-webkit-scrollbar { display: none; }
+  .svc { flex: 0 0 84%; scroll-snap-align: start; padding: 20px 18px; }
+  .svc[data-svc="brainy"] { padding: 20px 18px; }
+  .svc[data-svc="brainy"] h3 { font-size: 24px; }
+  .svc[data-svc="brainy"] p { font-size: 14px; }
+  .svc[data-svc="brainy"] .svc-links > a:not(.btn) { order: -1; flex-basis: 100%; padding: 9px 0 6px; }
+
+  /* controls a thumb can hit */
+  .lang-switch a { padding: 12px 10px; font-size: 11.5px; }
+  .seg button { padding: 12px 12px; font-size: 12px; }
+  .svc-more { gap: 0 18px; padding-bottom: 6px; }
+  .svc-more a { padding: 9px 0; }
+  .btn-sm { padding: 12px 14px; }
+  .svc-eps { padding: 10px 0; }
+  .links a { padding: 14px 0; }
+  .foot-col { gap: 0; }
+  .foot-col h3 { margin-bottom: 10px; }
+  .foot-col a { padding: 9px 0; }
+  .foot-mail { padding: 8px 0; }
+  .foot-mail + .foot-mail { margin-top: 0; }
+  .collab-card a { margin-top: 2px; padding: 8px 0; }
+  a.ep-p { display: inline-block; padding: 4px 0; }
+  .ep-g summary { padding-block: 15px; }
+  /* 16px stops iOS zooming the page when a field takes focus */
+  .ep input, .ep select { padding: 11px 10px; font-size: 16px; }
+  .ep-bar { gap: 10px 8px; }
+
+  /* small labels: an 11px floor */
+  .tag, .svc-tag, .kpi-k, .case-k, .collab-loc, .mk-venue, .mk-state, .mo-k, .mo-s, .ar-stats,
+  .model-tag, .ep-m, .ep-x, .pf-stats span, .bc-svg text { font-size: 11px; }
+
+  /* the tape keeps its dot and "LIVE"; the clock time is for wider screens */
+  .tape-label { padding-right: 12px; gap: 8px; }
+  .tape-label i { display: none; }
+  .tk { padding: 0 18px; }
+}
 
 /* ---------- LANGUAGE TUNING ----------
    Cyrillic sets wider than Latin at the same size; Hangul needs air and must not break mid-word. */

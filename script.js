@@ -57,7 +57,10 @@
           c.className = `tk-c ${q.chg >= 0 ? 'up' : 'down'}`;
         }
       });
-      clock.textContent = 'LIVE · ' + new Date().toTimeString().slice(0, 8);
+      clock.textContent = 'LIVE';
+      const at = document.createElement('i');   /* styles.css hides the time on phones */
+      at.textContent = ' · ' + new Date().toTimeString().slice(0, 8);
+      clock.append(at);
       tape.hidden = false;
     };
     const setQuote = (sym, price, chg) => { if (Number.isFinite(price)) quotes.set(sym, { price, chg }); };
