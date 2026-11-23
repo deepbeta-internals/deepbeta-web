@@ -40,7 +40,9 @@ One page, told as numbered chapters. Each chapter is a `<section data-chapter="N
 
 - **Showcases.** A practice row in `#practice` can end with `.practice-case` lines: the client's
   mark on a paper plate (`.logo-plate`, files in `logo/clients/`) and one sentence saying what was
-  built. Name a client only with their consent, and claim only what was delivered. A practice with
+  built. Label the relationship as it is: "Partner" for a firm that applies our solutions
+  (Tavan Bogd Capital), "Showcase" for work built for a client (Unu Munkhiin Ehlel). Name a firm
+  only with their consent, and claim only what is true of the relationship. A practice with
   no client yet says so (`.practice-case.is-open`). The Mongolian page swaps in the Cyrillic logo
   through the `case.tbc.logo` string.
 - **The green full stop.** The wordmark is "DeepBeta." with a green dot, so every headline closes
