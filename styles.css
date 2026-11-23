@@ -849,9 +849,12 @@ html:not(.js) .pipe-step p { color: var(--mute); }
 .svc-host { font: 11px/1 var(--mono); color: var(--mute-2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .svc h3 { font: 700 20px/1.15 var(--display); letter-spacing: -0.015em; }
 .svc p { color: var(--mute); font-size: 14px; line-height: 1.55; flex: 1; }
-.svc-links { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 14px; margin-top: 10px; font: 12px var(--mono); }
-.svc-links > a:not(.btn) { color: var(--mute); }
-.svc-links > a:not(.btn):hover { color: var(--gold); }
+/* every card ends with the same row (Open on the left, endpoint count on the right), so the buttons
+   line up across a row of cards; a card's extra links sit on their own line above it */
+.svc-links { display: flex; align-items: center; flex-wrap: wrap; gap: 0 14px; margin-top: 10px; font: 12px var(--mono); }
+.svc-more { flex-basis: 100%; display: flex; flex-wrap: wrap; gap: 4px 16px; padding-bottom: 12px; }
+.svc-links a:not(.btn) { color: var(--mute); }
+.svc-links a:not(.btn):hover { color: var(--gold); }
 .svc-eps { margin-left: auto; background: none; border: 0; padding: 2px 0; cursor: pointer; font: 12px var(--mono); color: var(--mute); }
 .svc-eps:hover { color: var(--gold); }
 
