@@ -81,7 +81,7 @@
     "platform.eps": "문서화된 API 라우트",
     "platform.key": "액세스 키",
     "platform.s1h": "액세스 키 발급",
-    "platform.s1p": "Brainy는 비공개 플랫폼입니다. 고객과 파트너는 <a href=\"mailto:contact@deepbeta.mn\">contact@deepbeta.mn</a>에서 키를 발급받습니다. 투자자 키로는 투자자 포털(<code>/investor/*</code>)만 열 수 있습니다.",
+    "platform.s1p": "Brainy는 비공개 플랫폼입니다. 고객과 파트너는 <a href=\"mailto:nyam-ochir@deepbeta.mn\">nyam-ochir@deepbeta.mn</a>에서 키를 발급받습니다. 투자자 키로는 투자자 포털(<code>/investor/*</code>)만 열 수 있습니다.",
     "platform.s2h": "브라우저에서",
     "platform.s2p": "아래의 데스크 또는 엔드포인트 링크를 여세요. 처음 방문하면 로그인 양식이 표시되며, 키를 한 번 입력하면 해당 호스트에서 24시간 동안 로그인 상태가 유지됩니다.",
     "platform.s3h": "코드에서",

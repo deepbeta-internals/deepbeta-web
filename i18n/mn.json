@@ -81,7 +81,7 @@
     "platform.eps": "баримтжуулсан API route",
     "platform.key": "нэвтрэх түлхүүр",
     "platform.s1h": "Нэвтрэх түлхүүр авах",
-    "platform.s1p": "Brainy бол хаалттай платформ. Харилцагч, түншүүд түлхүүрээ <a href=\"mailto:contact@deepbeta.mn\">contact@deepbeta.mn</a>-ээс авна. Хөрөнгө оруулагчийн түлхүүр зөвхөн investor порталыг (<code>/investor/*</code>) нээнэ.",
+    "platform.s1p": "Brainy бол хаалттай платформ. Харилцагч, түншүүд түлхүүрээ <a href=\"mailto:nyam-ochir@deepbeta.mn\">nyam-ochir@deepbeta.mn</a>-ээс авна. Хөрөнгө оруулагчийн түлхүүр зөвхөн investor порталыг (<code>/investor/*</code>) нээнэ.",
     "platform.s2h": "Хөтөч дээр",
     "platform.s2p": "Доорх desk эсвэл endpoint-ийн холбоосыг нээнэ үү. Анх орохад нэвтрэх маягт гарна; түлхүүрээ нэг удаа оруулахад тухайн host дээр 24 цагийн турш нэвтэрсэн хэвээр байна.",
     "platform.s3h": "Кодоос",

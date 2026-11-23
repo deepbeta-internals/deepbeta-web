@@ -191,7 +191,7 @@ Then add `deepbeta.mn` and `www.deepbeta.com` as custom domains.
 The Brainy platform is linked from the header, the platform section, the contact
 section and the footer. No credential is on the page or in its source: every desk shows
 Brainy's own sign-in form, and keys are issued on request via
-contact@deepbeta.mn.
+nyam-ochir@deepbeta.mn.
 
 ## Notes
 
