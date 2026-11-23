@@ -17,7 +17,7 @@ For every i18n/<lang>.json this writes <out>/<lang>/index.html with:
 Standard library only, so it runs on the bare GitHub Actions runner.
 
     python3 tools/build_i18n_pages.py _site     # CI: next to the copied static files
-    python3 tools/build_i18n_pages.py .         # local preview from the repo root (mn/ and ko/ are git-ignored)
+    python3 tools/build_i18n_pages.py .         # the repo root: mn/ and ko/ are committed, so re-run after any edit
 """
 from __future__ import annotations
 

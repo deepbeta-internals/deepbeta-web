@@ -75,12 +75,23 @@ in the daily clock is computed in the browser from 00:00 UTC, when the daily can
 ## Languages & SEO
 
 Each language is its own URL so search engines index all three:
-`/` (English, `index.html`), `/mn/` and `/ko/`. The two translated pages are **generated
-at deploy time** by [tools/build_i18n_pages.py](tools/build_i18n_pages.py): it copies
+`/` (English, `index.html`), `/mn/` and `/ko/`. The two translated pages are **generated**
+by [tools/build_i18n_pages.py](tools/build_i18n_pages.py): it copies
 `index.html`, swaps in the translations from `i18n/<lang>.json` (every element with a
 `data-i18n` key; keys without a translation stay English) and rewrites `<html lang>`, the
 title, description, canonical and social tags (the head tags marked `data-seo`). It fails
 the deploy if the markup stops matching, so a broken page never ships.
+
+**The generated pages are committed** (`mn/index.html`, `ko/index.html`), because GitHub Pages
+is set to "Deploy from a branch" and publishes the repo as it is. After any change to
+`index.html` or `i18n/*.json`, regenerate and commit them with the change:
+
+```bash
+python3 tools/build_i18n_pages.py .
+git add mn ko
+```
+
+Never edit `mn/index.html` or `ko/index.html` by hand; the next run overwrites them.
 
 - To change or add a translation, edit `i18n/<lang>.json`, not `script.js`.
 - New translatable text in `index.html` needs a `data-i18n="key"` and an entry in each JSON.
@@ -159,7 +170,7 @@ desk, add its card to `index.html` with a matching `data-svc` id.
 ## Local preview
 
 ```bash
-python3 tools/build_i18n_pages.py .   # writes mn/ and ko/ (git-ignored); re-run after edits
+python3 tools/build_i18n_pages.py .   # rewrites mn/ and ko/ (committed); re-run after edits
 python3 -m http.server 8080
 # then open http://localhost:8080  (and /mn/, /ko/)
 ```
@@ -182,7 +193,11 @@ npx netlify deploy --prod --dir .
 Then add `deepbeta.mn` and `www.deepbeta.com` as custom domains.
 
 ### GitHub Pages (current)
-- Deployed by [.github/workflows/pages.yml](.github/workflows/pages.yml) (Settings → Pages → Source: GitHub Actions).
+- Settings → Pages → Source is currently **"Deploy from a branch"** (`main`, `/`): every push publishes
+  the repo root as it is, which is why the generated `mn/` and `ko/` pages are committed.
+- [.github/workflows/pages.yml](.github/workflows/pages.yml) also deploys on every push and every 3 hours
+  (it refreshes the paper book when the `BRAINY_API_KEY` secret is set). Both produce the same pages.
+  Switching the source to "GitHub Actions" would make the workflow the only deployer.
 - `CNAME` contains `www.deepbeta.mn`; the apex `deepbeta.mn` should only have GitHub's four A records
   (185.199.108–111.153) so it redirects to `www` over HTTPS.
 
