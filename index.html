@@ -4,8 +4,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <!-- a returning visitor who picked МН / KO before goes straight to that page (set by the
-       language links in script.js; crawlers have no stored choice and are never redirected) -->
+       language links in script.js; crawlers have no stored choice and are never redirected).
+       The "js" class arms the scroll reveals in styles.css; without JavaScript everything shows. -->
   <script>
+    document.documentElement.classList.add('js');
     try {
       var dbLang = { mn: '/mn/', ko: '/ko/' }[localStorage.getItem('deepbeta-lang')];
       if (dbLang && document.documentElement.lang === 'en') location.replace(dbLang + location.hash);
@@ -21,7 +23,7 @@
   <link rel="alternate" hreflang="mn" href="https://www.deepbeta.mn/mn/" />
   <link rel="alternate" hreflang="ko" href="https://www.deepbeta.mn/ko/" />
   <link rel="alternate" hreflang="x-default" href="https://www.deepbeta.mn/" />
-  <meta name="theme-color" content="#0e1014" />
+  <meta name="theme-color" content="#0a0a09" />
 
   <!-- social cards -->
   <meta property="og:type" content="website" />
@@ -48,7 +50,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/styles.css" />
 
   <!-- structured data: who the site belongs to (Google knowledge panel / rich results) -->
@@ -113,338 +115,395 @@
   </script>
 </head>
 <body>
-  <!-- TOP BAR -->
-  <header class="topbar">
-    <div class="topbar-inner">
-      <a class="brand" href="#top" aria-label="Deep Beta Technology LLC home">
-        <img src="/logo/deepbeta-logo-sm.webp" alt="" class="brand-logo" width="28" height="28" />
-        <span class="brand-text">
-          <span class="brand-line-2">DEEPBETA</span>
-        </span>
-      </a>
-      <nav class="topnav" aria-label="Primary">
-        <a href="#models" data-i18n="nav.models">models</a>
-        <a href="#assets" data-i18n="nav.assets">assets</a>
-        <a href="#features" data-i18n="nav.features">features</a>
-        <a href="#stack" data-i18n="nav.stack">stack</a>
-        <a href="#performance" data-i18n="nav.performance">performance</a>
-        <a href="#platform" data-i18n="nav.platform">platform</a>
-        <a href="#research" data-i18n="nav.research">research</a>
-        <a href="#partners" data-i18n="nav.partners">partners</a>
-        <a href="#contact" data-i18n="nav.contact">contact</a>
+  <a class="skip" href="#thesis" data-i18n="a11y.skip">Skip to content</a>
+
+  <!-- HEADER · one nav and one language switch for every screen size (the mobile menu is the same nav) -->
+  <header class="site-head" data-head>
+    <div class="head-inner">
+      <a class="wordmark" href="#top" aria-label="Deep Beta Technology LLC home">DeepBeta<span class="pt">.</span></a>
+      <nav class="site-nav" id="site-nav" aria-label="Primary">
+        <a href="#thesis" data-i18n="nav.thesis">Thesis</a>
+        <a href="#practice" data-i18n="nav.practice">Practice</a>
+        <a href="#engine" data-i18n="nav.engine">Engine</a>
+        <a href="#performance" data-i18n="nav.proof">Proof</a>
+        <a href="#platform" data-i18n="nav.platform">Platform</a>
+        <a href="#firm" data-i18n="nav.firm">Firm</a>
+        <a href="#contact" data-i18n="nav.contact">Contact</a>
       </nav>
-      <div class="topctas">
+      <div class="head-tools">
         <!-- each language is its own crawlable page; build_i18n_pages.py moves the active state -->
         <div class="lang-switch" role="group" aria-label="Language">
           <a href="/" hreflang="en" lang="en" data-lang="en" class="active" aria-current="page">EN</a>
           <a href="/mn/" hreflang="mn" lang="mn" data-lang="mn">МН</a>
           <a href="/ko/" hreflang="ko" lang="ko" data-lang="ko">KO</a>
         </div>
-        <span class="status-dot" aria-hidden="true"></span>
-        <span class="status-text">live · refresh 60s</span>
-        <a class="btn btn-ghost" href="https://www.upwork.com/fl/nyamochirbold" target="_blank" rel="noopener">▼ Upwork</a>
-        <a class="btn btn-primary" href="https://brainy.deepbeta.mn/" target="_blank" rel="noopener">▶ Open Brainy</a>
+        <a class="btn btn-gold btn-sm head-cta" href="https://brainy.deepbeta.mn/" target="_blank" rel="noopener"><b data-i18n="head.brainy">Open Brainy</b><i class="arr" aria-hidden="true">↗</i></a>
+        <button type="button" class="menu-btn" data-menu aria-expanded="false" aria-controls="site-nav" aria-label="Menu"><i></i><i></i></button>
       </div>
     </div>
   </header>
 
   <main id="top">
 
-    <!-- HERO -->
-    <section class="hero">
-      <div class="hero-grid">
-        <div class="hero-copy">
-          <div class="kicker" data-i18n="hero.kicker"><span class="dot"></span> DEEP BETA TECHNOLOGY LLC · ADVANCED ANALYTICS · AI SOLUTIONS</div>
-          <h1 data-i18n="hero.h1">
-            <span class="num">13</span> quant ML models.
-            <span class="acc">One backtested</span> alpha engine.
-          </h1>
-          <p class="lede" data-i18n="hero.lede">
-            Deep Beta Technology LLC delivers advanced analytics, rigorous backtesting on financial products,
-            and enterprise-grade AI solutions. Thirteen specialized machine-learning models — UP, BREAKOUT,
-            REGRESSION and ten more — score every asset every bar, routing signals through constrained risk
-            management and a state-of-the-art execution layer.
-          </p>
-          <div class="hero-ctas">
-            <a class="btn btn-primary lg" href="https://brainy.deepbeta.mn/" target="_blank" rel="noopener" data-i18n="hero.ctaBrainy">▶ Launch Brainy platform</a>
-            <a class="btn btn-ghost lg" href="#performance" data-i18n="hero.ctaBacktest">View backtest results</a>
+    <!-- 00 · HERO -->
+    <section class="hero" data-chapter="00">
+      <!-- generative ridgeline terrain, drawn by script.js; decorative -->
+      <canvas class="hero-art" data-terrain aria-hidden="true"></canvas>
+      <div class="hero-veil" aria-hidden="true"></div>
+
+      <div class="wrap hero-body">
+        <p class="eyebrow" data-i18n="hero.kicker"><span class="live"></span>Deep Beta Technology LLC · Quant ML · Backtesting · AI solutions</p>
+        <h1 class="display" data-i18n="hero.h1">Markets,<br>measured<span class="pt">.</span></h1>
+        <p class="lede" data-i18n="hero.lede">
+          Deep Beta Technology builds quant ML models, backtesting and AI solutions that turn market data
+          into decisions you can verify. Thirteen specialized models score every asset on every bar, and
+          every signal passes constrained risk management before it reaches execution.
+        </p>
+        <div class="hero-ctas">
+          <a class="btn btn-gold" href="#engine"><b data-i18n="hero.cta1">Explore the engine</b><i class="arr" aria-hidden="true">→</i></a>
+          <a class="btn btn-line" href="#performance"><b data-i18n="hero.cta2">Read the live paper book</b><i class="arr" aria-hidden="true">→</i></a>
+        </div>
+      </div>
+
+      <div class="hero-foot">
+        <div class="wrap hero-foot-row">
+          <a class="scroll-cue" href="#thesis"><i aria-hidden="true"></i><b data-i18n="hero.scroll">Scroll to the thesis</b></a>
+        </div>
+        <!-- live crypto tape: stays hidden until script.js has a real quote to show -->
+        <div class="tape" data-tape hidden>
+          <div class="tape-label"><span class="live"></span><span data-tape-clock>LIVE</span></div>
+          <div class="tape-view"><div class="tape-track" data-tape-track></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 01 · THESIS (the one light chapter: set like a printed research note) -->
+    <section id="thesis" class="chapter paper" data-chapter="01">
+      <div class="wrap">
+        <p class="chap-tag"><b>01</b><span data-i18n="nav.thesis">Thesis</span></p>
+        <p class="manifesto" data-words data-i18n="thesis.statement">Markets don’t reward conviction. They reward evidence. So we build models that have to earn belief: trained independently, validated walk-forward, and measured against a coin flip before anyone is asked to trust them.</p>
+
+        <div class="creed">
+          <article class="creed-item" data-rv>
+            <span class="label" data-i18n="creed.mission.k">Mission</span>
+            <h3 data-i18n="creed.mission.h">Give every financial decision the rigor of a quant desk.</h3>
+            <p data-i18n="creed.mission.p">We build the models, backtests and AI systems enterprises need to act on data instead of instinct, in treasury, in risk and in trading.</p>
+          </article>
+          <article class="creed-item" data-rv style="--d:1">
+            <span class="label" data-i18n="creed.vision.k">Vision</span>
+            <h3 data-i18n="creed.vision.h">A market where every decision can show its evidence.</h3>
+            <p data-i18n="creed.vision.p">Measurable before it is made, accountable after. That is the standard we build toward, for our clients and for ourselves.</p>
+          </article>
+          <article class="creed-item" data-rv style="--d:2">
+            <span class="label" data-i18n="creed.promise.k">Promise</span>
+            <h3 data-i18n="creed.promise.h">Your assets stay yours.</h3>
+            <p data-i18n="creed.promise.p">We are a technology vendor. Clients license our solutions and quant models for a fee. We never hold client accounts or assets in custody, and we never split profits.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- DEEPBETA IN NUMBERS -->
+    <section class="numbers" aria-label="DeepBeta in numbers">
+      <div class="wrap">
+        <div class="num-grid">
+          <div class="num" data-rv>
+            <div class="num-v" data-count="13">13</div>
+            <div class="num-k" data-i18n="num.models">ML model families</div>
+            <p class="num-s" data-i18n="num.models.s">Twelve specialists and one meta-ensemble.</p>
           </div>
-          <div class="hero-meta">
-            <div>deepbeta.mn</div>
-            <div data-i18n="hero.founder">Founder · <a href="https://www.linkedin.com/in/nyamochirbold/" target="_blank" rel="noopener">Nyam-Ochir Bold</a></div>
+          <div class="num" data-rv style="--d:1">
+            <div class="num-v" data-count="8">8</div>
+            <div class="num-k" data-i18n="num.markets">Market groups</div>
+            <p class="num-s" data-i18n="num.markets.s">From US equities to crypto majors, on one risk book.</p>
+          </div>
+          <div class="num" data-rv style="--d:2">
+            <div class="num-v" data-count="7">7</div>
+            <div class="num-k" data-i18n="num.layers">Pipeline layers</div>
+            <p class="num-s" data-i18n="num.layers.s">From research to execution, each one replaceable.</p>
+          </div>
+          <div class="num num--zero" data-rv style="--d:3">
+            <div class="num-v">0</div>
+            <div class="num-k" data-i18n="num.custody">Client assets in custody</div>
+            <p class="num-s" data-i18n="num.custody.s">Technology vendor. No custody, no profit share.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 · PRACTICE -->
+    <section id="practice" class="chapter" data-chapter="02">
+      <div class="wrap">
+        <header class="chap-head">
+          <p class="chap-tag"><b>02</b><span data-i18n="nav.practice">Practice</span></p>
+          <h2 class="title" data-rv data-i18n="practice.h2">Three practices.<br>One standard of proof<span class="pt">.</span></h2>
+        </header>
+
+        <div class="practice">
+          <a class="practice-row" href="#engine" data-rv>
+            <span class="practice-n">A</span>
+            <h3 data-i18n="practice.a.h">Quant ML &amp; AI algorithmic trading</h3>
+            <p data-i18n="practice.a.p">Thirteen model families with walk-forward backtesting, constrained risk management and an execution layer. Licensed for a fee, never for a share of profit.</p>
+            <span class="practice-go"><b data-i18n="practice.a.cta">See the engine</b><i class="arr" aria-hidden="true">→</i></span>
+          </a>
+          <a class="practice-row" href="#contact" data-rv>
+            <span class="practice-n">B</span>
+            <h3 data-i18n="practice.b.h">Treasury management</h3>
+            <p data-i18n="practice.b.p">Analytics for liquidity, FX and risk oversight, built for the teams that manage an enterprise’s money.</p>
+            <span class="practice-go"><b data-i18n="practice.talk">Talk to us</b><i class="arr" aria-hidden="true">→</i></span>
+          </a>
+          <a class="practice-row" href="#contact" data-rv>
+            <span class="practice-n">C</span>
+            <h3 data-i18n="practice.c.h">Enterprise AI solutions</h3>
+            <p data-i18n="practice.c.p">Advanced analytics and applied machine learning, engineered around your data, your constraints and the decisions you need to defend.</p>
+            <span class="practice-go"><b data-i18n="practice.talk">Talk to us</b><i class="arr" aria-hidden="true">→</i></span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 · ENGINE · models, inputs, markets -->
+    <section id="engine" class="chapter" data-chapter="03">
+      <div class="wrap">
+        <header class="chap-head">
+          <p class="chap-tag"><b>03</b><span data-i18n="nav.engine">Engine</span></p>
+          <h2 class="title" data-rv data-i18n="engine.h2">Thirteen specialists.<br>One decision<span class="pt">.</span></h2>
+          <p class="chap-sub" data-rv data-i18n="models.sub">Each model is independently trained, walk-forward validated, and ranked by Sharpe / Calmar / Drawdown / Return.</p>
+        </header>
+
+        <!-- 13 MODELS -->
+        <div id="models" class="models" data-rv>
+          <article class="model"><span class="model-n">01</span><h3>UP</h3><p>Directional long-bias classifier. Probabilistic up-move signal across horizons.</p></article>
+          <article class="model"><span class="model-n">02</span><h3>BREAKOUT</h3><p>Range-expansion detector with regime gating and volatility scaling.</p></article>
+          <article class="model"><span class="model-n">03</span><h3>REGRESSION</h3><p>Continuous return forecast — calibrated for portfolio sizing.</p></article>
+          <article class="model"><span class="model-n">04</span><h3>MEAN-REVERT</h3><p>Short-horizon reversion in equities, FX and indexes.</p></article>
+          <article class="model"><span class="model-n">05</span><h3>MOMENTUM</h3><p>Cross-sectional and time-series momentum across universes.</p></article>
+          <article class="model"><span class="model-n">06</span><h3>TREND</h3><p>Persistence model fed by price, volume and macro features.</p></article>
+          <article class="model"><span class="model-n">07</span><h3>VOL-REGIME</h3><p>Volatility state classifier driving leverage and gating.</p></article>
+          <article class="model"><span class="model-n">08</span><h3>NEWS-SENT</h3><p>News &amp; social sentiment encoder for event-driven alpha.</p></article>
+          <article class="model"><span class="model-n">09</span><h3>EARNINGS</h3><p>Pre/post earnings drift with surprise and guidance features.</p></article>
+          <article class="model"><span class="model-n">10</span><h3>MACRO</h3><p>Rates, DXY, credit and liquidity overlay across all assets.</p></article>
+          <article class="model"><span class="model-n">11</span><h3>PAIRS</h3><p>Statistical arbitrage on cointegrated baskets.</p></article>
+          <article class="model"><span class="model-n">12</span><h3>OPTIONS-FLOW</h3><p>Implied-vol &amp; flow signals where derivatives data exists.</p></article>
+          <article class="model model--meta"><span class="model-n">13</span><h3>META-ENSEMBLE</h3><p>Stacking layer that combines the 12 specialists into the production signal.</p><span class="model-tag" data-i18n="models.meta">The production signal</span></article>
+        </div>
+
+        <!-- FEATURES -->
+        <div id="features" class="block">
+          <header class="block-head">
+            <h3 class="subtitle" data-rv data-i18n="features.h3">What the models see</h3>
+            <p class="chap-sub" data-rv data-i18n="features.sub">Features are generated in major parts and fused before any model sees a bar.</p>
+          </header>
+          <div class="feats" data-rv>
+            <div class="feat"><span class="tag">PRICE / VOL</span><h4>Microstructure &amp; technicals</h4><p>Multi-timeframe returns, realized vol, order-flow proxies, gap statistics, range expansion and breadth.</p></div>
+            <div class="feat"><span class="tag">FUNDAMENTALS</span><h4>Company &amp; earnings</h4><p>Earnings surprise, guidance deltas, revisions, valuation z-scores, calendar proximity.</p></div>
+            <div class="feat"><span class="tag">MACRO</span><h4>Economic conditions</h4><p>Rates, curve shape, DXY, credit spreads, liquidity and global risk-on/off regime tags.</p></div>
+            <div class="feat"><span class="tag">NEWS</span><h4>News &amp; events</h4><p>Headline embeddings, event tagging, central-bank calendars, geopolitical shock flags.</p></div>
+            <div class="feat"><span class="tag">SENTIMENT</span><h4>Sentiment &amp; flow</h4><p>News sentiment, social signal, options flow, ETF creations/redemptions where available.</p></div>
+            <div class="feat"><span class="tag">CROSS-ASSET</span><h4>Linkages</h4><p>Cross-asset correlations, lead-lag features and basis between spot / futures / CFD.</p></div>
           </div>
         </div>
 
-        <!-- Live tickers, styled like the Brainy dashboard -->
-        <aside class="tickers" aria-label="Live tickers">
-          <div class="ticker-row" data-class="crypto">
-            <div class="row-head">
-              <span class="dot"></span>
-              <span class="row-label">LIVE</span>
-              <span class="row-class">CRYPTO · MAJORS</span>
-              <span class="row-time" data-clock></span>
+        <!-- ASSETS + live market sessions -->
+        <div id="assets" class="block">
+          <header class="block-head">
+            <h3 class="subtitle" data-rv data-i18n="assets.h3">Where they work</h3>
+            <p class="chap-sub" data-rv data-i18n="assets.sub">From US large-cap to Asia-Pac and crypto majors — one feature pipeline, one risk book.</p>
+          </header>
+          <div class="coverage">
+            <div class="markets" data-rv>
+              <div class="market"><h4 data-i18n="assets.us">US Equities</h4><p>S&amp;P 500 and NASDAQ constituents · ETFs · sectors · top indexes.</p></div>
+              <div class="market"><h4 data-i18n="assets.apac">Asia-Pacific</h4><p>KRX (Korea), JPX (Japan — TSE / OSE), HKEX (Hong Kong) — equities &amp; indexes.</p></div>
+              <div class="market"><h4>London (LSE)</h4><p>FTSE products, ETPs and listed structured instruments.</p></div>
+              <div class="market"><h4 data-i18n="assets.idx">Indexes &amp; Futures</h4><p>SPX, NDX, DXY, FTSE, Nikkei, HSI, KOSPI — index futures and CFDs.</p></div>
+              <div class="market"><h4 data-i18n="assets.cmd">Commodities</h4><p>Energy, metals and agriculturals — futures &amp; CFD instruments.</p></div>
+              <div class="market"><h4>FX</h4><p>Majors and crosses — G10 plus selected EM pairs.</p></div>
+              <div class="market"><h4 data-i18n="assets.crypto">Crypto Majors</h4><p>BTC, ETH and top liquid pairs — spot and perpetuals.</p></div>
+              <div class="market"><h4>Leveraged &amp; CFDs</h4><p>Leveraged equity products and contracts-for-difference where licensed.</p></div>
             </div>
-            <div class="row-cards">
-              <div class="card" data-sym="BTCUSD" data-px="69585.51" data-chg="-4.25" data-vol="vol24 2,323,381,584.36"></div>
-              <div class="card" data-sym="ETHUSD" data-px="1976.01" data-chg="-0.34" data-vol="vol24 807,525,391.79"></div>
-              <div class="card" data-sym="SOLUSD" data-px="79.2623" data-chg="-2.15" data-vol="vol24 145,942,796.01"></div>
-              <div class="card" data-sym="BNBUSD" data-px="677.39" data-chg="-3.44" data-vol="vol24 309,759,979.22"></div>
-              <div class="card" data-sym="XRPUSD" data-px="1.2626" data-chg="-3.19" data-vol="vol24 152,031,481.66"></div>
-            </div>
-          </div>
-          <div class="ticker-row" data-class="macro">
-            <div class="row-head">
-              <span class="dot"></span>
-              <span class="row-label">MACRO</span>
-              <span class="row-class">DXY · S&amp;P 500 · NASDAQ · AAPL · NVDA</span>
-              <span class="row-time" data-clock></span>
-            </div>
-            <div class="row-cards">
-              <div class="card" data-sym="DXY"    data-px="99.1380" data-chg="-0.04" data-vol="yfinance"></div>
-              <div class="card" data-sym="SP500"  data-px="7599.96" data-chg="0.26" data-vol="fmp"></div>
-              <div class="card" data-sym="NASDAQ" data-px="27086.81" data-chg="0.42" data-vol="fmp"></div>
-              <div class="card" data-sym="AAPL"   data-px="306.31"  data-chg="-1.84" data-vol="fmp"></div>
-              <div class="card" data-sym="NVDA"   data-px="224.36"  data-chg="6.26" data-vol="fmp"></div>
-            </div>
-          </div>
-        </aside>
-      </div>
-    </section>
 
-    <!-- 13 MODELS -->
-    <section id="models" class="panel">
-      <div class="panel-head">
-        <h2 data-i18n="models.h2"><span class="bar"></span> 13 MODEL FAMILY · ONE PLATFORM</h2>
-        <p class="muted" data-i18n="models.sub">Each model is independently trained, walk-forward validated, and ranked by Sharpe / Calmar / Drawdown / Return.</p>
-      </div>
-      <div class="model-grid">
-        <article class="model"><h3>UP</h3><p>Directional long-bias classifier. Probabilistic up-move signal across horizons.</p></article>
-        <article class="model"><h3>BREAKOUT</h3><p>Range-expansion detector with regime gating and volatility scaling.</p></article>
-        <article class="model"><h3>REGRESSION</h3><p>Continuous return forecast — calibrated for portfolio sizing.</p></article>
-        <article class="model"><h3>MEAN-REVERT</h3><p>Short-horizon reversion in equities, FX and indexes.</p></article>
-        <article class="model"><h3>MOMENTUM</h3><p>Cross-sectional and time-series momentum across universes.</p></article>
-        <article class="model"><h3>TREND</h3><p>Persistence model fed by price, volume and macro features.</p></article>
-        <article class="model"><h3>VOL-REGIME</h3><p>Volatility state classifier driving leverage and gating.</p></article>
-        <article class="model"><h3>NEWS-SENT</h3><p>News &amp; social sentiment encoder for event-driven alpha.</p></article>
-        <article class="model"><h3>EARNINGS</h3><p>Pre/post earnings drift with surprise and guidance features.</p></article>
-        <article class="model"><h3>MACRO</h3><p>Rates, DXY, credit and liquidity overlay across all assets.</p></article>
-        <article class="model"><h3>PAIRS</h3><p>Statistical arbitrage on cointegrated baskets.</p></article>
-        <article class="model"><h3>OPTIONS-FLOW</h3><p>Implied-vol &amp; flow signals where derivatives data exists.</p></article>
-        <article class="model"><h3>META-ENSEMBLE</h3><p>Stacking layer that combines the 12 specialists into the production signal.</p></article>
-      </div>
-    </section>
-
-    <!-- ASSETS -->
-    <section id="assets" class="panel">
-      <div class="panel-head">
-        <h2 data-i18n="assets.h2"><span class="bar"></span> ASSET COVERAGE · GLOBAL CROSS-ASSET</h2>
-        <p class="muted" data-i18n="assets.sub">From US large-cap to Asia-Pac and crypto majors — one feature pipeline, one risk book.</p>
-      </div>
-      <div class="asset-grid">
-        <div class="asset-card">
-          <h3 data-i18n="assets.us">US Equities</h3>
-          <p>S&amp;P 500 and NASDAQ constituents · ETFs · sectors · top indexes.</p>
-        </div>
-        <div class="asset-card">
-          <h3 data-i18n="assets.apac">Asia-Pacific</h3>
-          <p>KRX (Korea), JPX (Japan — TSE / OSE), HKEX (Hong Kong) — equities &amp; indexes.</p>
-        </div>
-        <div class="asset-card">
-          <h3>London (LSE)</h3>
-          <p>FTSE products, ETPs and listed structured instruments.</p>
-        </div>
-        <div class="asset-card">
-          <h3 data-i18n="assets.idx">Indexes &amp; Futures</h3>
-          <p>SPX, NDX, DXY, FTSE, Nikkei, HSI, KOSPI — index futures and CFDs.</p>
-        </div>
-        <div class="asset-card">
-          <h3 data-i18n="assets.cmd">Commodities</h3>
-          <p>Energy, metals and agriculturals — futures &amp; CFD instruments.</p>
-        </div>
-        <div class="asset-card">
-          <h3>FX</h3>
-          <p>Majors and crosses — G10 plus selected EM pairs.</p>
-        </div>
-        <div class="asset-card">
-          <h3 data-i18n="assets.crypto">Crypto Majors</h3>
-          <p>BTC, ETH and top liquid pairs — spot and perpetuals.</p>
-        </div>
-        <div class="asset-card">
-          <h3>Leveraged &amp; CFDs</h3>
-          <p>Leveraged equity products and contracts-for-difference where licensed.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- FEATURES -->
-    <section id="features" class="panel">
-      <div class="panel-head">
-        <h2 data-i18n="features.h2"><span class="bar"></span> FEATURE ENGINE · MULTI-MODAL INPUTS</h2>
-        <p class="muted" data-i18n="features.sub">Features are generated in major parts and fused before any model sees a bar.</p>
-      </div>
-      <div class="feat-grid">
-        <div class="feat">
-          <span class="feat-tag">PRICE / VOL</span>
-          <h3>Microstructure &amp; technicals</h3>
-          <p>Multi-timeframe returns, realized vol, order-flow proxies, gap statistics, range expansion and breadth.</p>
-        </div>
-        <div class="feat">
-          <span class="feat-tag">FUNDAMENTALS</span>
-          <h3>Company &amp; earnings</h3>
-          <p>Earnings surprise, guidance deltas, revisions, valuation z-scores, calendar proximity.</p>
-        </div>
-        <div class="feat">
-          <span class="feat-tag">MACRO</span>
-          <h3>Economic conditions</h3>
-          <p>Rates, curve shape, DXY, credit spreads, liquidity and global risk-on/off regime tags.</p>
-        </div>
-        <div class="feat">
-          <span class="feat-tag">NEWS</span>
-          <h3>News &amp; events</h3>
-          <p>Headline embeddings, event tagging, central-bank calendars, geopolitical shock flags.</p>
-        </div>
-        <div class="feat">
-          <span class="feat-tag">SENTIMENT</span>
-          <h3>Sentiment &amp; flow</h3>
-          <p>News sentiment, social signal, options flow, ETF creations/redemptions where available.</p>
-        </div>
-        <div class="feat">
-          <span class="feat-tag">CROSS-ASSET</span>
-          <h3>Linkages</h3>
-          <p>Cross-asset correlations, lead-lag features and basis between spot / futures / CFD.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- STACK -->
-    <section id="stack" class="panel">
-      <div class="panel-head">
-        <h2 data-i18n="stack.h2"><span class="bar"></span> ARCHITECTURE · RESEARCH TO EXECUTION</h2>
-        <p class="muted" data-i18n="stack.sub">Each layer is independently testable and replaceable.</p>
-      </div>
-      <ol class="stack">
-        <li>
-          <span class="step">01</span>
-          <h3>Data &amp; Feature layer</h3>
-          <p>Tick / bar / fundamentals / macro / news ingest → versioned feature store with point-in-time correctness.</p>
-        </li>
-        <li>
-          <span class="step">02</span>
-          <h3>13 ML models</h3>
-          <p>Specialists trained per family, walk-forward and purged-CV validated.</p>
-        </li>
-        <li>
-          <span class="step">03</span>
-          <h3>Decision-making layer</h3>
-          <p>Ensembling, regime gating, signal calibration and conviction scoring.</p>
-        </li>
-        <li>
-          <span class="step">04</span>
-          <h3>Strategy layer</h3>
-          <p>Horizon, sizing, holding-period and universe rules — per-asset and portfolio.</p>
-        </li>
-        <li>
-          <span class="step">05</span>
-          <h3>Risk management</h3>
-          <p>Organization-specific constrained RM (mandate / exposure / liquidity caps) plus standard RM (VaR, drawdown, vol-target, correlation, stress).</p>
-        </li>
-        <li>
-          <span class="step">06</span>
-          <h3>Execution layer</h3>
-          <p>SOTA execution with adaptive scheduling, slippage modeling, smart routing and venue selection.</p>
-        </li>
-        <li>
-          <span class="step">07</span>
-          <h3>Mitigation &amp; monitoring</h3>
-          <p>Live drift detection, kill-switches, circuit breakers and post-trade attribution.</p>
-        </li>
-      </ol>
-    </section>
-
-    <!-- PERFORMANCE -->
-    <section id="performance" class="panel">
-      <div class="panel-head">
-        <h2 data-i18n="perf.h2"><span class="bar"></span> PERFORMANCE · FOCUS 5 PAPER BOOK</h2>
-        <p class="muted" data-i18n="perf.sub">Every call of our five focus products — GOLD, NAS100, WTI, BTCUSD and ETHUSD on 1-, 2- and 4-day horizons — traded on a simulated $100K book with live 15-minute prices, spread and funding costs. Paper trading, not a live account — past performance does not guarantee future results.</p>
-      </div>
-
-      <!-- Paper Desk book of the focus 5 — filled by script.js from data/focus-book.json -->
-      <div class="book is-loading" data-book-root>
-        <p class="book-note" data-book="note"></p>
-        <div class="kpi-grid" data-book="kpis"></div>
-
-        <div class="book-grid">
-          <div class="book-card book-chart">
-            <div class="bc-head">
-              <h3 class="bc-title">EQUITY</h3>
-              <div class="seg" role="group" aria-label="Chart view" data-book="view">
-                <button type="button" data-view="book" class="active" aria-pressed="true">book</button>
-                <button type="button" data-view="assets" aria-pressed="false">by asset</button>
+            <!-- session clocks: local time and regular-hours state, computed in the browser by script.js -->
+            <aside class="sessions" data-sessions data-rv>
+              <div class="sessions-head">
+                <span class="label" data-i18n="mkt.title">The engine follows the sun</span>
+                <span class="sessions-utc" data-utc></span>
               </div>
-              <div class="seg" role="group" aria-label="Resolution" data-book="res">
-                <button type="button" data-res="1h" aria-pressed="false">1h</button>
-                <button type="button" data-res="4h" class="active" aria-pressed="true">4h</button>
-                <button type="button" data-res="1d" aria-pressed="false">1d</button>
-              </div>
-              <a class="btn btn-ghost bc-cta" href="https://brainy.deepbeta.mn/paperdesk/" target="_blank" rel="noopener" data-i18n="perf.cta">▶ Open the paper desk</a>
-            </div>
-            <div class="bc-legend" data-book="legend"></div>
-            <div class="bc-plot" data-book="plot" tabindex="0" role="group"
-                 aria-label="Paper book equity, drawdown and exposure over time. Use the left and right arrow keys to step through time."></div>
-            <div class="bc-months" data-book="months"></div>
+              <ul class="sessions-list">
+                <li data-tz="America/New_York" data-hours="570-960">
+                  <i class="mk-dot" aria-hidden="true"></i><span class="mk-city" data-i18n="mkt.nyc">New York</span><span class="mk-venue">NYSE · NASDAQ</span>
+                  <time class="mk-time" data-mk-time>--:--</time><em class="mk-state"><b class="s-open" data-i18n="mkt.open">open</b><b class="s-closed" data-i18n="mkt.closed">closed</b></em>
+                </li>
+                <li data-tz="Europe/London" data-hours="480-990">
+                  <i class="mk-dot" aria-hidden="true"></i><span class="mk-city" data-i18n="mkt.lon">London</span><span class="mk-venue">LSE</span>
+                  <time class="mk-time" data-mk-time>--:--</time><em class="mk-state"><b class="s-open" data-i18n="mkt.open">open</b><b class="s-closed" data-i18n="mkt.closed">closed</b></em>
+                </li>
+                <li data-tz="Asia/Tokyo" data-hours="540-690,750-930">
+                  <i class="mk-dot" aria-hidden="true"></i><span class="mk-city" data-i18n="mkt.tyo">Tokyo</span><span class="mk-venue">JPX</span>
+                  <time class="mk-time" data-mk-time>--:--</time><em class="mk-state"><b class="s-open" data-i18n="mkt.open">open</b><b class="s-closed" data-i18n="mkt.closed">closed</b></em>
+                </li>
+                <li data-tz="Asia/Seoul" data-hours="540-930">
+                  <i class="mk-dot" aria-hidden="true"></i><span class="mk-city" data-i18n="mkt.sel">Seoul</span><span class="mk-venue">KRX</span>
+                  <time class="mk-time" data-mk-time>--:--</time><em class="mk-state"><b class="s-open" data-i18n="mkt.open">open</b><b class="s-closed" data-i18n="mkt.closed">closed</b></em>
+                </li>
+                <li data-tz="Asia/Hong_Kong" data-hours="570-720,780-960">
+                  <i class="mk-dot" aria-hidden="true"></i><span class="mk-city" data-i18n="mkt.hkg">Hong Kong</span><span class="mk-venue">HKEX</span>
+                  <time class="mk-time" data-mk-time>--:--</time><em class="mk-state"><b class="s-open" data-i18n="mkt.open">open</b><b class="s-closed" data-i18n="mkt.closed">closed</b></em>
+                </li>
+                <li data-always data-state="open">
+                  <i class="mk-dot" aria-hidden="true"></i><span class="mk-city" data-i18n="mkt.crypto">Crypto</span><span class="mk-venue">BTC · ETH</span>
+                  <time class="mk-time">24 / 7</time><em class="mk-state"><b class="s-open" data-i18n="mkt.open">open</b></em>
+                </li>
+              </ul>
+              <p class="sessions-note" data-i18n="mkt.note">Regular session hours in each exchange’s local time. Holidays are not reflected.</p>
+            </aside>
           </div>
-
-          <aside class="book-side">
-            <div class="book-card">
-              <h3 class="side-title">FOCUS 5 <span class="muted">· P&amp;L by asset</span></h3>
-              <ul class="asset-list" data-book="assets"></ul>
-            </div>
-            <div class="book-card">
-              <h3 class="side-title">EDGE VS COIN-FLIP</h3>
-              <div data-book="coinflip"></div>
-            </div>
-          </aside>
         </div>
-        <p class="book-empty muted small" hidden>Paper book data is unavailable right now — open the paper desk on Brainy for the live book.</p>
       </div>
     </section>
 
-    <!-- BRAINY PLATFORM · desks, access instructions and the endpoint catalogue -->
-    <section id="platform" class="panel">
-      <div class="panel-head">
-        <h2 data-i18n="platform.h2"><span class="bar"></span> BRAINY PLATFORM · EVERY DESK, EVERY ENDPOINT</h2>
-        <p class="muted" data-i18n="platform.sub">Thirteen desks and services behind one access key. Open a desk in the browser, or call its JSON API from your own code — every route is listed below with a working example link.</p>
+    <!-- 04 · PIPELINE -->
+    <section id="stack" class="chapter" data-chapter="04" data-nav="engine">
+      <div class="wrap">
+        <header class="chap-head">
+          <p class="chap-tag"><b>04</b><span data-i18n="nav.pipeline">Pipeline</span></p>
+          <h2 class="title" data-rv data-i18n="stack.h2">From raw tick<br>to executed order<span class="pt">.</span></h2>
+          <p class="chap-sub" data-rv data-i18n="stack.sub">Each layer is independently testable and replaceable.</p>
+        </header>
+        <ol class="pipe" data-pipe>
+          <li class="pipe-step">
+            <span class="pipe-n">01</span>
+            <h3>Data &amp; Feature layer</h3>
+            <p>Tick / bar / fundamentals / macro / news ingest → versioned feature store with point-in-time correctness.</p>
+          </li>
+          <li class="pipe-step">
+            <span class="pipe-n">02</span>
+            <h3>13 ML models</h3>
+            <p>Specialists trained per family, walk-forward and purged-CV validated.</p>
+          </li>
+          <li class="pipe-step">
+            <span class="pipe-n">03</span>
+            <h3>Decision-making layer</h3>
+            <p>Ensembling, regime gating, signal calibration and conviction scoring.</p>
+          </li>
+          <li class="pipe-step">
+            <span class="pipe-n">04</span>
+            <h3>Strategy layer</h3>
+            <p>Horizon, sizing, holding-period and universe rules — per-asset and portfolio.</p>
+          </li>
+          <li class="pipe-step">
+            <span class="pipe-n">05</span>
+            <h3>Risk management</h3>
+            <p>Organization-specific constrained RM (mandate / exposure / liquidity caps) plus standard RM (VaR, drawdown, vol-target, correlation, stress).</p>
+          </li>
+          <li class="pipe-step">
+            <span class="pipe-n">06</span>
+            <h3>Execution layer</h3>
+            <p>SOTA execution with adaptive scheduling, slippage modeling, smart routing and venue selection.</p>
+          </li>
+          <li class="pipe-step">
+            <span class="pipe-n">07</span>
+            <h3>Mitigation &amp; monitoring</h3>
+            <p>Live drift detection, kill-switches, circuit breakers and post-trade attribution.</p>
+          </li>
+        </ol>
       </div>
+    </section>
 
-      <!-- how to connect -->
-      <ol class="pf-steps">
-        <li class="pf-step">
-          <span class="step">01</span>
-          <h3 data-i18n="platform.s1h">Get an access key</h3>
-          <p data-i18n="platform.s1p">Brainy is private. Clients and partners receive a key from <a href="mailto:contact@deepbeta.mn">contact@deepbeta.mn</a>. Investor keys open the investor portal only (<code>/investor/*</code>).</p>
-        </li>
-        <li class="pf-step">
-          <span class="step">02</span>
-          <h3 data-i18n="platform.s2h">In the browser</h3>
-          <p data-i18n="platform.s2p">Open any desk or endpoint link below. The first visit shows a sign-in form; enter the key once and a session keeps you signed in on that host for 24 hours.</p>
-        </li>
-        <li class="pf-step">
-          <span class="step">03</span>
-          <h3 data-i18n="platform.s3h">From code</h3>
-          <p data-i18n="platform.s3p">Send the key in the <code>X-Access-Key</code> header. <code>?access_key=</code> also works for one-off curl lines, and HTTP Basic (any user name, key as password) for older tools. <code>/health</code> is public.</p>
-        </li>
-      </ol>
+    <!-- 05 · PROOF · focus 5 paper book -->
+    <section id="performance" class="chapter" data-chapter="05">
+      <div class="wrap">
+        <header class="chap-head">
+          <p class="chap-tag"><b>05</b><span data-i18n="nav.proof">Proof</span></p>
+          <h2 class="title" data-rv data-i18n="perf.h2">Don’t take our word.<br>Read the book<span class="pt">.</span></h2>
+          <p class="chap-sub" data-rv data-i18n="perf.sub">Every call of our five focus products — GOLD, NAS100, WTI, BTCUSD and ETHUSD on 1-, 2- and 4-day horizons — traded on a simulated $100K book with live 15-minute prices, spread and funding costs. Paper trading, not a live account — past performance does not guarantee future results.</p>
+        </header>
 
-      <div class="pf-code book-card">
-        <div class="bc-head">
-          <h3 class="bc-title">QUICK START</h3>
-          <div class="seg" role="group" aria-label="Example language" data-pf="lang">
-            <button type="button" data-lang-code="curl" class="active" aria-pressed="true">curl</button>
-            <button type="button" data-lang-code="python" aria-pressed="false">Python</button>
-            <button type="button" data-lang-code="node" aria-pressed="false">Node.js</button>
+        <!-- Paper Desk book of the focus 5 — filled by script.js from data/focus-book.json -->
+        <div class="book is-loading" data-book-root>
+          <p class="book-note" data-book="note"></p>
+          <div class="kpi-grid" data-book="kpis"></div>
+
+          <div class="book-grid">
+            <div class="book-card book-chart">
+              <div class="bc-head">
+                <h3 class="bc-title">EQUITY</h3>
+                <div class="seg" role="group" aria-label="Chart view" data-book="view">
+                  <button type="button" data-view="book" class="active" aria-pressed="true">book</button>
+                  <button type="button" data-view="assets" aria-pressed="false">by asset</button>
+                </div>
+                <div class="seg" role="group" aria-label="Resolution" data-book="res">
+                  <button type="button" data-res="1h" aria-pressed="false">1h</button>
+                  <button type="button" data-res="4h" class="active" aria-pressed="true">4h</button>
+                  <button type="button" data-res="1d" aria-pressed="false">1d</button>
+                </div>
+                <a class="btn btn-line btn-sm bc-cta" href="https://brainy.deepbeta.mn/paperdesk/" target="_blank" rel="noopener" data-i18n="perf.cta">Open the paper desk ↗</a>
+              </div>
+              <div class="bc-legend" data-book="legend"></div>
+              <div class="bc-plot" data-book="plot" tabindex="0" role="group"
+                   aria-label="Paper book equity, drawdown and exposure over time. Use the left and right arrow keys to step through time."></div>
+              <div class="bc-months" data-book="months"></div>
+            </div>
+
+            <aside class="book-side">
+              <div class="book-card">
+                <h3 class="side-title">FOCUS 5 <span class="muted">· P&amp;L by asset</span></h3>
+                <ul class="asset-list" data-book="assets"></ul>
+              </div>
+              <div class="book-card">
+                <h3 class="side-title">EDGE VS COIN-FLIP</h3>
+                <div data-book="coinflip"></div>
+              </div>
+            </aside>
           </div>
-          <button type="button" class="btn btn-ghost pf-copy" data-pf="copy-snippet">copy</button>
+          <p class="book-empty muted small" hidden>Paper book data is unavailable right now — open the paper desk on Brainy for the live book.</p>
         </div>
+      </div>
+    </section>
+
+    <!-- 06 · BRAINY PLATFORM · desks, access instructions and the endpoint catalogue -->
+    <section id="platform" class="chapter" data-chapter="06">
+      <div class="wrap">
+        <header class="chap-head">
+          <p class="chap-tag"><b>06</b><span data-i18n="nav.platform">Platform</span></p>
+          <h2 class="title" data-rv data-i18n="platform.h2">Every desk.<br>Every endpoint.<br>One key<span class="pt">.</span></h2>
+          <p class="chap-sub" data-rv data-i18n="platform.sub">Thirteen desks and services behind one access key. Open a desk in the browser, or call its JSON API from your own code — every route is listed below with a working example link.</p>
+        </header>
+
+        <div class="pf-stats" data-rv>
+          <div><b>13</b><span data-i18n="platform.desks">desks and services</span></div>
+          <div><b data-pf="total">159</b><span data-i18n="platform.eps">documented API routes</span></div>
+          <div><b>1</b><span data-i18n="platform.key">access key</span></div>
+        </div>
+
+        <!-- how to connect -->
+        <ol class="pf-steps">
+          <li class="pf-step" data-rv>
+            <span class="step">01</span>
+            <h3 data-i18n="platform.s1h">Get an access key</h3>
+            <p data-i18n="platform.s1p">Brainy is private. Clients and partners receive a key from <a href="mailto:contact@deepbeta.mn">contact@deepbeta.mn</a>. Investor keys open the investor portal only (<code>/investor/*</code>).</p>
+          </li>
+          <li class="pf-step" data-rv style="--d:1">
+            <span class="step">02</span>
+            <h3 data-i18n="platform.s2h">In the browser</h3>
+            <p data-i18n="platform.s2p">Open any desk or endpoint link below. The first visit shows a sign-in form; enter the key once and a session keeps you signed in on that host for 24 hours.</p>
+          </li>
+          <li class="pf-step" data-rv style="--d:2">
+            <span class="step">03</span>
+            <h3 data-i18n="platform.s3h">From code</h3>
+            <p data-i18n="platform.s3p">Send the key in the <code>X-Access-Key</code> header. <code>?access_key=</code> also works for one-off curl lines, and HTTP Basic (any user name, key as password) for older tools. <code>/health</code> is public.</p>
+          </li>
+        </ol>
+
+        <div class="pf-code book-card">
+          <div class="bc-head">
+            <h3 class="bc-title">QUICK START</h3>
+            <div class="seg" role="group" aria-label="Example language" data-pf="lang">
+              <button type="button" data-lang-code="curl" class="active" aria-pressed="true">curl</button>
+              <button type="button" data-lang-code="python" aria-pressed="false">Python</button>
+              <button type="button" data-lang-code="node" aria-pressed="false">Node.js</button>
+            </div>
+            <button type="button" class="btn btn-line btn-sm pf-copy" data-pf="copy-snippet">copy</button>
+          </div>
 <pre class="pf-pre" data-code="curl"><code>export BRAINY_KEY=…   # your access key: keep it in the environment, never in code
 
 # the paper book behind the performance chart above
@@ -480,288 +539,320 @@ console.log(book.equity.equity, book.equity.return_pct);
 
 const call = await (await fetch('https://brainy.deepbeta.mn/api/inference/GOLD', { headers })).json();
 const tech = await (await fetch('https://technical.deepbeta.mn/api/asset/GOLD', { headers })).json();</code></pre>
-        <ul class="pf-notes">
-          <li data-i18n="platform.n1"><b>Path parameters</b> are in <code>{braces}</code>. The focus desks take <code>GOLD</code>, <code>NAS100</code>, <code>WTI</code>, <code>BTCUSD</code> or <code>ETHUSD</code>; the dashboard covers the full universe listed at <code>/dashboard/assets</code>.</li>
-          <li data-i18n="platform.n2"><span class="ep-x">compute</span> routes run a backtest or sweep on request and can take a minute. <span class="ep-x">stream</span> routes are server-sent events. <span class="ep-x">file</span> routes download CSV / XLSX.</li>
-          <li data-i18n="platform.n3"><b>POST</b> routes change state (demo orders, training jobs, desk runs). Use them deliberately.</li>
-          <li data-i18n="platform.n4"><b>Interactive docs:</b> <a href="https://brainy.deepbeta.mn/docs" target="_blank" rel="noopener">Swagger</a> · <a href="https://brainy.deepbeta.mn/redoc" target="_blank" rel="noopener">ReDoc</a> · <a href="https://brainy.deepbeta.mn/api/inference/schema" target="_blank" rel="noopener">inference row schema</a> · <a href="https://technical.deepbeta.mn/api/docs" target="_blank" rel="noopener">technical desk</a> · <a href="https://brainy.deepbeta.mn/livedash/docs" target="_blank" rel="noopener">live dashboard</a> · <a href="https://brainy.deepbeta.mn/train/docs" target="_blank" rel="noopener">training GUI</a>.</li>
-        </ul>
-      </div>
-
-      <!-- desk directory: endpoint counts and lists are filled by script.js from data/brainy-platform.json -->
-      <div class="svc-grid" data-pf="services">
-        <article class="svc" data-svc="brainy">
-          <div class="svc-top"><span class="svc-tag">CORE</span><span class="svc-host">brainy.deepbeta.mn</span></div>
-          <h3>Brainy dashboard</h3>
-          <p>Monitoring, backtests, model rankings, predictions and live inference across the full asset universe.</p>
-          <div class="svc-links">
-            <a class="btn btn-ghost" href="https://brainy.deepbeta.mn/" target="_blank" rel="noopener">Open ↗</a>
-            <a href="https://brainy.deepbeta.mn/docs" target="_blank" rel="noopener">API docs ↗</a>
-            <button type="button" class="svc-eps" data-show="brainy" hidden></button>
-          </div>
-        </article>
-        <article class="svc" data-svc="paperdesk">
-          <div class="svc-top"><span class="svc-tag">TRADING</span><span class="svc-host">brainy.deepbeta.mn/paperdesk</span></div>
-          <h3>Paper Desk</h3>
-          <p>Simulated live book of the five focus products, and the source of the performance chart above: equity, tickets, journal, what-if and risk tracks.</p>
-          <div class="svc-links">
-            <a class="btn btn-ghost" href="https://brainy.deepbeta.mn/paperdesk/" target="_blank" rel="noopener">Open ↗</a>
-            <button type="button" class="svc-eps" data-show="paperdesk" hidden></button>
-          </div>
-        </article>
-        <article class="svc" data-svc="tradingview">
-          <div class="svc-top"><span class="svc-tag">CHARTS</span><span class="svc-host">brainy.deepbeta.mn/tradingview</span></div>
-          <h3>Live chart · TradingView</h3>
-          <p>TradingView lightweight-charts view of the focus products with paper-book, backtest and IG tickets and the newest model calls.</p>
-          <div class="svc-links">
-            <a class="btn btn-ghost" href="https://brainy.deepbeta.mn/tradingview/" target="_blank" rel="noopener">Open ↗</a>
-            <button type="button" class="svc-eps" data-show="tradingview" hidden></button>
-          </div>
-        </article>
-        <article class="svc" data-svc="technical">
-          <div class="svc-top"><span class="svc-tag">RESEARCH</span><span class="svc-host">technical.deepbeta.mn</span></div>
-          <h3>Technical desk</h3>
-          <p>Indicator consensus, the indicator lab, news, sentiment, macro and crypto-derivatives reads for the focus products, run by the desk's agents.</p>
-          <div class="svc-links">
-            <a class="btn btn-ghost" href="https://technical.deepbeta.mn/" target="_blank" rel="noopener">Open ↗</a>
-            <a href="https://technical.deepbeta.mn/api/docs" target="_blank" rel="noopener">API docs ↗</a>
-            <button type="button" class="svc-eps" data-show="technical" hidden></button>
-          </div>
-        </article>
-        <article class="svc" data-svc="agents">
-          <div class="svc-top"><span class="svc-tag">OPERATIONS</span><span class="svc-host">agents.deepbeta.mn</span></div>
-          <h3>Agents board</h3>
-          <p>Health of every agent, service, scheduled job, daemon and pipeline on the platform, with a live activity feed.</p>
-          <div class="svc-links">
-            <a class="btn btn-ghost" href="https://agents.deepbeta.mn/" target="_blank" rel="noopener">Open ↗</a>
-            <button type="button" class="svc-eps" data-show="agents" hidden></button>
-          </div>
-        </article>
-        <article class="svc" data-svc="igtrading">
-          <div class="svc-top"><span class="svc-tag">TRADING</span><span class="svc-host">brainy.deepbeta.mn/ig-trading</span></div>
-          <h3>IG trading</h3>
-          <p>IG demo accounts: holdings, close schedule, performance, venues, the insights pipeline and the daily digest, plus the demo order API.</p>
-          <div class="svc-links">
-            <a class="btn btn-ghost" href="https://brainy.deepbeta.mn/ig-trading/" target="_blank" rel="noopener">Open ↗</a>
-            <button type="button" class="svc-eps" data-show="igtrading" hidden></button>
-          </div>
-        </article>
-        <article class="svc" data-svc="options">
-          <div class="svc-top"><span class="svc-tag">RESEARCH</span><span class="svc-host">options.deepbeta.mn</span></div>
-          <h3>Options desk</h3>
-          <p>Crypto options read: squeeze and next move, direction lean, cheap-premium watch, desk calls, term structure and a live signal feed.</p>
-          <div class="svc-links">
-            <a class="btn btn-ghost" href="https://options.deepbeta.mn/" target="_blank" rel="noopener">Open ↗</a>
-            <button type="button" class="svc-eps" data-show="options" hidden></button>
-          </div>
-        </article>
-        <article class="svc" data-svc="focus">
-          <div class="svc-top"><span class="svc-tag">MODELS</span><span class="svc-host">brainy.deepbeta.mn/focus1d</span></div>
-          <h3>Focus products</h3>
-          <p>Train, infer, version and promote the focus products; the 1d / 2d / 4d horizons side by side; the focus dashboard and report.</p>
-          <div class="svc-links">
-            <a class="btn btn-ghost" href="https://brainy.deepbeta.mn/focus1d/" target="_blank" rel="noopener">Open ↗</a>
-            <a href="https://brainy.deepbeta.mn/focus1d/horizons" target="_blank" rel="noopener">horizons ↗</a>
-            <a href="https://brainy.deepbeta.mn/focus_dashboard" target="_blank" rel="noopener">dashboard ↗</a>
-            <button type="button" class="svc-eps" data-show="focus" hidden></button>
-          </div>
-        </article>
-        <article class="svc" data-svc="investor">
-          <div class="svc-top"><span class="svc-tag">CLIENTS</span><span class="svc-host">brainy.deepbeta.mn/investor</span></div>
-          <h3>Investor portal</h3>
-          <p>Read-only scorecards, best models, backtests and portfolio growth. The only area an investor key opens.</p>
-          <div class="svc-links">
-            <a class="btn btn-ghost" href="https://brainy.deepbeta.mn/investor/" target="_blank" rel="noopener">Open ↗</a>
-            <button type="button" class="svc-eps" data-show="investor" hidden></button>
-          </div>
-        </article>
-        <article class="svc" data-svc="livedash">
-          <div class="svc-top"><span class="svc-tag">TRADING</span><span class="svc-host">brainy.deepbeta.mn/livedash</span></div>
-          <h3>Live dashboard</h3>
-          <p>Real-time snapshot of the live accounts: equity, positions, pending orders, divergences and the trading journal.</p>
-          <div class="svc-links">
-            <a class="btn btn-ghost" href="https://brainy.deepbeta.mn/livedash/" target="_blank" rel="noopener">Open ↗</a>
-            <a href="https://brainy.deepbeta.mn/livedash/docs" target="_blank" rel="noopener">API docs ↗</a>
-            <button type="button" class="svc-eps" data-show="livedash" hidden></button>
-          </div>
-        </article>
-        <article class="svc" data-svc="train">
-          <div class="svc-top"><span class="svc-tag">MODELS</span><span class="svc-host">brainy.deepbeta.mn/train</span></div>
-          <h3>Training GUI</h3>
-          <p>Train, backtest, compare and finalise model configurations, and manage the best-per-ticker table.</p>
-          <div class="svc-links">
-            <a class="btn btn-ghost" href="https://brainy.deepbeta.mn/train/" target="_blank" rel="noopener">Open ↗</a>
-            <a href="https://brainy.deepbeta.mn/train/docs" target="_blank" rel="noopener">API docs ↗</a>
-            <button type="button" class="svc-eps" data-show="train" hidden></button>
-          </div>
-        </article>
-        <article class="svc" data-svc="monitoring">
-          <div class="svc-top"><span class="svc-tag">OPERATIONS</span><span class="svc-host">brainy.deepbeta.mn/monitoring</span></div>
-          <h3>Server monitor</h3>
-          <p>Traffic, latency, failures, security rejections, pipeline freshness and host resources.</p>
-          <div class="svc-links">
-            <a class="btn btn-ghost" href="https://brainy.deepbeta.mn/monitoring/" target="_blank" rel="noopener">Open ↗</a>
-            <button type="button" class="svc-eps" data-show="monitoring" hidden></button>
-          </div>
-        </article>
-        <article class="svc" data-svc="mlflow">
-          <div class="svc-top"><span class="svc-tag">MODELS</span><span class="svc-host">brainy.deepbeta.mn/mlflow</span></div>
-          <h3>MLflow</h3>
-          <p>Experiment tracking for every training run, with the standard MLflow REST API.</p>
-          <div class="svc-links">
-            <a class="btn btn-ghost" href="https://brainy.deepbeta.mn/mlflow/" target="_blank" rel="noopener">Open ↗</a>
-            <button type="button" class="svc-eps" data-show="mlflow" hidden></button>
-          </div>
-        </article>
-      </div>
-
-      <!-- endpoint explorer: filled by script.js from data/brainy-platform.json -->
-      <div class="ep book-card" data-pf="explorer" hidden>
-        <div class="bc-head ep-bar">
-          <h3 class="bc-title">ENDPOINTS</h3>
-          <label class="ep-search">
-            <span class="sr-only">Filter endpoints</span>
-            <input type="search" data-pf="q" placeholder="Filter by path or words…" autocomplete="off" spellcheck="false" />
-          </label>
-          <select data-pf="svc" aria-label="Desk"><option value="">all desks</option></select>
-          <div class="seg" role="group" aria-label="Method" data-pf="method">
-            <button type="button" data-m="" class="active" aria-pressed="true">all</button>
-            <button type="button" data-m="GET" aria-pressed="false">GET</button>
-            <button type="button" data-m="POST" aria-pressed="false">POST</button>
-          </div>
-          <span class="ep-count muted small" data-pf="count" aria-live="polite"></span>
-        </div>
-        <div class="ep-list" data-pf="list"></div>
-        <p class="ep-foot muted small" data-pf="foot"></p>
-      </div>
-    </section>
-
-    <!-- RESEARCH / ABOUT -->
-    <section id="research" class="panel">
-      <div class="panel-head">
-        <h2 data-i18n="firm.h2"><span class="bar"></span> THE FIRM</h2>
-      </div>
-      <div class="about-grid">
-        <div>
-          <h3>Deep Beta Technology LLC</h3>
-          <p data-i18n="firm.p">
-            Deep Beta Technology LLC is a technology firm delivering advanced analytics,
-            backtesting on financial products, and AI solutions to enterprises. Our services
-            span treasury management, enterprise AI solutions, and quant ML &amp; AI algorithmic
-            trading. Our research, risk and execution stack runs end-to-end on our internal
-            "Brainy" platform with a 13-model machine-learning engine for global cross-asset markets.
-          </p>
-          <p class="muted small" data-i18n="firm.model">
-            We operate strictly as a technology vendor: clients license our solutions, services,
-            and quant models for a fee. We never hold client accounts or assets in custody,
-            and we never split profits.
-          </p>
-        </div>
-        <div>
-          <h3 data-i18n="founder.h3">Founder</h3>
-          <p data-i18n="founder.p"><b>Nyam-Ochir Bold</b> — quant researcher and engineer leading Deep Beta Technology LLC.</p>
-          <p class="muted small" data-i18n="founder.note">Prior to founding Deep Beta, Nyam-Ochir collaborated with external quantitative investment organizations, contributing high-performance ML-driven strategies and end-to-end backtesting across equities, commodities, forex, derivatives, and options markets. These engagements were personal collaborations by the founder and do not constitute a partnership with Deep Beta Technology LLC.</p>
-          <ul class="links">
-            <li><a href="https://www.linkedin.com/in/nyamochirbold/" target="_blank" rel="noopener">linkedin.com/in/nyamochirbold</a></li>
-            <li><a href="https://www.upwork.com/fl/nyamochirbold" target="_blank" rel="noopener">upwork.com/fl/nyamochirbold</a></li>
+          <ul class="pf-notes">
+            <li data-i18n="platform.n1"><b>Path parameters</b> are in <code>{braces}</code>. The focus desks take <code>GOLD</code>, <code>NAS100</code>, <code>WTI</code>, <code>BTCUSD</code> or <code>ETHUSD</code>; the dashboard covers the full universe listed at <code>/dashboard/assets</code>.</li>
+            <li data-i18n="platform.n2"><span class="ep-x">compute</span> routes run a backtest or sweep on request and can take a minute. <span class="ep-x">stream</span> routes are server-sent events. <span class="ep-x">file</span> routes download CSV / XLSX.</li>
+            <li data-i18n="platform.n3"><b>POST</b> routes change state (demo orders, training jobs, desk runs). Use them deliberately.</li>
+            <li data-i18n="platform.n4"><b>Interactive docs:</b> <a href="https://brainy.deepbeta.mn/docs" target="_blank" rel="noopener">Swagger</a> · <a href="https://brainy.deepbeta.mn/redoc" target="_blank" rel="noopener">ReDoc</a> · <a href="https://brainy.deepbeta.mn/api/inference/schema" target="_blank" rel="noopener">inference row schema</a> · <a href="https://technical.deepbeta.mn/api/docs" target="_blank" rel="noopener">technical desk</a> · <a href="https://brainy.deepbeta.mn/livedash/docs" target="_blank" rel="noopener">live dashboard</a> · <a href="https://brainy.deepbeta.mn/train/docs" target="_blank" rel="noopener">training GUI</a>.</li>
           </ul>
         </div>
+
+        <!-- desk directory: endpoint counts and lists are filled by script.js from data/brainy-platform.json -->
+        <div class="svc-grid" data-pf="services">
+          <article class="svc" data-svc="brainy">
+            <div class="svc-top"><span class="svc-tag">CORE</span><span class="svc-host">brainy.deepbeta.mn</span></div>
+            <h3>Brainy dashboard</h3>
+            <p>Monitoring, backtests, model rankings, predictions and live inference across the full asset universe.</p>
+            <div class="svc-links">
+              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/" target="_blank" rel="noopener">Open ↗</a>
+              <a href="https://brainy.deepbeta.mn/docs" target="_blank" rel="noopener">API docs ↗</a>
+              <button type="button" class="svc-eps" data-show="brainy" hidden></button>
+            </div>
+          </article>
+          <article class="svc" data-svc="paperdesk">
+            <div class="svc-top"><span class="svc-tag">TRADING</span><span class="svc-host">brainy.deepbeta.mn/paperdesk</span></div>
+            <h3>Paper Desk</h3>
+            <p>Simulated live book of the five focus products, and the source of the performance chart above: equity, tickets, journal, what-if and risk tracks.</p>
+            <div class="svc-links">
+              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/paperdesk/" target="_blank" rel="noopener">Open ↗</a>
+              <button type="button" class="svc-eps" data-show="paperdesk" hidden></button>
+            </div>
+          </article>
+          <article class="svc" data-svc="tradingview">
+            <div class="svc-top"><span class="svc-tag">CHARTS</span><span class="svc-host">brainy.deepbeta.mn/tradingview</span></div>
+            <h3>Live chart · TradingView</h3>
+            <p>TradingView lightweight-charts view of the focus products with paper-book, backtest and IG tickets and the newest model calls.</p>
+            <div class="svc-links">
+              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/tradingview/" target="_blank" rel="noopener">Open ↗</a>
+              <button type="button" class="svc-eps" data-show="tradingview" hidden></button>
+            </div>
+          </article>
+          <article class="svc" data-svc="technical">
+            <div class="svc-top"><span class="svc-tag">RESEARCH</span><span class="svc-host">technical.deepbeta.mn</span></div>
+            <h3>Technical desk</h3>
+            <p>Indicator consensus, the indicator lab, news, sentiment, macro and crypto-derivatives reads for the focus products, run by the desk's agents.</p>
+            <div class="svc-links">
+              <a class="btn btn-line btn-sm" href="https://technical.deepbeta.mn/" target="_blank" rel="noopener">Open ↗</a>
+              <a href="https://technical.deepbeta.mn/api/docs" target="_blank" rel="noopener">API docs ↗</a>
+              <button type="button" class="svc-eps" data-show="technical" hidden></button>
+            </div>
+          </article>
+          <article class="svc" data-svc="agents">
+            <div class="svc-top"><span class="svc-tag">OPERATIONS</span><span class="svc-host">agents.deepbeta.mn</span></div>
+            <h3>Agents board</h3>
+            <p>Health of every agent, service, scheduled job, daemon and pipeline on the platform, with a live activity feed.</p>
+            <div class="svc-links">
+              <a class="btn btn-line btn-sm" href="https://agents.deepbeta.mn/" target="_blank" rel="noopener">Open ↗</a>
+              <button type="button" class="svc-eps" data-show="agents" hidden></button>
+            </div>
+          </article>
+          <article class="svc" data-svc="igtrading">
+            <div class="svc-top"><span class="svc-tag">TRADING</span><span class="svc-host">brainy.deepbeta.mn/ig-trading</span></div>
+            <h3>IG trading</h3>
+            <p>IG demo accounts: holdings, close schedule, performance, venues, the insights pipeline and the daily digest, plus the demo order API.</p>
+            <div class="svc-links">
+              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/ig-trading/" target="_blank" rel="noopener">Open ↗</a>
+              <button type="button" class="svc-eps" data-show="igtrading" hidden></button>
+            </div>
+          </article>
+          <article class="svc" data-svc="options">
+            <div class="svc-top"><span class="svc-tag">RESEARCH</span><span class="svc-host">options.deepbeta.mn</span></div>
+            <h3>Options desk</h3>
+            <p>Crypto options read: squeeze and next move, direction lean, cheap-premium watch, desk calls, term structure and a live signal feed.</p>
+            <div class="svc-links">
+              <a class="btn btn-line btn-sm" href="https://options.deepbeta.mn/" target="_blank" rel="noopener">Open ↗</a>
+              <button type="button" class="svc-eps" data-show="options" hidden></button>
+            </div>
+          </article>
+          <article class="svc" data-svc="focus">
+            <div class="svc-top"><span class="svc-tag">MODELS</span><span class="svc-host">brainy.deepbeta.mn/focus1d</span></div>
+            <h3>Focus products</h3>
+            <p>Train, infer, version and promote the focus products; the 1d / 2d / 4d horizons side by side; the focus dashboard and report.</p>
+            <div class="svc-links">
+              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/focus1d/" target="_blank" rel="noopener">Open ↗</a>
+              <a href="https://brainy.deepbeta.mn/focus1d/horizons" target="_blank" rel="noopener">horizons ↗</a>
+              <a href="https://brainy.deepbeta.mn/focus_dashboard" target="_blank" rel="noopener">dashboard ↗</a>
+              <button type="button" class="svc-eps" data-show="focus" hidden></button>
+            </div>
+          </article>
+          <article class="svc" data-svc="investor">
+            <div class="svc-top"><span class="svc-tag">CLIENTS</span><span class="svc-host">brainy.deepbeta.mn/investor</span></div>
+            <h3>Investor portal</h3>
+            <p>Read-only scorecards, best models, backtests and portfolio growth. The only area an investor key opens.</p>
+            <div class="svc-links">
+              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/investor/" target="_blank" rel="noopener">Open ↗</a>
+              <button type="button" class="svc-eps" data-show="investor" hidden></button>
+            </div>
+          </article>
+          <article class="svc" data-svc="livedash">
+            <div class="svc-top"><span class="svc-tag">TRADING</span><span class="svc-host">brainy.deepbeta.mn/livedash</span></div>
+            <h3>Live dashboard</h3>
+            <p>Real-time snapshot of the live accounts: equity, positions, pending orders, divergences and the trading journal.</p>
+            <div class="svc-links">
+              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/livedash/" target="_blank" rel="noopener">Open ↗</a>
+              <a href="https://brainy.deepbeta.mn/livedash/docs" target="_blank" rel="noopener">API docs ↗</a>
+              <button type="button" class="svc-eps" data-show="livedash" hidden></button>
+            </div>
+          </article>
+          <article class="svc" data-svc="train">
+            <div class="svc-top"><span class="svc-tag">MODELS</span><span class="svc-host">brainy.deepbeta.mn/train</span></div>
+            <h3>Training GUI</h3>
+            <p>Train, backtest, compare and finalise model configurations, and manage the best-per-ticker table.</p>
+            <div class="svc-links">
+              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/train/" target="_blank" rel="noopener">Open ↗</a>
+              <a href="https://brainy.deepbeta.mn/train/docs" target="_blank" rel="noopener">API docs ↗</a>
+              <button type="button" class="svc-eps" data-show="train" hidden></button>
+            </div>
+          </article>
+          <article class="svc" data-svc="monitoring">
+            <div class="svc-top"><span class="svc-tag">OPERATIONS</span><span class="svc-host">brainy.deepbeta.mn/monitoring</span></div>
+            <h3>Server monitor</h3>
+            <p>Traffic, latency, failures, security rejections, pipeline freshness and host resources.</p>
+            <div class="svc-links">
+              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/monitoring/" target="_blank" rel="noopener">Open ↗</a>
+              <button type="button" class="svc-eps" data-show="monitoring" hidden></button>
+            </div>
+          </article>
+          <article class="svc" data-svc="mlflow">
+            <div class="svc-top"><span class="svc-tag">MODELS</span><span class="svc-host">brainy.deepbeta.mn/mlflow</span></div>
+            <h3>MLflow</h3>
+            <p>Experiment tracking for every training run, with the standard MLflow REST API.</p>
+            <div class="svc-links">
+              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/mlflow/" target="_blank" rel="noopener">Open ↗</a>
+              <button type="button" class="svc-eps" data-show="mlflow" hidden></button>
+            </div>
+          </article>
+        </div>
+
+        <!-- endpoint explorer: filled by script.js from data/brainy-platform.json -->
+        <div class="ep book-card" data-pf="explorer" hidden>
+          <div class="bc-head ep-bar">
+            <h3 class="bc-title">ENDPOINTS</h3>
+            <label class="ep-search">
+              <span class="sr-only">Filter endpoints</span>
+              <input type="search" data-pf="q" placeholder="Filter by path or words…" autocomplete="off" spellcheck="false" />
+            </label>
+            <select data-pf="svc" aria-label="Desk"><option value="">all desks</option></select>
+            <div class="seg" role="group" aria-label="Method" data-pf="method">
+              <button type="button" data-m="" class="active" aria-pressed="true">all</button>
+              <button type="button" data-m="GET" aria-pressed="false">GET</button>
+              <button type="button" data-m="POST" aria-pressed="false">POST</button>
+            </div>
+            <span class="ep-count muted small" data-pf="count" aria-live="polite"></span>
+          </div>
+          <div class="ep-list" data-pf="list"></div>
+          <p class="ep-foot muted small" data-pf="foot"></p>
+        </div>
       </div>
     </section>
 
-    <!-- PARTNERS -->
-    <section id="partners" class="panel">
-      <div class="panel-head">
-        <h2 data-i18n="partners.h2"><span class="bar"></span> FOUNDER&rsquo;S FORMER COLLABORATIONS</h2>
-        <p class="muted" data-i18n="partners.sub">Organizations the founder personally collaborated with prior to establishing Deep Beta Technology LLC. These are not partnerships of Deep Beta Technology LLC.</p>
-      </div>
+    <!-- 07 · THE FIRM -->
+    <section id="firm" class="chapter" data-chapter="07">
+      <div class="wrap">
+        <header class="chap-head">
+          <p class="chap-tag"><b>07</b><span data-i18n="nav.firm">Firm</span></p>
+          <h2 class="title" data-rv data-i18n="firm.h2">We sell technology.<br>Not promises<span class="pt">.</span></h2>
+        </header>
 
-      <!-- Former partners -->
-      <div class="partner-former-head">
-        <span class="feat-tag" data-i18n="partners.tag">FOUNDER&rsquo;S PRIOR COLLABORATIONS</span>
-      </div>
-      <div class="partner-grid">
-
-        <div class="partner-card">
-          <div class="partner-logo-sm">
-            <svg viewBox="0 0 54 54" width="54" height="54" fill="none" aria-label="EIP Holding">
-              <circle cx="27" cy="27" r="26" fill="#14171d" stroke="#2a2f3a" stroke-width="1"/>
-              <text x="27" y="32" text-anchor="middle" font-family="Inter,sans-serif" font-size="13" font-weight="700" fill="#6f6c5e">EIP</text>
-            </svg>
+        <div class="firm-grid">
+          <div id="research" class="firm-about" data-rv>
+            <h3 class="label">Deep Beta Technology LLC</h3>
+            <p class="firm-lead" data-i18n="firm.p">
+              Deep Beta Technology LLC is a technology firm delivering advanced analytics,
+              backtesting on financial products, and AI solutions to enterprises. Our services
+              span treasury management, enterprise AI solutions, and quant ML &amp; AI algorithmic
+              trading. Our research, risk and execution stack runs end-to-end on our internal
+              "Brainy" platform with a 13-model machine-learning engine for global cross-asset markets.
+            </p>
+            <p class="firm-model" data-i18n="firm.model">
+              We operate strictly as a technology vendor: clients license our solutions, services,
+              and quant models for a fee. We never hold client accounts or assets in custody,
+              and we never split profits.
+            </p>
           </div>
-          <div>
-            <h3>EIP Holding</h3>
-            <span class="partner-card-loc">🇳🇴 Norway</span>
-            <p class="muted small" data-i18n="partners.eip">Investment holding company operating across European and global financial markets.</p>
-          </div>
+          <aside class="founder" data-rv style="--d:1">
+            <h3 class="label" data-i18n="founder.h3">Founder</h3>
+            <p class="founder-name" data-i18n="founder.p"><b>Nyam-Ochir Bold</b> Quant researcher and engineer leading Deep Beta Technology LLC.</p>
+            <p class="muted small" data-i18n="founder.note">Prior to founding Deep Beta, Nyam-Ochir collaborated with external quantitative investment organizations, contributing high-performance ML-driven strategies and end-to-end backtesting across equities, commodities, forex, derivatives, and options markets. These engagements were personal collaborations by the founder and do not constitute a partnership with Deep Beta Technology LLC.</p>
+            <ul class="links">
+              <li><a href="https://www.linkedin.com/in/nyamochirbold/" target="_blank" rel="noopener">linkedin.com/in/nyamochirbold ↗</a></li>
+              <li><a href="https://www.upwork.com/fl/nyamochirbold" target="_blank" rel="noopener">upwork.com/fl/nyamochirbold ↗</a></li>
+            </ul>
+          </aside>
         </div>
 
-        <div class="partner-card">
-          <div class="partner-logo-sm">
-            <svg viewBox="0 0 54 54" width="54" height="54" fill="none" aria-label="Anna Fund">
-              <circle cx="27" cy="27" r="26" fill="#14171d" stroke="#2a2f3a" stroke-width="1"/>
-              <text x="27" y="32" text-anchor="middle" font-family="Inter,sans-serif" font-size="11" font-weight="700" fill="#6f6c5e">ANNA</text>
-            </svg>
-          </div>
-          <div>
-            <h3>Anna Fund</h3>
-            <span class="partner-card-loc">🇳🇴 Norway</span>
-            <p class="muted small" data-i18n="partners.anna">Alternative investment fund focused on systematic strategies and financial innovation.</p>
-          </div>
+        <!-- principles -->
+        <div class="block">
+          <header class="block-head">
+            <h3 class="subtitle" data-rv data-i18n="principles.h3">What we hold ourselves to</h3>
+          </header>
+          <ol class="principles">
+            <li data-rv>
+              <span class="pr-n">01</span>
+              <h4 data-i18n="pr.1.h">Evidence before belief</h4>
+              <p data-i18n="pr.1.p">Every model is trained independently, validated walk-forward and ranked on Sharpe, Calmar, drawdown and return. Nothing ships on a good story.</p>
+            </li>
+            <li data-rv>
+              <span class="pr-n">02</span>
+              <h4 data-i18n="pr.2.h">Risk before return</h4>
+              <p data-i18n="pr.2.p">Mandate, exposure and liquidity limits are built into the engine as constraints, alongside VaR, drawdown, volatility-target, correlation and stress controls.</p>
+            </li>
+            <li data-rv>
+              <span class="pr-n">03</span>
+              <h4 data-i18n="pr.3.h">Open by default</h4>
+              <p data-i18n="pr.3.p">Every desk has an API and every route is documented. The paper book on this page is exported from the live Paper Desk, with spread and funding costs already deducted.</p>
+            </li>
+            <li data-rv>
+              <span class="pr-n">04</span>
+              <h4 data-i18n="pr.4.h">Replaceable by design</h4>
+              <p data-i18n="pr.4.p">Each layer, from the feature store to execution, can be tested and swapped on its own. No black box you have to take whole.</p>
+            </li>
+          </ol>
         </div>
 
-        <div class="partner-card">
-          <div class="partner-logo-sm">
-            <svg viewBox="0 0 54 54" width="54" height="54" fill="none" aria-label="Deerfield Green">
-              <circle cx="27" cy="27" r="26" fill="#14171d" stroke="#2a2f3a" stroke-width="1"/>
-              <text x="27" y="32" text-anchor="middle" font-family="Inter,sans-serif" font-size="12" font-weight="700" fill="#6f6c5e">DFG</text>
-            </svg>
-          </div>
-          <div>
-            <h3>Deerfield Green</h3>
-            <span class="partner-card-loc">🇯🇵 Tokyo &middot; Atlanta</span>
-            <p class="muted small" data-i18n="partners.dfg">Quantitative investment, AI strategy, and cross-Pacific capital management.</p>
-            <a href="https://www.deerfieldgreen.com/" target="_blank" rel="noopener" class="muted small">deerfieldgreen.com &rarr;</a>
+        <!-- founder's former collaborations -->
+        <div id="partners" class="block">
+          <header class="block-head">
+            <h3 class="subtitle" data-rv data-i18n="partners.h2">Founder’s former collaborations</h3>
+            <p class="chap-sub" data-rv data-i18n="partners.sub">Organizations the founder personally collaborated with prior to establishing Deep Beta Technology LLC. These are not partnerships of Deep Beta Technology LLC.</p>
+          </header>
+          <div class="collab" data-rv>
+            <div class="collab-card">
+              <span class="badge" aria-hidden="true">EIP</span>
+              <div>
+                <h4>EIP Holding</h4>
+                <span class="collab-loc">Norway</span>
+                <p data-i18n="partners.eip">Investment holding company operating across European and global financial markets.</p>
+              </div>
+            </div>
+            <div class="collab-card">
+              <span class="badge" aria-hidden="true">ANNA</span>
+              <div>
+                <h4>Anna Fund</h4>
+                <span class="collab-loc">Norway</span>
+                <p data-i18n="partners.anna">Alternative investment fund focused on systematic strategies and financial innovation.</p>
+              </div>
+            </div>
+            <div class="collab-card">
+              <span class="badge" aria-hidden="true">DFG</span>
+              <div>
+                <h4>Deerfield Green</h4>
+                <span class="collab-loc">Tokyo · Atlanta</span>
+                <p data-i18n="partners.dfg">Quantitative investment, AI strategy, and cross-Pacific capital management.</p>
+                <a href="https://www.deerfieldgreen.com/" target="_blank" rel="noopener">deerfieldgreen.com ↗</a>
+              </div>
+            </div>
           </div>
         </div>
-
       </div>
     </section>
 
-    <!-- CONTACT -->
-    <section id="contact" class="panel cta">
-      <div class="cta-inner">
-        <div>
-          <h2 data-i18n="cta.h2">Try the Brainy platform.</h2>
-          <p class="muted" data-i18n="cta.sub">Live monitoring, backtests, model rankings and portfolio aggregation across all DeepBeta universes.</p>
-        </div>
-        <div class="cta-actions">
-          <a class="btn btn-primary lg" href="https://brainy.deepbeta.mn/" target="_blank" rel="noopener">&triangleright; Open brainy.deepbeta.mn</a>
-          <a class="btn btn-ghost lg" href="mailto:contact@deepbeta.mn">contact@deepbeta.mn</a>
+    <!-- 08 · CONTACT -->
+    <section id="contact" class="chapter cta" data-chapter="08">
+      <div class="wrap cta-inner">
+        <p class="chap-tag"><b>08</b><span data-i18n="nav.contact">Contact</span></p>
+        <h2 class="display" data-rv data-i18n="cta.h2">Put it<br>to the test<span class="pt">.</span></h2>
+        <p class="lede" data-rv data-i18n="cta.sub">Ask for an access key to the Brainy platform, or tell us about the decision you want to put on evidence. We answer in English, Mongolian and Korean.</p>
+        <div class="hero-ctas" data-rv>
+          <a class="btn btn-gold" href="mailto:contact@deepbeta.mn">contact@deepbeta.mn<i class="arr" aria-hidden="true">→</i></a>
+          <a class="btn btn-line" href="https://brainy.deepbeta.mn/" target="_blank" rel="noopener"><b data-i18n="head.brainy">Open Brainy</b><i class="arr" aria-hidden="true">↗</i></a>
         </div>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <div class="footer-inner">
-      <div class="foot-brand">
-        <img src="/logo/deepbeta-logo-sm.webp" alt="" width="32" height="32" loading="lazy" />
-        <div>
-          <div><b>Deep Beta Technology LLC</b></div>
-          <div class="muted small">deepbeta.mn</div>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <a class="wordmark" href="#top" aria-label="Deep Beta Technology LLC home">DeepBeta<span class="pt">.</span></a>
+          <p data-i18n="foot.tagline">Quant ML models, backtesting and AI solutions for enterprises.</p>
+          <a class="foot-mail" href="mailto:contact@deepbeta.mn">contact@deepbeta.mn</a>
         </div>
+        <nav class="foot-col" aria-label="Company">
+          <h3 data-i18n="foot.company">Company</h3>
+          <a href="#thesis" data-i18n="nav.thesis">Thesis</a>
+          <a href="#practice" data-i18n="nav.practice">Practice</a>
+          <a href="#firm" data-i18n="nav.firm">Firm</a>
+          <a href="#contact" data-i18n="nav.contact">Contact</a>
+        </nav>
+        <nav class="foot-col" aria-label="Engine">
+          <h3 data-i18n="nav.engine">Engine</h3>
+          <a href="#models" data-i18n="foot.models">Models</a>
+          <a href="#features" data-i18n="foot.inputs">Inputs</a>
+          <a href="#assets" data-i18n="foot.markets">Markets</a>
+          <a href="#stack" data-i18n="nav.pipeline">Pipeline</a>
+          <a href="#performance" data-i18n="nav.proof">Proof</a>
+        </nav>
+        <nav class="foot-col" aria-label="Platform">
+          <h3 data-i18n="nav.platform">Platform</h3>
+          <a href="https://brainy.deepbeta.mn/" target="_blank" rel="noopener">Brainy platform</a>
+          <a href="https://brainy.deepbeta.mn/paperdesk/" target="_blank" rel="noopener">Paper Desk</a>
+          <a href="https://technical.deepbeta.mn/" target="_blank" rel="noopener">Technical desk</a>
+          <a href="https://agents.deepbeta.mn/" target="_blank" rel="noopener">Agents</a>
+          <a href="#platform" data-i18n="foot.api">API &amp; endpoints</a>
+        </nav>
+        <nav class="foot-col" aria-label="Connect">
+          <h3 data-i18n="foot.connect">Connect</h3>
+          <a href="mailto:contact@deepbeta.mn">Email</a>
+          <a href="https://www.linkedin.com/in/nyamochirbold/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.upwork.com/fl/nyamochirbold" target="_blank" rel="noopener">Upwork</a>
+        </nav>
       </div>
-      <div class="foot-links">
-        <a href="https://brainy.deepbeta.mn/" target="_blank" rel="noopener">Brainy platform</a>
-        <a href="https://brainy.deepbeta.mn/paperdesk/" target="_blank" rel="noopener">Paper Desk</a>
-        <a href="https://technical.deepbeta.mn/" target="_blank" rel="noopener">Technical desk</a>
-        <a href="https://agents.deepbeta.mn/" target="_blank" rel="noopener">Agents</a>
-        <a href="#platform">API &amp; endpoints</a>
-        <a href="https://www.linkedin.com/in/nyamochirbold/" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="https://www.upwork.com/fl/nyamochirbold" target="_blank" rel="noopener">Upwork</a>
-      </div>
-      <div class="foot-legal muted small" data-i18n="footer.legal">
+
+      <div class="foot-mark" aria-hidden="true">DeepBeta<span class="pt">.</span></div>
+
+      <div class="foot-legal" data-i18n="footer.legal">
         © <span data-year></span> Deep Beta Technology LLC. All rights reserved. Technology provider —
         we sell solutions and services and license our quant models for a fee; we never hold client
         accounts or assets in custody and never split profits. Research / informational use.
@@ -769,6 +860,9 @@ const tech = await (await fetch('https://technical.deepbeta.mn/api/asset/GOLD', 
       </div>
     </div>
   </footer>
+
+  <!-- chapter rail, built by script.js from the sections marked data-chapter; decorative duplicate of the nav -->
+  <nav class="depth" data-depth aria-hidden="true"></nav>
 
   <script src="/script.js"></script>
 </body>

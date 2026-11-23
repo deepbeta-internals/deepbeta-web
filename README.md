@@ -13,12 +13,45 @@ Static — no bundler. One standard-library Python step at deploy generates the 
 - [index.html](index.html)
 - [styles.css](styles.css)
 - [script.js](script.js)
-- `logo/` — brand assets (the pages use the small `deepbeta-logo-sm.webp`, icons and `og-image.jpg`)
+- `logo/` — brand assets (the page sets the wordmark as live text; the icons and `og-image.jpg` come from here)
 - `i18n/mn.json`, `i18n/ko.json` — Mongolian / Korean page text and meta tags
 - `robots.txt`, `sitemap.xml`, `favicon.ico`
 - `data/focus-book.json` — the focus 5 paper book behind the performance chart
 - `data/brainy-platform.json` — the Brainy endpoint catalogue behind the platform section
 - `tools/` — exporters that write the two JSON files, and the language-page builder (not deployed)
+
+## Page structure & design conventions
+
+One page, told as numbered chapters. Each chapter is a `<section data-chapter="NN">` with a
+`.chap-tag` (number + name) and a headline:
+
+| # | id | What it says |
+|---|----|--------------|
+| 00 | `#top` (hero) | The one-line claim, over the generative ridgeline terrain and the live tape |
+| 01 | `#thesis` | The belief statement, then mission / vision / promise (the one chapter on paper) |
+| — | `.numbers` | DeepBeta in four numbers |
+| 02 | `#practice` | The three practices |
+| 03 | `#engine` | 13 models (`#models`), inputs (`#features`), markets and session clocks (`#assets`) |
+| 04 | `#stack` | The seven-layer pipeline |
+| 05 | `#performance` | The focus 5 paper book |
+| 06 | `#platform` | Brainy desks, access and the endpoint explorer |
+| 07 | `#firm` | The firm (`#research`), principles, founder's former collaborations (`#partners`) |
+| 08 | `#contact` | Contact |
+
+- **The green full stop.** The wordmark is "DeepBeta." with a green dot, so every headline closes
+  with `<span class="pt">.</span>`. Keep it on new headlines, in all three languages.
+- **Type.** Inter Tight for headlines, Inter for text, JetBrains Mono only for evidence
+  (numbers, labels, code). Colours are the custom properties at the top of `styles.css`.
+- **Motion.** `data-rv` fades an element in when it scrolls into view (`style="--d:1"` staggers
+  it); `data-count="13"` counts a numeral up. Everything is visible without JavaScript and still
+  when the visitor prefers reduced motion.
+- **The chapter rail** on wide screens and the current nav link are built by `script.js` from
+  the `data-chapter` sections; a chapter that has no nav link of its own names its parent with
+  `data-nav` (the pipeline sits under "Engine").
+- **Nothing shown as live unless it is.** The tape stays hidden until the price feed answers,
+  and the session clocks are computed in the browser from regular exchange hours.
+- The hero terrain is decoration drawn from noise, not data. Keep performance numbers in
+  `#performance`, next to their paper-trading disclaimer.
 
 ## Languages & SEO
 
@@ -136,8 +169,8 @@ Then add `deepbeta.mn` and `www.deepbeta.com` as custom domains.
 
 ## Brainy access for visitors
 
-The Brainy platform is linked from the hero, the platform section, the CTA and
-the footer. No credential is on the page or in its source: every desk shows
+The Brainy platform is linked from the header, the platform section, the contact
+section and the footer. No credential is on the page or in its source: every desk shows
 Brainy's own sign-in form, and keys are issued on request via
 contact@deepbeta.mn.
 

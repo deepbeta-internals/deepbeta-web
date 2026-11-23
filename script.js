@@ -2,160 +2,102 @@
 (() => {
   const $  = (s, r=document) => r.querySelector(s);
   const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+  const prefersReducedMotion = !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+  const clamp01 = v => Math.max(0, Math.min(1, v));
 
   /* ---- year ---- */
-  const y = $('[data-year]'); if (y) y.textContent = new Date().getFullYear();
+  $$('[data-year]').forEach(y => { y.textContent = new Date().getFullYear(); });
 
-  /* ---- formatting helpers ---- */
-  const fmt = d => d.toTimeString().slice(0, 8);
-  const fmtPx = v => {
-    const a = Math.abs(v);
-    if (a >= 1000) return v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    if (a >= 1)    return v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 4 });
-    return v.toFixed(4);
-  };
-  const fmtVol = v => {
-    if (!Number.isFinite(v)) return '';
-    return 'vol24 ' + v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-  };
-
-  /* ---- live data sources ----
-     Crypto:  Binance public REST (no key, CORS-enabled) — last price, 24h % change, 24h quote volume.
+  /* ---- live tape ----
+     Crypto:  Binance public REST (no key, CORS-enabled) — last price and 24h % change.
      Macro:   optional JSON proxy endpoint you host (keeps any API keys server-side). Configure via
                 <meta name="deepbeta-macro-url" content="https://…"> or window.DEEPBETA_MACRO_URL.
-              Expected shape: { "AAPL": { "price": 309.4, "changePct": -1.84, "volume": 12345 }, … }
-              When unset/unreachable, macro cards keep their static snapshot from data-px/data-chg. */
-  const CRYPTO_API = 'https://api.binance.com/api/v3/ticker/24hr';
-  const CRYPTO_REFRESH_MS = 10000;
-  const MACRO_REFRESH_MS = 30000;
-  const macroEndpoint =
-    (window.DEEPBETA_MACRO_URL || '').trim() ||
-    ($('meta[name="deepbeta-macro-url"]')?.content || '').trim();
+              Expected shape: { "AAPL": { "price": 309.4, "changePct": -1.84 }, … }
+     The tape stays hidden until a feed has answered, so the page never shows an old price as live. */
+  const tape = $('[data-tape]');
+  if (tape) {
+    const CRYPTO_API = 'https://api.binance.com/api/v3/ticker/24hr';
+    const CRYPTO_REFRESH_MS = 10000;
+    const MACRO_REFRESH_MS = 30000;
+    const CRYPTO_SYMS = ['BTCUSD', 'ETHUSD', 'SOLUSD', 'BNBUSD', 'XRPUSD'];
+    const MACRO_SYMS = ['DXY', 'SP500', 'NASDAQ', 'AAPL', 'NVDA'];
+    const macroEndpoint =
+      (window.DEEPBETA_MACRO_URL || '').trim() ||
+      ($('meta[name="deepbeta-macro-url"]')?.content || '').trim();
+    const track = $('[data-tape-track]', tape), clock = $('[data-tape-clock]', tape);
+    const quotes = new Map();   // sym -> { price, chg, dir }
+    let builtFor = '';
 
-  /* ---- card rendering ---- */
-  const cards = $$('.card');
-  const cardBySym = new Map();
-  cards.forEach(c => {
-    const sym = c.dataset.sym;
-    cardBySym.set(sym, c);
-    c._px = parseFloat(c.dataset.px);
-    c._chg = parseFloat(c.dataset.chg);
-    c._vol = NaN;
-    c._volLabel = c.dataset.vol || ''; // static fallback label for macro (e.g. "yfinance", "fmp")
-  });
-
-  const renderCard = c => {
-    const dir = c._chg >= 0 ? 'up' : 'down';
-    const sign = c._chg >= 0 ? '+' : '';
-    const vol = Number.isFinite(c._vol) ? fmtVol(c._vol) : c._volLabel;
-    c.innerHTML = `
-      <span class="sym">${c.dataset.sym}</span>
-      <span class="px">${fmtPx(c._px)}</span>
-      <span class="chg ${dir}">${sign}${c._chg.toFixed(2)}% (24h)</span>
-      <span class="vol">${vol}</span>`;
-  };
-
-  const flash = c => {
-    c.classList.remove('tick-up', 'tick-down');
-    // force reflow so the animation restarts even on consecutive ticks
-    void c.offsetWidth;
-    c.classList.add(c._dir === 'up' ? 'tick-up' : 'tick-down');
-  };
-
-  const applyQuote = (sym, { price, changePct, volume }) => {
-    const c = cardBySym.get(sym);
-    if (!c) return;
-    if (Number.isFinite(price)) {
-      c._dir = price >= c._px ? 'up' : 'down';
-      c._px = price;
-    }
-    if (Number.isFinite(changePct)) c._chg = changePct;
-    if (Number.isFinite(volume)) c._vol = volume;
-    renderCard(c);
-    if (c._dir) flash(c);
-  };
-
-  /* track last successful data time per row so the clock reflects feed freshness */
-  const rowFreshAt = {}; // { crypto: Date, macro: Date }
-  const markRowLive = (rowClass, when) => {
-    rowFreshAt[rowClass] = when || new Date();
-  };
-  const renderClocks = () => {
-    $$('.ticker-row').forEach(row => {
-      const clock = row.querySelector('[data-clock]');
-      if (!clock) return;
-      const fresh = rowFreshAt[row.dataset.class];
-      clock.textContent = 'LIVE · ' + fmt(fresh || new Date());
-    });
-  };
-
-  /* initial paint from static snapshot so nothing is blank before fetch resolves */
-  cards.forEach(renderCard);
-
-  /* ---- fetch: crypto (Binance) ---- */
-  const cryptoSyms = ['BTCUSD', 'ETHUSD', 'SOLUSD', 'BNBUSD', 'XRPUSD'].filter(s => cardBySym.has(s));
-  const toBinance = sym => sym.replace(/USD$/, 'USDT'); // BTCUSD -> BTCUSDT
-  const fetchCrypto = async () => {
-    if (!cryptoSyms.length) return;
-    try {
-      const pairs = cryptoSyms.map(toBinance);
-      const url = `${CRYPTO_API}?symbols=${encodeURIComponent(JSON.stringify(pairs))}`;
-      const res = await fetch(url, { cache: 'no-store' });
-      if (!res.ok) throw new Error(`Binance ${res.status}`);
-      const data = await res.json();
-      const byPair = new Map(data.map(d => [d.symbol, d]));
-      cryptoSyms.forEach(sym => {
-        const d = byPair.get(toBinance(sym));
-        if (!d) return;
-        applyQuote(sym, {
-          price: parseFloat(d.lastPrice),
-          changePct: parseFloat(d.priceChangePercent),
-          volume: parseFloat(d.quoteVolume),
-        });
-      });
-      markRowLive('crypto', new Date());
-      renderClocks();
-    } catch (err) {
-      /* keep last good values; surface for debugging only */
-      console.warn('[deepbeta] crypto feed unavailable:', err.message);
-    }
-  };
-
-  /* ---- fetch: macro (optional proxy) ---- */
-  const macroSyms = ['DXY', 'SP500', 'NASDAQ', 'AAPL', 'NVDA'].filter(s => cardBySym.has(s));
-  const fetchMacro = async () => {
-    if (!macroEndpoint || !macroSyms.length) return;
-    try {
-      const res = await fetch(macroEndpoint, { cache: 'no-store' });
-      if (!res.ok) throw new Error(`macro ${res.status}`);
-      const data = await res.json();
-      let any = false;
-      macroSyms.forEach(sym => {
-        const q = data && data[sym];
+    const fmtPx = v => {
+      const a = Math.abs(v);
+      if (a >= 1000) return v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      if (a >= 1)    return v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 4 });
+      return v.toFixed(4);
+    };
+    const paint = () => {
+      const syms = [...CRYPTO_SYMS, ...MACRO_SYMS].filter(s => quotes.has(s));
+      if (!syms.length) return;
+      if (syms.join() !== builtFor) {
+        builtFor = syms.join();
+        /* the track is two identical halves (the loop slides one half); each half repeats the set
+           so it is wider than any screen */
+        const set = syms.map(s => `<span class="tk" data-sym="${s}"><span class="tk-s">${s}</span><span class="tk-p"></span><span class="tk-c"></span></span>`).join('');
+        track.innerHTML = set.repeat(6);
+      }
+      $$('.tk', track).forEach(el => {
+        const q = quotes.get(el.dataset.sym);
         if (!q) return;
-        any = true;
-        applyQuote(sym, {
-          price: parseFloat(q.price),
-          changePct: parseFloat(q.changePct),
-          volume: q.volume != null ? parseFloat(q.volume) : NaN,
-        });
+        const px = fmtPx(q.price), p = el.children[1], c = el.children[2];
+        if (p.textContent && p.textContent !== px) {   /* restart the flash on every real change */
+          el.classList.remove('tick'); void el.offsetWidth; el.classList.add('tick');
+        }
+        p.textContent = px;
+        if (Number.isFinite(q.chg)) {
+          c.textContent = `${q.chg >= 0 ? '▲ +' : '▼ −'}${Math.abs(q.chg).toFixed(2)}%`;
+          c.className = `tk-c ${q.chg >= 0 ? 'up' : 'down'}`;
+        }
       });
-      if (any) { markRowLive('macro', new Date()); renderClocks(); }
-    } catch (err) {
-      console.warn('[deepbeta] macro feed unavailable:', err.message);
-    }
-  };
+      clock.textContent = 'LIVE · ' + new Date().toTimeString().slice(0, 8);
+      tape.hidden = false;
+    };
+    const setQuote = (sym, price, chg) => { if (Number.isFinite(price)) quotes.set(sym, { price, chg }); };
 
-  /* clock ticks every second; shows current time until a feed reports fresh data,
-     then reflects that feed's last update time */
-  renderClocks();
-  setInterval(renderClocks, 1000);
+    const toBinance = sym => sym.replace(/USD$/, 'USDT'); // BTCUSD -> BTCUSDT
+    const fetchCrypto = async () => {
+      try {
+        const url = `${CRYPTO_API}?symbols=${encodeURIComponent(JSON.stringify(CRYPTO_SYMS.map(toBinance)))}`;
+        const res = await fetch(url, { cache: 'no-store' });
+        if (!res.ok) throw new Error(`Binance ${res.status}`);
+        const byPair = new Map((await res.json()).map(d => [d.symbol, d]));
+        CRYPTO_SYMS.forEach(sym => {
+          const d = byPair.get(toBinance(sym));
+          if (d) setQuote(sym, parseFloat(d.lastPrice), parseFloat(d.priceChangePercent));
+        });
+        paint();
+      } catch (err) {
+        /* keep the last good values; surface for debugging only */
+        console.warn('[deepbeta] crypto feed unavailable:', err.message);
+      }
+    };
+    const fetchMacro = async () => {
+      try {
+        const res = await fetch(macroEndpoint, { cache: 'no-store' });
+        if (!res.ok) throw new Error(`macro ${res.status}`);
+        const data = await res.json();
+        MACRO_SYMS.forEach(sym => {
+          const q = data && data[sym];
+          if (q) setQuote(sym, parseFloat(q.price), parseFloat(q.changePct));
+        });
+        paint();
+      } catch (err) {
+        console.warn('[deepbeta] macro feed unavailable:', err.message);
+      }
+    };
 
-  /* kick off feeds */
-  fetchCrypto();
-  fetchMacro();
-  setInterval(fetchCrypto, CRYPTO_REFRESH_MS);
-  if (macroEndpoint) setInterval(fetchMacro, MACRO_REFRESH_MS);
+    fetchCrypto();
+    setInterval(fetchCrypto, CRYPTO_REFRESH_MS);
+    if (macroEndpoint) { fetchMacro(); setInterval(fetchMacro, MACRO_REFRESH_MS); }
+  }
 
   /* ---- focus 5 paper book ----
      The Brainy Paper Desk book, limited to the five focus products: KPI tiles, equity / drawdown /
@@ -168,7 +110,7 @@
     ($('meta[name="deepbeta-book-url"]')?.content || '').trim() ||
     '/data/focus-book.json';
 
-  /* asset hues: fixed per asset (never by rank), validated for CVD on the #1b1f27 card surface */
+  /* asset hues: fixed per asset (never by rank), picked to stay apart on the dark card surface */
   const ASSETS = {
     GOLD:   { color: '#c98500', name: 'Gold',       kind: 'CFD' },
     NAS100: { color: '#3987e5', name: 'Nasdaq 100', kind: 'CFD' },
@@ -176,7 +118,7 @@
     BTCUSD: { color: '#d95926', name: 'Bitcoin',    kind: 'crypto' },
     ETHUSD: { color: '#9085e9', name: 'Ether',      kind: 'crypto' },
   };
-  const COL = { eq: '#f5c518', bal: '#9a9582', dd: '#e66767', long: '#3987e5', short: '#e66767', surface: '#1b1f27' };
+  const COL = { eq: '#e3b341', bal: '#a59f8d', dd: '#e66767', long: '#3987e5', short: '#e66767', surface: '#111110' };
   const RES_S = { '1h': 3600, '4h': 14400, '1d': 86400 };
   const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const MINUS = '−';
@@ -808,6 +750,8 @@
       /* the cards' order first, then any group the server grew that has no card yet */
       const carded = $$('.svc[data-svc]', pfRoot).map(c => c.dataset.svc).filter(sid => cat.services[sid]);
       st.order = [...carded, ...Object.keys(cat.services).filter(sid => !carded.includes(sid))];
+      const totalEl = pf('total');
+      if (totalEl) totalEl.textContent = st.order.reduce((n, sid) => n + cat.services[sid].endpoints.length, 0);
       pick.innerHTML = '<option value="">all desks</option>' +
         st.order.map(sid => `<option value="${esc(sid)}">${esc(label(sid))}</option>`).join('');
       $$('.svc-eps[data-show]', pfRoot).forEach(b => {
@@ -865,4 +809,278 @@
   $$('.lang-switch a[data-lang]').forEach(a => a.addEventListener('click', () => {
     try { localStorage.setItem('deepbeta-lang', a.dataset.lang); } catch {}
   }));
+
+  /* ---- market sessions ----
+     Local time and regular-hours state of each exchange, computed in the visitor's browser.
+     data-hours holds the sessions as minutes after local midnight ("540-690,750-930" = a lunch break).
+     Exchange holidays are not modelled; the note under the board says so. */
+  const sessions = $('[data-sessions]');
+  if (sessions && window.Intl?.DateTimeFormat) {
+    try {
+      const rows = $$('li[data-tz]', sessions).map(li => ({
+        li, time: $('[data-mk-time]', li),
+        fmt: new Intl.DateTimeFormat('en-GB', { timeZone: li.dataset.tz, weekday: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }),
+        hours: li.dataset.hours.split(',').map(r => r.split('-').map(Number)),
+      }));
+      const utc = $('[data-utc]', sessions), pad = n => String(n).padStart(2, '0');
+      const tick = () => {
+        const now = new Date();
+        rows.forEach(r => {
+          const p = Object.fromEntries(r.fmt.formatToParts(now).map(x => [x.type, x.value]));
+          const mins = (+p.hour % 24) * 60 + +p.minute;
+          const open = p.weekday !== 'Sat' && p.weekday !== 'Sun' && r.hours.some(([a, b]) => mins >= a && mins < b);
+          r.time.textContent = `${pad(+p.hour % 24)}:${p.minute}`;
+          r.li.dataset.state = open ? 'open' : 'closed';
+        });
+        if (utc) utc.textContent = `UTC ${pad(now.getUTCHours())}:${pad(now.getUTCMinutes())}`;
+      };
+      tick();
+      setInterval(tick, 15000);
+    } catch (err) {
+      console.warn('[deepbeta] session clocks unavailable:', err.message);
+    }
+  }
+
+  /* ---- menu (small screens: the primary nav becomes a full-screen sheet) ---- */
+  const root = document.documentElement, menuBtn = $('[data-menu]'), siteNav = $('#site-nav');
+  const navLinks = siteNav ? $$('a', siteNav) : [];
+  const setMenu = open => {
+    root.classList.toggle('nav-open', open);
+    menuBtn?.setAttribute('aria-expanded', String(open));
+  };
+  menuBtn?.addEventListener('click', () => setMenu(!root.classList.contains('nav-open')));
+  siteNav?.addEventListener('click', e => { if (e.target.closest('a')) setMenu(false); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+  window.matchMedia?.('(min-width: 1280px)').addEventListener?.('change', e => { if (e.matches) setMenu(false); });
+
+  /* ---- scroll reveals and count-ups ---- */
+  const revealed = $$('[data-rv]');
+  const countUp = el => {
+    const to = +el.dataset.count, t0 = performance.now(), dur = 1300;
+    const step = t => {
+      const k = Math.min(1, (t - t0) / dur);
+      el.textContent = Math.round(to * (1 - Math.pow(1 - k, 3)));
+      if (k < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+  if (prefersReducedMotion || !('IntersectionObserver' in window)) {
+    revealed.forEach(el => el.classList.add('in'));
+  } else {
+    const io = new IntersectionObserver(entries => entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      e.target.classList.add('in');
+      $$('[data-count]', e.target).forEach(countUp);
+      io.unobserve(e.target);
+    }), { rootMargin: '0px 0px -7% 0px', threshold: 0.06 });
+    revealed.forEach(el => io.observe(el));
+  }
+
+  /* ---- the thesis reads itself in as it scrolls ---- */
+  const manifesto = $('[data-words]');
+  let words = [];
+  if (manifesto && !prefersReducedMotion) {
+    const text = manifesto.textContent.trim().split(/\s+/);
+    manifesto.textContent = '';
+    text.forEach((w, i) => {
+      const s = document.createElement('span');
+      s.className = 'w'; s.textContent = w;
+      manifesto.append(s, i < text.length - 1 ? ' ' : '');
+    });
+    words = $$('.w', manifesto);
+  }
+
+  /* ---- pipeline: a gold spine fills, and steps light, as the list is read ---- */
+  const pipe = $('[data-pipe]'), pipeSteps = pipe ? $$('.pipe-step', pipe) : [];
+  if (pipe) {
+    const dot = document.createElement('li');
+    dot.className = 'pipe-dot'; dot.setAttribute('aria-hidden', 'true');
+    pipe.append(dot);
+    if (prefersReducedMotion) { pipe.style.setProperty('--p', 1); pipeSteps.forEach(s => s.classList.add('on')); }
+  }
+
+  /* ---- chapter rail + current nav link ---- */
+  const chapters = $$('[data-chapter]'), depth = $('[data-depth]'), paper = $('.paper');
+  let depthLinks = [], depthY = [];
+  if (depth && chapters.length) {
+    chapters.forEach(c => {
+      /* the label is the chapter's own (already translated) tag */
+      const a = document.createElement('a'), id = c.id || 'top', label = $('.chap-tag span', c)?.textContent;
+      a.href = '#' + id; a.tabIndex = -1; a.dataset.for = id;
+      if (label) { const s = document.createElement('span'); s.textContent = label; a.append(s); }
+      a.append(c.dataset.chapter);
+      depth.append(a);
+    });
+    depthLinks = $$('a', depth);
+  }
+  const measureDepth = () => { depthY = depthLinks.map(a => { const r = a.getBoundingClientRect(); return r.top + r.height / 2; }); };
+
+  const head = $('[data-head]');
+  let current = null, ticking = false;
+  const onScroll = () => {
+    ticking = false;
+    const vh = window.innerHeight;
+    head?.classList.toggle('is-stuck', window.scrollY > 24);
+
+    let cur = chapters[0];
+    for (const c of chapters) if (c.getBoundingClientRect().top <= vh * 0.42) cur = c;
+    if (cur !== current) {
+      current = cur;
+      const id = cur?.id || 'top', navId = cur?.dataset.nav || id;   /* the pipeline sits under "Engine" in the nav */
+      navLinks.forEach(a => a.classList.toggle('is-current', a.getAttribute('href') === '#' + navId));
+      depthLinks.forEach(a => a.classList.toggle('is-current', a.dataset.for === id));
+    }
+    if (paper && depthLinks.length) {   /* the rail is fixed: tone it by what is behind its middle */
+      const r = paper.getBoundingClientRect(), mid = depthY.length ? depthY[Math.floor(depthY.length / 2)] : vh / 2;
+      depth.dataset.tone = r.top < mid && r.bottom > mid ? 'paper' : '';
+    }
+
+    if (words.length) {
+      const r = manifesto.getBoundingClientRect();
+      const n = Math.ceil(clamp01((vh * 0.9 - r.top) / (r.height + vh * 0.4)) * words.length);
+      words.forEach((w, i) => w.classList.toggle('on', i < n));
+    }
+
+    if (pipe && !prefersReducedMotion) {
+      const r = pipe.getBoundingClientRect(), p = clamp01((vh * 0.6 - r.top) / r.height);
+      pipe.style.setProperty('--p', p.toFixed(4));
+      pipeSteps.forEach(s => {
+        const n = s.firstElementChild;
+        s.classList.toggle('on', s.offsetTop + n.offsetTop + n.offsetHeight / 2 <= p * r.height + 1);
+      });
+    }
+  };
+  const requestScroll = () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } };
+  window.addEventListener('scroll', requestScroll, { passive: true });
+  window.addEventListener('resize', () => { measureDepth(); requestScroll(); });
+  measureDepth();
+  onScroll();
+
+  /* ---- hero terrain ----
+     A field of gold ridgelines drawn back to front (each row hides what is behind it), slowly
+     flowing toward the viewer, with one green signal riding a ridge. It is decoration, not data:
+     the heights come from layered value noise. Paused off-screen; a single still frame when the
+     visitor prefers reduced motion. */
+  const terrain = $('[data-terrain]');
+  if (terrain?.getContext) {
+    const ctx = terrain.getContext('2d');
+    const INK = '#0a0a09', GOLD = '227, 179, 65', DOT = '47, 191, 113';
+    let W = 0, H = 0, dpr = 1, raf = 0, visible = true, last = 0, mx = 0, mxTarget = 0;
+
+    const hash = (x, y) => {
+      let h = Math.imul(x, 374761393) + Math.imul(y, 668265263);
+      h = Math.imul(h ^ (h >>> 13), 1274126177);
+      return ((h ^ (h >>> 16)) >>> 0) / 4294967296;
+    };
+    const smooth = t => t * t * (3 - 2 * t);
+    const noise = (x, y) => {
+      const xi = Math.floor(x), yi = Math.floor(y), u = smooth(x - xi), v = smooth(y - yi);
+      const a = hash(xi, yi), b = hash(xi + 1, yi), c = hash(xi, yi + 1), d = hash(xi + 1, yi + 1);
+      return a + (b - a) * u + (c - a) * v + (a - b - c + d) * u * v;
+    };
+    /* 0..1: soft rolling ground plus sharp ridges, tallest in a massif around world x = 0 */
+    const height = (wx, wz) => {
+      const n = noise(wx * 1.35 + 20, wz * 1.1) * 0.6 + noise(wx * 2.9 + 4.7, wz * 2.4 + 9.1) * 0.28 + noise(wx * 6.1 + 1.3, wz * 5.2 + 3.3) * 0.12;
+      const ridge = 1 - Math.abs(2 * noise(wx * 1.9 + 51, wz * 1.5 + 17) - 1);
+      const massif = Math.exp(-Math.pow(wx / 0.62, 2));
+      return massif * (0.2 + 0.8 * ridge * ridge) * (0.45 + n) + 0.09 * n;
+    };
+
+    const resize = () => {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      W = Math.max(1, Math.round(terrain.clientWidth * dpr));
+      H = Math.max(1, Math.round(terrain.clientHeight * dpr));
+      terrain.width = W; terrain.height = H;
+    };
+
+    const draw = t => {
+      const narrow = W / dpr < 820;
+      const rows = narrow ? 30 : 46, cols = narrow ? 70 : 150;
+      const vx = (narrow ? 0.5 : 0.71) + mx * 0.012;       /* where the massif sits on screen */
+      const horizon = H * (narrow ? 0.5 : 0.25), floor = H * 1.04;
+      const lift = H * (narrow ? 0.26 : 0.36);
+      ctx.clearRect(0, 0, W, H);
+
+      /* first light behind the range */
+      const glow = ctx.createRadialGradient(W * vx, horizon + H * 0.06, 0, W * vx, horizon + H * 0.06, H * 0.62);
+      glow.addColorStop(0, `rgba(${GOLD}, 0.13)`); glow.addColorStop(1, `rgba(${GOLD}, 0)`);
+      ctx.fillStyle = glow; ctx.fillRect(0, 0, W, H);
+
+      const flow = t * 0.035;
+      const sigRow = Math.round(rows * 0.6), sigK = (t / 15) % 1;
+      const sigWx = -0.55 + 1.0 * (sigK * sigK * (3 - 2 * sigK));   /* eased sweep across the massif */
+      const sigFade = Math.min(1, sigK / 0.08, (1 - sigK) / 0.08);
+
+      for (let r = 0; r < rows; r++) {
+        const z = r / (rows - 1);                               /* 0 far … 1 near */
+        const yb = horizon + (floor - horizon) * Math.pow(z, 1.7);
+        const half = (0.62 + z * 1.3) / 2;                      /* perspective: near rows spread wider */
+        const amp = lift * (0.16 + 0.84 * z);
+        const wz = (1 - z) * 2.5 + flow;
+        const yAt = wx => yb - amp * height(wx, wz);
+
+        ctx.beginPath();
+        for (let c = 0; c <= cols; c++) {
+          const x = (c / cols) * W, y = yAt((x / W - vx) / half);
+          if (c) ctx.lineTo(x, y); else ctx.moveTo(x, y);
+        }
+        ctx.lineTo(W, H); ctx.lineTo(0, H); ctx.closePath();
+        ctx.fillStyle = INK; ctx.fill();                        /* hide everything behind this ridge */
+
+        const a = 0.07 + 0.5 * Math.pow(z, 1.25);
+        const g = ctx.createLinearGradient(0, 0, W, 0);
+        g.addColorStop(0, `rgba(${GOLD}, ${narrow ? a * 0.5 : a * 0.16})`);
+        g.addColorStop(Math.max(0.05, Math.min(0.95, vx)), `rgba(${GOLD}, ${a})`);
+        g.addColorStop(1, `rgba(${GOLD}, ${a * 0.45})`);
+        ctx.beginPath();
+        for (let c = 0; c <= cols; c++) {
+          const x = (c / cols) * W, y = yAt((x / W - vx) / half);
+          if (c) ctx.lineTo(x, y); else ctx.moveTo(x, y);
+        }
+        ctx.strokeStyle = g; ctx.lineWidth = dpr * (0.7 + 0.5 * z); ctx.stroke();
+
+        if (r === sigRow && sigFade > 0) {                      /* the signal: a green dot and its trail */
+          const sx = wx => W * (vx + wx * half);
+          const tailFrom = sigWx - 0.3, n = 26;
+          for (let i = 0; i < n; i++) {
+            const w0 = tailFrom + (0.3 * i) / n, w1 = tailFrom + (0.3 * (i + 1)) / n;
+            ctx.beginPath(); ctx.moveTo(sx(w0), yAt(w0)); ctx.lineTo(sx(w1), yAt(w1));
+            ctx.strokeStyle = `rgba(${DOT}, ${0.85 * sigFade * Math.pow((i + 1) / n, 2)})`;
+            ctx.lineWidth = dpr * 1.8; ctx.stroke();
+          }
+          const px = sx(sigWx), py = yAt(sigWx);
+          const halo = ctx.createRadialGradient(px, py, 0, px, py, dpr * 22);
+          halo.addColorStop(0, `rgba(${DOT}, ${0.45 * sigFade})`); halo.addColorStop(1, `rgba(${DOT}, 0)`);
+          ctx.fillStyle = halo; ctx.beginPath(); ctx.arc(px, py, dpr * 22, 0, 6.2832); ctx.fill();
+          ctx.fillStyle = `rgba(${DOT}, ${sigFade})`; ctx.beginPath(); ctx.arc(px, py, dpr * 4, 0, 6.2832); ctx.fill();
+        }
+      }
+    };
+
+    const frame = now => {
+      raf = 0;
+      if (!visible || document.hidden) return;
+      if (now - last >= 32) {             /* ~30 fps is plenty for a slow drift */
+        last = now;
+        mx += (mxTarget - mx) * 0.05;
+        draw(now / 1000);
+      }
+      raf = requestAnimationFrame(frame);
+    };
+    const start = () => { if (!raf && !prefersReducedMotion) raf = requestAnimationFrame(frame); };
+
+    resize();
+    if (prefersReducedMotion) draw(6.5);
+    else {
+      draw(0);
+      start();
+      if ('IntersectionObserver' in window) {
+        new IntersectionObserver(es => { visible = es.some(e => e.isIntersecting); if (visible) start(); }).observe(terrain);
+      }
+      document.addEventListener('visibilitychange', start);
+      terrain.parentElement.addEventListener('pointermove', e => { mxTarget = (e.clientX / window.innerWidth) * 2 - 1; }, { passive: true });
+    }
+    if ('ResizeObserver' in window) new ResizeObserver(() => { resize(); draw(prefersReducedMotion ? 6.5 : performance.now() / 1000); }).observe(terrain);
+    else window.addEventListener('resize', () => { resize(); draw(6.5); });
+  }
 })();
