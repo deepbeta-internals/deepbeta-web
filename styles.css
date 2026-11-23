@@ -398,7 +398,7 @@ button { font: inherit; color: inherit; }
 .practice-case.is-open .case-k { color: var(--dot); }
 .practice-case.is-open .case-k::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
 /* client marks sit on a paper plate: their own colours, legible on ink and on the gold hover */
-.logo-plate { display: inline-flex; align-items: center; height: 52px; padding: 0 8px; background: var(--paper); border-radius: 2px; }
+.logo-plate { display: inline-flex; align-items: center; justify-content: center; min-width: 168px; height: 52px; padding: 0 8px; background: var(--paper); border-radius: 2px; }
 .logo-plate img { width: auto; height: 46px; }
 .logo-plate--text { padding: 0 16px; font: 700 14px/1 var(--display); letter-spacing: -0.005em; color: var(--ink); white-space: nowrap; }
 .case-t { color: #d2ccba; font-size: 15px; line-height: 1.5; transition: color 0.3s; }
