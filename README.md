@@ -42,7 +42,9 @@ One page, told as numbered chapters. Each chapter is a `<section data-chapter="N
   mark on a paper plate (`.logo-plate`, files in `logo/clients/`) and one sentence saying what was
   built. Label the relationship as it is: "Partner" for a firm that applies our solutions
   (Tavan Bogd Capital), "Showcase" for work built for a client (Unu Munkhiin Ehlel). Name a firm
-  only with their consent, and claim only what is true of the relationship. A practice with
+  only with their consent, and claim only what is true of the relationship.
+  When a name must stay private, use `.logo-plate.is-withheld` (an abstract blurred mark) and a
+  sentence that names nobody. Never blur a real logo with CSS: the page source would still name the firm. A practice with
   no client yet says so (`.practice-case.is-open`). The Mongolian page swaps in the Cyrillic logo
   through the `case.tbc.logo` string.
 - **The green full stop.** The wordmark is "DeepBeta." with a green dot, so every headline closes

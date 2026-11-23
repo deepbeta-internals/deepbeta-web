@@ -401,6 +401,13 @@ button { font: inherit; color: inherit; }
 /* client marks sit on a paper plate: their own colours, legible on ink and on the gold hover */
 .logo-plate { display: inline-flex; align-items: center; justify-content: center; min-width: 168px; height: 52px; padding: 0 8px; background: var(--paper); border-radius: 2px; }
 .logo-plate img { width: auto; height: 46px; }
+/* a withheld name: an abstract blurred mark, deliberately not the firm's logo, so nothing in the
+   page (image, alt text or sentence) identifies it */
+.logo-plate.is-withheld { position: relative; width: 168px; overflow: hidden; }
+.logo-plate.is-withheld i { position: absolute; background: #57524a; filter: blur(3.5px); }
+.logo-plate.is-withheld i:nth-child(1) { left: 20px; top: 13px; width: 38px; height: 26px; border-radius: 50%; }
+.logo-plate.is-withheld i:nth-child(2) { left: 68px; top: 14px; width: 80px; height: 10px; border-radius: 2px; }
+.logo-plate.is-withheld i:nth-child(3) { left: 68px; top: 29px; width: 56px; height: 10px; border-radius: 2px; }
 .logo-plate--text { padding: 0 16px; font: 700 14px/1 var(--display); letter-spacing: -0.005em; color: var(--ink); white-space: nowrap; }
 .case-t { color: #d2ccba; font-size: 15px; line-height: 1.5; transition: color 0.3s; }
 @media (hover: hover) {
