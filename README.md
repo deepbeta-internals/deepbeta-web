@@ -38,6 +38,11 @@ One page, told as numbered chapters. Each chapter is a `<section data-chapter="N
 | 07 | `#firm` | The firm (`#research`), principles, founder's former collaborations (`#partners`) |
 | 08 | `#contact` | Contact |
 
+- **Showcases.** A practice row in `#practice` can end with `.practice-case` lines: the client's
+  mark on a paper plate (`.logo-plate`, files in `logo/clients/`) and one sentence saying what was
+  built. Name a client only with their consent, and claim only what was delivered. A practice with
+  no client yet says so (`.practice-case.is-open`). The Mongolian page swaps in the Cyrillic logo
+  through the `case.tbc.logo` string.
 - **The green full stop.** The wordmark is "DeepBeta." with a green dot, so every headline closes
   with `<span class="pt">.</span>`. Keep it on new headlines, in all three languages.
 - **Type.** Inter Tight for headlines, Inter for text, JetBrains Mono only for evidence

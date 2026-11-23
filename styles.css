@@ -384,15 +384,37 @@ button { font: inherit; color: inherit; }
   transition: color 0.3s;
 }
 .practice-go b { font-weight: 500; }
+/* showcase line under a practice: who it was built for, or that the practice is still open */
+.practice-case {
+  grid-column: 2 / -1; display: flex; align-items: center; flex-wrap: wrap; gap: 10px 18px;
+  margin-top: 10px; padding-top: 18px; border-top: 1px dashed var(--line-2); transition: border-color 0.3s;
+}
+.practice-case + .practice-case { margin-top: 0; padding-top: 2px; border-top: 0; }
+.case-k {
+  display: inline-flex; align-items: center; gap: 8px; min-width: 104px;
+  font: 700 10.5px/1 var(--mono); letter-spacing: 0.16em; text-transform: uppercase; color: var(--gold);
+  transition: color 0.3s;
+}
+.practice-case.is-open .case-k { color: var(--dot); }
+.practice-case.is-open .case-k::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+/* client marks sit on a paper plate: their own colours, legible on ink and on the gold hover */
+.logo-plate { display: inline-flex; align-items: center; height: 52px; padding: 0 8px; background: var(--paper); border-radius: 2px; }
+.logo-plate img { width: auto; height: 46px; }
+.logo-plate--text { padding: 0 16px; font: 700 14px/1 var(--display); letter-spacing: -0.005em; color: var(--ink); white-space: nowrap; }
+.case-t { color: #d2ccba; font-size: 15px; line-height: 1.5; transition: color 0.3s; }
 @media (hover: hover) {
   .practice-row:hover::before { transform: scaleY(1); }
   .practice-row:hover h3, .practice-row:hover .practice-n, .practice-row:hover .practice-go { color: var(--ink); }
   .practice-row:hover p { color: #2e2608; }
+  .practice-row:hover .case-k, .practice-row:hover .practice-case.is-open .case-k { color: var(--ink); }
+  .practice-row:hover .case-t { color: #2e2608; }
+  .practice-row:hover .practice-case { border-top-color: rgba(10, 10, 9, 0.35); }
   .practice-row:hover .arr { transform: translateX(6px); }
 }
 @media (max-width: 980px) {
   .practice-row { grid-template-columns: 40px minmax(0, 1fr); }
   .practice-row p, .practice-go { grid-column: 2; justify-self: start; }
+  .case-k { min-width: 0; }
   .practice-go { margin-top: 6px; }
 }
 

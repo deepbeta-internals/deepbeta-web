@@ -212,6 +212,13 @@
     "np.3.h": "포워드 테스트",
     "np.3.p": "모델, 컷오프, 북 규칙을 고정합니다. 약 330개의 1일 콜(약 5개월)이 엣지를 확인하거나 기각할 것입니다.",
     "np.note": "이 페이지의 어떤 수치도 미래 수익에 대한 약속이 아닙니다.",
-    "book.h3": "페이퍼 북 전체 보기"
+    "book.h3": "페이퍼 북 전체 보기",
+    "case.k": "구축 사례",
+    "case.open.k": "모집 중",
+    "case.tbc.logo": "<img src=\"/logo/clients/tavan-bogd-capital-en.png\" alt=\"Tavan Bogd Capital\" width=\"152\" height=\"46\" loading=\"lazy\" decoding=\"async\">",
+    "case.a": "Tavan Bogd Capital을 위해 퀀트 솔루션을 개발했습니다.",
+    "case.b": "아직 고객은 없습니다. 첫 트레저리 프로젝트를 기다리고 있으며, 대형 프로젝트도 준비되어 있습니다.",
+    "case.c1": "Tavan Bogd Capital을 위해 AI 솔루션을 개발했습니다.",
+    "case.c2": "Unu Munkhiin Ehlel을 위해 IT 솔루션과 웹사이트를 개발했습니다."
   }
 }
