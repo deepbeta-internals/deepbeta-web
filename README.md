@@ -75,7 +75,6 @@ of 11 Nov 2026 (figures as of 9 Nov 2026). When the record moves on, update the 
 | `#selection` | `select.*`, `split.*`, `lesson.*`, `team.p` | How a model is chosen (70 / 20 / 10, the October lesson) |
 | `#performance` | `ladder.*`, `check.*` | The four steps to real money, the daily checks |
 | `#evidence` | `ev.*`, `res.*`, `fact.*` | Results by kind of account, and what the live record shows |
-| `#evidence` | `np.*` | What is not proven yet. Keep this block whenever results are shown |
 
 Rules for these blocks: every result names its account type (real money, demo, paper), its
 start date and its caveat; a pro-forma figure says so; nothing is called live. The countdown

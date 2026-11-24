@@ -777,7 +777,7 @@ html:not(.js) .pipe-step p { color: var(--mute); }
 .cf-note { font-size: 12.5px; color: var(--mute); line-height: 1.6; }
 .cf-note b { color: var(--paper); font-weight: 600; }
 
-/* evidence: figure-led rows, result tiles and the limits card */
+/* evidence: figure-led rows and result tiles */
 .facts { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
 .facts li {
   display: grid; grid-template-columns: minmax(0, 0.62fr) minmax(0, 0.8fr) minmax(0, 1.25fr);
@@ -798,18 +798,6 @@ html:not(.js) .pipe-step p { color: var(--mute); }
 .res .res-m { margin-top: auto; padding-top: 16px; color: var(--mute-2); font-size: 13px; line-height: 1.5; }
 .res .res-m::before { content: ""; display: block; width: 28px; height: 1px; margin-bottom: 12px; background: var(--line-2); }
 @media (max-width: 900px) { .res-grid { grid-template-columns: 1fr; } .res-v { font-size: clamp(52px, 13vw, 84px); } }
-
-.unproven { margin-top: clamp(40px, 5vw, 72px); padding: clamp(26px, 3.6vw, 56px); border-top: 0; }
-.unproven-head { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px 24px; }
-.unproven-head h3 { font: 800 clamp(28px, 3.8vw, 58px)/1 var(--display); letter-spacing: -0.03em; }
-.unproven-head p { font: 500 11.5px/1.5 var(--mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute); }
-.unproven-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px clamp(24px, 3.4vw, 56px); margin-top: clamp(30px, 4vw, 60px); }
-.unproven-item { border-top: 1px solid var(--ink); padding-top: 20px; }
-.unproven-v { font: 800 clamp(52px, 6.4vw, 96px)/0.9 var(--display); letter-spacing: -0.04em; font-variant-numeric: tabular-nums; }
-.unproven-item h4 { margin: 18px 0 10px; font: 700 clamp(20px, 2vw, 26px)/1.14 var(--display); letter-spacing: -0.02em; }
-.unproven-item p { color: var(--mute); font-size: 15px; line-height: 1.6; }
-.unproven-note { margin-top: clamp(28px, 3.4vw, 48px); padding-top: 18px; border-top: 1px solid var(--line); font: 600 15px/1.5 var(--sans); }
-@media (max-width: 860px) { .unproven-grid { grid-template-columns: 1fr; } }
 
 /* ---------- 06 · BRAINY PLATFORM · desks, access, endpoint explorer ---------- */
 #platform code { font-family: var(--mono); font-size: 0.9em; color: var(--warm); }
@@ -1072,7 +1060,6 @@ a.ep-p:hover { text-decoration: underline; }
   .pf-step h3 { margin-top: 18px; }
   .market { padding: 16px 18px 18px; }
   .split, .lesson, .founder, .res, .collab-card { padding: 20px 18px; }
-  .unproven { padding: 24px 18px; }
   .book-card { padding: 16px; }
   .sessions { padding: 20px 18px 16px; }
   .practice-row { padding-block: 24px; }
@@ -1147,7 +1134,7 @@ a.ep-p:hover { text-decoration: underline; }
 html:lang(ko) { --mono: "JetBrains Mono", "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", ui-monospace, monospace; }
 :lang(ko) .display, :lang(ko) .title, :lang(ko) .subtitle, :lang(ko) .manifesto,
 :lang(ko) .practice-row h3, :lang(ko) .pipe-step h3, :lang(ko) .creed-item h3,
-:lang(ko) .facts h4, :lang(ko) .unproven-head h3, :lang(ko) .unproven-item h4, :lang(ko) .split-key h4 { letter-spacing: -0.02em; word-break: keep-all; }
+:lang(ko) .facts h4, :lang(ko) .split-key h4 { letter-spacing: -0.02em; word-break: keep-all; }
 :lang(ko) .display { font-size: clamp(46px, 9vw, 150px); line-height: 1.04; }
 :lang(ko) .title   { font-size: clamp(34px, 5.6vw, 88px); line-height: 1.1; }
 :lang(ko) .manifesto { font-size: clamp(26px, 3.9vw, 60px); line-height: 1.24; }
