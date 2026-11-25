@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- a returning visitor who picked МН / KO before goes straight to that language's version of this
+       page (set by the language links in script.js; crawlers have no stored choice and are never
+       redirected). The "js" class arms the scroll reveals in styles.css; without JavaScript everything shows. -->
+  <script>
+    document.documentElement.classList.add('js');
+    try {
+      var dbLang = { mn: '/mn', ko: '/ko' }[localStorage.getItem('deepbeta-lang')];
+      if (dbLang && document.documentElement.lang === 'en') location.replace(dbLang + location.pathname + location.search + location.hash);
+    } catch (e) {}
+  </script>
+  <!-- SEO: tools/build_i18n_pages.py rewrites the tags marked data-seo for /mn/ and /ko/.
+       Keep each marked tag on one line. -->
+  <title data-seo="title">Brainy 플랫폼 · 데스크와 API · Deep Beta Technology</title>
+  <meta name="description" data-seo="description" content="DeepBeta의 리서치 플랫폼 Brainy: 하나의 액세스 키로 여는 13개 데스크와 서비스, 작동하는 예시 링크와 함께 문서화된 모든 API 라우트." />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="canonical" data-seo="canonical" href="https://www.deepbeta.mn/ko/platform/" />
+  <link rel="alternate" hreflang="en" href="https://www.deepbeta.mn/platform/" />
+  <link rel="alternate" hreflang="mn" href="https://www.deepbeta.mn/mn/platform/" />
+  <link rel="alternate" hreflang="ko" href="https://www.deepbeta.mn/ko/platform/" />
+  <link rel="alternate" hreflang="x-default" href="https://www.deepbeta.mn/platform/" />
+  <meta name="theme-color" content="#0a0a09" />
+
+  <!-- social cards -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="DeepBeta" />
+  <meta property="og:title" data-seo="title" content="Brainy 플랫폼 · 데스크와 API · Deep Beta Technology" />
+  <meta property="og:description" data-seo="description" content="DeepBeta의 리서치 플랫폼 Brainy: 하나의 액세스 키로 여는 13개 데스크와 서비스, 작동하는 예시 링크와 함께 문서화된 모든 API 라우트." />
+  <meta property="og:url" data-seo="canonical" content="https://www.deepbeta.mn/ko/platform/" />
+  <meta property="og:locale" data-seo="locale" content="ko_KR" />
+  <meta property="og:locale:alternate" data-seo="locale-alt" content="en_US" />
+  <meta property="og:locale:alternate" data-seo="locale-alt" content="mn_MN" />
+  <meta property="og:image" content="https://www.deepbeta.mn/logo/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="DeepBeta — Quant ML models, backtesting and AI solutions" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" data-seo="title" content="Brainy 플랫폼 · 데스크와 API · Deep Beta Technology" />
+  <meta name="twitter:description" data-seo="description" content="DeepBeta의 리서치 플랫폼 Brainy: 하나의 액세스 키로 여는 13개 데스크와 서비스, 작동하는 예시 링크와 함께 문서화된 모든 API 라우트." />
+  <meta name="twitter:image" content="https://www.deepbeta.mn/logo/og-image.jpg" />
+
+  <!-- icons -->
+  <link rel="icon" href="/favicon.ico" sizes="48x48" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/logo/icon-192.png" />
+  <link rel="apple-touch-icon" href="/logo/apple-touch-icon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <a class="skip" href="#platform" data-i18n="a11y.skip">본문으로 건너뛰기</a>
+
+  <!-- HEADER · identical on every page (tools/build_i18n_pages.py checks it; only the language links
+       differ, pointing at this page's translations). One nav for every screen size: on small
+       screens it becomes the full-screen menu. -->
+  <header class="site-head" data-head>
+    <div class="head-inner">
+      <a class="wordmark" href="/ko/#top" aria-label="Deep Beta Technology LLC home">DeepBeta<span class="pt">.</span></a>
+      <nav class="site-nav" id="site-nav" aria-label="Primary">
+        <a href="/ko/#company" data-i18n="nav.company">회사</a>
+        <a href="/ko/#services" data-i18n="nav.services">서비스</a>
+        <a href="/ko/technology/" data-i18n="nav.technology">기술</a>
+        <a href="/ko/results/" data-i18n="nav.results">성과</a>
+        <a href="/ko/platform/" data-i18n="nav.platform">플랫폼</a>
+        <a href="/ko/#contact" data-i18n="nav.contact">문의</a>
+      </nav>
+      <div class="head-tools">
+        <!-- each language is its own crawlable page; build_i18n_pages.py moves the active state -->
+        <div class="lang-switch" role="group" aria-label="Language">
+          <a href="/platform/" hreflang="en" lang="en" data-lang="en">EN</a>
+          <a href="/mn/platform/" hreflang="mn" lang="mn" data-lang="mn">МН</a>
+          <a href="/ko/platform/" hreflang="ko" lang="ko" data-lang="ko" class="active" aria-current="page">KO</a>
+        </div>
+        <a class="btn btn-gold btn-sm head-cta" href="https://brainy.deepbeta.mn/" target="_blank" rel="noopener"><b data-i18n="head.brainy">Brainy 열기</b><i class="arr" aria-hidden="true">↗</i></a>
+        <button type="button" class="menu-btn" data-menu aria-expanded="false" aria-controls="site-nav" aria-label="Menu"><i></i><i></i></button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- 01 · BRAINY PLATFORM · desks, access instructions and the endpoint catalogue -->
+    <section id="platform" class="chapter page-top" data-chapter="01">
+      <div class="wrap">
+        <header class="chap-head">
+          <p class="chap-tag"><b>01</b><span data-i18n="nav.platform">플랫폼</span></p>
+          <h1 class="title" data-i18n="platform.h2">모든 데스크.<br>모든 엔드포인트.<br>하나의 키<span class="pt">.</span></h1>
+          <p class="chap-sub" data-i18n="platform.sub">하나의 액세스 키로 13개의 데스크와 서비스를 이용할 수 있습니다. 브라우저에서 데스크를 열거나 직접 작성한 코드에서 JSON API를 호출하세요. 모든 라우트가 작동하는 예시 링크와 함께 아래에 나열되어 있습니다.</p>
+          <nav class="toc" aria-label="On this page">
+            <a href="#access" data-i18n="toc.access">접속</a>
+            <a href="#api" data-i18n="toc.quick">빠른 시작</a>
+            <a href="#desks" data-i18n="toc.desks">데스크</a>
+            <a href="#endpoints" data-i18n="toc.endpoints">엔드포인트</a>
+          </nav>
+        </header>
+
+        <div class="pf-stats" data-rv>
+          <div><b>13</b><span data-i18n="platform.desks">데스크 및 서비스</span></div>
+          <div><b data-pf="total">159</b><span data-i18n="platform.eps">문서화된 API 라우트</span></div>
+          <div><b>1</b><span data-i18n="platform.key">액세스 키</span></div>
+        </div>
+
+        <!-- how to connect -->
+        <ol id="access" class="pf-steps">
+          <li class="pf-step" data-rv>
+            <span class="step">01</span>
+            <h3 data-i18n="platform.s1h">액세스 키 발급</h3>
+            <p data-i18n="platform.s1p">Brainy는 비공개 플랫폼입니다. 고객과 파트너는 <a href="mailto:nyam-ochir@deepbeta.mn">nyam-ochir@deepbeta.mn</a>에서 키를 발급받습니다. 투자자 키로는 투자자 포털(<code>/investor/*</code>)만 열 수 있습니다.</p>
+          </li>
+          <li class="pf-step" data-rv style="--d:1">
+            <span class="step">02</span>
+            <h3 data-i18n="platform.s2h">브라우저에서</h3>
+            <p data-i18n="platform.s2p">아래의 데스크 또는 엔드포인트 링크를 여세요. 처음 방문하면 로그인 양식이 표시되며, 키를 한 번 입력하면 해당 호스트에서 24시간 동안 로그인 상태가 유지됩니다.</p>
+          </li>
+          <li class="pf-step" data-rv style="--d:2">
+            <span class="step">03</span>
+            <h3 data-i18n="platform.s3h">코드에서</h3>
+            <p data-i18n="platform.s3p">키를 <code>X-Access-Key</code> 헤더로 보내세요. 일회성 curl 명령에는 <code>?access_key=</code>, 구형 도구에는 HTTP Basic(사용자 이름은 임의, 비밀번호는 키)도 사용할 수 있습니다. <code>/health</code>는 공개되어 있습니다.</p>
+          </li>
+        </ol>
+
+        <div id="api" class="pf-code book-card">
+          <div class="bc-head">
+            <h3 class="bc-title">QUICK START</h3>
+            <div class="seg" role="group" aria-label="Example language" data-pf="lang">
+              <button type="button" data-lang-code="curl" class="active" aria-pressed="true">curl</button>
+              <button type="button" data-lang-code="python" aria-pressed="false">Python</button>
+              <button type="button" data-lang-code="node" aria-pressed="false">Node.js</button>
+            </div>
+            <button type="button" class="btn btn-line btn-sm pf-copy" data-pf="copy-snippet">copy</button>
+          </div>
+<pre class="pf-pre" data-code="curl"><code>export BRAINY_KEY=…   # your access key: keep it in the environment, never in code
+
+# the paper book behind the chart in Results
+curl -H "X-Access-Key: $BRAINY_KEY" https://brainy.deepbeta.mn/paperdesk/api/overview
+
+# today's model call for one asset, with backtest-aligned TP / SL
+curl -H "X-Access-Key: $BRAINY_KEY" https://brainy.deepbeta.mn/api/inference/GOLD
+
+# the technical desk's full read of one asset
+curl -H "X-Access-Key: $BRAINY_KEY" https://technical.deepbeta.mn/api/asset/GOLD
+
+# health of every agent, service, job and pipeline
+curl -H "X-Access-Key: $BRAINY_KEY" https://agents.deepbeta.mn/api/agents
+
+# live updates as server-sent events (-N: don't buffer)
+curl -N -H "X-Access-Key: $BRAINY_KEY" https://technical.deepbeta.mn/api/stream</code></pre>
+<pre class="pf-pre" data-code="python" hidden><code>import os
+import requests
+
+s = requests.Session()
+s.headers["X-Access-Key"] = os.environ["BRAINY_KEY"]   # never hard-code the key
+
+book = s.get("https://brainy.deepbeta.mn/paperdesk/api/overview", timeout=60).json()
+print(book["equity"]["equity"], book["equity"]["return_pct"])
+
+call = s.get("https://brainy.deepbeta.mn/api/inference/GOLD", timeout=60).json()
+tech = s.get("https://technical.deepbeta.mn/api/asset/GOLD", timeout=60).json()</code></pre>
+<pre class="pf-pre" data-code="node" hidden><code>// Node 18+, server side only: never ship the key to a browser
+const headers = { 'X-Access-Key': process.env.BRAINY_KEY };
+
+const book = await (await fetch('https://brainy.deepbeta.mn/paperdesk/api/overview', { headers })).json();
+console.log(book.equity.equity, book.equity.return_pct);
+
+const call = await (await fetch('https://brainy.deepbeta.mn/api/inference/GOLD', { headers })).json();
+const tech = await (await fetch('https://technical.deepbeta.mn/api/asset/GOLD', { headers })).json();</code></pre>
+          <ul class="pf-notes">
+            <li data-i18n="platform.n1"><b>경로 파라미터</b>는 <code>{중괄호}</code>로 표시됩니다. 포커스 데스크는 <code>GOLD</code>, <code>NAS100</code>, <code>WTI</code>, <code>BTCUSD</code>, <code>ETHUSD</code>를 받으며, 대시보드는 <code>/dashboard/assets</code>에 나열된 전체 유니버스를 다룹니다.</li>
+            <li data-i18n="platform.n2"><span class="ep-x">compute</span> 라우트는 요청 시 백테스트나 스윕을 실행하므로 최대 1분 정도 걸릴 수 있습니다. <span class="ep-x">stream</span> 라우트는 서버 전송 이벤트(SSE)입니다. <span class="ep-x">file</span> 라우트는 CSV / XLSX 파일을 내려받습니다.</li>
+            <li data-i18n="platform.n3"><b>POST</b> 라우트는 상태를 변경합니다(데모 주문, 학습 작업, 데스크 실행). 신중하게 사용하세요.</li>
+            <li data-i18n="platform.n4"><b>인터랙티브 문서:</b> <a href="https://brainy.deepbeta.mn/docs" target="_blank" rel="noopener">Swagger</a> · <a href="https://brainy.deepbeta.mn/redoc" target="_blank" rel="noopener">ReDoc</a> · <a href="https://brainy.deepbeta.mn/api/inference/schema" target="_blank" rel="noopener">인퍼런스 행 스키마</a> · <a href="https://technical.deepbeta.mn/api/docs" target="_blank" rel="noopener">기술 데스크</a> · <a href="https://brainy.deepbeta.mn/livedash/docs" target="_blank" rel="noopener">라이브 대시보드</a> · <a href="https://brainy.deepbeta.mn/train/docs" target="_blank" rel="noopener">학습 GUI</a>.</li>
+          </ul>
+        </div>
+
+        <!-- desk directory: endpoint counts and lists are filled by script.js from data/brainy-platform.json -->
+        <div id="desks" class="svc-grid" data-pf="services">
+          <article class="svc" data-svc="brainy">
+            <div class="svc-top"><span class="svc-tag">CORE</span><span class="svc-host">brainy.deepbeta.mn</span></div>
+            <h3>Brainy dashboard</h3>
+            <p>Monitoring, backtests, model rankings, predictions and live inference across the full asset universe.</p>
+            <div class="svc-links">
+              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/" target="_blank" rel="noopener">Open ↗</a>
+              <a href="https://brainy.deepbeta.mn/docs" target="_blank" rel="noopener">API docs ↗</a>
+              <button type="button" class="svc-eps" data-show="brainy" hidden></button>
+            </div>
+          </article>
+          <article class="svc" data-svc="paperdesk">
+            <div class="svc-top"><span class="svc-tag">TRADING</span><span class="svc-host">brainy.deepbeta.mn/paperdesk</span></div>
+            <h3>Paper Desk</h3>
+            <p>Simulated live book of the five focus products, and the source of the paper-book chart in Results: equity, tickets, journal, what-if and risk tracks.</p>
+            <div class="svc-links">
+              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/paperdesk/" target="_blank" rel="noopener">Open ↗</a>
+              <button type="button" class="svc-eps" data-show="paperdesk" hidden></button>
+            </div>
+          </article>
+          <article class="svc" data-svc="tradingview">
+            <div class="svc-top"><span class="svc-tag">CHARTS</span><span class="svc-host">brainy.deepbeta.mn/tradingview</span></div>
+            <h3>Live chart · TradingView</h3>
+            <p>TradingView lightweight-charts view of the focus products with paper-book, backtest and IG tickets and the newest model calls.</p>
+            <div class="svc-links">
+              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/tradingview/" target="_blank" rel="noopener">Open ↗</a>
+              <button type="button" class="svc-eps" data-show="tradingview" hidden></button>
+            </div>
+          </article>
+          <article class="svc" data-svc="technical">
+            <div class="svc-top"><span class="svc-tag">RESEARCH</span><span class="svc-host">technical.deepbeta.mn</span></div>
+            <h3>Technical desk</h3>
+            <p>Indicator consensus, the indicator lab, news, sentiment, macro and crypto-derivatives reads for the focus products, run by the desk's agents.</p>
+            <div class="svc-links">
+              <span class="svc-more"><a href="https://technical.deepbeta.mn/api/docs" target="_blank" rel="noopener">API docs ↗</a></span>
+              <a class="btn btn-line btn-sm" href="https://technical.deepbeta.mn/" target="_blank" rel="noopener">Open ↗</a>
+              <button type="button" class="svc-eps" data-show="technical" hidden></button>
+            </div>
+          </article>
+          <article class="svc" data-svc="agents">
+            <div class="svc-top"><span class="svc-tag">OPERATIONS</span><span class="svc-host">agents.deepbeta.mn</span></div>
+            <h3>Agents board</h3>
+            <p>Health of every agent, service, scheduled job, daemon and pipeline on the platform, with a live activity feed.</p>
+            <div class="svc-links">
+              <a class="btn btn-line btn-sm" href="https://agents.deepbeta.mn/" target="_blank" rel="noopener">Open ↗</a>
+              <button type="button" class="svc-eps" data-show="agents" hidden></button>
+            </div>
+          </article>
+          <article class="svc" data-svc="igtrading">
+            <div class="svc-top"><span class="svc-tag">TRADING</span><span class="svc-host">brainy.deepbeta.mn/ig-trading</span></div>
+            <h3>IG trading</h3>
+            <p>IG demo accounts: holdings, close schedule, performance, venues, the insights pipeline and the daily digest, plus the demo order API.</p>
+            <div class="svc-links">
+              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/ig-trading/" target="_blank" rel="noopener">Open ↗</a>
+              <button type="button" class="svc-eps" data-show="igtrading" hidden></button>
+            </div>
+          </article>
+          <article class="svc" data-svc="options">
+            <div class="svc-top"><span class="svc-tag">RESEARCH</span><span class="svc-host">options.deepbeta.mn</span></div>
+            <h3>Options desk</h3>
+            <p>Crypto options read: squeeze and next move, direction lean, cheap-premium watch, desk calls, term structure and a live signal feed.</p>
+            <div class="svc-links">
+              <a class="btn btn-line btn-sm" href="https://options.deepbeta.mn/" target="_blank" rel="noopener">Open ↗</a>
+              <button type="button" class="svc-eps" data-show="options" hidden></button>
+            </div>
+          </article>
+          <article class="svc" data-svc="focus">
+            <div class="svc-top"><span class="svc-tag">MODELS</span><span class="svc-host">brainy.deepbeta.mn/focus1d</span></div>
+            <h3>Focus products</h3>
+            <p>Train, infer, version and promote the focus products; the 1d / 2d / 4d horizons side by side; the focus dashboard and report.</p>
+            <div class="svc-links">
+              <span class="svc-more"><a href="https://brainy.deepbeta.mn/focus1d/horizons" target="_blank" rel="noopener">horizons ↗</a> <a href="https://brainy.deepbeta.mn/focus_dashboard" target="_blank" rel="noopener">dashboard ↗</a></span>
+              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/focus1d/" target="_blank" rel="noopener">Open ↗</a>
+              <button type="button" class="svc-eps" data-show="focus" hidden></button>
+            </div>
+          </article>
+          <article class="svc" data-svc="investor">
+            <div class="svc-top"><span class="svc-tag">CLIENTS</span><span class="svc-host">brainy.deepbeta.mn/investor</span></div>
+            <h3>Investor portal</h3>
+            <p>Read-only scorecards, best models, backtests and portfolio growth. The only area an investor key opens.</p>
+            <div class="svc-links">
+              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/investor/" target="_blank" rel="noopener">Open ↗</a>
+              <button type="button" class="svc-eps" data-show="investor" hidden></button>
+            </div>
+          </article>
+          <article class="svc" data-svc="livedash">
+            <div class="svc-top"><span class="svc-tag">TRADING</span><span class="svc-host">brainy.deepbeta.mn/livedash</span></div>
+            <h3>Live dashboard</h3>
+            <p>Real-time snapshot of the live accounts: equity, positions, pending orders, divergences and the trading journal.</p>
+            <div class="svc-links">
+              <span class="svc-more"><a href="https://brainy.deepbeta.mn/livedash/docs" target="_blank" rel="noopener">API docs ↗</a></span>
+              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/livedash/" target="_blank" rel="noopener">Open ↗</a>
+              <button type="button" class="svc-eps" data-show="livedash" hidden></button>
+            </div>
+          </article>
+          <article class="svc" data-svc="train">
+            <div class="svc-top"><span class="svc-tag">MODELS</span><span class="svc-host">brainy.deepbeta.mn/train</span></div>
+            <h3>Training GUI</h3>
+            <p>Train, backtest, compare and finalise model configurations, and manage the best-per-ticker table.</p>
+            <div class="svc-links">
+              <span class="svc-more"><a href="https://brainy.deepbeta.mn/train/docs" target="_blank" rel="noopener">API docs ↗</a></span>
+              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/train/" target="_blank" rel="noopener">Open ↗</a>
+              <button type="button" class="svc-eps" data-show="train" hidden></button>
+            </div>
+          </article>
+          <article class="svc" data-svc="monitoring">
+            <div class="svc-top"><span class="svc-tag">OPERATIONS</span><span class="svc-host">brainy.deepbeta.mn/monitoring</span></div>
+            <h3>Server monitor</h3>
+            <p>Traffic, latency, failures, security rejections, pipeline freshness and host resources.</p>
+            <div class="svc-links">
+              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/monitoring/" target="_blank" rel="noopener">Open ↗</a>
+              <button type="button" class="svc-eps" data-show="monitoring" hidden></button>
+            </div>
+          </article>
+          <article class="svc" data-svc="mlflow">
+            <div class="svc-top"><span class="svc-tag">MODELS</span><span class="svc-host">brainy.deepbeta.mn/mlflow</span></div>
+            <h3>MLflow</h3>
+            <p>Experiment tracking for every training run, with the standard MLflow REST API.</p>
+            <div class="svc-links">
+              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/mlflow/" target="_blank" rel="noopener">Open ↗</a>
+              <button type="button" class="svc-eps" data-show="mlflow" hidden></button>
+            </div>
+          </article>
+        </div>
+
+        <!-- endpoint explorer: filled by script.js from data/brainy-platform.json -->
+        <div id="endpoints" class="ep book-card" data-pf="explorer" hidden>
+          <div class="bc-head ep-bar">
+            <h3 class="bc-title">ENDPOINTS</h3>
+            <label class="ep-search">
+              <span class="sr-only">Filter endpoints</span>
+              <input type="search" data-pf="q" placeholder="Filter by path or words…" autocomplete="off" spellcheck="false" />
+            </label>
+            <select data-pf="svc" aria-label="Desk"><option value="">all desks</option></select>
+            <div class="seg" role="group" aria-label="Method" data-pf="method">
+              <button type="button" data-m="" class="active" aria-pressed="true">all</button>
+              <button type="button" data-m="GET" aria-pressed="false">GET</button>
+              <button type="button" data-m="POST" aria-pressed="false">POST</button>
+            </div>
+            <span class="ep-count muted small" data-pf="count" aria-live="polite"></span>
+          </div>
+          <div class="ep-list" data-pf="list"></div>
+          <p class="ep-foot muted small" data-pf="foot"></p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- keep reading: the other pages and the contact -->
+    <section class="next" aria-label="Keep reading">
+      <div class="wrap">
+        <p class="chap-tag"><span data-i18n="next.k">계속 읽기</span></p>
+        <div class="next-grid">
+          <a class="next-card" href="/ko/technology/">
+            <b><span data-i18n="nav.technology">기술</span><i class="arr" aria-hidden="true">→</i></b>
+            <p data-i18n="next.tech.p">모델, 모델을 고르는 방법, 모델이 보는 데이터, 적용 시장, 일일 실행.</p>
+          </a>
+          <a class="next-card" href="/ko/results/">
+            <b><span data-i18n="nav.results">성과</span><i class="arr" aria-hidden="true">→</i></b>
+            <p data-i18n="next.res.p">계좌 종류별 기록, 일일 점검, 페이퍼 북 전체.</p>
+          </a>
+          <a class="next-card next-card--talk" href="/ko/#contact">
+            <b><span data-i18n="practice.talk">문의하기</span><i class="arr" aria-hidden="true">→</i></b>
+            <p data-i18n="next.talk.p">액세스 키를 요청하거나, 증거에 기반해 내리고 싶은 결정에 대해 알려 주세요.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <a class="wordmark" href="/ko/#top" aria-label="Deep Beta Technology LLC home">DeepBeta<span class="pt">.</span></a>
+          <p data-i18n="foot.tagline">기업을 위한 퀀트 ML 모델, 백테스팅, AI 솔루션.</p>
+          <a class="foot-mail" href="mailto:nyam-ochir@deepbeta.mn">nyam-ochir@deepbeta.mn</a>
+          <a class="foot-mail" href="tel:+97688802060">+976 8880 2060</a>
+        </div>
+        <nav class="foot-col" aria-label="Company">
+          <h3 data-i18n="foot.company">회사</h3>
+          <a href="/ko/#company" data-i18n="foot.about">회사 소개</a>
+          <a href="/ko/#services" data-i18n="nav.services">서비스</a>
+          <a href="/ko/#founder" data-i18n="nav.founder">설립자</a>
+          <a href="/ko/#contact" data-i18n="nav.contact">문의</a>
+        </nav>
+        <nav class="foot-col" aria-label="Technology">
+          <h3 data-i18n="nav.technology">기술</h3>
+          <a href="/ko/technology/#models" data-i18n="foot.models">모델</a>
+          <a href="/ko/technology/#features" data-i18n="foot.inputs">입력</a>
+          <a href="/ko/technology/#assets" data-i18n="foot.markets">시장</a>
+          <a href="/ko/technology/#stack" data-i18n="foot.run">일일 실행</a>
+          <a href="/ko/results/" data-i18n="nav.results">성과</a>
+        </nav>
+        <nav class="foot-col" aria-label="Platform">
+          <h3 data-i18n="nav.platform">플랫폼</h3>
+          <a href="https://brainy.deepbeta.mn/" target="_blank" rel="noopener">Brainy platform</a>
+          <a href="https://brainy.deepbeta.mn/paperdesk/" target="_blank" rel="noopener">Paper Desk</a>
+          <a href="https://technical.deepbeta.mn/" target="_blank" rel="noopener">Technical desk</a>
+          <a href="https://agents.deepbeta.mn/" target="_blank" rel="noopener">Agents</a>
+          <a href="/ko/platform/#api" data-i18n="foot.api">API & 엔드포인트</a>
+        </nav>
+        <nav class="foot-col" aria-label="Connect">
+          <h3 data-i18n="foot.connect">연결</h3>
+          <a href="mailto:nyam-ochir@deepbeta.mn">Email</a>
+          <a href="tel:+97688802060">+976 8880 2060</a>
+          <a href="https://www.linkedin.com/in/nyamochirbold/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.upwork.com/fl/nyamochirbold" target="_blank" rel="noopener">Upwork</a>
+        </nav>
+      </div>
+
+      <div class="foot-mark" aria-hidden="true">DeepBeta<span class="pt">.</span></div>
+
+      <div class="foot-legal" data-i18n="footer.legal">© <span data-year></span> Deep Beta Technology LLC. 모든 권리 보유. 기술 공급자 — 솔루션과 서비스를 판매하고 퀀트 모델을 라이선스 비용으로 제공하며, 고객의 계좌나 자산을 수탁하지 않고 수익을 배분하지 않습니다. 연구/정보 제공 목적. 투자 자문이 아닙니다. 과거 성과는 미래 결과를 보장하지 않습니다.</div>
+    </div>
+  </footer>
+
+  <!-- chapter rail, built by script.js from the sections marked data-chapter; decorative duplicate of the nav -->
+  <nav class="depth" data-depth aria-hidden="true"></nav>
+
+  <script src="/script.js"></script>
+</body>
+</html>

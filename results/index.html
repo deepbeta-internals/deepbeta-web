@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- a returning visitor who picked МН / KO before goes straight to that language's version of this
+       page (set by the language links in script.js; crawlers have no stored choice and are never
+       redirected). The "js" class arms the scroll reveals in styles.css; without JavaScript everything shows. -->
+  <script>
+    document.documentElement.classList.add('js');
+    try {
+      var dbLang = { mn: '/mn', ko: '/ko' }[localStorage.getItem('deepbeta-lang')];
+      if (dbLang && document.documentElement.lang === 'en') location.replace(dbLang + location.pathname + location.search + location.hash);
+    } catch (e) {}
+  </script>
+  <!-- SEO: tools/build_i18n_pages.py rewrites the tags marked data-seo for /mn/ and /ko/.
+       Keep each marked tag on one line. -->
+  <title data-seo="title">Results · Track Record &amp; Paper Book · Deep Beta Technology</title>
+  <meta name="description" data-seo="description" content="The DeepBeta record by kind of account (real money, IG demo, paper desk), each with its date and its limits, the daily checks, and the full focus 5 paper book." />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="canonical" data-seo="canonical" href="https://www.deepbeta.mn/results/" />
+  <link rel="alternate" hreflang="en" href="https://www.deepbeta.mn/results/" />
+  <link rel="alternate" hreflang="mn" href="https://www.deepbeta.mn/mn/results/" />
+  <link rel="alternate" hreflang="ko" href="https://www.deepbeta.mn/ko/results/" />
+  <link rel="alternate" hreflang="x-default" href="https://www.deepbeta.mn/results/" />
+  <meta name="theme-color" content="#0a0a09" />
+
+  <!-- social cards -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="DeepBeta" />
+  <meta property="og:title" data-seo="title" content="Results · Track Record &amp; Paper Book · Deep Beta Technology" />
+  <meta property="og:description" data-seo="description" content="The DeepBeta record by kind of account (real money, IG demo, paper desk), each with its date and its limits, the daily checks, and the full focus 5 paper book." />
+  <meta property="og:url" data-seo="canonical" content="https://www.deepbeta.mn/results/" />
+  <meta property="og:locale" data-seo="locale" content="en_US" />
+  <meta property="og:locale:alternate" data-seo="locale-alt" content="mn_MN" />
+  <meta property="og:locale:alternate" data-seo="locale-alt" content="ko_KR" />
+  <meta property="og:image" content="https://www.deepbeta.mn/logo/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="DeepBeta — Quant ML models, backtesting and AI solutions" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" data-seo="title" content="Results · Track Record &amp; Paper Book · Deep Beta Technology" />
+  <meta name="twitter:description" data-seo="description" content="The DeepBeta record by kind of account (real money, IG demo, paper desk), each with its date and its limits, the daily checks, and the full focus 5 paper book." />
+  <meta name="twitter:image" content="https://www.deepbeta.mn/logo/og-image.jpg" />
+
+  <!-- icons -->
+  <link rel="icon" href="/favicon.ico" sizes="48x48" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/logo/icon-192.png" />
+  <link rel="apple-touch-icon" href="/logo/apple-touch-icon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <a class="skip" href="#performance" data-i18n="a11y.skip">Skip to content</a>
+
+  <!-- HEADER · identical on every page (tools/build_i18n_pages.py checks it; only the language links
+       differ, pointing at this page's translations). One nav for every screen size: on small
+       screens it becomes the full-screen menu. -->
+  <header class="site-head" data-head>
+    <div class="head-inner">
+      <a class="wordmark" href="/#top" aria-label="Deep Beta Technology LLC home">DeepBeta<span class="pt">.</span></a>
+      <nav class="site-nav" id="site-nav" aria-label="Primary">
+        <a href="/#company" data-i18n="nav.company">Company</a>
+        <a href="/#services" data-i18n="nav.services">Services</a>
+        <a href="/technology/" data-i18n="nav.technology">Technology</a>
+        <a href="/results/" data-i18n="nav.results">Results</a>
+        <a href="/platform/" data-i18n="nav.platform">Platform</a>
+        <a href="/#contact" data-i18n="nav.contact">Contact</a>
+      </nav>
+      <div class="head-tools">
+        <!-- each language is its own crawlable page; build_i18n_pages.py moves the active state -->
+        <div class="lang-switch" role="group" aria-label="Language">
+          <a href="/results/" hreflang="en" lang="en" data-lang="en" class="active" aria-current="page">EN</a>
+          <a href="/mn/results/" hreflang="mn" lang="mn" data-lang="mn">МН</a>
+          <a href="/ko/results/" hreflang="ko" lang="ko" data-lang="ko">KO</a>
+        </div>
+        <a class="btn btn-gold btn-sm head-cta" href="https://brainy.deepbeta.mn/" target="_blank" rel="noopener"><b data-i18n="head.brainy">Open Brainy</b><i class="arr" aria-hidden="true">↗</i></a>
+        <button type="button" class="menu-btn" data-menu aria-expanded="false" aria-controls="site-nav" aria-label="Menu"><i></i><i></i></button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- 01 · PROOF · the four steps, the daily checks and the evidence so far -->
+    <section id="performance" class="chapter page-top" data-chapter="01">
+      <div class="wrap">
+        <header class="chap-head">
+          <p class="chap-tag"><b>01</b><span data-i18n="nav.proof">Proof</span></p>
+          <h1 class="title" data-i18n="perf.h2">Don’t take our word.<br>Read the book<span class="pt">.</span></h1>
+          <p class="chap-sub" data-i18n="proof.sub">Tested on history, proven on demo accounts, watched every day. Every figure below carries its date and its limits.</p>
+          <nav class="toc" aria-label="On this page">
+            <a href="#ladder" data-i18n="toc.ladder">Four steps</a>
+            <a href="#checks" data-i18n="toc.checks">Daily checks</a>
+            <a href="#evidence" data-i18n="toc.evidence">Evidence</a>
+            <a href="#book" data-i18n="nav.book">Paper book</a>
+          </nav>
+        </header>
+
+        <!-- the four steps to real money -->
+        <ol id="ladder" class="pf-steps four ladder">
+          <li class="pf-step" data-rv>
+            <span class="step">01</span>
+            <h3 data-i18n="ladder.1.h">Backtest</h3>
+            <p data-i18n="ladder.1.p">Walk-forward on five years of data.</p>
+          </li>
+          <li class="pf-step" data-rv style="--d:1">
+            <span class="step">02</span>
+            <h3 data-i18n="ladder.2.h">Paper desk</h3>
+            <p data-i18n="ladder.2.p">A simulated book, recorded live since 27 Sep 2026.</p>
+          </li>
+          <li class="pf-step" data-rv style="--d:2">
+            <span class="step">03</span>
+            <h3 data-i18n="ladder.3.h">IG demo accounts</h3>
+            <p data-i18n="ladder.3.p">Two accounts trading unattended since 16 Oct 2026.</p>
+          </li>
+          <li class="pf-step is-locked" data-rv style="--d:3">
+            <span class="step">04<svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M4.5 7V5a3.5 3.5 0 0 1 7 0v2M3 7h10v7H3z" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></span>
+            <h3 data-i18n="ladder.4.h">Live account</h3>
+            <p data-i18n="ladder.4.p">Only on an explicit, per-trade command. Four independent locks keep the robot away from real money.</p>
+          </li>
+        </ol>
+        <p class="aside-note" data-rv data-i18n="ladder.note">Real money comes last: every model climbs these four steps.</p>
+
+        <!-- checked every day -->
+        <div id="checks" class="block">
+          <header class="block-head">
+            <h3 class="subtitle" data-rv data-i18n="checks.h3">Even a chosen model is re-checked every day</h3>
+          </header>
+          <ol class="facts">
+            <li data-rv>
+              <span class="fact-v">1%</span>
+              <h4 data-i18n="check.1.h">Risk comes first</h4>
+              <p data-i18n="check.1.p">Every position is sized so that hitting its stop costs about 1% of the account, and the target is twice the stop. Stops are not guaranteed, so a price gap can cost more.</p>
+            </li>
+            <li data-rv>
+              <span class="fact-v">63</span>
+              <h4 data-i18n="check.2.h">A daily tripwire</h4>
+              <p data-i18n="check.2.p">Each model’s last 63 calls are compared with what testing showed. A hit rate below the median turns AMBER; far below turns RED.</p>
+            </li>
+            <li data-rv>
+              <span class="fact-v">2,000</span>
+              <h4 data-i18n="check.3.h">The coin-flip test</h4>
+              <p data-i18n="check.3.p">Every book is ranked against 2,000 books that keep its timing, size, stops and costs but flip a coin for direction. Skill, or luck?</p>
+            </li>
+          </ol>
+        </div>
+
+        <!-- results by kind of account · dated figures from the Brainy record, not live data -->
+        <div id="evidence" class="block">
+          <header class="block-head">
+            <h3 class="subtitle" data-rv data-i18n="ev.h3">One engine, three kinds of account</h3>
+            <p class="chap-sub" data-rv data-i18n="ev.sub">All three in profit as of 9 Nov 2026, all at 1% risk per trade. These are short records.</p>
+          </header>
+          <div class="res-grid" data-rv>
+            <div class="res">
+              <span class="label" data-i18n="res.real.k">Real money · gold</span>
+              <div class="res-v">+10.97%</div>
+              <p data-i18n="res.real.p">Gold on a real-money IG account since 8 Jul 2026: 62 trades, 67.7% won, deepest drawdown −3.32%.</p>
+              <p class="res-m" data-i18n="res.real.m">Pro-forma: nine deposits are removed and each trade’s result is applied to a constant capital base.</p>
+            </div>
+            <div class="res">
+              <span class="label" data-i18n="res.demo.k">IG demo accounts</span>
+              <div class="res-v">+7.9%</div>
+              <p data-i18n="res.demo.p">Two demo accounts trading every call unattended since 16 Oct 2026: 123 trades, 64% won, profit factor 1.66.</p>
+              <p class="res-m" data-i18n="res.demo.m">Simulated money at a real broker, after funding and fees.</p>
+            </div>
+            <div class="res">
+              <span class="label" data-i18n="res.paper.k">Paper desk</span>
+              <div class="res-v">+15.5%</div>
+              <p data-i18n="res.paper.p">Recorded live since 27 Sep 2026: 86 trades, 66% won, deepest drawdown −4.3%.</p>
+              <p class="res-m" data-i18n="res.paper.m">The whole book since 1 Jun is +25.4%, but June to September was replayed afterwards.</p>
+            </div>
+          </div>
+          <ol class="facts">
+            <li data-rv>
+              <span class="fact-v">60 / 60</span>
+              <h4 data-i18n="fact.1.h">Simulation matches the broker</h4>
+              <p data-i18n="fact.1.p">On the 60 calls that both the demo accounts and the paper desk traded, the outcome had the same sign every time, within 0.10R per trade.</p>
+            </li>
+            <li data-rv>
+              <span class="fact-v">98%</span>
+              <h4 data-i18n="fact.2.h">Better than chance, so far</h4>
+              <p data-i18n="fact.2.p">The 67 paper-desk trades opened live since 6 Oct 2026 beat 98% of 2,000 coin-flip books.</p>
+            </li>
+            <li data-rv>
+              <span class="fact-v">64 · 65%</span>
+              <h4 data-i18n="fact.3.h">Consistent execution</h4>
+              <p data-i18n="fact.3.p">Two demo accounts given the same calls won 64% and 65% of their trades. That shows the automation is reliable; it is not a second proof of the edge.</p>
+            </li>
+          </ol>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- 02 · THE PAPER BOOK · focus 5, filled by script.js from data/focus-book.json -->
+    <section id="book" class="chapter" data-chapter="02">
+      <div class="wrap">
+        <header class="chap-head">
+          <p class="chap-tag"><b>02</b><span data-i18n="nav.book">Paper book</span></p>
+          <h2 class="title" data-rv data-i18n="book.h2">The paper book,<br>in full<span class="pt">.</span></h2>
+          <p class="chap-sub wide" data-rv data-i18n="perf.sub">Every call of our five focus products — GOLD, NAS100, WTI, BTCUSD and ETHUSD on 1-, 2- and 4-day horizons — traded on a simulated $100K book with live 15-minute prices, spread and funding costs. Paper trading, not a live account — past performance does not guarantee future results.</p>
+        </header>
+
+        <!-- Paper Desk book of the focus 5 — filled by script.js from data/focus-book.json -->
+        <div class="book is-loading" data-book-root>
+          <p class="book-note" data-book="note"></p>
+          <div class="kpi-grid" data-book="kpis"></div>
+
+          <div class="book-grid">
+            <div class="book-card book-chart">
+              <div class="bc-head">
+                <h3 class="bc-title">EQUITY</h3>
+                <div class="seg" role="group" aria-label="Chart view" data-book="view">
+                  <button type="button" data-view="book" class="active" aria-pressed="true">book</button>
+                  <button type="button" data-view="assets" aria-pressed="false">by asset</button>
+                </div>
+                <div class="seg" role="group" aria-label="Resolution" data-book="res">
+                  <button type="button" data-res="1h" aria-pressed="false">1h</button>
+                  <button type="button" data-res="4h" class="active" aria-pressed="true">4h</button>
+                  <button type="button" data-res="1d" aria-pressed="false">1d</button>
+                </div>
+                <a class="btn btn-line btn-sm bc-cta" href="https://brainy.deepbeta.mn/paperdesk/" target="_blank" rel="noopener" data-i18n="perf.cta">Open the paper desk ↗</a>
+              </div>
+              <div class="bc-legend" data-book="legend"></div>
+              <div class="bc-plot" data-book="plot" tabindex="0" role="group"
+                   aria-label="Paper book equity, drawdown and exposure over time. Use the left and right arrow keys to step through time."></div>
+              <div class="bc-months" data-book="months"></div>
+            </div>
+
+            <aside class="book-side">
+              <div class="book-card">
+                <h3 class="side-title">FOCUS 5 <span class="muted">· P&amp;L by asset</span></h3>
+                <ul class="asset-list" data-book="assets"></ul>
+              </div>
+              <div class="book-card">
+                <h3 class="side-title">EDGE VS COIN-FLIP</h3>
+                <div data-book="coinflip"></div>
+              </div>
+            </aside>
+          </div>
+          <p class="book-empty muted small" hidden>Paper book data is unavailable right now — open the paper desk on Brainy for the live book.</p>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- keep reading: the other pages and the contact -->
+    <section class="next" aria-label="Keep reading">
+      <div class="wrap">
+        <p class="chap-tag"><span data-i18n="next.k">Keep reading</span></p>
+        <div class="next-grid">
+          <a class="next-card" href="/technology/">
+            <b><span data-i18n="nav.technology">Technology</span><i class="arr" aria-hidden="true">→</i></b>
+            <p data-i18n="next.tech.p">The models, how one is chosen, what they see, where they work and the daily run.</p>
+          </a>
+          <a class="next-card" href="/platform/">
+            <b><span data-i18n="nav.platform">Platform</span><i class="arr" aria-hidden="true">→</i></b>
+            <p data-i18n="next.pf.p">Every Brainy desk, how to get access, and every API route.</p>
+          </a>
+          <a class="next-card next-card--talk" href="/#contact">
+            <b><span data-i18n="practice.talk">Talk to us</span><i class="arr" aria-hidden="true">→</i></b>
+            <p data-i18n="next.talk.p">Ask for an access key, or tell us about the decision you want to put on evidence.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <a class="wordmark" href="/#top" aria-label="Deep Beta Technology LLC home">DeepBeta<span class="pt">.</span></a>
+          <p data-i18n="foot.tagline">Quant ML models, backtesting and AI solutions for enterprises.</p>
+          <a class="foot-mail" href="mailto:nyam-ochir@deepbeta.mn">nyam-ochir@deepbeta.mn</a>
+          <a class="foot-mail" href="tel:+97688802060">+976 8880 2060</a>
+        </div>
+        <nav class="foot-col" aria-label="Company">
+          <h3 data-i18n="foot.company">Company</h3>
+          <a href="/#company" data-i18n="foot.about">About us</a>
+          <a href="/#services" data-i18n="nav.services">Services</a>
+          <a href="/#founder" data-i18n="nav.founder">Founder</a>
+          <a href="/#contact" data-i18n="nav.contact">Contact</a>
+        </nav>
+        <nav class="foot-col" aria-label="Technology">
+          <h3 data-i18n="nav.technology">Technology</h3>
+          <a href="/technology/#models" data-i18n="foot.models">Models</a>
+          <a href="/technology/#features" data-i18n="foot.inputs">Inputs</a>
+          <a href="/technology/#assets" data-i18n="foot.markets">Markets</a>
+          <a href="/technology/#stack" data-i18n="foot.run">Daily run</a>
+          <a href="/results/" data-i18n="nav.results">Results</a>
+        </nav>
+        <nav class="foot-col" aria-label="Platform">
+          <h3 data-i18n="nav.platform">Platform</h3>
+          <a href="https://brainy.deepbeta.mn/" target="_blank" rel="noopener">Brainy platform</a>
+          <a href="https://brainy.deepbeta.mn/paperdesk/" target="_blank" rel="noopener">Paper Desk</a>
+          <a href="https://technical.deepbeta.mn/" target="_blank" rel="noopener">Technical desk</a>
+          <a href="https://agents.deepbeta.mn/" target="_blank" rel="noopener">Agents</a>
+          <a href="/platform/#api" data-i18n="foot.api">API &amp; endpoints</a>
+        </nav>
+        <nav class="foot-col" aria-label="Connect">
+          <h3 data-i18n="foot.connect">Connect</h3>
+          <a href="mailto:nyam-ochir@deepbeta.mn">Email</a>
+          <a href="tel:+97688802060">+976 8880 2060</a>
+          <a href="https://www.linkedin.com/in/nyamochirbold/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.upwork.com/fl/nyamochirbold" target="_blank" rel="noopener">Upwork</a>
+        </nav>
+      </div>
+
+      <div class="foot-mark" aria-hidden="true">DeepBeta<span class="pt">.</span></div>
+
+      <div class="foot-legal" data-i18n="footer.legal">
+        © <span data-year></span> Deep Beta Technology LLC. All rights reserved. Technology provider —
+        we sell solutions and services and license our quant models for a fee; we never hold client
+        accounts or assets in custody and never split profits. Research / informational use.
+        Not investment advice. Past performance does not guarantee future results.
+      </div>
+    </div>
+  </footer>
+
+  <!-- chapter rail, built by script.js from the sections marked data-chapter; decorative duplicate of the nav -->
+  <nav class="depth" data-depth aria-hidden="true"></nav>
+
+  <script src="/script.js"></script>
+</body>
+</html>

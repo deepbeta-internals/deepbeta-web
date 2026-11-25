@@ -805,10 +805,11 @@
   }
 
   /* ---- language ----
-     Each language is its own pre-rendered page (/, /mn/, /ko/ — see tools/build_i18n_pages.py)
-     so search engines can index all three. Remember an explicit choice: the inline script in
-     <head> sends a returning visitor who picked МН or KO from / to their language. Crawlers
-     never have a stored choice, so they always get the URL they asked for. */
+     Each language is its own pre-rendered page (/, /mn/, /ko/, /technology/, /mn/technology/ …
+     see tools/build_i18n_pages.py) so search engines can index all three. Remember an explicit
+     choice: the inline script in <head> sends a returning visitor who picked МН or KO from an
+     English page to the same page in their language. Crawlers never have a stored choice, so
+     they always get the URL they asked for. */
   $$('.lang-switch a[data-lang]').forEach(a => a.addEventListener('click', () => {
     try { localStorage.setItem('deepbeta-lang', a.dataset.lang); } catch {}
   }));
@@ -925,10 +926,23 @@
     if (prefersReducedMotion) { pipe.style.setProperty('--p', 1); pipeSteps.forEach(s => s.classList.add('on')); }
   }
 
-  /* ---- chapter rail + current nav link ---- */
+  /* ---- chapter rail + current nav link ----
+     The nav holds links to pages (/technology/) and to chapters of the home page (/#services);
+     the builder prefixes both with /mn or /ko on the translated pages. A page link is current on
+     its own page; a chapter link is current while its chapter is on screen. */
   const chapters = $$('[data-chapter]'), depth = $('[data-depth]'), paper = $('.paper');
+  const pathOf = p => p.replace(/index\.html$/, '');
+  const here = pathOf(location.pathname);
+  const navTargets = navLinks.map(a => {
+    const u = new URL(a.getAttribute('href'), location.href);
+    return { a, path: pathOf(u.pathname), hash: u.hash.slice(1) };
+  });
+  navTargets.forEach(t => {
+    if (t.path === here && !t.hash) { t.a.classList.add('is-current'); t.a.setAttribute('aria-current', 'page'); }
+  });
+  const chapterLinks = navTargets.filter(t => t.path === here && t.hash);
   let depthLinks = [], depthY = [];
-  if (depth && chapters.length) {
+  if (depth && chapters.length > 1) {
     chapters.forEach(c => {
       /* the label is the chapter's own (already translated) tag */
       const a = document.createElement('a'), id = c.id || 'top', label = $('.chap-tag span', c)?.textContent;
@@ -952,8 +966,8 @@
     for (const c of chapters) if (c.getBoundingClientRect().top <= vh * 0.42) cur = c;
     if (cur !== current) {
       current = cur;
-      const id = cur?.id || 'top', navId = cur?.dataset.nav || id;   /* the pipeline sits under "Engine" in the nav */
-      navLinks.forEach(a => a.classList.toggle('is-current', a.getAttribute('href') === '#' + navId));
+      const id = cur?.id || 'top', navId = cur?.dataset.nav || id;   /* data-nav: show a chapter under another's link */
+      chapterLinks.forEach(t => t.a.classList.toggle('is-current', t.hash === navId));
       depthLinks.forEach(a => a.classList.toggle('is-current', a.dataset.for === id));
     }
     if (paper && depthLinks.length) {   /* the rail is fixed: tone it by what is behind its middle */

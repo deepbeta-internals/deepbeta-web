@@ -47,15 +47,20 @@ jobs:
           fi
           python3 tools/export_focus_book.py --url
 
+      # the English pages (keep this list in step with PAGES in tools/build_i18n_pages.py)
       - name: Collect static files
         run: |
           mkdir _site
           cp index.html styles.css script.js CNAME robots.txt sitemap.xml favicon.ico _site/
+          for page in technology results platform; do
+            mkdir -p "_site/$page" && cp "$page/index.html" "_site/$page/"
+          done
           cp -r logo _site/logo
           cp -r data _site/data
 
-      # /mn/ and /ko/: index.html with the translations from i18n/*.json baked in, so search
-      # engines index all three languages. Fails the deploy if the markup no longer matches.
+      # /mn/… and /ko/…: every English page with the translations from i18n/*.json baked in, so
+      # search engines index all three languages. Fails the deploy if the markup no longer matches,
+      # or if the header or footer differs between pages.
       - name: Build the Mongolian and Korean pages
         run: python3 tools/build_i18n_pages.py _site
 

@@ -3,20 +3,20 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- a returning visitor who picked МН / KO before goes straight to that page (set by the
-       language links in script.js; crawlers have no stored choice and are never redirected).
-       The "js" class arms the scroll reveals in styles.css; without JavaScript everything shows. -->
+  <!-- a returning visitor who picked МН / KO before goes straight to that language's version of this
+       page (set by the language links in script.js; crawlers have no stored choice and are never
+       redirected). The "js" class arms the scroll reveals in styles.css; without JavaScript everything shows. -->
   <script>
     document.documentElement.classList.add('js');
     try {
-      var dbLang = { mn: '/mn/', ko: '/ko/' }[localStorage.getItem('deepbeta-lang')];
-      if (dbLang && document.documentElement.lang === 'en') location.replace(dbLang + location.hash);
+      var dbLang = { mn: '/mn', ko: '/ko' }[localStorage.getItem('deepbeta-lang')];
+      if (dbLang && document.documentElement.lang === 'en') location.replace(dbLang + location.pathname + location.search + location.hash);
     } catch (e) {}
   </script>
   <!-- SEO: tools/build_i18n_pages.py rewrites the tags marked data-seo for /mn/ and /ko/.
        Keep each marked tag on one line. -->
   <title data-seo="title">Deep Beta Technology · 퀀트 ML, 백테스팅 &amp; AI 솔루션</title>
-  <meta name="description" data-seo="description" content="퀀트 ML 모델, 금융 상품 백테스팅, 기업용 AI 솔루션. 주식·지수·외환·원자재·암호화폐를 아우르는 13개 모델 엔진." />
+  <meta name="description" data-seo="description" content="투자회사와 기업을 위한 퀀트 ML 모델, 백테스팅, AI 솔루션. 모든 모델을 과거 데이터로 테스트하고, 데모 계좌로 검증하며, 매일 점검합니다." />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <link rel="canonical" data-seo="canonical" href="https://www.deepbeta.mn/ko/" />
   <link rel="alternate" hreflang="en" href="https://www.deepbeta.mn/" />
@@ -29,7 +29,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="DeepBeta" />
   <meta property="og:title" data-seo="title" content="Deep Beta Technology · 퀀트 ML, 백테스팅 &amp; AI 솔루션" />
-  <meta property="og:description" data-seo="description" content="퀀트 ML 모델, 금융 상품 백테스팅, 기업용 AI 솔루션. 주식·지수·외환·원자재·암호화폐를 아우르는 13개 모델 엔진." />
+  <meta property="og:description" data-seo="description" content="투자회사와 기업을 위한 퀀트 ML 모델, 백테스팅, AI 솔루션. 모든 모델을 과거 데이터로 테스트하고, 데모 계좌로 검증하며, 매일 점검합니다." />
   <meta property="og:url" data-seo="canonical" content="https://www.deepbeta.mn/ko/" />
   <meta property="og:locale" data-seo="locale" content="ko_KR" />
   <meta property="og:locale:alternate" data-seo="locale-alt" content="en_US" />
@@ -40,7 +40,7 @@
   <meta property="og:image:alt" content="DeepBeta — Quant ML models, backtesting and AI solutions" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" data-seo="title" content="Deep Beta Technology · 퀀트 ML, 백테스팅 &amp; AI 솔루션" />
-  <meta name="twitter:description" data-seo="description" content="퀀트 ML 모델, 금융 상품 백테스팅, 기업용 AI 솔루션. 주식·지수·외환·원자재·암호화폐를 아우르는 13개 모델 엔진." />
+  <meta name="twitter:description" data-seo="description" content="투자회사와 기업을 위한 퀀트 ML 모델, 백테스팅, AI 솔루션. 모든 모델을 과거 데이터로 테스트하고, 데모 계좌로 검증하며, 매일 점검합니다." />
   <meta name="twitter:image" content="https://www.deepbeta.mn/logo/og-image.jpg" />
 
   <!-- icons -->
@@ -52,7 +52,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/styles.css" />
-
   <!-- structured data: who the site belongs to (Google knowledge panel / rich results) -->
   <script type="application/ld+json">
   {
@@ -117,20 +116,21 @@
   </script>
 </head>
 <body>
-  <a class="skip" href="#thesis" data-i18n="a11y.skip">본문으로 건너뛰기</a>
+  <a class="skip" href="#company" data-i18n="a11y.skip">본문으로 건너뛰기</a>
 
-  <!-- HEADER · one nav and one language switch for every screen size (the mobile menu is the same nav) -->
+  <!-- HEADER · identical on every page (tools/build_i18n_pages.py checks it; only the language links
+       differ, pointing at this page's translations). One nav for every screen size: on small
+       screens it becomes the full-screen menu. -->
   <header class="site-head" data-head>
     <div class="head-inner">
-      <a class="wordmark" href="#top" aria-label="Deep Beta Technology LLC home">DeepBeta<span class="pt">.</span></a>
+      <a class="wordmark" href="/ko/#top" aria-label="Deep Beta Technology LLC home">DeepBeta<span class="pt">.</span></a>
       <nav class="site-nav" id="site-nav" aria-label="Primary">
-        <a href="#thesis" data-i18n="nav.thesis">철학</a>
-        <a href="#practice" data-i18n="nav.practice">사업 영역</a>
-        <a href="#engine" data-i18n="nav.engine">엔진</a>
-        <a href="#performance" data-i18n="nav.proof">검증</a>
-        <a href="#platform" data-i18n="nav.platform">플랫폼</a>
-        <a href="#firm" data-i18n="nav.firm">회사</a>
-        <a href="#contact" data-i18n="nav.contact">문의</a>
+        <a href="/ko/#company" data-i18n="nav.company">회사</a>
+        <a href="/ko/#services" data-i18n="nav.services">서비스</a>
+        <a href="/ko/technology/" data-i18n="nav.technology">기술</a>
+        <a href="/ko/results/" data-i18n="nav.results">성과</a>
+        <a href="/ko/platform/" data-i18n="nav.platform">플랫폼</a>
+        <a href="/ko/#contact" data-i18n="nav.contact">문의</a>
       </nav>
       <div class="head-tools">
         <!-- each language is its own crawlable page; build_i18n_pages.py moves the active state -->
@@ -156,16 +156,16 @@
       <div class="wrap hero-body">
         <p class="eyebrow" data-i18n="hero.kicker"><span class="live"></span>Deep Beta Technology LLC · 퀀트 ML · 백테스팅 · AI 솔루션</p>
         <h1 class="display" data-i18n="hero.h1">시장을<br>측정하다<span class="pt">.</span></h1>
-        <p class="lede" data-i18n="hero.lede">Deep Beta Technology는 시장 데이터를 검증 가능한 의사결정으로 바꾸는 퀀트 ML 모델, 백테스팅, AI 솔루션을 만듭니다. 13개의 전문 모델이 매 바(bar)마다 모든 자산을 스코어링하고, 모든 시그널은 실행에 도달하기 전에 제약 기반 리스크 관리를 통과합니다.</p>
+        <p class="lede" data-i18n="hero.lede">투자회사와 기업이 직감이 아닌 증거로 결정할 수 있도록 퀀트 모델과 AI 시스템을 만듭니다. 모든 모델은 과거 데이터로 테스트하고, 데모 계좌로 검증하며, 매일 다시 점검합니다.</p>
         <div class="hero-ctas">
-          <a class="btn btn-gold" href="#engine"><b data-i18n="hero.cta1">엔진 살펴보기</b><i class="arr" aria-hidden="true">→</i></a>
-          <a class="btn btn-line" href="#performance"><b data-i18n="hero.cta2">실시간 페이퍼 북 보기</b><i class="arr" aria-hidden="true">→</i></a>
+          <a class="btn btn-gold" href="#services"><b data-i18n="hero.cta1">사업 영역 보기</b><i class="arr" aria-hidden="true">→</i></a>
+          <a class="btn btn-line" href="/ko/results/"><b data-i18n="hero.cta2">성과 보기</b><i class="arr" aria-hidden="true">→</i></a>
         </div>
       </div>
 
       <div class="hero-foot">
         <div class="wrap hero-foot-row">
-          <a class="scroll-cue" href="#thesis"><i aria-hidden="true"></i><b data-i18n="hero.scroll">아래로 스크롤</b></a>
+          <a class="scroll-cue" href="#company"><i aria-hidden="true"></i><b data-i18n="hero.scroll">회사 소개</b></a>
         </div>
         <!-- live crypto tape: stays hidden until script.js has a real quote to show -->
         <div class="tape" data-tape hidden>
@@ -175,11 +175,21 @@
       </div>
     </section>
 
-    <!-- 01 · THESIS (the one light chapter: set like a printed research note) -->
-    <section id="thesis" class="chapter paper" data-chapter="01">
+    <!-- 01 · COMPANY (the one light chapter: set like a printed research note) -->
+    <section id="company" class="chapter paper" data-chapter="01">
       <div class="wrap">
-        <p class="chap-tag"><b>01</b><span data-i18n="nav.thesis">철학</span></p>
-        <p class="manifesto" data-words data-i18n="thesis.statement">시장은 확신에 보상하지 않습니다. 증거에 보상합니다. 그래서 우리는 스스로 신뢰를 입증해야 하는 모델을 만듭니다. 독립적으로 학습하고, 워크포워드로 검증하고, 누군가에게 믿어 달라고 말하기 전에 동전 던지기와 비교해 측정합니다.</p>
+        <p class="chap-tag"><b>01</b><span data-i18n="nav.company">회사</span></p>
+        <p class="manifesto" data-words data-i18n="about.statement">시장은 확신에 보상하지 않습니다. 증거에 보상합니다. 그래서 우리가 만드는 모든 모델은 누군가에게 믿어 달라고 하기 전에 스스로 신뢰를 얻어야 합니다.</p>
+
+        <div class="intro">
+          <p class="intro-lead" data-rv data-i18n="about.lead">Deep Beta Technology LLC는 몽골 울란바토르에 있는 기술 기업입니다. 투자회사와 기업을 위해 퀀트 머신러닝 모델, 백테스트, AI 시스템을 만들고, 자체 리서치 플랫폼 Brainy에서 매일 운용합니다.</p>
+          <dl class="intro-facts" data-rv style="--d:1">
+            <div><dt data-i18n="about.f1.k">회사 형태</dt><dd data-i18n="about.f1.v">기술 공급자입니다. 고객은 라이선스 비용으로 당사의 모델, 소프트웨어, 서비스를 이용합니다.</dd></div>
+            <div><dt data-i18n="about.f2.k">고객</dt><dd data-i18n="about.f2.v">투자회사, 금융회사, 그리고 기업의 재무팀.</dd></div>
+            <div><dt data-i18n="about.f3.k">설립자</dt><dd data-i18n="about.f3.v">Nyam-Ochir Bold, 퀀트 리서처이자 엔지니어.</dd></div>
+            <div><dt data-i18n="about.f4.k">언어</dt><dd data-i18n="about.f4.v">영어, 몽골어, 한국어로 일합니다.</dd></div>
+          </dl>
+        </div>
 
         <div class="creed">
           <article class="creed-item" data-rv>
@@ -201,24 +211,24 @@
       </div>
     </section>
 
-    <!-- DEEPBETA IN NUMBERS -->
+    <!-- DEEPBETA IN NUMBERS · what runs every day (dated figures live in the results chapter) -->
     <section class="numbers" aria-label="DeepBeta in numbers">
       <div class="wrap">
         <div class="num-grid">
           <div class="num" data-rv>
-            <div class="num-v" data-count="13">13</div>
-            <div class="num-k" data-i18n="num.models">ML 모델 패밀리</div>
-            <p class="num-s" data-i18n="num.models.s">12개의 전문 모델과 하나의 메타 앙상블.</p>
+            <div class="num-v" data-count="6">6</div>
+            <div class="num-k" data-i18n="num.mk">매일 콜을 내는 시장</div>
+            <p class="num-s" data-i18n="num.mk.s">금, 나스닥 100, 원유, 비트코인, 이더, EUR/USD.</p>
           </div>
           <div class="num" data-rv style="--d:1">
-            <div class="num-v" data-count="8">8</div>
-            <div class="num-k" data-i18n="num.markets">시장 그룹</div>
-            <p class="num-s" data-i18n="num.markets.s">미국 주식부터 주요 암호화폐까지, 하나의 리스크 북으로.</p>
+            <div class="num-v" data-count="18">18</div>
+            <div class="num-k" data-i18n="num.calls">하루 트레이딩 콜</div>
+            <p class="num-s" data-i18n="num.calls.s">시장마다 1일·2일·4일 호라이즌.</p>
           </div>
           <div class="num" data-rv style="--d:2">
-            <div class="num-v" data-count="7">7</div>
-            <div class="num-k" data-i18n="num.layers">파이프라인 레이어</div>
-            <p class="num-s" data-i18n="num.layers.s">리서치에서 실행까지. 각 레이어를 독립적으로 테스트하고 교체할 수 있습니다.</p>
+            <div class="num-v">1<span class="num-u">%</span></div>
+            <div class="num-k" data-i18n="num.risk">거래당 리스크</div>
+            <p class="num-s" data-i18n="num.risk.s">손절에 걸려도 계좌의 약 1%만 잃도록 포지션 규모를 정합니다.</p>
           </div>
           <div class="num num--zero" data-rv style="--d:3">
             <div class="num-v">0</div>
@@ -229,20 +239,21 @@
       </div>
     </section>
 
-    <!-- 02 · PRACTICE -->
-    <section id="practice" class="chapter" data-chapter="02">
+    <!-- 02 · SERVICES -->
+    <section id="services" class="chapter" data-chapter="02">
       <div class="wrap">
         <header class="chap-head">
-          <p class="chap-tag"><b>02</b><span data-i18n="nav.practice">사업 영역</span></p>
+          <p class="chap-tag"><b>02</b><span data-i18n="nav.services">서비스</span></p>
           <h2 class="title" data-rv data-i18n="practice.h2">세 가지 사업.<br>하나의 검증 기준<span class="pt">.</span></h2>
+          <p class="chap-sub" data-rv data-i18n="services.sub">함께 일하는 세 가지 방법. 모두 같은 기준을 따릅니다. 먼저 근거를 보여 줍니다.</p>
         </header>
 
         <div class="practice">
-          <a class="practice-row" href="#engine" data-rv>
+          <a class="practice-row" href="/ko/technology/" data-rv>
             <span class="practice-n">A</span>
             <h3 data-i18n="practice.a.h">퀀트 ML & AI 알고리즘 트레이딩</h3>
-            <p data-i18n="practice.a.p">워크포워드 백테스팅, 제약 기반 리스크 관리, 실행 레이어를 갖춘 13개 모델 패밀리. 수익 배분이 아닌 라이선스 비용으로 제공합니다.</p>
-            <span class="practice-go"><b data-i18n="practice.a.cta">엔진 보기</b><i class="arr" aria-hidden="true">→</i></span>
+            <p data-i18n="practice.a.p">투자회사를 위한 트레이딩 모델과 시그널. 5년 데이터로 테스트하고, 리스크에 맞춰 규모를 정하며, 자체 플랫폼에서 매일 운용합니다. 수익 배분이 아닌 라이선스 비용으로 제공합니다.</p>
+            <span class="practice-go"><b data-i18n="practice.a.cta">기술 보기</b><i class="arr" aria-hidden="true">→</i></span>
             <div class="practice-case">
               <span class="case-k" data-i18n="case.partner.k">파트너</span>
               <span class="logo-plate is-withheld" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -279,651 +290,136 @@
       </div>
     </section>
 
-    <!-- 03 · ENGINE · models, inputs, markets -->
-    <section id="engine" class="chapter" data-chapter="03">
+    <!-- 03 · HOW IT WORKS · the daily run in six plain steps; the full engine is on /technology/ -->
+    <section id="approach" class="chapter" data-chapter="03">
       <div class="wrap">
         <header class="chap-head">
-          <p class="chap-tag"><b>03</b><span data-i18n="nav.engine">엔진</span></p>
-          <h2 class="title" data-rv data-i18n="engine.h2">13개의 전문 모델.<br>하나의 결정<span class="pt">.</span></h2>
-          <p class="chap-sub" data-rv data-i18n="models.sub">각 모델은 독립적으로 학습되고 워크포워드 검증을 거치며 Sharpe / Calmar / Drawdown / Return 기준으로 랭킹됩니다.</p>
+          <p class="chap-tag"><b>03</b><span data-i18n="how.tag">작동 방식</span></p>
+          <h2 class="title" data-rv data-i18n="how.h2">시장 데이터에서<br>결정까지<span class="pt">.</span></h2>
+          <p class="chap-sub" data-rv data-i18n="how.sub">여섯 단계가 매일 아침 똑같은 방식으로 자동 실행됩니다. 감에 의존하지 않고, 손절을 잊지도 않습니다.</p>
         </header>
 
-        <!-- 13 MODELS -->
-        <div id="models" class="models" data-rv>
-          <article class="model"><span class="model-n">01</span><h3>UP</h3><p>Directional long-bias classifier. Probabilistic up-move signal across horizons.</p></article>
-          <article class="model"><span class="model-n">02</span><h3>BREAKOUT</h3><p>Range-expansion detector with regime gating and volatility scaling.</p></article>
-          <article class="model"><span class="model-n">03</span><h3>REGRESSION</h3><p>Continuous return forecast — calibrated for portfolio sizing.</p></article>
-          <article class="model"><span class="model-n">04</span><h3>MEAN-REVERT</h3><p>Short-horizon reversion in equities, FX and indexes.</p></article>
-          <article class="model"><span class="model-n">05</span><h3>MOMENTUM</h3><p>Cross-sectional and time-series momentum across universes.</p></article>
-          <article class="model"><span class="model-n">06</span><h3>TREND</h3><p>Persistence model fed by price, volume and macro features.</p></article>
-          <article class="model"><span class="model-n">07</span><h3>VOL-REGIME</h3><p>Volatility state classifier driving leverage and gating.</p></article>
-          <article class="model"><span class="model-n">08</span><h3>NEWS-SENT</h3><p>News &amp; social sentiment encoder for event-driven alpha.</p></article>
-          <article class="model"><span class="model-n">09</span><h3>EARNINGS</h3><p>Pre/post earnings drift with surprise and guidance features.</p></article>
-          <article class="model"><span class="model-n">10</span><h3>MACRO</h3><p>Rates, DXY, credit and liquidity overlay across all assets.</p></article>
-          <article class="model"><span class="model-n">11</span><h3>PAIRS</h3><p>Statistical arbitrage on cointegrated baskets.</p></article>
-          <article class="model"><span class="model-n">12</span><h3>OPTIONS-FLOW</h3><p>Implied-vol &amp; flow signals where derivatives data exists.</p></article>
-          <article class="model model--meta"><span class="model-n">13</span><h3>META-ENSEMBLE</h3><p>Stacking layer that combines the 12 specialists into the production signal.</p><span class="model-tag" data-i18n="models.meta">프로덕션 시그널</span></article>
-        </div>
+        <ol class="steps" data-rv>
+          <li><span class="step-n">01</span><h3 data-i18n="how.1.h">데이터</h3><p data-i18n="how.1.p">6개 데이터 소스에서 받는 58개 심볼의 가격, 매크로, 뉴스.</p></li>
+          <li><span class="step-n">02</span><h3 data-i18n="how.2.h">피처</h3><p data-i18n="how.2.p">시장마다 180–270개 입력값. 미래 정보를 쓰지 않고 만듭니다.</p></li>
+          <li><span class="step-n">03</span><h3 data-i18n="how.3.h">모델</h3><p data-i18n="how.3.p">시장마다 세 모델로 이루어진 팀. 한 번도 보지 못한 데이터로 고릅니다.</p></li>
+          <li><span class="step-n">04</span><h3 data-i18n="how.4.h">시그널</h3><p data-i18n="how.4.p">롱, 숏 또는 대기. 진입 전에 손절과 목표가를 정합니다.</p></li>
+          <li><span class="step-n">05</span><h3 data-i18n="how.5.h">트레이딩</h3><p data-i18n="how.5.p">페이퍼 데스크와 두 개의 IG 데모 계좌가 모든 콜을 거래합니다.</p></li>
+          <li><span class="step-n">06</span><h3 data-i18n="how.6.h">리포트</h3><p data-i18n="how.6.p">모닝 브리프가 이메일로 도착하고 모든 대시보드가 갱신됩니다.</p></li>
+        </ol>
+        <p class="aside-note" data-rv data-i18n="how.note">울란바토르 시간 08:00, 일봉이 마감되면 실행이 시작됩니다. 브리프는 08:40에 도착합니다.</p>
 
-        <!-- MODEL SELECTION · how a model earns its place -->
-        <div id="selection" class="block">
-          <header class="block-head">
-            <h3 class="subtitle" data-rv data-i18n="select.h3">모델이 자리를 얻는 방법</h3>
-            <p class="chap-sub" data-rv data-i18n="select.sub">약 1,000개의 후보를 최근 5년 데이터로 테스트합니다. 선택되려면 한 번도 보지 못한 데이터에서 이겨야 합니다.</p>
-          </header>
-          <div class="select" data-rv>
-            <div class="split">
-              <!-- three consecutive spans of the same five years; widths are the real 70 / 20 / 10 split -->
-              <div class="split-bar" role="img" aria-label="Five years of data split in time order: 70% to learn, 20% to test, 10% to prove">
-                <span class="s-learn">70%</span><span class="s-test">20%</span><span class="s-prove">10%</span>
-              </div>
-              <p class="split-axis" data-i18n="split.axis">5년 데이터, 과거에서 최신 순</p>
-              <ol class="split-key">
-                <li><b>70%</b><h4 data-i18n="split.learn.h">학습</h4><p data-i18n="split.learn.p">모델은 이 구간으로 학습합니다.</p></li>
-                <li><b>20%</b><h4 data-i18n="split.test.h">테스트</h4><p data-i18n="split.test.p">약 1년간의 워크포워드. 승자는 그 해의 전반과 후반 모두에서 개선되어야 합니다.</p></li>
-                <li><b>10%</b><h4 data-i18n="split.prove.h">증명</h4><p data-i18n="split.prove.p">가장 최근 6개월은 모델 학습에 절대 쓰지 않습니다. 선택이 끝난 뒤에 채점합니다.</p></li>
-              </ol>
-            </div>
-            <aside class="lesson">
-              <span class="label" data-i18n="lesson.k">10월의 교훈</span>
-              <div class="lesson-v">12 / 15</div>
-              <p data-i18n="lesson.p">개 상품에서, 검증된 기존 모델이 새로 재학습한 모델을 이겼습니다. 그래서 새 모델은 보지 못한 데이터에서 이길 때만 기존 모델을 대체합니다.</p>
-            </aside>
+        <div class="pf-band" data-rv>
+          <div>
+            <span class="label" data-i18n="how.pf.k">플랫폼</span>
+            <h3 data-i18n="how.pf.h">이 모든 것은 자체 리서치 플랫폼 Brainy에서 돌아갑니다.</h3>
+            <p data-i18n="how.pf.p">고객과 파트너는 일일 콜, 페이퍼 트레이딩, 옵션, 기술적 분석 데스크를 브라우저에서 또는 하나의 API로 이용합니다.</p>
           </div>
-          <p class="aside-note" data-rv data-i18n="team.p">여섯 포커스 시장의 일일 콜은 시장마다 세 모델(LightGBM, 로지스틱 회귀, Extra-Trees)로 이뤄진 팀이 순위 결합과 캘리브레이션을 거쳐 만듭니다. 더 넓은 모델 라이브러리도 같은 테스트로 학습·비교합니다.</p>
-        </div>
-
-        <!-- FEATURES -->
-        <div id="features" class="block">
-          <header class="block-head">
-            <h3 class="subtitle" data-rv data-i18n="features.h3">모델이 보는 것</h3>
-            <p class="chap-sub" data-rv data-i18n="features.sub">피처는 주요 파트별로 생성되어 모델이 바(bar)를 보기 전에 융합됩니다.</p>
-          </header>
-          <div class="feats" data-rv>
-            <div class="feat"><span class="tag">PRICE / VOL</span><h4>Microstructure &amp; technicals</h4><p>Multi-timeframe returns, realized vol, order-flow proxies, gap statistics, range expansion and breadth.</p></div>
-            <div class="feat"><span class="tag">FUNDAMENTALS</span><h4>Company &amp; earnings</h4><p>Earnings surprise, guidance deltas, revisions, valuation z-scores, calendar proximity.</p></div>
-            <div class="feat"><span class="tag">MACRO</span><h4>Economic conditions</h4><p>Rates, curve shape, DXY, credit spreads, liquidity and global risk-on/off regime tags.</p></div>
-            <div class="feat"><span class="tag">NEWS</span><h4>News &amp; events</h4><p>Headline embeddings, event tagging, central-bank calendars, geopolitical shock flags.</p></div>
-            <div class="feat"><span class="tag">SENTIMENT</span><h4>Sentiment &amp; flow</h4><p>News sentiment, social signal, options flow, ETF creations/redemptions where available.</p></div>
-            <div class="feat"><span class="tag">CROSS-ASSET</span><h4>Linkages</h4><p>Cross-asset correlations, lead-lag features and basis between spot / futures / CFD.</p></div>
-          </div>
-        </div>
-
-        <!-- ASSETS + live market sessions -->
-        <div id="assets" class="block">
-          <header class="block-head">
-            <h3 class="subtitle" data-rv data-i18n="assets.h3">모델이 일하는 곳</h3>
-            <p class="chap-sub" data-rv data-i18n="assets.sub">미국 대형주부터 아시아·태평양, 주요 암호화폐까지 — 하나의 피처 파이프라인, 하나의 리스크 북.</p>
-          </header>
-          <div class="coverage">
-            <div class="markets" data-rv>
-              <div class="market"><h4 data-i18n="assets.us">미국 주식</h4><p>S&amp;P 500 and NASDAQ constituents · ETFs · sectors · top indexes.</p></div>
-              <div class="market"><h4 data-i18n="assets.apac">아시아·태평양</h4><p>KRX (Korea), JPX (Japan — TSE / OSE), HKEX (Hong Kong) — equities &amp; indexes.</p></div>
-              <div class="market"><h4>London (LSE)</h4><p>FTSE products, ETPs and listed structured instruments.</p></div>
-              <div class="market"><h4 data-i18n="assets.idx">지수 & 선물</h4><p>SPX, NDX, DXY, FTSE, Nikkei, HSI, KOSPI — index futures and CFDs.</p></div>
-              <div class="market"><h4 data-i18n="assets.cmd">원자재</h4><p>Energy, metals and agriculturals — futures &amp; CFD instruments.</p></div>
-              <div class="market"><h4>FX</h4><p>Majors and crosses — G10 plus selected EM pairs.</p></div>
-              <div class="market"><h4 data-i18n="assets.crypto">주요 암호화폐</h4><p>BTC, ETH and top liquid pairs — spot and perpetuals.</p></div>
-              <div class="market"><h4>Leveraged &amp; CFDs</h4><p>Leveraged equity products and contracts-for-difference where licensed.</p></div>
-            </div>
-
-            <!-- session clocks: local time and regular-hours state, computed in the browser by script.js -->
-            <aside class="sessions" data-sessions data-rv>
-              <div class="sessions-head">
-                <span class="label" data-i18n="mkt.title">엔진은 해를 따라 움직입니다</span>
-                <span class="sessions-utc" data-utc></span>
-              </div>
-              <ul class="sessions-list">
-                <li data-tz="America/New_York" data-hours="570-960">
-                  <i class="mk-dot" aria-hidden="true"></i><span class="mk-city" data-i18n="mkt.nyc">뉴욕</span><span class="mk-venue">NYSE · NASDAQ</span>
-                  <time class="mk-time" data-mk-time>--:--</time><em class="mk-state"><b class="s-open" data-i18n="mkt.open">개장</b><b class="s-closed" data-i18n="mkt.closed">폐장</b></em>
-                </li>
-                <li data-tz="Europe/London" data-hours="480-990">
-                  <i class="mk-dot" aria-hidden="true"></i><span class="mk-city" data-i18n="mkt.lon">런던</span><span class="mk-venue">LSE</span>
-                  <time class="mk-time" data-mk-time>--:--</time><em class="mk-state"><b class="s-open" data-i18n="mkt.open">개장</b><b class="s-closed" data-i18n="mkt.closed">폐장</b></em>
-                </li>
-                <li data-tz="Asia/Tokyo" data-hours="540-690,750-930">
-                  <i class="mk-dot" aria-hidden="true"></i><span class="mk-city" data-i18n="mkt.tyo">도쿄</span><span class="mk-venue">JPX</span>
-                  <time class="mk-time" data-mk-time>--:--</time><em class="mk-state"><b class="s-open" data-i18n="mkt.open">개장</b><b class="s-closed" data-i18n="mkt.closed">폐장</b></em>
-                </li>
-                <li data-tz="Asia/Seoul" data-hours="540-930">
-                  <i class="mk-dot" aria-hidden="true"></i><span class="mk-city" data-i18n="mkt.sel">서울</span><span class="mk-venue">KRX</span>
-                  <time class="mk-time" data-mk-time>--:--</time><em class="mk-state"><b class="s-open" data-i18n="mkt.open">개장</b><b class="s-closed" data-i18n="mkt.closed">폐장</b></em>
-                </li>
-                <li data-tz="Asia/Hong_Kong" data-hours="570-720,780-960">
-                  <i class="mk-dot" aria-hidden="true"></i><span class="mk-city" data-i18n="mkt.hkg">홍콩</span><span class="mk-venue">HKEX</span>
-                  <time class="mk-time" data-mk-time>--:--</time><em class="mk-state"><b class="s-open" data-i18n="mkt.open">개장</b><b class="s-closed" data-i18n="mkt.closed">폐장</b></em>
-                </li>
-                <li data-always data-state="open">
-                  <i class="mk-dot" aria-hidden="true"></i><span class="mk-city" data-i18n="mkt.crypto">암호화폐</span><span class="mk-venue">BTC · ETH</span>
-                  <time class="mk-time">24 / 7</time><em class="mk-state"><b class="s-open" data-i18n="mkt.open">개장</b></em>
-                </li>
-              </ul>
-              <p class="sessions-note" data-i18n="mkt.note">각 거래소 현지 시각 기준 정규장 시간입니다. 휴장일은 반영되지 않습니다.</p>
-            </aside>
+          <div class="pf-band-ctas">
+            <a class="btn btn-gold" href="/ko/technology/"><b data-i18n="how.more.tech">기술 자세히 보기</b><i class="arr" aria-hidden="true">→</i></a>
+            <a class="btn btn-line" href="/ko/platform/"><b data-i18n="how.more.pf">플랫폼 살펴보기</b><i class="arr" aria-hidden="true">→</i></a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 04 · PIPELINE -->
-    <section id="stack" class="chapter" data-chapter="04" data-nav="engine">
+    <!-- 04 · THE DIFFERENCE · a desk by hand and with DeepBeta (from the 11 Nov 2026 pitch deck) -->
+    <section id="difference" class="chapter" data-chapter="04">
       <div class="wrap">
         <header class="chap-head">
-          <p class="chap-tag"><b>04</b><span data-i18n="nav.pipeline">파이프라인</span></p>
-          <h2 class="title" data-rv data-i18n="stack.h2">매일 아침,<br>40분 안에<span class="pt">.</span></h2>
-          <p class="chap-sub" data-rv data-i18n="stack.lede">시장 데이터에서 트레이딩 결정까지, 매일 자동으로. 일봉이 마감되면 시작해 받은편지함에 도착하는 리포트로 끝납니다.</p>
+          <p class="chap-tag"><b>04</b><span data-i18n="diff.tag">차이</span></p>
+          <h2 class="title" data-rv data-i18n="diff.h2">증거가 결정할 때<br>달라지는 것들<span class="pt">.</span></h2>
+          <p class="chap-sub" data-rv data-i18n="diff.sub">같은 트레이딩 데스크, DeepBeta 도입 전과 후.</p>
         </header>
 
-        <div class="pf-stats four" data-rv>
-          <div><b>6</b><span data-i18n="glance.markets">개 시장</span></div>
-          <div><b>18</b><span data-i18n="glance.calls">개 일일 콜</span></div>
-          <div><b>58</b><span data-i18n="glance.symbols">개 심볼 분석</span></div>
-          <div><b>40</b><span data-i18n="glance.minutes">분, 시작부터 브리프까지</span></div>
-        </div>
-        <p class="aside-note" data-rv data-i18n="glance.note">금, 나스닥 100, WTI 원유, 비트코인, 이더, EUR/USD 각각에 1일·2일·4일 콜이 나옵니다. EUR/USD는 2026년 11월 10일에 추가되었으며 아래 결과에는 포함되지 않습니다.</p>
-
-        <!-- the daily clock: times are fixed (the run follows the 00:00 UTC daily candle); script.js adds the live countdown -->
-        <div class="clock" data-clock data-rv>
-          <div class="clock-head">
-            <span class="label" data-i18n="clock.label">일일 실행 · 울란바토르 시간 (UTC+8)</span>
-            <span class="clock-now" data-clock-now hidden><i data-i18n="clock.ub">울란바토르</i> <b data-ub-time></b> · <i data-i18n="clock.next">다음 실행까지</i> <b data-ub-next></b></span>
+        <div class="compare" role="table" aria-label="A trading desk by hand and with DeepBeta" data-rv>
+          <div class="cmp-row cmp-head" role="row">
+            <span role="columnheader" data-i18n="diff.col.k">영역</span>
+            <span role="columnheader" class="cmp-a" data-i18n="diff.col.a">수작업</span>
+            <span role="columnheader" class="cmp-b" data-i18n="diff.col.b">DeepBeta와 함께</span>
           </div>
-          <ol class="clock-line">
-            <li data-at="0"><time>08:00</time><h4 data-i18n="clock.1.h">일봉 마감</h4><p data-i18n="clock.1.p">여섯 시장 모두 00:00 UTC에 마감되는 일봉을 사용합니다.</p></li>
-            <li data-at="5"><time>08:05</time><h4 data-i18n="clock.2.h">58개 심볼 데이터 업데이트</h4><p data-i18n="clock.2.p">가격, 매크로, 뉴스가 여섯 개 데이터 소스에서 들어옵니다.</p></li>
-            <li data-at="20"><time>08:20</time><h4 data-i18n="clock.3.h">18개 콜 발행</h4><p data-i18n="clock.3.p">롱, 숏 또는 대기. 각 콜에는 손절과 목표가가 붙습니다. 페이퍼 데스크가 갱신됩니다.</p></li>
-            <li data-at="25"><time>08:25</time><h4 data-i18n="clock.4.h">데모 데스크 포지션 진입</h4><p data-i18n="clock.4.p">두 개의 IG 데모 계좌가 콜을 스스로 거래합니다.</p></li>
-            <li data-at="40"><time>08:40</time><h4 data-i18n="clock.5.h">모닝 브리프 발송</h4><p data-i18n="clock.5.p">PDF 리포트가 이메일로 전달되고 모든 대시보드가 최신 상태가 됩니다.</p></li>
-          </ol>
-        </div>
-
-        <!-- three more pipelines -->
-        <div class="block">
-          <header class="block-head">
-            <h3 class="subtitle" data-rv data-i18n="lanes.h3">함께 돌아가는 세 개의 파이프라인</h3>
-            <p class="chap-sub" data-rv data-i18n="lanes.sub">세 파이프라인 모두 주문을 내지 않습니다. 조언하고, 감시하고, 보고합니다.</p>
-          </header>
-          <div class="feats" data-rv>
-            <div class="feat"><span class="tag" data-i18n="lane.opt.tag">10분마다</span><h4 data-i18n="lane.opt.h">옵션</h4><p data-i18n="lane.opt.p">실제 Deribit 체결과 FMP 가격으로 20,000개의 가격 경로를 시뮬레이션해 비트코인·이더 만기별 공정가치와 매수 / 매도 / 대기 판정을 냅니다.</p></div>
-            <div class="feat"><span class="tag" data-i18n="lane.ai.tag">상시</span><h4 data-i18n="lane.ai.h">AI 에이전트</h4><p data-i18n="lane.ai.p">13개 에이전트가 27개 RSS 피드, 뉴스 검색, 78개 기술 지표, 매크로 데이터, 암호화폐 포지셔닝을 읽고 자산마다 하나의 쉬운 판독으로 합칩니다.</p></div>
-            <div class="feat"><span class="tag" data-i18n="lane.mon.tag">1분마다</span><h4 data-i18n="lane.mon.h">모니터링</h4><p data-i18n="lane.mon.p">수집기가 모든 작업과 서버를 점검해 GREEN / AMBER / RED로 등급을 매기고 대시보드와 모닝 브리프에 표시합니다.</p></div>
+          <div class="cmp-row" role="row">
+            <span class="cmp-k" role="rowheader" data-i18n="diff.1.k">의사결정</span>
+            <span class="cmp-a" role="cell" data-i18n="diff.1.a">감과 헤드라인</span>
+            <span class="cmp-b" role="cell" data-i18n="diff.1.b">5년 데이터로 검증한 규칙, 매일 아침 18개 콜</span>
+          </div>
+          <div class="cmp-row" role="row">
+            <span class="cmp-k" role="rowheader" data-i18n="diff.2.k">커버리지</span>
+            <span class="cmp-a" role="cell" data-i18n="diff.2.a">한 사람과 몇 개의 차트</span>
+            <span class="cmp-b" role="cell" data-i18n="diff.2.b">6개 시장, 시장당 180–270개 입력값, 뉴스를 읽는 13개 AI 에이전트</span>
+          </div>
+          <div class="cmp-row" role="row">
+            <span class="cmp-k" role="rowheader" data-i18n="diff.3.k">리스크</span>
+            <span class="cmp-a" role="cell" data-i18n="diff.3.a">들쭉날쭉한 규모, 잊힌 손절</span>
+            <span class="cmp-b" role="cell" data-i18n="diff.3.b">거래당 1% 리스크, 진입 전에 손절과 목표가 설정</span>
+          </div>
+          <div class="cmp-row" role="row">
+            <span class="cmp-k" role="rowheader" data-i18n="diff.4.k">감독</span>
+            <span class="cmp-a" role="cell" data-i18n="diff.4.a">월말에 손으로 만드는 보고서</span>
+            <span class="cmp-b" role="cell" data-i18n="diff.4.b">모닝 브리프, 대시보드, 모든 거래 기록</span>
+          </div>
+          <div class="cmp-row" role="row">
+            <span class="cmp-k" role="rowheader" data-i18n="diff.5.k">증명</span>
+            <span class="cmp-a" role="cell" data-i18n="diff.5.a">“믿어 주세요”</span>
+            <span class="cmp-b" role="cell" data-i18n="diff.5.b">모든 북을 동전 던지기 북 2,000개와 비교합니다. 실력일까, 운일까?</span>
           </div>
         </div>
+      </div>
+    </section>
 
-        <!-- integrations: named as plain text; no logos, no implied partnership -->
-        <div class="block">
-          <header class="block-head">
-            <h3 class="subtitle" data-rv data-i18n="flows.h3">무엇이 들어오고 무엇이 나가는가</h3>
-            <p class="chap-sub" data-rv data-i18n="flows.sub">데이터와 뉴스가 들어오고, 가운데에서 피처와 모델이 일하며, 주문은 브로커로 나갑니다.</p>
-          </header>
-          <div class="flows" data-rv>
-            <div class="flow">
-              <span class="label" data-i18n="flows.data">시장 데이터</span>
-              <ul class="chips"><li>FMP</li><li>Binance</li><li>Deribit</li><li>Yahoo Finance</li><li>FRED</li><li>CryptoCompare</li><li>BLS</li></ul>
-            </div>
-            <div class="flow">
-              <span class="label" data-i18n="flows.news">뉴스 및 검색</span>
-              <ul class="chips"><li>27 RSS feeds</li><li>FMP News</li><li>Google News</li><li>Economic calendar</li></ul>
-            </div>
-            <div class="flow">
-              <span class="label" data-i18n="flows.models">모델 라이브러리</span>
-              <ul class="chips"><li>LightGBM</li><li>Logistic regression</li><li>Extra-Trees</li><li>XGBoost</li><li>CatBoost</li><li>HistGB</li><li>Random Forest</li><li>DNN</li><li>RNN · LSTM · GRU</li><li>CNN · TCN</li><li>Transformer</li><li>ROCKET</li><li>TS Forest</li><li>KNN-DTW</li><li>Chronos-Bolt</li><li>FinBERT</li><li>Claude</li><li>HAR volatility</li></ul>
-            </div>
-            <div class="flow">
-              <span class="label" data-i18n="flows.orders">브로커 및 거래소</span>
-              <ul class="chips"><li>IG</li><li>MetaTrader 5</li><li>Bybit</li><li>Capital.com</li></ul>
-              <p class="flow-note" data-i18n="flows.note">이 네 곳에 대한 주문 라우팅이 구축되어 있습니다. 현재는 IG 데모 계좌가 매일 거래하며, Binance와 Deribit은 데이터 용도로만 사용합니다.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- the architecture underneath -->
-        <header class="block-head block-gap">
-          <h3 class="subtitle" data-rv data-i18n="layers.h3">그 아래의 스택</h3>
-          <p class="chap-sub" data-rv data-i18n="stack.sub">각 레이어는 독립적으로 테스트하고 교체할 수 있습니다.</p>
+    <!-- 05 · RESULTS · dated figures from the Brainy record, not live data (the full record is on /results/) -->
+    <section id="record" class="chapter" data-chapter="05">
+      <div class="wrap">
+        <header class="chap-head">
+          <p class="chap-tag"><b>05</b><span data-i18n="nav.results">성과</span></p>
+          <h2 class="title" data-rv data-i18n="rec.h2">말로 믿지 마세요.<br>기록을 확인하세요<span class="pt">.</span></h2>
+          <p class="chap-sub" data-rv data-i18n="ev.sub">2026년 11월 9일 기준 세 계좌 모두 수익이며, 모두 거래당 1% 리스크입니다. 아직 짧은 기록입니다.</p>
         </header>
-        <ol class="pipe" data-pipe>
-          <li class="pipe-step">
-            <span class="pipe-n">01</span>
-            <h3>Data &amp; Feature layer</h3>
-            <p>Tick / bar / fundamentals / macro / news ingest → versioned feature store with point-in-time correctness.</p>
-          </li>
-          <li class="pipe-step">
-            <span class="pipe-n">02</span>
-            <h3>13 ML models</h3>
-            <p>Specialists trained per family, walk-forward and purged-CV validated.</p>
-          </li>
-          <li class="pipe-step">
-            <span class="pipe-n">03</span>
-            <h3>Decision-making layer</h3>
-            <p>Ensembling, regime gating, signal calibration and conviction scoring.</p>
-          </li>
-          <li class="pipe-step">
-            <span class="pipe-n">04</span>
-            <h3>Strategy layer</h3>
-            <p>Horizon, sizing, holding-period and universe rules — per-asset and portfolio.</p>
-          </li>
-          <li class="pipe-step">
-            <span class="pipe-n">05</span>
-            <h3>Risk management</h3>
-            <p>Organization-specific constrained RM (mandate / exposure / liquidity caps) plus standard RM (VaR, drawdown, vol-target, correlation, stress).</p>
-          </li>
-          <li class="pipe-step">
-            <span class="pipe-n">06</span>
-            <h3>Execution layer</h3>
-            <p>SOTA execution with adaptive scheduling, slippage modeling, smart routing and venue selection.</p>
-          </li>
-          <li class="pipe-step">
-            <span class="pipe-n">07</span>
-            <h3>Mitigation &amp; monitoring</h3>
-            <p>Live drift detection, kill-switches, circuit breakers and post-trade attribution.</p>
+
+        <div class="res-grid" data-rv>
+          <div class="res">
+            <span class="label" data-i18n="res.real.k">실제 자금 · 금</span>
+            <div class="res-v">+10.97%</div>
+            <p data-i18n="res.real.p">실제 자금 IG 계좌의 금 전략, 2026년 7월 8일부터: 62건 거래, 승률 67.7%, 최대 낙폭 −3.32%.</p>
+            <p class="res-m" data-i18n="res.real.m">프로포마: 아홉 차례의 입금을 제외하고 각 거래의 결과를 고정 자본 기준으로 적용했습니다.</p>
+          </div>
+          <div class="res">
+            <span class="label" data-i18n="res.demo.k">IG 데모 계좌</span>
+            <div class="res-v">+7.9%</div>
+            <p data-i18n="res.demo.p">두 데모 계좌가 2026년 10월 16일부터 모든 콜을 무인으로 거래: 123건 거래, 승률 64%, 손익비(PF) 1.66.</p>
+            <p class="res-m" data-i18n="res.demo.m">실제 브로커의 모의 자금이며, 펀딩과 수수료를 반영한 수치입니다.</p>
+          </div>
+          <div class="res">
+            <span class="label" data-i18n="res.paper.k">페이퍼 데스크</span>
+            <div class="res-v">+15.5%</div>
+            <p data-i18n="res.paper.p">2026년 9월 27일부터 실시간 기록: 86건 거래, 승률 66%, 최대 낙폭 −4.3%.</p>
+            <p class="res-m" data-i18n="res.paper.m">6월 1일 이후 전체 북은 +25.4%이지만, 6~9월은 사후에 재생한 구간입니다.</p>
+          </div>
+        </div>
+        <ol class="facts">
+          <li data-rv>
+            <span class="fact-v">98%</span>
+            <h3 data-i18n="fact.2.h">지금까지는 우연보다 낫다</h3>
+            <p data-i18n="fact.2.p">2026년 10월 6일 이후 실시간으로 진입한 페이퍼 데스크 거래 67건이 동전 던지기 북 2,000개 중 98%를 앞섰습니다.</p>
           </li>
         </ol>
-      </div>
-    </section>
-
-    <!-- 05 · PROOF · focus 5 paper book -->
-    <section id="performance" class="chapter" data-chapter="05">
-      <div class="wrap">
-        <header class="chap-head">
-          <p class="chap-tag"><b>05</b><span data-i18n="nav.proof">검증</span></p>
-          <h2 class="title" data-rv data-i18n="perf.h2">말로 믿지 마세요.<br>북을 직접 보세요<span class="pt">.</span></h2>
-          <p class="chap-sub" data-rv data-i18n="proof.sub">과거 데이터로 테스트하고, 데모 계좌로 검증하고, 매일 지켜봅니다. 아래의 모든 수치에는 기준일과 한계가 함께 적혀 있습니다.</p>
-        </header>
-
-        <!-- the four steps to real money -->
-        <ol class="pf-steps four ladder">
-          <li class="pf-step" data-rv>
-            <span class="step">01</span>
-            <h3 data-i18n="ladder.1.h">백테스트</h3>
-            <p data-i18n="ladder.1.p">5년 데이터에 대한 워크포워드.</p>
-          </li>
-          <li class="pf-step" data-rv style="--d:1">
-            <span class="step">02</span>
-            <h3 data-i18n="ladder.2.h">페이퍼 데스크</h3>
-            <p data-i18n="ladder.2.p">모의 북. 2026년 9월 27일부터 실시간으로 기록 중입니다.</p>
-          </li>
-          <li class="pf-step" data-rv style="--d:2">
-            <span class="step">03</span>
-            <h3 data-i18n="ladder.3.h">IG 데모 계좌</h3>
-            <p data-i18n="ladder.3.p">두 계좌가 2026년 10월 16일부터 무인으로 거래 중입니다.</p>
-          </li>
-          <li class="pf-step is-locked" data-rv style="--d:3">
-            <span class="step">04<svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M4.5 7V5a3.5 3.5 0 0 1 7 0v2M3 7h10v7H3z" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></span>
-            <h3 data-i18n="ladder.4.h">실계좌</h3>
-            <p data-i18n="ladder.4.p">거래별 명시적 명령이 있을 때만. 네 개의 독립된 잠금 장치가 로봇이 실제 자금에 닿지 못하게 막습니다.</p>
-          </li>
-        </ol>
-        <p class="aside-note" data-rv data-i18n="ladder.note">실제 자금은 맨 마지막입니다. 모든 모델이 이 네 단계를 오릅니다.</p>
-
-        <!-- checked every day -->
-        <div class="block">
-          <header class="block-head">
-            <h3 class="subtitle" data-rv data-i18n="checks.h3">선택된 모델도 매일 다시 점검합니다</h3>
-          </header>
-          <ol class="facts">
-            <li data-rv>
-              <span class="fact-v">1%</span>
-              <h4 data-i18n="check.1.h">리스크가 먼저</h4>
-              <p data-i18n="check.1.p">모든 포지션은 손절에 닿았을 때 계좌의 약 1%를 잃도록 크기를 정하며, 목표가는 손절의 두 배입니다. 손절은 보장되지 않으므로 가격 갭이 나면 손실이 더 클 수 있습니다.</p>
-            </li>
-            <li data-rv>
-              <span class="fact-v">63</span>
-              <h4 data-i18n="check.2.h">매일의 트립와이어</h4>
-              <p data-i18n="check.2.p">각 모델의 최근 63개 콜을 테스트 결과와 비교합니다. 적중률이 중앙값 아래면 AMBER, 크게 밑돌면 RED가 됩니다.</p>
-            </li>
-            <li data-rv>
-              <span class="fact-v">2,000</span>
-              <h4 data-i18n="check.3.h">동전 던지기 테스트</h4>
-              <p data-i18n="check.3.p">모든 북을, 타이밍·규모·손절·비용은 같지만 방향만 동전으로 정한 2,000개의 북과 비교해 순위를 매깁니다. 실력일까요, 운일까요?</p>
-            </li>
-          </ol>
-        </div>
-
-        <!-- results by kind of account · dated figures from the Brainy record, not live data -->
-        <div id="evidence" class="block">
-          <header class="block-head">
-            <h3 class="subtitle" data-rv data-i18n="ev.h3">하나의 엔진, 세 종류의 계좌</h3>
-            <p class="chap-sub" data-rv data-i18n="ev.sub">2026년 11월 9일 기준 세 계좌 모두 수익이며, 모두 거래당 1% 리스크입니다. 아직 짧은 기록입니다.</p>
-          </header>
-          <div class="res-grid" data-rv>
-            <div class="res">
-              <span class="label" data-i18n="res.real.k">실제 자금 · 금</span>
-              <div class="res-v">+10.97%</div>
-              <p data-i18n="res.real.p">실제 자금 IG 계좌의 금 전략, 2026년 7월 8일부터: 62건 거래, 승률 67.7%, 최대 낙폭 −3.32%.</p>
-              <p class="res-m" data-i18n="res.real.m">프로포마: 아홉 차례의 입금을 제외하고 각 거래의 결과를 고정 자본 기준으로 적용했습니다.</p>
-            </div>
-            <div class="res">
-              <span class="label" data-i18n="res.demo.k">IG 데모 계좌</span>
-              <div class="res-v">+7.9%</div>
-              <p data-i18n="res.demo.p">두 데모 계좌가 2026년 10월 16일부터 모든 콜을 무인으로 거래: 123건 거래, 승률 64%, 손익비(PF) 1.66.</p>
-              <p class="res-m" data-i18n="res.demo.m">실제 브로커의 모의 자금이며, 펀딩과 수수료를 반영한 수치입니다.</p>
-            </div>
-            <div class="res">
-              <span class="label" data-i18n="res.paper.k">페이퍼 데스크</span>
-              <div class="res-v">+15.5%</div>
-              <p data-i18n="res.paper.p">2026년 9월 27일부터 실시간 기록: 86건 거래, 승률 66%, 최대 낙폭 −4.3%.</p>
-              <p class="res-m" data-i18n="res.paper.m">6월 1일 이후 전체 북은 +25.4%이지만, 6~9월은 사후에 재생한 구간입니다.</p>
-            </div>
-          </div>
-          <ol class="facts">
-            <li data-rv>
-              <span class="fact-v">60 / 60</span>
-              <h4 data-i18n="fact.1.h">시뮬레이션이 브로커와 일치</h4>
-              <p data-i18n="fact.1.p">데모 계좌와 페이퍼 데스크가 함께 거래한 60개 콜에서 결과의 부호가 매번 같았고, 차이는 거래당 0.10R 이내였습니다.</p>
-            </li>
-            <li data-rv>
-              <span class="fact-v">98%</span>
-              <h4 data-i18n="fact.2.h">지금까지는 우연보다 낫다</h4>
-              <p data-i18n="fact.2.p">2026년 10월 6일 이후 실시간으로 진입한 페이퍼 데스크 거래 67건이 동전 던지기 북 2,000개 중 98%를 앞섰습니다.</p>
-            </li>
-            <li data-rv>
-              <span class="fact-v">64 · 65%</span>
-              <h4 data-i18n="fact.3.h">일관된 실행</h4>
-              <p data-i18n="fact.3.p">같은 콜을 받은 두 데모 계좌의 승률은 64%와 65%였습니다. 자동화가 믿을 만하다는 뜻이며, 엣지에 대한 두 번째 증거는 아닙니다.</p>
-            </li>
-          </ol>
-        </div>
-
-        <header class="block-head block-gap stacked">
-          <h3 class="subtitle" data-rv data-i18n="book.h3">페이퍼 북 전체 보기</h3>
-          <p class="chap-sub" data-rv data-i18n="perf.sub">다섯 개 포커스 상품(GOLD, NAS100, WTI, BTCUSD, ETHUSD)의 1·2·4일 호라이즌 시그널을 모두 실시간 15분 가격과 스프레드·펀딩 비용을 반영해 $100K 모의(페이퍼) 북에서 거래했습니다. 실제 계좌가 아닌 모의 거래이며, 과거 성과가 미래 결과를 보장하지 않습니다.</p>
-        </header>
-
-        <!-- Paper Desk book of the focus 5 — filled by script.js from data/focus-book.json -->
-        <div class="book is-loading" data-book-root>
-          <p class="book-note" data-book="note"></p>
-          <div class="kpi-grid" data-book="kpis"></div>
-
-          <div class="book-grid">
-            <div class="book-card book-chart">
-              <div class="bc-head">
-                <h3 class="bc-title">EQUITY</h3>
-                <div class="seg" role="group" aria-label="Chart view" data-book="view">
-                  <button type="button" data-view="book" class="active" aria-pressed="true">book</button>
-                  <button type="button" data-view="assets" aria-pressed="false">by asset</button>
-                </div>
-                <div class="seg" role="group" aria-label="Resolution" data-book="res">
-                  <button type="button" data-res="1h" aria-pressed="false">1h</button>
-                  <button type="button" data-res="4h" class="active" aria-pressed="true">4h</button>
-                  <button type="button" data-res="1d" aria-pressed="false">1d</button>
-                </div>
-                <a class="btn btn-line btn-sm bc-cta" href="https://brainy.deepbeta.mn/paperdesk/" target="_blank" rel="noopener" data-i18n="perf.cta">페이퍼 데스크 열기 ↗</a>
-              </div>
-              <div class="bc-legend" data-book="legend"></div>
-              <div class="bc-plot" data-book="plot" tabindex="0" role="group"
-                   aria-label="Paper book equity, drawdown and exposure over time. Use the left and right arrow keys to step through time."></div>
-              <div class="bc-months" data-book="months"></div>
-            </div>
-
-            <aside class="book-side">
-              <div class="book-card">
-                <h3 class="side-title">FOCUS 5 <span class="muted">· P&amp;L by asset</span></h3>
-                <ul class="asset-list" data-book="assets"></ul>
-              </div>
-              <div class="book-card">
-                <h3 class="side-title">EDGE VS COIN-FLIP</h3>
-                <div data-book="coinflip"></div>
-              </div>
-            </aside>
-          </div>
-          <p class="book-empty muted small" hidden>Paper book data is unavailable right now — open the paper desk on Brainy for the live book.</p>
+        <div class="more" data-rv>
+          <a class="btn btn-gold" href="/ko/results/"><b data-i18n="rec.more">전체 기록 보기</b><i class="arr" aria-hidden="true">→</i></a>
+          <p class="aside-note" data-i18n="rec.note">페이퍼 및 데모 계좌 성과는 모의 결과입니다. 과거 성과가 미래 결과를 보장하지 않습니다.</p>
         </div>
       </div>
     </section>
 
-    <!-- 06 · BRAINY PLATFORM · desks, access instructions and the endpoint catalogue -->
-    <section id="platform" class="chapter" data-chapter="06">
+    <!-- 06 · FOUNDER -->
+    <section id="founder" class="chapter" data-chapter="06">
       <div class="wrap">
         <header class="chap-head">
-          <p class="chap-tag"><b>06</b><span data-i18n="nav.platform">플랫폼</span></p>
-          <h2 class="title" data-rv data-i18n="platform.h2">모든 데스크.<br>모든 엔드포인트.<br>하나의 키<span class="pt">.</span></h2>
-          <p class="chap-sub" data-rv data-i18n="platform.sub">하나의 액세스 키로 13개의 데스크와 서비스를 이용할 수 있습니다. 브라우저에서 데스크를 열거나 직접 작성한 코드에서 JSON API를 호출하세요. 모든 라우트가 작동하는 예시 링크와 함께 아래에 나열되어 있습니다.</p>
+          <p class="chap-tag"><b>06</b><span data-i18n="nav.founder">설립자</span></p>
+          <h2 class="title" data-rv data-i18n="lead.h2">모델을 직접 만드는<br>사람이 이끕니다<span class="pt">.</span></h2>
         </header>
 
-        <div class="pf-stats" data-rv>
-          <div><b>13</b><span data-i18n="platform.desks">데스크 및 서비스</span></div>
-          <div><b data-pf="total">159</b><span data-i18n="platform.eps">문서화된 API 라우트</span></div>
-          <div><b>1</b><span data-i18n="platform.key">액세스 키</span></div>
-        </div>
-
-        <!-- how to connect -->
-        <ol class="pf-steps">
-          <li class="pf-step" data-rv>
-            <span class="step">01</span>
-            <h3 data-i18n="platform.s1h">액세스 키 발급</h3>
-            <p data-i18n="platform.s1p">Brainy는 비공개 플랫폼입니다. 고객과 파트너는 <a href="mailto:nyam-ochir@deepbeta.mn">nyam-ochir@deepbeta.mn</a>에서 키를 발급받습니다. 투자자 키로는 투자자 포털(<code>/investor/*</code>)만 열 수 있습니다.</p>
-          </li>
-          <li class="pf-step" data-rv style="--d:1">
-            <span class="step">02</span>
-            <h3 data-i18n="platform.s2h">브라우저에서</h3>
-            <p data-i18n="platform.s2p">아래의 데스크 또는 엔드포인트 링크를 여세요. 처음 방문하면 로그인 양식이 표시되며, 키를 한 번 입력하면 해당 호스트에서 24시간 동안 로그인 상태가 유지됩니다.</p>
-          </li>
-          <li class="pf-step" data-rv style="--d:2">
-            <span class="step">03</span>
-            <h3 data-i18n="platform.s3h">코드에서</h3>
-            <p data-i18n="platform.s3p">키를 <code>X-Access-Key</code> 헤더로 보내세요. 일회성 curl 명령에는 <code>?access_key=</code>, 구형 도구에는 HTTP Basic(사용자 이름은 임의, 비밀번호는 키)도 사용할 수 있습니다. <code>/health</code>는 공개되어 있습니다.</p>
-          </li>
-        </ol>
-
-        <div class="pf-code book-card">
-          <div class="bc-head">
-            <h3 class="bc-title">QUICK START</h3>
-            <div class="seg" role="group" aria-label="Example language" data-pf="lang">
-              <button type="button" data-lang-code="curl" class="active" aria-pressed="true">curl</button>
-              <button type="button" data-lang-code="python" aria-pressed="false">Python</button>
-              <button type="button" data-lang-code="node" aria-pressed="false">Node.js</button>
-            </div>
-            <button type="button" class="btn btn-line btn-sm pf-copy" data-pf="copy-snippet">copy</button>
-          </div>
-<pre class="pf-pre" data-code="curl"><code>export BRAINY_KEY=…   # your access key: keep it in the environment, never in code
-
-# the paper book behind the performance chart above
-curl -H "X-Access-Key: $BRAINY_KEY" https://brainy.deepbeta.mn/paperdesk/api/overview
-
-# today's model call for one asset, with backtest-aligned TP / SL
-curl -H "X-Access-Key: $BRAINY_KEY" https://brainy.deepbeta.mn/api/inference/GOLD
-
-# the technical desk's full read of one asset
-curl -H "X-Access-Key: $BRAINY_KEY" https://technical.deepbeta.mn/api/asset/GOLD
-
-# health of every agent, service, job and pipeline
-curl -H "X-Access-Key: $BRAINY_KEY" https://agents.deepbeta.mn/api/agents
-
-# live updates as server-sent events (-N: don't buffer)
-curl -N -H "X-Access-Key: $BRAINY_KEY" https://technical.deepbeta.mn/api/stream</code></pre>
-<pre class="pf-pre" data-code="python" hidden><code>import os
-import requests
-
-s = requests.Session()
-s.headers["X-Access-Key"] = os.environ["BRAINY_KEY"]   # never hard-code the key
-
-book = s.get("https://brainy.deepbeta.mn/paperdesk/api/overview", timeout=60).json()
-print(book["equity"]["equity"], book["equity"]["return_pct"])
-
-call = s.get("https://brainy.deepbeta.mn/api/inference/GOLD", timeout=60).json()
-tech = s.get("https://technical.deepbeta.mn/api/asset/GOLD", timeout=60).json()</code></pre>
-<pre class="pf-pre" data-code="node" hidden><code>// Node 18+, server side only: never ship the key to a browser
-const headers = { 'X-Access-Key': process.env.BRAINY_KEY };
-
-const book = await (await fetch('https://brainy.deepbeta.mn/paperdesk/api/overview', { headers })).json();
-console.log(book.equity.equity, book.equity.return_pct);
-
-const call = await (await fetch('https://brainy.deepbeta.mn/api/inference/GOLD', { headers })).json();
-const tech = await (await fetch('https://technical.deepbeta.mn/api/asset/GOLD', { headers })).json();</code></pre>
-          <ul class="pf-notes">
-            <li data-i18n="platform.n1"><b>경로 파라미터</b>는 <code>{중괄호}</code>로 표시됩니다. 포커스 데스크는 <code>GOLD</code>, <code>NAS100</code>, <code>WTI</code>, <code>BTCUSD</code>, <code>ETHUSD</code>를 받으며, 대시보드는 <code>/dashboard/assets</code>에 나열된 전체 유니버스를 다룹니다.</li>
-            <li data-i18n="platform.n2"><span class="ep-x">compute</span> 라우트는 요청 시 백테스트나 스윕을 실행하므로 최대 1분 정도 걸릴 수 있습니다. <span class="ep-x">stream</span> 라우트는 서버 전송 이벤트(SSE)입니다. <span class="ep-x">file</span> 라우트는 CSV / XLSX 파일을 내려받습니다.</li>
-            <li data-i18n="platform.n3"><b>POST</b> 라우트는 상태를 변경합니다(데모 주문, 학습 작업, 데스크 실행). 신중하게 사용하세요.</li>
-            <li data-i18n="platform.n4"><b>Interactive docs:</b> <a href="https://brainy.deepbeta.mn/docs" target="_blank" rel="noopener">Swagger</a> · <a href="https://brainy.deepbeta.mn/redoc" target="_blank" rel="noopener">ReDoc</a> · <a href="https://brainy.deepbeta.mn/api/inference/schema" target="_blank" rel="noopener">inference row schema</a> · <a href="https://technical.deepbeta.mn/api/docs" target="_blank" rel="noopener">technical desk</a> · <a href="https://brainy.deepbeta.mn/livedash/docs" target="_blank" rel="noopener">live dashboard</a> · <a href="https://brainy.deepbeta.mn/train/docs" target="_blank" rel="noopener">training GUI</a>.</li>
-          </ul>
-        </div>
-
-        <!-- desk directory: endpoint counts and lists are filled by script.js from data/brainy-platform.json -->
-        <div class="svc-grid" data-pf="services">
-          <article class="svc" data-svc="brainy">
-            <div class="svc-top"><span class="svc-tag">CORE</span><span class="svc-host">brainy.deepbeta.mn</span></div>
-            <h3>Brainy dashboard</h3>
-            <p>Monitoring, backtests, model rankings, predictions and live inference across the full asset universe.</p>
-            <div class="svc-links">
-              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/" target="_blank" rel="noopener">Open ↗</a>
-              <a href="https://brainy.deepbeta.mn/docs" target="_blank" rel="noopener">API docs ↗</a>
-              <button type="button" class="svc-eps" data-show="brainy" hidden></button>
-            </div>
-          </article>
-          <article class="svc" data-svc="paperdesk">
-            <div class="svc-top"><span class="svc-tag">TRADING</span><span class="svc-host">brainy.deepbeta.mn/paperdesk</span></div>
-            <h3>Paper Desk</h3>
-            <p>Simulated live book of the five focus products, and the source of the performance chart above: equity, tickets, journal, what-if and risk tracks.</p>
-            <div class="svc-links">
-              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/paperdesk/" target="_blank" rel="noopener">Open ↗</a>
-              <button type="button" class="svc-eps" data-show="paperdesk" hidden></button>
-            </div>
-          </article>
-          <article class="svc" data-svc="tradingview">
-            <div class="svc-top"><span class="svc-tag">CHARTS</span><span class="svc-host">brainy.deepbeta.mn/tradingview</span></div>
-            <h3>Live chart · TradingView</h3>
-            <p>TradingView lightweight-charts view of the focus products with paper-book, backtest and IG tickets and the newest model calls.</p>
-            <div class="svc-links">
-              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/tradingview/" target="_blank" rel="noopener">Open ↗</a>
-              <button type="button" class="svc-eps" data-show="tradingview" hidden></button>
-            </div>
-          </article>
-          <article class="svc" data-svc="technical">
-            <div class="svc-top"><span class="svc-tag">RESEARCH</span><span class="svc-host">technical.deepbeta.mn</span></div>
-            <h3>Technical desk</h3>
-            <p>Indicator consensus, the indicator lab, news, sentiment, macro and crypto-derivatives reads for the focus products, run by the desk's agents.</p>
-            <div class="svc-links">
-              <span class="svc-more"><a href="https://technical.deepbeta.mn/api/docs" target="_blank" rel="noopener">API docs ↗</a></span>
-              <a class="btn btn-line btn-sm" href="https://technical.deepbeta.mn/" target="_blank" rel="noopener">Open ↗</a>
-              <button type="button" class="svc-eps" data-show="technical" hidden></button>
-            </div>
-          </article>
-          <article class="svc" data-svc="agents">
-            <div class="svc-top"><span class="svc-tag">OPERATIONS</span><span class="svc-host">agents.deepbeta.mn</span></div>
-            <h3>Agents board</h3>
-            <p>Health of every agent, service, scheduled job, daemon and pipeline on the platform, with a live activity feed.</p>
-            <div class="svc-links">
-              <a class="btn btn-line btn-sm" href="https://agents.deepbeta.mn/" target="_blank" rel="noopener">Open ↗</a>
-              <button type="button" class="svc-eps" data-show="agents" hidden></button>
-            </div>
-          </article>
-          <article class="svc" data-svc="igtrading">
-            <div class="svc-top"><span class="svc-tag">TRADING</span><span class="svc-host">brainy.deepbeta.mn/ig-trading</span></div>
-            <h3>IG trading</h3>
-            <p>IG demo accounts: holdings, close schedule, performance, venues, the insights pipeline and the daily digest, plus the demo order API.</p>
-            <div class="svc-links">
-              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/ig-trading/" target="_blank" rel="noopener">Open ↗</a>
-              <button type="button" class="svc-eps" data-show="igtrading" hidden></button>
-            </div>
-          </article>
-          <article class="svc" data-svc="options">
-            <div class="svc-top"><span class="svc-tag">RESEARCH</span><span class="svc-host">options.deepbeta.mn</span></div>
-            <h3>Options desk</h3>
-            <p>Crypto options read: squeeze and next move, direction lean, cheap-premium watch, desk calls, term structure and a live signal feed.</p>
-            <div class="svc-links">
-              <a class="btn btn-line btn-sm" href="https://options.deepbeta.mn/" target="_blank" rel="noopener">Open ↗</a>
-              <button type="button" class="svc-eps" data-show="options" hidden></button>
-            </div>
-          </article>
-          <article class="svc" data-svc="focus">
-            <div class="svc-top"><span class="svc-tag">MODELS</span><span class="svc-host">brainy.deepbeta.mn/focus1d</span></div>
-            <h3>Focus products</h3>
-            <p>Train, infer, version and promote the focus products; the 1d / 2d / 4d horizons side by side; the focus dashboard and report.</p>
-            <div class="svc-links">
-              <span class="svc-more"><a href="https://brainy.deepbeta.mn/focus1d/horizons" target="_blank" rel="noopener">horizons ↗</a> <a href="https://brainy.deepbeta.mn/focus_dashboard" target="_blank" rel="noopener">dashboard ↗</a></span>
-              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/focus1d/" target="_blank" rel="noopener">Open ↗</a>
-              <button type="button" class="svc-eps" data-show="focus" hidden></button>
-            </div>
-          </article>
-          <article class="svc" data-svc="investor">
-            <div class="svc-top"><span class="svc-tag">CLIENTS</span><span class="svc-host">brainy.deepbeta.mn/investor</span></div>
-            <h3>Investor portal</h3>
-            <p>Read-only scorecards, best models, backtests and portfolio growth. The only area an investor key opens.</p>
-            <div class="svc-links">
-              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/investor/" target="_blank" rel="noopener">Open ↗</a>
-              <button type="button" class="svc-eps" data-show="investor" hidden></button>
-            </div>
-          </article>
-          <article class="svc" data-svc="livedash">
-            <div class="svc-top"><span class="svc-tag">TRADING</span><span class="svc-host">brainy.deepbeta.mn/livedash</span></div>
-            <h3>Live dashboard</h3>
-            <p>Real-time snapshot of the live accounts: equity, positions, pending orders, divergences and the trading journal.</p>
-            <div class="svc-links">
-              <span class="svc-more"><a href="https://brainy.deepbeta.mn/livedash/docs" target="_blank" rel="noopener">API docs ↗</a></span>
-              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/livedash/" target="_blank" rel="noopener">Open ↗</a>
-              <button type="button" class="svc-eps" data-show="livedash" hidden></button>
-            </div>
-          </article>
-          <article class="svc" data-svc="train">
-            <div class="svc-top"><span class="svc-tag">MODELS</span><span class="svc-host">brainy.deepbeta.mn/train</span></div>
-            <h3>Training GUI</h3>
-            <p>Train, backtest, compare and finalise model configurations, and manage the best-per-ticker table.</p>
-            <div class="svc-links">
-              <span class="svc-more"><a href="https://brainy.deepbeta.mn/train/docs" target="_blank" rel="noopener">API docs ↗</a></span>
-              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/train/" target="_blank" rel="noopener">Open ↗</a>
-              <button type="button" class="svc-eps" data-show="train" hidden></button>
-            </div>
-          </article>
-          <article class="svc" data-svc="monitoring">
-            <div class="svc-top"><span class="svc-tag">OPERATIONS</span><span class="svc-host">brainy.deepbeta.mn/monitoring</span></div>
-            <h3>Server monitor</h3>
-            <p>Traffic, latency, failures, security rejections, pipeline freshness and host resources.</p>
-            <div class="svc-links">
-              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/monitoring/" target="_blank" rel="noopener">Open ↗</a>
-              <button type="button" class="svc-eps" data-show="monitoring" hidden></button>
-            </div>
-          </article>
-          <article class="svc" data-svc="mlflow">
-            <div class="svc-top"><span class="svc-tag">MODELS</span><span class="svc-host">brainy.deepbeta.mn/mlflow</span></div>
-            <h3>MLflow</h3>
-            <p>Experiment tracking for every training run, with the standard MLflow REST API.</p>
-            <div class="svc-links">
-              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/mlflow/" target="_blank" rel="noopener">Open ↗</a>
-              <button type="button" class="svc-eps" data-show="mlflow" hidden></button>
-            </div>
-          </article>
-        </div>
-
-        <!-- endpoint explorer: filled by script.js from data/brainy-platform.json -->
-        <div class="ep book-card" data-pf="explorer" hidden>
-          <div class="bc-head ep-bar">
-            <h3 class="bc-title">ENDPOINTS</h3>
-            <label class="ep-search">
-              <span class="sr-only">Filter endpoints</span>
-              <input type="search" data-pf="q" placeholder="Filter by path or words…" autocomplete="off" spellcheck="false" />
-            </label>
-            <select data-pf="svc" aria-label="Desk"><option value="">all desks</option></select>
-            <div class="seg" role="group" aria-label="Method" data-pf="method">
-              <button type="button" data-m="" class="active" aria-pressed="true">all</button>
-              <button type="button" data-m="GET" aria-pressed="false">GET</button>
-              <button type="button" data-m="POST" aria-pressed="false">POST</button>
-            </div>
-            <span class="ep-count muted small" data-pf="count" aria-live="polite"></span>
-          </div>
-          <div class="ep-list" data-pf="list"></div>
-          <p class="ep-foot muted small" data-pf="foot"></p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 07 · THE FIRM -->
-    <section id="firm" class="chapter" data-chapter="07">
-      <div class="wrap">
-        <header class="chap-head">
-          <p class="chap-tag"><b>07</b><span data-i18n="nav.firm">회사</span></p>
-          <h2 class="title" data-rv data-i18n="firm.h2">기술을 팝니다.<br>약속은 팔지 않습니다<span class="pt">.</span></h2>
-        </header>
-
-        <div class="firm-grid">
-          <div id="research" class="firm-about" data-rv>
-            <h3 class="label">Deep Beta Technology LLC</h3>
-            <p class="firm-lead" data-i18n="firm.p">Deep Beta Technology LLC는 기업에 고급 애널리틱스, 금융 상품 백테스팅, AI 솔루션을 제공하는 기술 기업입니다. 서비스는 트레저리(자금) 관리, 엔터프라이즈 AI 솔루션, 퀀트 ML & AI 알고리즘 트레이딩을 아우릅니다. 리서치·리스크·실행 스택은 글로벌 크로스애셋 시장을 위한 13개 모델 머신러닝 엔진과 함께 내부 "Brainy" 플랫폼에서 엔드투엔드로 구동됩니다.</p>
-            <p class="firm-model" data-i18n="firm.model">당사는 순수 기술 공급자로 운영됩니다. 고객은 라이선스 비용으로 당사의 솔루션·서비스·퀀트 모델을 이용하며, 당사는 고객의 계좌나 자산을 수탁(커스터디)하지 않고 수익을 배분하지도 않습니다.</p>
-          </div>
-          <aside class="founder" data-rv style="--d:1">
-            <h3 class="label" data-i18n="founder.h3">설립자</h3>
+        <div class="lead-grid">
+          <aside class="founder" data-rv>
             <p class="founder-name" data-i18n="founder.p"><b>Nyam-Ochir Bold</b> Deep Beta Technology LLC를 이끄는 퀀트 리서처이자 엔지니어.</p>
             <p class="muted small" data-i18n="founder.note">Deep Beta 설립 이전, Nyam-Ochir는 해외 퀀트 투자 기관들과 협업하며 주식·원자재·외환·파생상품·옵션 시장 전반에 걸쳐 고성능 ML 기반 전략과 엔드투엔드 백테스팅을 제공했습니다. 이는 설립자의 개인적 협업이며 Deep Beta Technology LLC의 파트너십이 아닙니다.</p>
             <ul class="links">
@@ -931,67 +427,36 @@ const tech = await (await fetch('https://technical.deepbeta.mn/api/asset/GOLD', 
               <li><a href="https://www.upwork.com/fl/nyamochirbold" target="_blank" rel="noopener">upwork.com/fl/nyamochirbold ↗</a></li>
             </ul>
           </aside>
-        </div>
 
-        <!-- principles -->
-        <div class="block">
-          <header class="block-head">
-            <h3 class="subtitle" data-rv data-i18n="principles.h3">우리가 지키는 원칙</h3>
-          </header>
-          <ol class="principles">
-            <li data-rv>
-              <span class="pr-n">01</span>
-              <h4 data-i18n="pr.1.h">믿음보다 증거가 먼저</h4>
-              <p data-i18n="pr.1.p">모든 모델은 독립적으로 학습하고 워크포워드로 검증하며 Sharpe, Calmar, 드로다운, 수익률로 랭킹합니다. 그럴듯한 이야기만으로는 아무것도 출시하지 않습니다.</p>
-            </li>
-            <li data-rv>
-              <span class="pr-n">02</span>
-              <h4 data-i18n="pr.2.h">수익보다 리스크가 먼저</h4>
-              <p data-i18n="pr.2.p">맨데이트, 익스포저, 유동성 한도는 엔진에 제약 조건으로 내장되어 있으며 VaR, 드로다운, 변동성 타깃, 상관관계, 스트레스 통제와 함께 작동합니다.</p>
-            </li>
-            <li data-rv>
-              <span class="pr-n">03</span>
-              <h4 data-i18n="pr.3.h">기본은 공개</h4>
-              <p data-i18n="pr.3.p">모든 데스크에는 API가 있고 모든 라우트는 문서화되어 있습니다. 이 페이지의 페이퍼 북은 실제 운영 중인 페이퍼 데스크에서 스프레드와 펀딩 비용을 차감한 상태로 내보낸 것입니다.</p>
-            </li>
-            <li data-rv>
-              <span class="pr-n">04</span>
-              <h4 data-i18n="pr.4.h">교체 가능하게 설계</h4>
-              <p data-i18n="pr.4.p">피처 스토어부터 실행까지 각 레이어를 따로 테스트하고 교체할 수 있습니다. 통째로 받아들여야 하는 블랙박스는 없습니다.</p>
-            </li>
-          </ol>
-        </div>
-
-        <!-- founder's former collaborations -->
-        <div id="partners" class="block">
-          <header class="block-head">
-            <h3 class="subtitle" data-rv data-i18n="partners.h2">설립자의 과거 협업</h3>
-            <p class="chap-sub" data-rv data-i18n="partners.sub">Deep Beta Technology LLC 설립 이전에 설립자가 개인적으로 협업한 기관들입니다. Deep Beta Technology LLC의 파트너십이 아닙니다.</p>
-          </header>
-          <div class="collab" data-rv>
-            <div class="collab-card">
-              <span class="badge" aria-hidden="true">EIP</span>
-              <div>
-                <h4>EIP Holding</h4>
-                <span class="collab-loc">Norway</span>
-                <p data-i18n="partners.eip">유럽 및 글로벌 금융시장에서 활동하는 투자 지주회사.</p>
+          <!-- founder's former collaborations: personal, before DeepBeta; not partnerships of the firm -->
+          <div id="partners" class="lead-collab" data-rv style="--d:1">
+            <h3 class="label" data-i18n="partners.h2">설립자의 과거 협업</h3>
+            <p class="lead-note" data-i18n="partners.sub">Deep Beta Technology LLC 설립 이전에 설립자가 개인적으로 협업한 기관들입니다. Deep Beta Technology LLC의 파트너십이 아닙니다.</p>
+            <div class="collab collab--stack">
+              <div class="collab-card">
+                <span class="badge" aria-hidden="true">EIP</span>
+                <div>
+                  <h4>EIP Holding</h4>
+                  <span class="collab-loc">Norway</span>
+                  <p data-i18n="partners.eip">유럽 및 글로벌 금융시장에서 활동하는 투자 지주회사.</p>
+                </div>
               </div>
-            </div>
-            <div class="collab-card">
-              <span class="badge" aria-hidden="true">ANNA</span>
-              <div>
-                <h4>Anna Fund</h4>
-                <span class="collab-loc">Norway</span>
-                <p data-i18n="partners.anna">시스터매틱 전략과 금융 혁신에 집중하는 대체투자 펀드.</p>
+              <div class="collab-card">
+                <span class="badge" aria-hidden="true">ANNA</span>
+                <div>
+                  <h4>Anna Fund</h4>
+                  <span class="collab-loc">Norway</span>
+                  <p data-i18n="partners.anna">시스터매틱 전략과 금융 혁신에 집중하는 대체투자 펀드.</p>
+                </div>
               </div>
-            </div>
-            <div class="collab-card">
-              <span class="badge" aria-hidden="true">DFG</span>
-              <div>
-                <h4>Deerfield Green</h4>
-                <span class="collab-loc">Tokyo · Atlanta</span>
-                <p data-i18n="partners.dfg">퀀트 투자, AI 전략, 태평양을 잇는 자본 운용.</p>
-                <a href="https://www.deerfieldgreen.com/" target="_blank" rel="noopener">deerfieldgreen.com ↗</a>
+              <div class="collab-card">
+                <span class="badge" aria-hidden="true">DFG</span>
+                <div>
+                  <h4>Deerfield Green</h4>
+                  <span class="collab-loc">Tokyo · Atlanta</span>
+                  <p data-i18n="partners.dfg">퀀트 투자, AI 전략, 태평양을 잇는 자본 운용.</p>
+                  <a href="https://www.deerfieldgreen.com/" target="_blank" rel="noopener">deerfieldgreen.com ↗</a>
+                </div>
               </div>
             </div>
           </div>
@@ -999,10 +464,10 @@ const tech = await (await fetch('https://technical.deepbeta.mn/api/asset/GOLD', 
       </div>
     </section>
 
-    <!-- 08 · CONTACT -->
-    <section id="contact" class="chapter cta" data-chapter="08">
+    <!-- 07 · CONTACT -->
+    <section id="contact" class="chapter cta" data-chapter="07">
       <div class="wrap cta-inner">
-        <p class="chap-tag"><b>08</b><span data-i18n="nav.contact">문의</span></p>
+        <p class="chap-tag"><b>07</b><span data-i18n="nav.contact">문의</span></p>
         <h2 class="display" data-rv data-i18n="cta.h2">직접<br>검증해 보세요<span class="pt">.</span></h2>
         <p class="lede" data-rv data-i18n="cta.sub">Brainy 플랫폼 액세스 키를 요청하거나, 증거에 기반해 내리고 싶은 의사결정에 대해 알려 주세요. 영어, 몽골어, 한국어로 답변드립니다.</p>
         <div class="hero-ctas" data-rv>
@@ -1018,25 +483,25 @@ const tech = await (await fetch('https://technical.deepbeta.mn/api/asset/GOLD', 
     <div class="wrap">
       <div class="foot-grid">
         <div class="foot-brand">
-          <a class="wordmark" href="#top" aria-label="Deep Beta Technology LLC home">DeepBeta<span class="pt">.</span></a>
+          <a class="wordmark" href="/ko/#top" aria-label="Deep Beta Technology LLC home">DeepBeta<span class="pt">.</span></a>
           <p data-i18n="foot.tagline">기업을 위한 퀀트 ML 모델, 백테스팅, AI 솔루션.</p>
           <a class="foot-mail" href="mailto:nyam-ochir@deepbeta.mn">nyam-ochir@deepbeta.mn</a>
           <a class="foot-mail" href="tel:+97688802060">+976 8880 2060</a>
         </div>
         <nav class="foot-col" aria-label="Company">
           <h3 data-i18n="foot.company">회사</h3>
-          <a href="#thesis" data-i18n="nav.thesis">철학</a>
-          <a href="#practice" data-i18n="nav.practice">사업 영역</a>
-          <a href="#firm" data-i18n="nav.firm">회사</a>
-          <a href="#contact" data-i18n="nav.contact">문의</a>
+          <a href="/ko/#company" data-i18n="foot.about">회사 소개</a>
+          <a href="/ko/#services" data-i18n="nav.services">서비스</a>
+          <a href="/ko/#founder" data-i18n="nav.founder">설립자</a>
+          <a href="/ko/#contact" data-i18n="nav.contact">문의</a>
         </nav>
-        <nav class="foot-col" aria-label="Engine">
-          <h3 data-i18n="nav.engine">엔진</h3>
-          <a href="#models" data-i18n="foot.models">모델</a>
-          <a href="#features" data-i18n="foot.inputs">입력</a>
-          <a href="#assets" data-i18n="foot.markets">시장</a>
-          <a href="#stack" data-i18n="nav.pipeline">파이프라인</a>
-          <a href="#performance" data-i18n="nav.proof">검증</a>
+        <nav class="foot-col" aria-label="Technology">
+          <h3 data-i18n="nav.technology">기술</h3>
+          <a href="/ko/technology/#models" data-i18n="foot.models">모델</a>
+          <a href="/ko/technology/#features" data-i18n="foot.inputs">입력</a>
+          <a href="/ko/technology/#assets" data-i18n="foot.markets">시장</a>
+          <a href="/ko/technology/#stack" data-i18n="foot.run">일일 실행</a>
+          <a href="/ko/results/" data-i18n="nav.results">성과</a>
         </nav>
         <nav class="foot-col" aria-label="Platform">
           <h3 data-i18n="nav.platform">플랫폼</h3>
@@ -1044,7 +509,7 @@ const tech = await (await fetch('https://technical.deepbeta.mn/api/asset/GOLD', 
           <a href="https://brainy.deepbeta.mn/paperdesk/" target="_blank" rel="noopener">Paper Desk</a>
           <a href="https://technical.deepbeta.mn/" target="_blank" rel="noopener">Technical desk</a>
           <a href="https://agents.deepbeta.mn/" target="_blank" rel="noopener">Agents</a>
-          <a href="#platform" data-i18n="foot.api">API & 엔드포인트</a>
+          <a href="/ko/platform/#api" data-i18n="foot.api">API & 엔드포인트</a>
         </nav>
         <nav class="foot-col" aria-label="Connect">
           <h3 data-i18n="foot.connect">연결</h3>

@@ -10,9 +10,10 @@ A 13-model quantitative ML investing platform. The site links to the internal
 Static — no bundler. One standard-library Python step at deploy generates the `/mn/` and
 `/ko/` pages (see *Languages & SEO*); on any other host, run it into the output directory too.
 
-- [index.html](index.html)
-- [styles.css](styles.css)
-- [script.js](script.js)
+- [index.html](index.html) — the home page: who we are and what we do, in eight short chapters
+- [technology/index.html](technology/index.html), [results/index.html](results/index.html),
+  [platform/index.html](platform/index.html) — the detail pages
+- [styles.css](styles.css), [script.js](script.js) — shared by every page
 - `logo/` — brand assets (the page sets the wordmark as live text; the icons and `og-image.jpg` come from here)
 - `i18n/mn.json`, `i18n/ko.json` — Mongolian / Korean page text and meta tags
 - `robots.txt`, `sitemap.xml`, `favicon.ico`
@@ -22,21 +23,42 @@ Static — no bundler. One standard-library Python step at deploy generates the 
 
 ## Page structure & design conventions
 
-One page, told as numbered chapters. Each chapter is a `<section data-chapter="NN">` with a
-`.chap-tag` (number + name) and a headline:
+**The home page introduces the company; the detail lives one click away.** A first-time visitor
+should learn who we are, what we do, how it works, what it has shown and how to reach us in
+about ten screens. Model cards, pipeline layers, charts and API routes belong on the detail pages,
+with a short summary and a link from the home page. Before adding a block to `index.html`, ask
+whether a visitor deciding to talk to us needs it, or whether it belongs on a detail page.
+
+Each page is told as numbered chapters. A chapter is a `<section data-chapter="NN">` with a
+`.chap-tag` (number + name) and a headline.
+
+**Home (`/`, `index.html`)**
 
 | # | id | What it says |
 |---|----|--------------|
-| 00 | `#top` (hero) | The one-line claim, over the generative ridgeline terrain and the live tape |
-| 01 | `#thesis` | The belief statement, then mission / vision / promise (the one chapter on paper) |
-| — | `.numbers` | DeepBeta in four numbers |
-| 02 | `#practice` | The three practices |
-| 03 | `#engine` | 13 models (`#models`), inputs (`#features`), markets and session clocks (`#assets`) |
-| 04 | `#stack` | The seven-layer pipeline |
-| 05 | `#performance` | The focus 5 paper book |
-| 06 | `#platform` | Brainy desks, access and the endpoint explorer |
-| 07 | `#firm` | The firm (`#research`), principles, founder's former collaborations (`#partners`) |
-| 08 | `#contact` | Contact |
+| 00 | `#top` (hero) | The one-line claim and what we do in plain words, over the ridgeline terrain and the live tape |
+| 01 | `#company` | The belief statement, who we are (one paragraph, four facts), mission / vision / promise (the one chapter on paper) |
+| — | `.numbers` | What runs every day: markets, calls, risk per trade, custody |
+| 02 | `#services` | The three practices, with partners and showcases |
+| 03 | `#approach` | The daily run in six plain steps, and the platform band (links to /technology/, /platform/) |
+| 04 | `#difference` | A desk by hand and with DeepBeta (from the pitch deck) |
+| 05 | `#record` | The three account results, the coin-flip fact, a link to /results/ |
+| 06 | `#founder` | The founder and the founder's former collaborations (`#partners`) |
+| 07 | `#contact` | Contact |
+
+**Detail pages** — each opens with a `.page-top` chapter (the page's `h1` and an "on this page"
+`.toc`) and closes with the `.next` band (the other pages and the contact).
+
+| Page | Chapters |
+|------|----------|
+| `/technology/` | 01 `#engine`: models (`#models`), selection (`#selection`), inputs (`#features`), markets and session clocks (`#assets`) · 02 `#stack`: the daily run, side pipelines, integrations, the seven layers · 03 `#principles` |
+| `/results/` | 01 `#performance`: the four steps (`#ladder`), daily checks (`#checks`), evidence (`#evidence`) · 02 `#book`: the focus 5 paper book |
+| `/platform/` | 01 `#platform`: access (`#access`), quick start (`#api`), desks (`#desks`), endpoint explorer (`#endpoints`) |
+
+- **Shared header and footer.** They are copied into all four pages and must stay identical
+  (only the language links differ, pointing at that page's translations): the builder fails if
+  they drift. Change them in all four files at once. Links to the site's own pages are
+  root-absolute (`/#services`, `/results/`); the builder moves them under `/mn/` and `/ko/`.
 
 - **Showcases.** A practice row in `#practice` can end with `.practice-case` lines: the client's
   mark on a paper plate (`.logo-plate`, files in `logo/clients/`) and one sentence saying what was
@@ -54,13 +76,13 @@ One page, told as numbered chapters. Each chapter is a `<section data-chapter="N
 - **Motion.** `data-rv` fades an element in when it scrolls into view (`style="--d:1"` staggers
   it); `data-count="13"` counts a numeral up. Everything is visible without JavaScript and still
   when the visitor prefers reduced motion.
-- **The chapter rail** on wide screens and the current nav link are built by `script.js` from
-  the `data-chapter` sections; a chapter that has no nav link of its own names its parent with
-  `data-nav` (the pipeline sits under "Engine").
+- **The chapter rail** on wide screens is built by `script.js` from the `data-chapter`
+  sections (only on pages with two or more). The nav marks the current page's link, and on the
+  home page the link of the chapter on screen; a chapter can borrow another's link with `data-nav`.
 - **Nothing shown as live unless it is.** The tape stays hidden until the price feed answers,
   and the session clocks are computed in the browser from regular exchange hours.
-- The hero terrain is decoration drawn from noise, not data. Keep performance numbers in
-  `#performance`, next to their paper-trading disclaimer.
+- The hero terrain is decoration drawn from noise, not data. Performance numbers appear only in
+  `#record` (home) and on `/results/`, each next to its date and its caveat.
 
 ## Dated figures (update by hand)
 
@@ -71,10 +93,15 @@ of 11 Nov 2026 (figures as of 9 Nov 2026). When the record moves on, update the 
 
 | Where | Keys | What |
 |-------|------|------|
-| `#stack` | `glance.*`, `clock.*`, `lane.*`, `flows.*` | The daily run, its clock, the three side pipelines, integrations |
-| `#selection` | `select.*`, `split.*`, `lesson.*`, `team.p` | How a model is chosen (70 / 20 / 10, the October lesson) |
-| `#performance` | `ladder.*`, `check.*` | The four steps to real money, the daily checks |
-| `#evidence` | `ev.*`, `res.*`, `fact.*` | Results by kind of account, and what the live record shows |
+| `/` `.numbers`, `#approach`, `#difference` | `num.*`, `how.*`, `diff.*` | What runs every day, the six steps, the before / after table |
+| `/` `#record` | `ev.sub`, `res.*`, `fact.2.*` | The three account results (same keys as on /results/) |
+| `/technology/` `#stack` | `glance.*`, `clock.*`, `lane.*`, `flows.*` | The daily run, its clock, the three side pipelines, integrations |
+| `/technology/` `#selection` | `select.*`, `split.*`, `lesson.*`, `team.p` | How a model is chosen (70 / 20 / 10, the October lesson) |
+| `/results/` `#performance` | `ladder.*`, `check.*` | The four steps to real money, the daily checks |
+| `/results/` `#evidence` | `ev.*`, `res.*`, `fact.*` | Results by kind of account, and what the live record shows |
+
+The result tiles are written out twice (home and /results/) with the same keys: change both
+English copies together.
 
 Rules for these blocks: every result names its account type (real money, demo, paper), its
 start date and its caveat; a pro-forma figure says so; nothing is called live. The countdown
@@ -82,31 +109,37 @@ in the daily clock is computed in the browser from 00:00 UTC, when the daily can
 
 ## Languages & SEO
 
-Each language is its own URL so search engines index all three:
-`/` (English, `index.html`), `/mn/` and `/ko/`. The two translated pages are **generated**
-by [tools/build_i18n_pages.py](tools/build_i18n_pages.py): it copies
-`index.html`, swaps in the translations from `i18n/<lang>.json` (every element with a
-`data-i18n` key; keys without a translation stay English) and rewrites `<html lang>`, the
-title, description, canonical and social tags (the head tags marked `data-seo`). It fails
-the deploy if the markup stops matching, so a broken page never ships.
+Each page in each language is its own URL so search engines index all of them:
+`/`, `/technology/`, `/results/`, `/platform/` in English, and the same under `/mn/` and `/ko/`.
+The translated pages are **generated** by [tools/build_i18n_pages.py](tools/build_i18n_pages.py):
+for each English page it swaps in the translations from `i18n/<lang>.json` (every element with
+a `data-i18n` key; keys without a translation stay English), rewrites `<html lang>`, the title,
+description, canonical and social tags (the head tags marked `data-seo`; per-page title and
+description come from `meta.pages` in the JSON) and moves links to the site's own pages under
+`/<lang>/`. It fails the deploy if the markup stops matching or if the shared header or footer
+differs between pages, so a broken page never ships.
 
-**The generated pages are committed** (`mn/index.html`, `ko/index.html`), because GitHub Pages
-is set to "Deploy from a branch" and publishes the repo as it is. After any change to
-`index.html` or `i18n/*.json`, regenerate and commit them with the change:
+**The generated pages are committed** (`mn/…`, `ko/…`), so a local preview and a branch deploy
+both have them. After any change to an English page or `i18n/*.json`, regenerate and commit
+them with the change:
 
 ```bash
 python3 tools/build_i18n_pages.py .
 git add mn ko
 ```
 
-Never edit `mn/index.html` or `ko/index.html` by hand; the next run overwrites them.
+Never edit the pages under `mn/` or `ko/` by hand; the next run overwrites them.
 
 - To change or add a translation, edit `i18n/<lang>.json`, not `script.js`.
-- New translatable text in `index.html` needs a `data-i18n="key"` and an entry in each JSON.
-- Use root-absolute paths (`/styles.css`, `/data/…`) in `index.html` and `script.js`:
+- New translatable text needs a `data-i18n="key"` and an entry in each JSON. A key can be used
+  on several pages (the nav, the result tiles).
+- Use root-absolute paths (`/styles.css`, `/data/…`, `/results/`) in the pages and `script.js`:
   the same markup is served from `/mn/` and `/ko/`.
+- Adding a page: create `<name>/index.html` with the shared header and footer, add `<name>` to
+  `PAGES` in the builder, its title and description to `meta.pages` in each JSON, its three URLs
+  to `sitemap.xml`, and the folder to the copy step in the deploy workflow.
 - The canonical host is `https://www.deepbeta.mn/` — the canonical/hreflang tags, JSON-LD,
-  `sitemap.xml` and `robots.txt` all use it. Adding a page means adding it to `sitemap.xml`.
+  `sitemap.xml` and `robots.txt` all use it.
 
 ## Brainy access key
 
@@ -123,7 +156,7 @@ descriptions only.
 
 ## Performance chart · focus 5 paper book
 
-The `#performance` section draws the Brainy **Paper Desk** book of the five focus
+The `#book` chapter of `/results/` draws the Brainy **Paper Desk** book of the five focus
 products (GOLD, NAS100, WTI, BTCUSD, ETHUSD): KPI tiles, equity / drawdown /
 exposure panes, P&L by asset and the coin-flip baseline. The page reads a static
 snapshot, `data/focus-book.json`, written by
@@ -149,7 +182,7 @@ instead, so commit a fresh export now and then as the fallback.
 
 ## Platform section · every desk, every endpoint
 
-The `#platform` section has the access instructions (key, browser sign-in,
+The `/platform/` page has the access instructions (key, browser sign-in,
 `X-Access-Key` header, curl / Python / Node quick start), a card per desk with
 its link, and a filterable explorer of every endpoint with an example link and a
 copy-as-curl button. The desk cards are static HTML in `index.html`; the endpoint
@@ -173,14 +206,14 @@ The catalogue is regenerated by hand, not in CI, so the git diff can be reviewed
 before it goes public. Server docstrings can name clients or internal files:
 the tool prints a "review description" line for anything that looks like a file
 path, and `DESCRIBE` overrides any wording that shouldn't be published. To add a
-desk, add its card to `index.html` with a matching `data-svc` id.
+desk, add its card to `platform/index.html` with a matching `data-svc` id.
 
 ## Local preview
 
 ```bash
 python3 tools/build_i18n_pages.py .   # rewrites mn/ and ko/ (committed); re-run after edits
 python3 -m http.server 8080
-# then open http://localhost:8080  (and /mn/, /ko/)
+# then open http://localhost:8080  (and /technology/, /results/, /platform/, /mn/, /ko/ …)
 ```
 
 ## Deploy to deepbeta.mn
@@ -211,8 +244,8 @@ Then add `deepbeta.mn` and `www.deepbeta.com` as custom domains.
 
 ## Brainy access for visitors
 
-The Brainy platform is linked from the header, the platform section, the contact
-section and the footer. No credential is on the page or in its source: every desk shows
+The Brainy platform is linked from the header, the home page's platform band, the
+/platform/ page, the contact section and the footer. No credential is on the page or in its source: every desk shows
 Brainy's own sign-in form, and keys are issued on request via
 nyam-ochir@deepbeta.mn.
 

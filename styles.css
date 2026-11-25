@@ -2,7 +2,9 @@
    Ink stage, gold voice, one green full stop.
    The wordmark is "DeepBeta." in gold with a green dot, so every headline is set the same way:
    heavy grotesque, closed by a green period (.pt). Mono type is reserved for evidence (numbers,
-   labels, code). One chapter (#thesis) is printed on paper; everything else is on ink. */
+   labels, code). One chapter (#company, on the home page) is printed on paper; everything else is on ink.
+   Pages: / tells the story in eight short chapters; /technology/, /results/ and /platform/ hold
+   the detail, each opening with a .page-top chapter and closing with the .next band. */
 :root {
   --ink:      #0a0a09;
   --ink-2:    #111110;
@@ -305,6 +307,22 @@ button { font: inherit; color: inherit; }
 
 .block-gap { margin-top: clamp(76px, 9.5vw, 148px); }
 .aside-note { max-width: 78ch; margin-top: 18px; color: var(--mute); font-size: 14.5px; line-height: 1.6; }
+.chap-head .chap-sub.wide { grid-column: 1 / -1; max-width: 92ch; }
+
+/* detail pages: the first chapter sits under the fixed header and opens with the page's h1 */
+.chapter.page-top { border-top: 0; padding-top: calc(var(--head) + clamp(40px, 6vw, 96px)); }
+/* "on this page": the page's sections, one tap away */
+.toc { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 8px; }
+.toc a {
+  padding: 10px 13px; border: 1px solid var(--line-2); border-radius: 2px;
+  font: 500 11.5px/1 var(--mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute);
+  transition: color 0.2s, border-color 0.2s;
+}
+.toc a:hover { color: var(--gold); border-color: var(--gold); }
+
+/* the button-and-caveat row that closes a home chapter and points to its detail page */
+.more { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 32px; margin-top: clamp(28px, 3.4vw, 44px); }
+.more .aside-note { margin: 0; max-width: 62ch; }
 
 /* ---------- 01 · THESIS (paper) ---------- */
 .paper {
@@ -335,6 +353,24 @@ button { font: inherit; color: inherit; }
   .creed-item h3 { margin-top: 18px; }
 }
 
+/* who we are, in one paragraph and four facts */
+.intro {
+  display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 28px clamp(28px, 5vw, 88px);
+  margin-top: clamp(56px, 7vw, 112px); padding-top: clamp(24px, 2.6vw, 34px); border-top: 1px solid var(--ink);
+}
+.intro-lead { font: 500 clamp(20px, 1.85vw, 26px)/1.45 var(--sans); letter-spacing: -0.012em; text-wrap: pretty; }
+.intro-facts { margin: 0; }
+.intro-facts div {
+  display: grid; grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.6fr); gap: 4px 20px;
+  padding: 14px 0; border-bottom: 1px solid var(--line);
+}
+.intro-facts div:first-child { padding-top: 6px; }
+.intro-facts dt { padding-top: 4px; font: 500 11.5px/1.5 var(--mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); }
+.intro-facts dd { margin: 0; font-size: 16px; line-height: 1.5; }
+.paper .creed { margin-top: clamp(56px, 7vw, 104px); }
+@media (max-width: 900px) { .intro { grid-template-columns: 1fr; } }
+@media (max-width: 480px) { .intro-facts div { grid-template-columns: 1fr; } .intro-facts dt { padding-top: 0; } }
+
 /* ---------- DEEPBETA IN NUMBERS ---------- */
 .numbers { padding-block: clamp(64px, 8vw, 120px) 0; }
 .num-grid {
@@ -352,6 +388,7 @@ button { font: inherit; color: inherit; }
   font-variant-numeric: tabular-nums; margin-left: -0.05em; padding-bottom: clamp(44px, 8vw, 128px);
 }
 .num--zero .num-v { color: var(--dot); }
+.num-u { font-size: 0.5em; letter-spacing: -0.02em; margin-left: 0.04em; }
 .num-k { align-self: end; font: 600 17px/1.3 var(--sans); }
 .num-s { margin-top: 6px; color: var(--mute); font-size: 14.5px; line-height: 1.5; }
 @media (max-width: 940px) { .num-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
@@ -424,6 +461,69 @@ button { font: inherit; color: inherit; }
   .practice-row p, .practice-go { grid-column: 2; justify-self: start; }
   .case-k { min-width: 0; }
   .practice-go { margin-top: 6px; }
+}
+
+/* ---------- HOME · HOW IT WORKS ---------- */
+/* six steps on one line, left to right; the last one (the report) closes with the green dot */
+.steps {
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(6, minmax(0, 1fr));
+  border-top: 1px solid var(--line-2);
+}
+.steps li { position: relative; padding: 26px clamp(14px, 1.5vw, 24px) 6px 0; }
+.steps li + li { padding-left: clamp(14px, 1.5vw, 24px); border-left: 1px solid var(--line); }
+.steps li::before {   /* a gold tick where each step meets the line */
+  content: ""; position: absolute; top: -4px; left: -4px; width: 7px; height: 7px; border-radius: 50%;
+  background: var(--ink); border: 1px solid var(--gold);
+}
+.steps li:first-child::before { left: 0; }
+.steps li:last-child::before { background: var(--dot); border-color: var(--dot); }
+.step-n { font: 700 12px/1 var(--mono); letter-spacing: 0.14em; color: var(--gold); }
+.steps h3 { margin: clamp(26px, 3vw, 44px) 0 10px; font: 700 clamp(22px, 2vw, 30px)/1.08 var(--display); letter-spacing: -0.02em; }
+.steps p { color: var(--mute); font-size: 14.5px; line-height: 1.55; }
+@media (max-width: 1100px) {
+  .steps { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .steps li:nth-child(4) { padding-left: 0; border-left: 0; }
+  .steps li:nth-child(n+4) { margin-top: 28px; border-top: 1px solid var(--line-2); }
+  .steps li:nth-child(4)::before { left: 0; }
+}
+
+/* the platform, in one band, with the two ways further in */
+.pf-band {
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px 56px; align-items: center;
+  margin-top: clamp(48px, 6vw, 88px); padding: clamp(24px, 3vw, 44px);
+  background: var(--ink-2); border: 1px solid var(--line); border-left: 2px solid var(--gold);
+}
+.pf-band h3 { margin: 16px 0 10px; max-width: 26ch; font: 700 clamp(22px, 2.4vw, 34px)/1.12 var(--display); letter-spacing: -0.02em; }
+.pf-band p { max-width: 62ch; color: var(--mute); font-size: 15.5px; line-height: 1.55; }
+.pf-band-ctas { display: flex; flex-direction: column; align-items: stretch; gap: 10px; }
+.pf-band-ctas .btn { justify-content: space-between; }
+@media (max-width: 900px) { .pf-band { grid-template-columns: 1fr; } .pf-band-ctas { flex-direction: row; flex-wrap: wrap; } }
+
+/* ---------- HOME · THE DIFFERENCE ---------- */
+/* by hand (hollow mark, muted) against with DeepBeta (green dot); the marks carry the meaning
+   when the column heads fold into a legend on phones */
+.compare { border-top: 1px solid var(--line); }
+.cmp-row {
+  display: grid; grid-template-columns: minmax(0, 0.62fr) minmax(0, 0.9fr) minmax(0, 1.3fr);
+  gap: 8px clamp(20px, 3.4vw, 56px); align-items: baseline;
+  padding: clamp(18px, 2.2vw, 28px) 0; border-bottom: 1px solid var(--line);
+}
+.cmp-head { padding-block: 14px; }
+.cmp-head span { font: 500 11.5px/1.4 var(--mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--mute-2); }
+.cmp-head .cmp-b { color: var(--gold); }
+.cmp-k { font: 700 clamp(20px, 2.1vw, 28px)/1.14 var(--display); letter-spacing: -0.02em; }
+.cmp-a, .cmp-b { display: flex; gap: 12px; align-items: baseline; }
+.cmp-a::before, .cmp-b::before { content: ""; flex: none; width: 8px; height: 8px; border-radius: 50%; transform: translateY(-1px); }
+.cmp-a::before { border: 1px solid var(--mute-2); }
+.cmp-b::before { background: var(--dot); }
+.cmp-row:not(.cmp-head) .cmp-a { color: var(--mute-2); font-size: 15.5px; line-height: 1.5; }
+.cmp-row:not(.cmp-head) .cmp-b { color: var(--paper); font-size: 16.5px; line-height: 1.5; }
+@media (max-width: 760px) {
+  .cmp-row { grid-template-columns: 1fr; gap: 8px; }
+  .cmp-head { display: flex; flex-wrap: wrap; gap: 10px 22px; }
+  .cmp-head [role="columnheader"]:first-child { display: none; }
+  .cmp-k { margin-bottom: 2px; }
 }
 
 /* ---------- 03 · ENGINE ---------- */
@@ -785,7 +885,7 @@ html:not(.js) .pipe-step p { color: var(--mute); }
   padding: clamp(20px, 2.4vw, 32px) 0; border-bottom: 1px solid var(--line);
 }
 .fact-v { font: 800 clamp(34px, 4.2vw, 62px)/0.95 var(--display); letter-spacing: -0.03em; font-variant-numeric: tabular-nums; white-space: nowrap; }
-.facts h4 { font: 700 clamp(20px, 2.1vw, 28px)/1.14 var(--display); letter-spacing: -0.02em; }
+.facts h3, .facts h4 { font: 700 clamp(20px, 2.1vw, 28px)/1.14 var(--display); letter-spacing: -0.02em; }
 .facts p { color: var(--mute); font-size: 15.5px; line-height: 1.6; }
 @media (max-width: 860px) {
   .facts li { grid-template-columns: 1fr; gap: 8px; }
@@ -974,6 +1074,37 @@ a.ep-p:hover { text-decoration: underline; }
 .collab-card a:hover { color: var(--gold); }
 @media (max-width: 860px) { .collab { grid-template-columns: 1fr; } }
 
+/* home · founder: the person on the left, the former collaborations (with their caveat) on the right */
+.lead-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 28px clamp(28px, 5vw, 80px); align-items: start; }
+.lead-grid .founder-name { margin-top: 0; }
+.lead-note { margin: 12px 0 20px; max-width: 60ch; color: var(--mute); font-size: 14.5px; line-height: 1.55; }
+.collab--stack { grid-template-columns: 1fr; }
+.collab--stack .collab-card { padding: 20px 22px; }
+@media (max-width: 900px) { .lead-grid { grid-template-columns: 1fr; } }
+
+/* ---------- KEEP READING (end of each detail page) ---------- */
+.next { padding-block: clamp(64px, 8vw, 120px); border-top: 1px solid var(--line); }
+.next .chap-tag { margin-bottom: clamp(20px, 2.4vw, 32px); }
+.next-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.next-card {
+  display: flex; flex-direction: column; gap: 12px; min-height: 180px;
+  padding: clamp(22px, 2.6vw, 36px); background: var(--ink); transition: background 0.35s var(--ease);
+}
+.next-card b {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
+  font: 700 clamp(26px, 2.8vw, 42px)/1.04 var(--display); letter-spacing: -0.022em;
+}
+.next-card .arr { font-style: normal; color: var(--gold); transition: transform 0.3s var(--ease), color 0.3s; }
+.next-card p { margin-top: auto; color: var(--mute); font-size: 14.5px; line-height: 1.55; transition: color 0.3s; }
+.next-card--talk b { color: var(--gold); }
+@media (hover: hover) {
+  .next-card:hover { background: var(--gold); color: var(--ink); }
+  .next-card:hover b, .next-card:hover .arr { color: var(--ink); }
+  .next-card:hover p { color: #2e2608; }
+  .next-card:hover .arr { transform: translateX(6px); }
+}
+@media (max-width: 900px) { .next-grid { grid-template-columns: 1fr; } .next-card { min-height: 0; } }
+
 /* ---------- 08 · CONTACT ---------- */
 .cta {
   overflow: hidden; padding-block: clamp(110px, 15vw, 230px);
@@ -1059,7 +1190,26 @@ a.ep-p:hover { text-decoration: underline; }
   .feat h4 { margin-top: 16px; }
   .pf-step h3 { margin-top: 18px; }
   .market { padding: 16px 18px 18px; }
-  .split, .lesson, .founder, .res, .collab-card { padding: 20px 18px; }
+  .split, .lesson, .founder, .res, .collab-card, .collab--stack .collab-card { padding: 20px 18px; }
+  .chapter.page-top { padding-top: calc(var(--head) + 36px); }
+  .intro { margin-top: 44px; }
+  .paper .creed { margin-top: 44px; }
+  .pf-band { padding: 22px 18px; }
+  .next { padding-block: 56px; }
+  .next-card { padding: 20px 18px; }
+  .toc a { padding: 12px 12px; font-size: 11px; }
+
+  /* the six steps: one compact row each (number, name, one line) */
+  .steps { grid-template-columns: 1fr; border-top: 0; }
+  .steps li, .steps li + li, .steps li:nth-child(n+4) {
+    display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 2px 8px;
+    margin: 0; padding: 16px 0; border-left: 0; border-top: 1px solid var(--line);
+  }
+  .steps li::before { display: none; }
+  .step-n { grid-row: 1 / span 2; padding-top: 6px; }
+  .steps li:last-child .step-n { color: var(--dot); }
+  .steps h3 { margin: 0; font-size: 21px; }
+  .steps p { font-size: 14px; }
   .book-card { padding: 16px; }
   .sessions { padding: 20px 18px 16px; }
   .practice-row { padding-block: 24px; }
@@ -1134,7 +1284,8 @@ a.ep-p:hover { text-decoration: underline; }
 html:lang(ko) { --mono: "JetBrains Mono", "Pretendard", "Apple SD Gothic Neo", "Malgun Gothic", "Noto Sans KR", ui-monospace, monospace; }
 :lang(ko) .display, :lang(ko) .title, :lang(ko) .subtitle, :lang(ko) .manifesto,
 :lang(ko) .practice-row h3, :lang(ko) .pipe-step h3, :lang(ko) .creed-item h3,
-:lang(ko) .facts h4, :lang(ko) .split-key h4 { letter-spacing: -0.02em; word-break: keep-all; }
+:lang(ko) .facts h3, :lang(ko) .facts h4, :lang(ko) .split-key h4, :lang(ko) .steps h3, :lang(ko) .cmp-k,
+:lang(ko) .pf-band h3, :lang(ko) .next-card b, :lang(ko) .intro-lead { letter-spacing: -0.02em; word-break: keep-all; }
 :lang(ko) .display { font-size: clamp(46px, 9vw, 150px); line-height: 1.04; }
 :lang(ko) .title   { font-size: clamp(34px, 5.6vw, 88px); line-height: 1.1; }
 :lang(ko) .manifesto { font-size: clamp(26px, 3.9vw, 60px); line-height: 1.24; }
@@ -1150,5 +1301,5 @@ html:lang(ko) { --mono: "JetBrains Mono", "Pretendard", "Apple SD Gothic Neo", "
   .live, .scroll-cue i::after, .tk.tick .tk-p { animation: none; }
   .tape-track { animation: none; }
   .tape-view { overflow-x: auto; }
-  .practice-row::before, .model::after, .btn .arr { transition: none; }
+  .practice-row::before, .model::after, .btn .arr, .next-card, .next-card .arr { transition: none; }
 }

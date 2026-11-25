@@ -1,0 +1,451 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- a returning visitor who picked МН / KO before goes straight to that language's version of this
+       page (set by the language links in script.js; crawlers have no stored choice and are never
+       redirected). The "js" class arms the scroll reveals in styles.css; without JavaScript everything shows. -->
+  <script>
+    document.documentElement.classList.add('js');
+    try {
+      var dbLang = { mn: '/mn', ko: '/ko' }[localStorage.getItem('deepbeta-lang')];
+      if (dbLang && document.documentElement.lang === 'en') location.replace(dbLang + location.pathname + location.search + location.hash);
+    } catch (e) {}
+  </script>
+  <!-- SEO: tools/build_i18n_pages.py rewrites the tags marked data-seo for /mn/ and /ko/.
+       Keep each marked tag on one line. -->
+  <title data-seo="title">Technology · Models, Daily Run &amp; Markets · Deep Beta Technology</title>
+  <meta name="description" data-seo="description" content="Inside the DeepBeta engine: thirteen model families, how a model earns its place, what the models see, where they work, and the forty-minute run every morning." />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="canonical" data-seo="canonical" href="https://www.deepbeta.mn/technology/" />
+  <link rel="alternate" hreflang="en" href="https://www.deepbeta.mn/technology/" />
+  <link rel="alternate" hreflang="mn" href="https://www.deepbeta.mn/mn/technology/" />
+  <link rel="alternate" hreflang="ko" href="https://www.deepbeta.mn/ko/technology/" />
+  <link rel="alternate" hreflang="x-default" href="https://www.deepbeta.mn/technology/" />
+  <meta name="theme-color" content="#0a0a09" />
+
+  <!-- social cards -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="DeepBeta" />
+  <meta property="og:title" data-seo="title" content="Technology · Models, Daily Run &amp; Markets · Deep Beta Technology" />
+  <meta property="og:description" data-seo="description" content="Inside the DeepBeta engine: thirteen model families, how a model earns its place, what the models see, where they work, and the forty-minute run every morning." />
+  <meta property="og:url" data-seo="canonical" content="https://www.deepbeta.mn/technology/" />
+  <meta property="og:locale" data-seo="locale" content="en_US" />
+  <meta property="og:locale:alternate" data-seo="locale-alt" content="mn_MN" />
+  <meta property="og:locale:alternate" data-seo="locale-alt" content="ko_KR" />
+  <meta property="og:image" content="https://www.deepbeta.mn/logo/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="DeepBeta — Quant ML models, backtesting and AI solutions" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" data-seo="title" content="Technology · Models, Daily Run &amp; Markets · Deep Beta Technology" />
+  <meta name="twitter:description" data-seo="description" content="Inside the DeepBeta engine: thirteen model families, how a model earns its place, what the models see, where they work, and the forty-minute run every morning." />
+  <meta name="twitter:image" content="https://www.deepbeta.mn/logo/og-image.jpg" />
+
+  <!-- icons -->
+  <link rel="icon" href="/favicon.ico" sizes="48x48" />
+  <link rel="icon" type="image/png" sizes="192x192" href="/logo/icon-192.png" />
+  <link rel="apple-touch-icon" href="/logo/apple-touch-icon.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <a class="skip" href="#engine" data-i18n="a11y.skip">Skip to content</a>
+
+  <!-- HEADER · identical on every page (tools/build_i18n_pages.py checks it; only the language links
+       differ, pointing at this page's translations). One nav for every screen size: on small
+       screens it becomes the full-screen menu. -->
+  <header class="site-head" data-head>
+    <div class="head-inner">
+      <a class="wordmark" href="/#top" aria-label="Deep Beta Technology LLC home">DeepBeta<span class="pt">.</span></a>
+      <nav class="site-nav" id="site-nav" aria-label="Primary">
+        <a href="/#company" data-i18n="nav.company">Company</a>
+        <a href="/#services" data-i18n="nav.services">Services</a>
+        <a href="/technology/" data-i18n="nav.technology">Technology</a>
+        <a href="/results/" data-i18n="nav.results">Results</a>
+        <a href="/platform/" data-i18n="nav.platform">Platform</a>
+        <a href="/#contact" data-i18n="nav.contact">Contact</a>
+      </nav>
+      <div class="head-tools">
+        <!-- each language is its own crawlable page; build_i18n_pages.py moves the active state -->
+        <div class="lang-switch" role="group" aria-label="Language">
+          <a href="/technology/" hreflang="en" lang="en" data-lang="en" class="active" aria-current="page">EN</a>
+          <a href="/mn/technology/" hreflang="mn" lang="mn" data-lang="mn">МН</a>
+          <a href="/ko/technology/" hreflang="ko" lang="ko" data-lang="ko">KO</a>
+        </div>
+        <a class="btn btn-gold btn-sm head-cta" href="https://brainy.deepbeta.mn/" target="_blank" rel="noopener"><b data-i18n="head.brainy">Open Brainy</b><i class="arr" aria-hidden="true">↗</i></a>
+        <button type="button" class="menu-btn" data-menu aria-expanded="false" aria-controls="site-nav" aria-label="Menu"><i></i><i></i></button>
+      </div>
+    </div>
+  </header>
+
+  <main id="top">
+
+    <!-- 01 · ENGINE · models, how one is chosen, inputs, markets -->
+    <section id="engine" class="chapter page-top" data-chapter="01">
+      <div class="wrap">
+        <header class="chap-head">
+          <p class="chap-tag"><b>01</b><span data-i18n="nav.engine">Engine</span></p>
+          <h1 class="title" data-i18n="engine.h2">Thirteen specialists.<br>One decision<span class="pt">.</span></h1>
+          <p class="chap-sub" data-i18n="models.sub">Each model is independently trained, walk-forward validated, and ranked by Sharpe / Calmar / Drawdown / Return.</p>
+          <nav class="toc" aria-label="On this page">
+            <a href="#models" data-i18n="foot.models">Models</a>
+            <a href="#selection" data-i18n="toc.selection">Selection</a>
+            <a href="#features" data-i18n="foot.inputs">Inputs</a>
+            <a href="#assets" data-i18n="foot.markets">Markets</a>
+            <a href="#stack" data-i18n="foot.run">Daily run</a>
+            <a href="#principles" data-i18n="nav.principles">Principles</a>
+          </nav>
+        </header>
+
+        <!-- 13 MODELS -->
+        <div id="models" class="models" data-rv>
+          <article class="model"><span class="model-n">01</span><h3>UP</h3><p>Directional long-bias classifier. Probabilistic up-move signal across horizons.</p></article>
+          <article class="model"><span class="model-n">02</span><h3>BREAKOUT</h3><p>Range-expansion detector with regime gating and volatility scaling.</p></article>
+          <article class="model"><span class="model-n">03</span><h3>REGRESSION</h3><p>Continuous return forecast — calibrated for portfolio sizing.</p></article>
+          <article class="model"><span class="model-n">04</span><h3>MEAN-REVERT</h3><p>Short-horizon reversion in equities, FX and indexes.</p></article>
+          <article class="model"><span class="model-n">05</span><h3>MOMENTUM</h3><p>Cross-sectional and time-series momentum across universes.</p></article>
+          <article class="model"><span class="model-n">06</span><h3>TREND</h3><p>Persistence model fed by price, volume and macro features.</p></article>
+          <article class="model"><span class="model-n">07</span><h3>VOL-REGIME</h3><p>Volatility state classifier driving leverage and gating.</p></article>
+          <article class="model"><span class="model-n">08</span><h3>NEWS-SENT</h3><p>News &amp; social sentiment encoder for event-driven alpha.</p></article>
+          <article class="model"><span class="model-n">09</span><h3>EARNINGS</h3><p>Pre/post earnings drift with surprise and guidance features.</p></article>
+          <article class="model"><span class="model-n">10</span><h3>MACRO</h3><p>Rates, DXY, credit and liquidity overlay across all assets.</p></article>
+          <article class="model"><span class="model-n">11</span><h3>PAIRS</h3><p>Statistical arbitrage on cointegrated baskets.</p></article>
+          <article class="model"><span class="model-n">12</span><h3>OPTIONS-FLOW</h3><p>Implied-vol &amp; flow signals where derivatives data exists.</p></article>
+          <article class="model model--meta"><span class="model-n">13</span><h3>META-ENSEMBLE</h3><p>Stacking layer that combines the 12 specialists into the production signal.</p><span class="model-tag" data-i18n="models.meta">The production signal</span></article>
+        </div>
+
+        <!-- MODEL SELECTION · how a model earns its place -->
+        <div id="selection" class="block">
+          <header class="block-head">
+            <h3 class="subtitle" data-rv data-i18n="select.h3">How a model earns its place</h3>
+            <p class="chap-sub" data-rv data-i18n="select.sub">About 1,000 candidates are tested on the last five years of data. To be chosen, a model must win on data it has never seen.</p>
+          </header>
+          <div class="select" data-rv>
+            <div class="split">
+              <!-- three consecutive spans of the same five years; widths are the real 70 / 20 / 10 split -->
+              <div class="split-bar" role="img" aria-label="Five years of data split in time order: 70% to learn, 20% to test, 10% to prove">
+                <span class="s-learn">70%</span><span class="s-test">20%</span><span class="s-prove">10%</span>
+              </div>
+              <p class="split-axis" data-i18n="split.axis">Five years of data, oldest to newest</p>
+              <ol class="split-key">
+                <li><b>70%</b><h4 data-i18n="split.learn.h">Learn</h4><p data-i18n="split.learn.p">The models are fitted on this part.</p></li>
+                <li><b>20%</b><h4 data-i18n="split.test.h">Test</h4><p data-i18n="split.test.p">Walk-forward, about one year. A winner must improve in both halves of it.</p></li>
+                <li><b>10%</b><h4 data-i18n="split.prove.h">Prove</h4><p data-i18n="split.prove.p">The newest six months are never used to fit a model. They are scored after the choice.</p></li>
+              </ol>
+            </div>
+            <aside class="lesson">
+              <span class="label" data-i18n="lesson.k">The October lesson</span>
+              <div class="lesson-v">12 / 15</div>
+              <p data-i18n="lesson.p">products where the proven model beat a freshly retrained one. So a new model replaces the old one only if it wins on unseen data.</p>
+            </aside>
+          </div>
+          <p class="aside-note" data-rv data-i18n="team.p">For the six focus markets, each daily call comes from a team of three models, LightGBM, logistic regression and Extra-Trees, combined by rank and calibrated. A wider library is trained and compared on the same tests.</p>
+        </div>
+
+        <!-- FEATURES -->
+        <div id="features" class="block">
+          <header class="block-head">
+            <h3 class="subtitle" data-rv data-i18n="features.h3">What the models see</h3>
+            <p class="chap-sub" data-rv data-i18n="features.sub">Features are generated in major parts and fused before any model sees a bar.</p>
+          </header>
+          <div class="feats" data-rv>
+            <div class="feat"><span class="tag">PRICE / VOL</span><h4>Microstructure &amp; technicals</h4><p>Multi-timeframe returns, realized vol, order-flow proxies, gap statistics, range expansion and breadth.</p></div>
+            <div class="feat"><span class="tag">FUNDAMENTALS</span><h4>Company &amp; earnings</h4><p>Earnings surprise, guidance deltas, revisions, valuation z-scores, calendar proximity.</p></div>
+            <div class="feat"><span class="tag">MACRO</span><h4>Economic conditions</h4><p>Rates, curve shape, DXY, credit spreads, liquidity and global risk-on/off regime tags.</p></div>
+            <div class="feat"><span class="tag">NEWS</span><h4>News &amp; events</h4><p>Headline embeddings, event tagging, central-bank calendars, geopolitical shock flags.</p></div>
+            <div class="feat"><span class="tag">SENTIMENT</span><h4>Sentiment &amp; flow</h4><p>News sentiment, social signal, options flow, ETF creations/redemptions where available.</p></div>
+            <div class="feat"><span class="tag">CROSS-ASSET</span><h4>Linkages</h4><p>Cross-asset correlations, lead-lag features and basis between spot / futures / CFD.</p></div>
+          </div>
+        </div>
+
+        <!-- ASSETS + live market sessions -->
+        <div id="assets" class="block">
+          <header class="block-head">
+            <h3 class="subtitle" data-rv data-i18n="assets.h3">Where they work</h3>
+            <p class="chap-sub" data-rv data-i18n="assets.sub">From US large-cap to Asia-Pac and crypto majors — one feature pipeline, one risk book.</p>
+          </header>
+          <div class="coverage">
+            <div class="markets" data-rv>
+              <div class="market"><h4 data-i18n="assets.us">US Equities</h4><p>S&amp;P 500 and NASDAQ constituents · ETFs · sectors · top indexes.</p></div>
+              <div class="market"><h4 data-i18n="assets.apac">Asia-Pacific</h4><p>KRX (Korea), JPX (Japan — TSE / OSE), HKEX (Hong Kong) — equities &amp; indexes.</p></div>
+              <div class="market"><h4>London (LSE)</h4><p>FTSE products, ETPs and listed structured instruments.</p></div>
+              <div class="market"><h4 data-i18n="assets.idx">Indexes &amp; Futures</h4><p>SPX, NDX, DXY, FTSE, Nikkei, HSI, KOSPI — index futures and CFDs.</p></div>
+              <div class="market"><h4 data-i18n="assets.cmd">Commodities</h4><p>Energy, metals and agriculturals — futures &amp; CFD instruments.</p></div>
+              <div class="market"><h4>FX</h4><p>Majors and crosses — G10 plus selected EM pairs.</p></div>
+              <div class="market"><h4 data-i18n="assets.crypto">Crypto Majors</h4><p>BTC, ETH and top liquid pairs — spot and perpetuals.</p></div>
+              <div class="market"><h4>Leveraged &amp; CFDs</h4><p>Leveraged equity products and contracts-for-difference where licensed.</p></div>
+            </div>
+
+            <!-- session clocks: local time and regular-hours state, computed in the browser by script.js -->
+            <aside class="sessions" data-sessions data-rv>
+              <div class="sessions-head">
+                <span class="label" data-i18n="mkt.title">The engine follows the sun</span>
+                <span class="sessions-utc" data-utc></span>
+              </div>
+              <ul class="sessions-list">
+                <li data-tz="America/New_York" data-hours="570-960">
+                  <i class="mk-dot" aria-hidden="true"></i><span class="mk-city" data-i18n="mkt.nyc">New York</span><span class="mk-venue">NYSE · NASDAQ</span>
+                  <time class="mk-time" data-mk-time>--:--</time><em class="mk-state"><b class="s-open" data-i18n="mkt.open">open</b><b class="s-closed" data-i18n="mkt.closed">closed</b></em>
+                </li>
+                <li data-tz="Europe/London" data-hours="480-990">
+                  <i class="mk-dot" aria-hidden="true"></i><span class="mk-city" data-i18n="mkt.lon">London</span><span class="mk-venue">LSE</span>
+                  <time class="mk-time" data-mk-time>--:--</time><em class="mk-state"><b class="s-open" data-i18n="mkt.open">open</b><b class="s-closed" data-i18n="mkt.closed">closed</b></em>
+                </li>
+                <li data-tz="Asia/Tokyo" data-hours="540-690,750-930">
+                  <i class="mk-dot" aria-hidden="true"></i><span class="mk-city" data-i18n="mkt.tyo">Tokyo</span><span class="mk-venue">JPX</span>
+                  <time class="mk-time" data-mk-time>--:--</time><em class="mk-state"><b class="s-open" data-i18n="mkt.open">open</b><b class="s-closed" data-i18n="mkt.closed">closed</b></em>
+                </li>
+                <li data-tz="Asia/Seoul" data-hours="540-930">
+                  <i class="mk-dot" aria-hidden="true"></i><span class="mk-city" data-i18n="mkt.sel">Seoul</span><span class="mk-venue">KRX</span>
+                  <time class="mk-time" data-mk-time>--:--</time><em class="mk-state"><b class="s-open" data-i18n="mkt.open">open</b><b class="s-closed" data-i18n="mkt.closed">closed</b></em>
+                </li>
+                <li data-tz="Asia/Hong_Kong" data-hours="570-720,780-960">
+                  <i class="mk-dot" aria-hidden="true"></i><span class="mk-city" data-i18n="mkt.hkg">Hong Kong</span><span class="mk-venue">HKEX</span>
+                  <time class="mk-time" data-mk-time>--:--</time><em class="mk-state"><b class="s-open" data-i18n="mkt.open">open</b><b class="s-closed" data-i18n="mkt.closed">closed</b></em>
+                </li>
+                <li data-always data-state="open">
+                  <i class="mk-dot" aria-hidden="true"></i><span class="mk-city" data-i18n="mkt.crypto">Crypto</span><span class="mk-venue">BTC · ETH</span>
+                  <time class="mk-time">24 / 7</time><em class="mk-state"><b class="s-open" data-i18n="mkt.open">open</b></em>
+                </li>
+              </ul>
+              <p class="sessions-note" data-i18n="mkt.note">Regular session hours in each exchange’s local time. Holidays are not reflected.</p>
+            </aside>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 · PIPELINE · the daily run -->
+    <section id="stack" class="chapter" data-chapter="02">
+      <div class="wrap">
+        <header class="chap-head">
+          <p class="chap-tag"><b>02</b><span data-i18n="nav.pipeline">Pipeline</span></p>
+          <h2 class="title" data-rv data-i18n="stack.h2">Every morning,<br>in forty minutes<span class="pt">.</span></h2>
+          <p class="chap-sub" data-rv data-i18n="stack.lede">From market data to a trading decision, every day, automatically. The run starts when the daily candle closes and ends with a report in the inbox.</p>
+        </header>
+
+        <div class="pf-stats four" data-rv>
+          <div><b>6</b><span data-i18n="glance.markets">markets</span></div>
+          <div><b>18</b><span data-i18n="glance.calls">daily calls</span></div>
+          <div><b>58</b><span data-i18n="glance.symbols">symbols read</span></div>
+          <div><b>40</b><span data-i18n="glance.minutes">minutes, start to brief</span></div>
+        </div>
+        <p class="aside-note" data-rv data-i18n="glance.note">Gold, Nasdaq 100, WTI oil, Bitcoin, Ether and EUR/USD, each with a 1-, 2- and 4-day call. EUR/USD joined on 10 Nov 2026 and is not in the published results.</p>
+
+        <!-- the daily clock: times are fixed (the run follows the 00:00 UTC daily candle); script.js adds the live countdown -->
+        <div class="clock" data-clock data-rv>
+          <div class="clock-head">
+            <span class="label" data-i18n="clock.label">The daily run · Ulaanbaatar time (UTC+8)</span>
+            <span class="clock-now" data-clock-now hidden><i data-i18n="clock.ub">Ulaanbaatar</i> <b data-ub-time></b> · <i data-i18n="clock.next">next run in</i> <b data-ub-next></b></span>
+          </div>
+          <ol class="clock-line">
+            <li data-at="0"><time>08:00</time><h4 data-i18n="clock.1.h">The daily candle closes</h4><p data-i18n="clock.1.p">All six markets use daily candles that close at 00:00 UTC.</p></li>
+            <li data-at="5"><time>08:05</time><h4 data-i18n="clock.2.h">Data for 58 symbols updates</h4><p data-i18n="clock.2.p">Prices, macro and news arrive from six data sources.</p></li>
+            <li data-at="20"><time>08:20</time><h4 data-i18n="clock.3.h">18 calls are issued</h4><p data-i18n="clock.3.p">Long, short or wait, each with a stop and a target. The paper desk updates.</p></li>
+            <li data-at="25"><time>08:25</time><h4 data-i18n="clock.4.h">The demo desk opens positions</h4><p data-i18n="clock.4.p">Two IG demo accounts trade the calls on their own.</p></li>
+            <li data-at="40"><time>08:40</time><h4 data-i18n="clock.5.h">The morning brief is sent</h4><p data-i18n="clock.5.p">A PDF report by e-mail. Every dashboard is current.</p></li>
+          </ol>
+        </div>
+
+        <!-- three more pipelines -->
+        <div class="block">
+          <header class="block-head">
+            <h3 class="subtitle" data-rv data-i18n="lanes.h3">Three more pipelines run beside it</h3>
+            <p class="chap-sub" data-rv data-i18n="lanes.sub">None of the three places orders. They advise, watch and report.</p>
+          </header>
+          <div class="feats" data-rv>
+            <div class="feat"><span class="tag" data-i18n="lane.opt.tag">EVERY 10 MINUTES</span><h4 data-i18n="lane.opt.h">Options</h4><p data-i18n="lane.opt.p">Real Deribit trades and FMP prices feed 20,000 simulated price paths, which give a fair value and a BUY / SELL / WAIT verdict per expiry for Bitcoin and Ether.</p></div>
+            <div class="feat"><span class="tag" data-i18n="lane.ai.tag">NON-STOP</span><h4 data-i18n="lane.ai.h">AI agents</h4><p data-i18n="lane.ai.p">Thirteen agents read 27 RSS feeds, news search, 78 technical indicators, macro data and crypto positioning, and fuse them into one plain read per asset.</p></div>
+            <div class="feat"><span class="tag" data-i18n="lane.mon.tag">EVERY MINUTE</span><h4 data-i18n="lane.mon.h">Monitoring</h4><p data-i18n="lane.mon.p">A collector checks every job and server and grades each part GREEN, AMBER or RED, on the dashboards and in the morning brief.</p></div>
+          </div>
+        </div>
+
+        <!-- integrations: named as plain text; no logos, no implied partnership -->
+        <div class="block">
+          <header class="block-head">
+            <h3 class="subtitle" data-rv data-i18n="flows.h3">What flows in, what goes out</h3>
+            <p class="chap-sub" data-rv data-i18n="flows.sub">Data and news come in, features and models work in the middle, orders go out to brokers.</p>
+          </header>
+          <div class="flows" data-rv>
+            <div class="flow">
+              <span class="label" data-i18n="flows.data">Market data</span>
+              <ul class="chips"><li>FMP</li><li>Binance</li><li>Deribit</li><li>Yahoo Finance</li><li>FRED</li><li>CryptoCompare</li><li>BLS</li></ul>
+            </div>
+            <div class="flow">
+              <span class="label" data-i18n="flows.news">News and search</span>
+              <ul class="chips"><li>27 RSS feeds</li><li>FMP News</li><li>Google News</li><li>Economic calendar</li></ul>
+            </div>
+            <div class="flow">
+              <span class="label" data-i18n="flows.models">Model library</span>
+              <ul class="chips"><li>LightGBM</li><li>Logistic regression</li><li>Extra-Trees</li><li>XGBoost</li><li>CatBoost</li><li>HistGB</li><li>Random Forest</li><li>DNN</li><li>RNN · LSTM · GRU</li><li>CNN · TCN</li><li>Transformer</li><li>ROCKET</li><li>TS Forest</li><li>KNN-DTW</li><li>Chronos-Bolt</li><li>FinBERT</li><li>Claude</li><li>HAR volatility</li></ul>
+            </div>
+            <div class="flow">
+              <span class="label" data-i18n="flows.orders">Brokers and exchanges</span>
+              <ul class="chips"><li>IG</li><li>MetaTrader 5</li><li>Bybit</li><li>Capital.com</li></ul>
+              <p class="flow-note" data-i18n="flows.note">Order routing is built for these four. Today the IG demo accounts trade every day; Binance and Deribit are used for data only.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- the architecture underneath -->
+        <header class="block-head block-gap">
+          <h3 class="subtitle" data-rv data-i18n="layers.h3">The stack underneath</h3>
+          <p class="chap-sub" data-rv data-i18n="stack.sub">Each layer is independently testable and replaceable.</p>
+        </header>
+        <ol class="pipe" data-pipe>
+          <li class="pipe-step">
+            <span class="pipe-n">01</span>
+            <h3>Data &amp; Feature layer</h3>
+            <p>Tick / bar / fundamentals / macro / news ingest → versioned feature store with point-in-time correctness.</p>
+          </li>
+          <li class="pipe-step">
+            <span class="pipe-n">02</span>
+            <h3>13 ML models</h3>
+            <p>Specialists trained per family, walk-forward and purged-CV validated.</p>
+          </li>
+          <li class="pipe-step">
+            <span class="pipe-n">03</span>
+            <h3>Decision-making layer</h3>
+            <p>Ensembling, regime gating, signal calibration and conviction scoring.</p>
+          </li>
+          <li class="pipe-step">
+            <span class="pipe-n">04</span>
+            <h3>Strategy layer</h3>
+            <p>Horizon, sizing, holding-period and universe rules — per-asset and portfolio.</p>
+          </li>
+          <li class="pipe-step">
+            <span class="pipe-n">05</span>
+            <h3>Risk management</h3>
+            <p>Organization-specific constrained RM (mandate / exposure / liquidity caps) plus standard RM (VaR, drawdown, vol-target, correlation, stress).</p>
+          </li>
+          <li class="pipe-step">
+            <span class="pipe-n">06</span>
+            <h3>Execution layer</h3>
+            <p>SOTA execution with adaptive scheduling, slippage modeling, smart routing and venue selection.</p>
+          </li>
+          <li class="pipe-step">
+            <span class="pipe-n">07</span>
+            <h3>Mitigation &amp; monitoring</h3>
+            <p>Live drift detection, kill-switches, circuit breakers and post-trade attribution.</p>
+          </li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- 03 · PRINCIPLES -->
+    <section id="principles" class="chapter" data-chapter="03">
+      <div class="wrap">
+        <header class="chap-head">
+          <p class="chap-tag"><b>03</b><span data-i18n="nav.principles">Principles</span></p>
+          <h2 class="title" data-rv data-i18n="principles.h2">What we hold<br>ourselves to<span class="pt">.</span></h2>
+        </header>
+        <ol class="principles">
+            <li data-rv>
+              <span class="pr-n">01</span>
+              <h4 data-i18n="pr.1.h">Evidence before belief</h4>
+              <p data-i18n="pr.1.p">Every model is trained independently, validated walk-forward and ranked on Sharpe, Calmar, drawdown and return. Nothing ships on a good story.</p>
+            </li>
+            <li data-rv>
+              <span class="pr-n">02</span>
+              <h4 data-i18n="pr.2.h">Risk before return</h4>
+              <p data-i18n="pr.2.p">Mandate, exposure and liquidity limits are built into the engine as constraints, alongside VaR, drawdown, volatility-target, correlation and stress controls.</p>
+            </li>
+            <li data-rv>
+              <span class="pr-n">03</span>
+              <h4 data-i18n="pr.3.h">Open by default</h4>
+              <p data-i18n="pr.3.p">Every desk has an API and every route is documented. The paper book in Results is exported from the Paper Desk, with spread and funding costs already deducted.</p>
+            </li>
+            <li data-rv>
+              <span class="pr-n">04</span>
+              <h4 data-i18n="pr.4.h">Replaceable by design</h4>
+              <p data-i18n="pr.4.p">Each layer, from the feature store to execution, can be tested and swapped on its own. No black box you have to take whole.</p>
+            </li>
+          </ol>
+      </div>
+    </section>
+
+    <!-- keep reading: the other pages and the contact -->
+    <section class="next" aria-label="Keep reading">
+      <div class="wrap">
+        <p class="chap-tag"><span data-i18n="next.k">Keep reading</span></p>
+        <div class="next-grid">
+          <a class="next-card" href="/results/">
+            <b><span data-i18n="nav.results">Results</span><i class="arr" aria-hidden="true">→</i></b>
+            <p data-i18n="next.res.p">The record by kind of account, the daily checks and the full paper book.</p>
+          </a>
+          <a class="next-card" href="/platform/">
+            <b><span data-i18n="nav.platform">Platform</span><i class="arr" aria-hidden="true">→</i></b>
+            <p data-i18n="next.pf.p">Every Brainy desk, how to get access, and every API route.</p>
+          </a>
+          <a class="next-card next-card--talk" href="/#contact">
+            <b><span data-i18n="practice.talk">Talk to us</span><i class="arr" aria-hidden="true">→</i></b>
+            <p data-i18n="next.talk.p">Ask for an access key, or tell us about the decision you want to put on evidence.</p>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <a class="wordmark" href="/#top" aria-label="Deep Beta Technology LLC home">DeepBeta<span class="pt">.</span></a>
+          <p data-i18n="foot.tagline">Quant ML models, backtesting and AI solutions for enterprises.</p>
+          <a class="foot-mail" href="mailto:nyam-ochir@deepbeta.mn">nyam-ochir@deepbeta.mn</a>
+          <a class="foot-mail" href="tel:+97688802060">+976 8880 2060</a>
+        </div>
+        <nav class="foot-col" aria-label="Company">
+          <h3 data-i18n="foot.company">Company</h3>
+          <a href="/#company" data-i18n="foot.about">About us</a>
+          <a href="/#services" data-i18n="nav.services">Services</a>
+          <a href="/#founder" data-i18n="nav.founder">Founder</a>
+          <a href="/#contact" data-i18n="nav.contact">Contact</a>
+        </nav>
+        <nav class="foot-col" aria-label="Technology">
+          <h3 data-i18n="nav.technology">Technology</h3>
+          <a href="/technology/#models" data-i18n="foot.models">Models</a>
+          <a href="/technology/#features" data-i18n="foot.inputs">Inputs</a>
+          <a href="/technology/#assets" data-i18n="foot.markets">Markets</a>
+          <a href="/technology/#stack" data-i18n="foot.run">Daily run</a>
+          <a href="/results/" data-i18n="nav.results">Results</a>
+        </nav>
+        <nav class="foot-col" aria-label="Platform">
+          <h3 data-i18n="nav.platform">Platform</h3>
+          <a href="https://brainy.deepbeta.mn/" target="_blank" rel="noopener">Brainy platform</a>
+          <a href="https://brainy.deepbeta.mn/paperdesk/" target="_blank" rel="noopener">Paper Desk</a>
+          <a href="https://technical.deepbeta.mn/" target="_blank" rel="noopener">Technical desk</a>
+          <a href="https://agents.deepbeta.mn/" target="_blank" rel="noopener">Agents</a>
+          <a href="/platform/#api" data-i18n="foot.api">API &amp; endpoints</a>
+        </nav>
+        <nav class="foot-col" aria-label="Connect">
+          <h3 data-i18n="foot.connect">Connect</h3>
+          <a href="mailto:nyam-ochir@deepbeta.mn">Email</a>
+          <a href="tel:+97688802060">+976 8880 2060</a>
+          <a href="https://www.linkedin.com/in/nyamochirbold/" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://www.upwork.com/fl/nyamochirbold" target="_blank" rel="noopener">Upwork</a>
+        </nav>
+      </div>
+
+      <div class="foot-mark" aria-hidden="true">DeepBeta<span class="pt">.</span></div>
+
+      <div class="foot-legal" data-i18n="footer.legal">
+        © <span data-year></span> Deep Beta Technology LLC. All rights reserved. Technology provider —
+        we sell solutions and services and license our quant models for a fee; we never hold client
+        accounts or assets in custody and never split profits. Research / informational use.
+        Not investment advice. Past performance does not guarantee future results.
+      </div>
+    </div>
+  </footer>
+
+  <!-- chapter rail, built by script.js from the sections marked data-chapter; decorative duplicate of the nav -->
+  <nav class="depth" data-depth aria-hidden="true"></nav>
+
+  <script src="/script.js"></script>
+</body>
+</html>

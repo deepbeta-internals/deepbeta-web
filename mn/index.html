@@ -3,20 +3,20 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- a returning visitor who picked МН / KO before goes straight to that page (set by the
-       language links in script.js; crawlers have no stored choice and are never redirected).
-       The "js" class arms the scroll reveals in styles.css; without JavaScript everything shows. -->
+  <!-- a returning visitor who picked МН / KO before goes straight to that language's version of this
+       page (set by the language links in script.js; crawlers have no stored choice and are never
+       redirected). The "js" class arms the scroll reveals in styles.css; without JavaScript everything shows. -->
   <script>
     document.documentElement.classList.add('js');
     try {
-      var dbLang = { mn: '/mn/', ko: '/ko/' }[localStorage.getItem('deepbeta-lang')];
-      if (dbLang && document.documentElement.lang === 'en') location.replace(dbLang + location.hash);
+      var dbLang = { mn: '/mn', ko: '/ko' }[localStorage.getItem('deepbeta-lang')];
+      if (dbLang && document.documentElement.lang === 'en') location.replace(dbLang + location.pathname + location.search + location.hash);
     } catch (e) {}
   </script>
   <!-- SEO: tools/build_i18n_pages.py rewrites the tags marked data-seo for /mn/ and /ko/.
        Keep each marked tag on one line. -->
   <title data-seo="title">Deep Beta Technology · Квант ML, бэктест ба AI шийдлүүд</title>
-  <meta name="description" data-seo="description" content="Квант ML моделүүд, санхүүгийн бүтээгдэхүүний бэктест, байгууллагын AI шийдлүүд. Хувьцаа, индекс, форекс, түүхий эд, криптог хамарсан 13 моделийн хөдөлгүүр." />
+  <meta name="description" data-seo="description" content="Хөрөнгө оруулалтын компани, байгууллагуудад зориулсан квант ML модель, бэктест, AI шийдлүүд. Модель бүрийг түүхэн өгөгдөл дээр шалгаж, демо дансаар баталж, өдөр бүр хянадаг." />
   <meta name="robots" content="index, follow, max-image-preview:large" />
   <link rel="canonical" data-seo="canonical" href="https://www.deepbeta.mn/mn/" />
   <link rel="alternate" hreflang="en" href="https://www.deepbeta.mn/" />
@@ -29,7 +29,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="DeepBeta" />
   <meta property="og:title" data-seo="title" content="Deep Beta Technology · Квант ML, бэктест ба AI шийдлүүд" />
-  <meta property="og:description" data-seo="description" content="Квант ML моделүүд, санхүүгийн бүтээгдэхүүний бэктест, байгууллагын AI шийдлүүд. Хувьцаа, индекс, форекс, түүхий эд, криптог хамарсан 13 моделийн хөдөлгүүр." />
+  <meta property="og:description" data-seo="description" content="Хөрөнгө оруулалтын компани, байгууллагуудад зориулсан квант ML модель, бэктест, AI шийдлүүд. Модель бүрийг түүхэн өгөгдөл дээр шалгаж, демо дансаар баталж, өдөр бүр хянадаг." />
   <meta property="og:url" data-seo="canonical" content="https://www.deepbeta.mn/mn/" />
   <meta property="og:locale" data-seo="locale" content="mn_MN" />
   <meta property="og:locale:alternate" data-seo="locale-alt" content="en_US" />
@@ -40,7 +40,7 @@
   <meta property="og:image:alt" content="DeepBeta — Quant ML models, backtesting and AI solutions" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" data-seo="title" content="Deep Beta Technology · Квант ML, бэктест ба AI шийдлүүд" />
-  <meta name="twitter:description" data-seo="description" content="Квант ML моделүүд, санхүүгийн бүтээгдэхүүний бэктест, байгууллагын AI шийдлүүд. Хувьцаа, индекс, форекс, түүхий эд, криптог хамарсан 13 моделийн хөдөлгүүр." />
+  <meta name="twitter:description" data-seo="description" content="Хөрөнгө оруулалтын компани, байгууллагуудад зориулсан квант ML модель, бэктест, AI шийдлүүд. Модель бүрийг түүхэн өгөгдөл дээр шалгаж, демо дансаар баталж, өдөр бүр хянадаг." />
   <meta name="twitter:image" content="https://www.deepbeta.mn/logo/og-image.jpg" />
 
   <!-- icons -->
@@ -52,7 +52,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/styles.css" />
-
   <!-- structured data: who the site belongs to (Google knowledge panel / rich results) -->
   <script type="application/ld+json">
   {
@@ -117,20 +116,21 @@
   </script>
 </head>
 <body>
-  <a class="skip" href="#thesis" data-i18n="a11y.skip">Агуулга руу шилжих</a>
+  <a class="skip" href="#company" data-i18n="a11y.skip">Агуулга руу шилжих</a>
 
-  <!-- HEADER · one nav and one language switch for every screen size (the mobile menu is the same nav) -->
+  <!-- HEADER · identical on every page (tools/build_i18n_pages.py checks it; only the language links
+       differ, pointing at this page's translations). One nav for every screen size: on small
+       screens it becomes the full-screen menu. -->
   <header class="site-head" data-head>
     <div class="head-inner">
-      <a class="wordmark" href="#top" aria-label="Deep Beta Technology LLC home">DeepBeta<span class="pt">.</span></a>
+      <a class="wordmark" href="/mn/#top" aria-label="Deep Beta Technology LLC home">DeepBeta<span class="pt">.</span></a>
       <nav class="site-nav" id="site-nav" aria-label="Primary">
-        <a href="#thesis" data-i18n="nav.thesis">Үзэл баримтлал</a>
-        <a href="#practice" data-i18n="nav.practice">Чиглэл</a>
-        <a href="#engine" data-i18n="nav.engine">Хөдөлгүүр</a>
-        <a href="#performance" data-i18n="nav.proof">Нотолгоо</a>
-        <a href="#platform" data-i18n="nav.platform">Платформ</a>
-        <a href="#firm" data-i18n="nav.firm">Компани</a>
-        <a href="#contact" data-i18n="nav.contact">Холбоо барих</a>
+        <a href="/mn/#company" data-i18n="nav.company">Компани</a>
+        <a href="/mn/#services" data-i18n="nav.services">Үйлчилгээ</a>
+        <a href="/mn/technology/" data-i18n="nav.technology">Технологи</a>
+        <a href="/mn/results/" data-i18n="nav.results">Үр дүн</a>
+        <a href="/mn/platform/" data-i18n="nav.platform">Платформ</a>
+        <a href="/mn/#contact" data-i18n="nav.contact">Холбоо барих</a>
       </nav>
       <div class="head-tools">
         <!-- each language is its own crawlable page; build_i18n_pages.py moves the active state -->
@@ -156,16 +156,16 @@
       <div class="wrap hero-body">
         <p class="eyebrow" data-i18n="hero.kicker"><span class="live"></span>Deep Beta Technology LLC · Квант ML · Бэктест · AI шийдлүүд</p>
         <h1 class="display" data-i18n="hero.h1">Зах зээлийг<br>хэмжинэ<span class="pt">.</span></h1>
-        <p class="lede" data-i18n="hero.lede">Deep Beta Technology нь зах зээлийн өгөгдлийг шалгаж баталгаажуулах боломжтой шийдвэр болгон хувиргадаг квант ML модель, бэктест, AI шийдлүүдийг бүтээдэг. Төрөлжсөн 13 модель хөрөнгө бүрийг бар тутамд үнэлж, сигнал бүр гүйцэтгэлд хүрэхээсээ өмнө хязгаарлагдмал эрсдэлийн удирдлагаар дамждаг.</p>
+        <p class="lede" data-i18n="hero.lede">Бид хөрөнгө оруулалтын компани, байгууллагуудад зөн совингоор бус нотолгоонд тулгуурлан шийдвэр гаргахад нь туслах квант модель, AI системийг бүтээдэг. Модель бүрийг түүхэн өгөгдөл дээр шалгаж, демо дансаар баталж, өдөр бүр дахин хянадаг.</p>
         <div class="hero-ctas">
-          <a class="btn btn-gold" href="#engine"><b data-i18n="hero.cta1">Хөдөлгүүртэй танилцах</b><i class="arr" aria-hidden="true">→</i></a>
-          <a class="btn btn-line" href="#performance"><b data-i18n="hero.cta2">Загвар арилжааны багцыг үзэх</b><i class="arr" aria-hidden="true">→</i></a>
+          <a class="btn btn-gold" href="#services"><b data-i18n="hero.cta1">Бидний хийдэг зүйл</b><i class="arr" aria-hidden="true">→</i></a>
+          <a class="btn btn-line" href="/mn/results/"><b data-i18n="hero.cta2">Үр дүнг үзэх</b><i class="arr" aria-hidden="true">→</i></a>
         </div>
       </div>
 
       <div class="hero-foot">
         <div class="wrap hero-foot-row">
-          <a class="scroll-cue" href="#thesis"><i aria-hidden="true"></i><b data-i18n="hero.scroll">Доош гүйлгэх</b></a>
+          <a class="scroll-cue" href="#company"><i aria-hidden="true"></i><b data-i18n="hero.scroll">Бид хэн бэ</b></a>
         </div>
         <!-- live crypto tape: stays hidden until script.js has a real quote to show -->
         <div class="tape" data-tape hidden>
@@ -175,11 +175,21 @@
       </div>
     </section>
 
-    <!-- 01 · THESIS (the one light chapter: set like a printed research note) -->
-    <section id="thesis" class="chapter paper" data-chapter="01">
+    <!-- 01 · COMPANY (the one light chapter: set like a printed research note) -->
+    <section id="company" class="chapter paper" data-chapter="01">
       <div class="wrap">
-        <p class="chap-tag"><b>01</b><span data-i18n="nav.thesis">Үзэл баримтлал</span></p>
-        <p class="manifesto" data-words data-i18n="thesis.statement">Зах зээл итгэл үнэмшлийг шагнадаггүй. Нотолгоог шагнадаг. Тиймээс бид итгэлийг өөрөө олж авах ёстой моделүүдийг бүтээдэг: тус бүрийг бие даан сургаж, walk-forward аргаар баталгаажуулж, хэн нэгнээс итгэхийг хүсэхээс өмнө зоос шидэлтийн үр дүнтэй харьцуулан хэмждэг.</p>
+        <p class="chap-tag"><b>01</b><span data-i18n="nav.company">Компани</span></p>
+        <p class="manifesto" data-words data-i18n="about.statement">Зах зээл итгэл үнэмшлийг шагнадаггүй. Нотолгоог шагнадаг. Тиймээс бидний бүтээсэн модель бүр хэн нэгнээс итгэл хүсэхээсээ өмнө түүнийгээ өөрөө олж авах ёстой.</p>
+
+        <div class="intro">
+          <p class="intro-lead" data-rv data-i18n="about.lead">Deep Beta Technology LLC бол Улаанбаатар хотод төвтэй технологийн компани. Бид хөрөнгө оруулалтын компани, байгууллагуудад зориулан квант machine learning модель, бэктест, AI системийг бүтээж, өөрсдийн судалгааны платформ Brainy дээр өдөр бүр ажиллуулдаг.</p>
+          <dl class="intro-facts" data-rv style="--d:1">
+            <div><dt data-i18n="about.f1.k">Бид хэн бэ</dt><dd data-i18n="about.f1.v">Технологийн нийлүүлэгч. Харилцагчид манай модель, программ хангамж, үйлчилгээг лицензийн төлбөрөөр ашигладаг.</dd></div>
+            <div><dt data-i18n="about.f2.k">Харилцагчид</dt><dd data-i18n="about.f2.v">Хөрөнгө оруулалтын компани, санхүүгийн байгууллага, аж ахуйн нэгжийн санхүүгийн багууд.</dd></div>
+            <div><dt data-i18n="about.f3.k">Үүсгэн байгуулагч</dt><dd data-i18n="about.f3.v">Ням-Очир Болд, квант судлаач, инженер.</dd></div>
+            <div><dt data-i18n="about.f4.k">Хэл</dt><dd data-i18n="about.f4.v">Англи, монгол, солонгос хэлээр ажилладаг.</dd></div>
+          </dl>
+        </div>
 
         <div class="creed">
           <article class="creed-item" data-rv>
@@ -201,24 +211,24 @@
       </div>
     </section>
 
-    <!-- DEEPBETA IN NUMBERS -->
+    <!-- DEEPBETA IN NUMBERS · what runs every day (dated figures live in the results chapter) -->
     <section class="numbers" aria-label="DeepBeta in numbers">
       <div class="wrap">
         <div class="num-grid">
           <div class="num" data-rv>
-            <div class="num-v" data-count="13">13</div>
-            <div class="num-k" data-i18n="num.models">ML моделийн бүл</div>
-            <p class="num-s" data-i18n="num.models.s">Төрөлжсөн 12 модель, нэг мета-ансамбль.</p>
+            <div class="num-v" data-count="6">6</div>
+            <div class="num-k" data-i18n="num.mk">Өдөр бүр дохио гардаг зах зээл</div>
+            <p class="num-s" data-i18n="num.mk.s">Алт, Nasdaq 100, газрын тос, Bitcoin, Ether, EUR/USD.</p>
           </div>
           <div class="num" data-rv style="--d:1">
-            <div class="num-v" data-count="8">8</div>
-            <div class="num-k" data-i18n="num.markets">Зах зээлийн бүлэг</div>
-            <p class="num-s" data-i18n="num.markets.s">АНУ-ын хувьцаанаас крипто мажорс хүртэл, нэг эрсдэлийн бүртгэл дээр.</p>
+            <div class="num-v" data-count="18">18</div>
+            <div class="num-k" data-i18n="num.calls">Өдрийн арилжааны дохио</div>
+            <p class="num-s" data-i18n="num.calls.s">Зах зээл бүрт 1, 2, 4 хоногийн хугацаатай.</p>
           </div>
           <div class="num" data-rv style="--d:2">
-            <div class="num-v" data-count="7">7</div>
-            <div class="num-k" data-i18n="num.layers">Пайплайны давхарга</div>
-            <p class="num-s" data-i18n="num.layers.s">Судалгаанаас гүйцэтгэл хүртэл. Тус бүрийг тусад нь тестлэх, солих боломжтой.</p>
+            <div class="num-v">1<span class="num-u">%</span></div>
+            <div class="num-k" data-i18n="num.risk">Арилжаа бүрийн эрсдэл</div>
+            <p class="num-s" data-i18n="num.risk.s">Позиц бүрийн хэмжээг стоп нь дансны 1% орчим байхаар тогтооно.</p>
           </div>
           <div class="num num--zero" data-rv style="--d:3">
             <div class="num-v">0</div>
@@ -229,20 +239,21 @@
       </div>
     </section>
 
-    <!-- 02 · PRACTICE -->
-    <section id="practice" class="chapter" data-chapter="02">
+    <!-- 02 · SERVICES -->
+    <section id="services" class="chapter" data-chapter="02">
       <div class="wrap">
         <header class="chap-head">
-          <p class="chap-tag"><b>02</b><span data-i18n="nav.practice">Чиглэл</span></p>
+          <p class="chap-tag"><b>02</b><span data-i18n="nav.services">Үйлчилгээ</span></p>
           <h2 class="title" data-rv data-i18n="practice.h2">Гурван чиглэл.<br>Нотолгооны нэг стандарт<span class="pt">.</span></h2>
+          <p class="chap-sub" data-rv data-i18n="services.sub">Бидэнтэй хамтран ажиллах гурван арга. Гурвуулаа нэг шалгуураар: эхлээд нотолгоогоо харуулна.</p>
         </header>
 
         <div class="practice">
-          <a class="practice-row" href="#engine" data-rv>
+          <a class="practice-row" href="/mn/technology/" data-rv>
             <span class="practice-n">A</span>
             <h3 data-i18n="practice.a.h">Квант ML ба AI алгоритмын арилжаа</h3>
-            <p data-i18n="practice.a.p">Walk-forward бэктест, хязгаарлагдмал эрсдэлийн удирдлага, гүйцэтгэлийн давхарга бүхий 13 моделийн бүл. Ашгийн хувиар биш, лицензийн төлбөрөөр.</p>
-            <span class="practice-go"><b data-i18n="practice.a.cta">Хөдөлгүүрийг үзэх</b><i class="arr" aria-hidden="true">→</i></span>
+            <p data-i18n="practice.a.p">Хөрөнгө оруулалтын компаниудад зориулсан арилжааны модель, дохио: 5 жилийн өгөгдөл дээр шалгагдсан, эрсдэлээр хэмжээ нь тогтоогдсон, манай платформ дээр өдөр бүр ажилладаг. Ашгийн хувиар биш, лицензийн төлбөрөөр.</p>
+            <span class="practice-go"><b data-i18n="practice.a.cta">Технологийг үзэх</b><i class="arr" aria-hidden="true">→</i></span>
             <div class="practice-case">
               <span class="case-k" data-i18n="case.partner.k">Түнш</span>
               <span class="logo-plate is-withheld" aria-hidden="true"><i></i><i></i><i></i></span>
@@ -279,651 +290,136 @@
       </div>
     </section>
 
-    <!-- 03 · ENGINE · models, inputs, markets -->
-    <section id="engine" class="chapter" data-chapter="03">
+    <!-- 03 · HOW IT WORKS · the daily run in six plain steps; the full engine is on /technology/ -->
+    <section id="approach" class="chapter" data-chapter="03">
       <div class="wrap">
         <header class="chap-head">
-          <p class="chap-tag"><b>03</b><span data-i18n="nav.engine">Хөдөлгүүр</span></p>
-          <h2 class="title" data-rv data-i18n="engine.h2">Төрөлжсөн 13 модель.<br>Нэг шийдвэр<span class="pt">.</span></h2>
-          <p class="chap-sub" data-rv data-i18n="models.sub">Модель бүрийг тусад нь сургаж, walk-forward валидаци хийж, Sharpe / Calmar / Drawdown / Return үзүүлэлтээр эрэмбэлдэг.</p>
+          <p class="chap-tag"><b>03</b><span data-i18n="how.tag">Хэрхэн ажилладаг</span></p>
+          <h2 class="title" data-rv data-i18n="how.h2">Зах зээлийн өгөгдлөөс<br>шийдвэр хүртэл<span class="pt">.</span></h2>
+          <p class="chap-sub" data-rv data-i18n="how.sub">Зургаан автомат алхам өглөө бүр, өдөр бүр ижил журмаар ажиллана. Зөн совин ч, мартагдсан стоп ч үгүй.</p>
         </header>
 
-        <!-- 13 MODELS -->
-        <div id="models" class="models" data-rv>
-          <article class="model"><span class="model-n">01</span><h3>UP</h3><p>Directional long-bias classifier. Probabilistic up-move signal across horizons.</p></article>
-          <article class="model"><span class="model-n">02</span><h3>BREAKOUT</h3><p>Range-expansion detector with regime gating and volatility scaling.</p></article>
-          <article class="model"><span class="model-n">03</span><h3>REGRESSION</h3><p>Continuous return forecast — calibrated for portfolio sizing.</p></article>
-          <article class="model"><span class="model-n">04</span><h3>MEAN-REVERT</h3><p>Short-horizon reversion in equities, FX and indexes.</p></article>
-          <article class="model"><span class="model-n">05</span><h3>MOMENTUM</h3><p>Cross-sectional and time-series momentum across universes.</p></article>
-          <article class="model"><span class="model-n">06</span><h3>TREND</h3><p>Persistence model fed by price, volume and macro features.</p></article>
-          <article class="model"><span class="model-n">07</span><h3>VOL-REGIME</h3><p>Volatility state classifier driving leverage and gating.</p></article>
-          <article class="model"><span class="model-n">08</span><h3>NEWS-SENT</h3><p>News &amp; social sentiment encoder for event-driven alpha.</p></article>
-          <article class="model"><span class="model-n">09</span><h3>EARNINGS</h3><p>Pre/post earnings drift with surprise and guidance features.</p></article>
-          <article class="model"><span class="model-n">10</span><h3>MACRO</h3><p>Rates, DXY, credit and liquidity overlay across all assets.</p></article>
-          <article class="model"><span class="model-n">11</span><h3>PAIRS</h3><p>Statistical arbitrage on cointegrated baskets.</p></article>
-          <article class="model"><span class="model-n">12</span><h3>OPTIONS-FLOW</h3><p>Implied-vol &amp; flow signals where derivatives data exists.</p></article>
-          <article class="model model--meta"><span class="model-n">13</span><h3>META-ENSEMBLE</h3><p>Stacking layer that combines the 12 specialists into the production signal.</p><span class="model-tag" data-i18n="models.meta">Продакшн сигнал</span></article>
-        </div>
+        <ol class="steps" data-rv>
+          <li><span class="step-n">01</span><h3 data-i18n="how.1.h">Өгөгдөл</h3><p data-i18n="how.1.p">58 хэрэгслийн үнэ, макро, мэдээ — зургаан эх үүсвэрээс.</p></li>
+          <li><span class="step-n">02</span><h3 data-i18n="how.2.h">Үзүүлэлт</h3><p data-i18n="how.2.p">Зах зээл бүрт 180–270 үзүүлэлт, ирээдүйн мэдээлэл ашиглалгүйгээр.</p></li>
+          <li><span class="step-n">03</span><h3 data-i18n="how.3.h">Модель</h3><p data-i18n="how.3.p">Зах зээл бүрт гурван моделийн баг, огт үзээгүй өгөгдөл дээр сонгогдсон.</p></li>
+          <li><span class="step-n">04</span><h3 data-i18n="how.4.h">Дохио</h3><p data-i18n="how.4.p">Өсөх, буурах эсвэл хүлээх — стоп, зорилтыг орохоос өмнө тогтооно.</p></li>
+          <li><span class="step-n">05</span><h3 data-i18n="how.5.h">Арилжаа</h3><p data-i18n="how.5.p">Виртуал данс болон хоёр IG демо данс дохио бүрийг арилжаална.</p></li>
+          <li><span class="step-n">06</span><h3 data-i18n="how.6.h">Тайлан</h3><p data-i18n="how.6.p">Өглөөний тайлан и-мэйлээр ирж, бүх самбар шинэчлэгдэнэ.</p></li>
+        </ol>
+        <p class="aside-note" data-rv data-i18n="how.note">Улаанбаатарын цагаар 08:00-д өдрийн лаа хаагдахад ажиллагаа эхэлнэ. Тайлан 08:40-д ирнэ.</p>
 
-        <!-- MODEL SELECTION · how a model earns its place -->
-        <div id="selection" class="block">
-          <header class="block-head">
-            <h3 class="subtitle" data-rv data-i18n="select.h3">Модель байр сууриа хэрхэн олж авдаг вэ</h3>
-            <p class="chap-sub" data-rv data-i18n="select.sub">1 000 орчим хувилбарыг сүүлийн 5 жилийн өгөгдөл дээр шалгана. Сонгогдохын тулд модель огт үзээгүй өгөгдөл дээр ялах ёстой.</p>
-          </header>
-          <div class="select" data-rv>
-            <div class="split">
-              <!-- three consecutive spans of the same five years; widths are the real 70 / 20 / 10 split -->
-              <div class="split-bar" role="img" aria-label="Five years of data split in time order: 70% to learn, 20% to test, 10% to prove">
-                <span class="s-learn">70%</span><span class="s-test">20%</span><span class="s-prove">10%</span>
-              </div>
-              <p class="split-axis" data-i18n="split.axis">5 жилийн өгөгдөл, хуучнаас шинэ рүү</p>
-              <ol class="split-key">
-                <li><b>70%</b><h4 data-i18n="split.learn.h">Сурах</h4><p data-i18n="split.learn.p">Моделүүд энэ хэсгээс суралцана.</p></li>
-                <li><b>20%</b><h4 data-i18n="split.test.h">Шалгах</h4><p data-i18n="split.test.p">Алхам алхмаар (walk-forward), нэг жил орчим. Ялагч жилийн хоёр хагаст хоёуланд нь сайжрах ёстой.</p></li>
-                <li><b>10%</b><h4 data-i18n="split.prove.h">Батлах</h4><p data-i18n="split.prove.p">Хамгийн сүүлийн 6 сарыг сургалтад огт оруулахгүй. Сонголт хийсний дараа л үнэлнэ.</p></li>
-              </ol>
-            </div>
-            <aside class="lesson">
-              <span class="label" data-i18n="lesson.k">10-р сарын сургамж</span>
-              <div class="lesson-v">12 / 15</div>
-              <p data-i18n="lesson.p">бүтээгдэхүүнд батлагдсан хуучин модель шинээр сургасан моделиос илүү гарсан. Тиймээс шинэ модель зөвхөн хөндөөгүй өгөгдөл дээр ялвал л хуучныг солино.</p>
-            </aside>
+        <div class="pf-band" data-rv>
+          <div>
+            <span class="label" data-i18n="how.pf.k">Платформ</span>
+            <h3 data-i18n="how.pf.h">Бүгд манай өөрийн судалгааны платформ Brainy дээр ажилладаг.</h3>
+            <p data-i18n="how.pf.p">Харилцагч, түншүүд түүний самбаруудаар өдрийн дохио, виртуал арилжаа, опцион, техникийн шинжилгээг хөтөч дээрээс эсвэл нэг API-аар ашигладаг.</p>
           </div>
-          <p class="aside-note" data-rv data-i18n="team.p">Зургаан фокус зах зээлийн өдрийн дохио бүрийг гурван моделийн баг (LightGBM, логистик регресс, Extra-Trees) эрэмбээр нэгтгэж, калибровк хийж гаргадаг. Илүү өргөн моделийн санг ижил тестээр сургаж, харьцуулдаг.</p>
-        </div>
-
-        <!-- FEATURES -->
-        <div id="features" class="block">
-          <header class="block-head">
-            <h3 class="subtitle" data-rv data-i18n="features.h3">Моделүүд юу хардаг вэ</h3>
-            <p class="chap-sub" data-rv data-i18n="features.sub">Feature-үүдийг үндсэн хэсгүүдэд үүсгэж, модель бар харахаас өмнө нэгтгэдэг.</p>
-          </header>
-          <div class="feats" data-rv>
-            <div class="feat"><span class="tag">PRICE / VOL</span><h4>Microstructure &amp; technicals</h4><p>Multi-timeframe returns, realized vol, order-flow proxies, gap statistics, range expansion and breadth.</p></div>
-            <div class="feat"><span class="tag">FUNDAMENTALS</span><h4>Company &amp; earnings</h4><p>Earnings surprise, guidance deltas, revisions, valuation z-scores, calendar proximity.</p></div>
-            <div class="feat"><span class="tag">MACRO</span><h4>Economic conditions</h4><p>Rates, curve shape, DXY, credit spreads, liquidity and global risk-on/off regime tags.</p></div>
-            <div class="feat"><span class="tag">NEWS</span><h4>News &amp; events</h4><p>Headline embeddings, event tagging, central-bank calendars, geopolitical shock flags.</p></div>
-            <div class="feat"><span class="tag">SENTIMENT</span><h4>Sentiment &amp; flow</h4><p>News sentiment, social signal, options flow, ETF creations/redemptions where available.</p></div>
-            <div class="feat"><span class="tag">CROSS-ASSET</span><h4>Linkages</h4><p>Cross-asset correlations, lead-lag features and basis between spot / futures / CFD.</p></div>
-          </div>
-        </div>
-
-        <!-- ASSETS + live market sessions -->
-        <div id="assets" class="block">
-          <header class="block-head">
-            <h3 class="subtitle" data-rv data-i18n="assets.h3">Хаана ажилладаг вэ</h3>
-            <p class="chap-sub" data-rv data-i18n="assets.sub">АНУ-ын томоохон хувьцаанаас Ази-Номхон далай, крипто мажорс хүртэл — нэг feature пайплайн, нэг эрсдэлийн бүртгэл.</p>
-          </header>
-          <div class="coverage">
-            <div class="markets" data-rv>
-              <div class="market"><h4 data-i18n="assets.us">АНУ-ын хувьцаа</h4><p>S&amp;P 500 and NASDAQ constituents · ETFs · sectors · top indexes.</p></div>
-              <div class="market"><h4 data-i18n="assets.apac">Ази-Номхон далай</h4><p>KRX (Korea), JPX (Japan — TSE / OSE), HKEX (Hong Kong) — equities &amp; indexes.</p></div>
-              <div class="market"><h4>London (LSE)</h4><p>FTSE products, ETPs and listed structured instruments.</p></div>
-              <div class="market"><h4 data-i18n="assets.idx">Индекс ба фьючерс</h4><p>SPX, NDX, DXY, FTSE, Nikkei, HSI, KOSPI — index futures and CFDs.</p></div>
-              <div class="market"><h4 data-i18n="assets.cmd">Түүхий эд</h4><p>Energy, metals and agriculturals — futures &amp; CFD instruments.</p></div>
-              <div class="market"><h4>FX</h4><p>Majors and crosses — G10 plus selected EM pairs.</p></div>
-              <div class="market"><h4 data-i18n="assets.crypto">Крипто мажорс</h4><p>BTC, ETH and top liquid pairs — spot and perpetuals.</p></div>
-              <div class="market"><h4>Leveraged &amp; CFDs</h4><p>Leveraged equity products and contracts-for-difference where licensed.</p></div>
-            </div>
-
-            <!-- session clocks: local time and regular-hours state, computed in the browser by script.js -->
-            <aside class="sessions" data-sessions data-rv>
-              <div class="sessions-head">
-                <span class="label" data-i18n="mkt.title">Хөдөлгүүр нар даган ажилладаг</span>
-                <span class="sessions-utc" data-utc></span>
-              </div>
-              <ul class="sessions-list">
-                <li data-tz="America/New_York" data-hours="570-960">
-                  <i class="mk-dot" aria-hidden="true"></i><span class="mk-city" data-i18n="mkt.nyc">Нью-Йорк</span><span class="mk-venue">NYSE · NASDAQ</span>
-                  <time class="mk-time" data-mk-time>--:--</time><em class="mk-state"><b class="s-open" data-i18n="mkt.open">нээлттэй</b><b class="s-closed" data-i18n="mkt.closed">хаалттай</b></em>
-                </li>
-                <li data-tz="Europe/London" data-hours="480-990">
-                  <i class="mk-dot" aria-hidden="true"></i><span class="mk-city" data-i18n="mkt.lon">Лондон</span><span class="mk-venue">LSE</span>
-                  <time class="mk-time" data-mk-time>--:--</time><em class="mk-state"><b class="s-open" data-i18n="mkt.open">нээлттэй</b><b class="s-closed" data-i18n="mkt.closed">хаалттай</b></em>
-                </li>
-                <li data-tz="Asia/Tokyo" data-hours="540-690,750-930">
-                  <i class="mk-dot" aria-hidden="true"></i><span class="mk-city" data-i18n="mkt.tyo">Токио</span><span class="mk-venue">JPX</span>
-                  <time class="mk-time" data-mk-time>--:--</time><em class="mk-state"><b class="s-open" data-i18n="mkt.open">нээлттэй</b><b class="s-closed" data-i18n="mkt.closed">хаалттай</b></em>
-                </li>
-                <li data-tz="Asia/Seoul" data-hours="540-930">
-                  <i class="mk-dot" aria-hidden="true"></i><span class="mk-city" data-i18n="mkt.sel">Сөүл</span><span class="mk-venue">KRX</span>
-                  <time class="mk-time" data-mk-time>--:--</time><em class="mk-state"><b class="s-open" data-i18n="mkt.open">нээлттэй</b><b class="s-closed" data-i18n="mkt.closed">хаалттай</b></em>
-                </li>
-                <li data-tz="Asia/Hong_Kong" data-hours="570-720,780-960">
-                  <i class="mk-dot" aria-hidden="true"></i><span class="mk-city" data-i18n="mkt.hkg">Хонконг</span><span class="mk-venue">HKEX</span>
-                  <time class="mk-time" data-mk-time>--:--</time><em class="mk-state"><b class="s-open" data-i18n="mkt.open">нээлттэй</b><b class="s-closed" data-i18n="mkt.closed">хаалттай</b></em>
-                </li>
-                <li data-always data-state="open">
-                  <i class="mk-dot" aria-hidden="true"></i><span class="mk-city" data-i18n="mkt.crypto">Крипто</span><span class="mk-venue">BTC · ETH</span>
-                  <time class="mk-time">24 / 7</time><em class="mk-state"><b class="s-open" data-i18n="mkt.open">нээлттэй</b></em>
-                </li>
-              </ul>
-              <p class="sessions-note" data-i18n="mkt.note">Бирж тус бүрийн орон нутгийн цагаар, ердийн арилжааны цаг. Баярын өдрүүдийг тусгаагүй.</p>
-            </aside>
+          <div class="pf-band-ctas">
+            <a class="btn btn-gold" href="/mn/technology/"><b data-i18n="how.more.tech">Технологийн дэлгэрэнгүй</b><i class="arr" aria-hidden="true">→</i></a>
+            <a class="btn btn-line" href="/mn/platform/"><b data-i18n="how.more.pf">Платформтой танилцах</b><i class="arr" aria-hidden="true">→</i></a>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 04 · PIPELINE -->
-    <section id="stack" class="chapter" data-chapter="04" data-nav="engine">
+    <!-- 04 · THE DIFFERENCE · a desk by hand and with DeepBeta (from the 11 Nov 2026 pitch deck) -->
+    <section id="difference" class="chapter" data-chapter="04">
       <div class="wrap">
         <header class="chap-head">
-          <p class="chap-tag"><b>04</b><span data-i18n="nav.pipeline">Пайплайн</span></p>
-          <h2 class="title" data-rv data-i18n="stack.h2">Өглөө бүр<br>40 минутад<span class="pt">.</span></h2>
-          <p class="chap-sub" data-rv data-i18n="stack.lede">Өгөгдлөөс шийдвэр хүртэл — өдөр бүр, автоматаар. Өдрийн лаа хаагдахад эхэлж, и-мэйлээр ирэх тайлангаар дуусна.</p>
+          <p class="chap-tag"><b>04</b><span data-i18n="diff.tag">Ялгаа</span></p>
+          <h2 class="title" data-rv data-i18n="diff.h2">Нотолгоо шийдэхэд<br>өөрчлөгдөх зүйлс<span class="pt">.</span></h2>
+          <p class="chap-sub" data-rv data-i18n="diff.sub">Нэг л арилжааны баг — DeepBeta-г ашиглахаас өмнө ба дараа.</p>
         </header>
 
-        <div class="pf-stats four" data-rv>
-          <div><b>6</b><span data-i18n="glance.markets">зах зээл</span></div>
-          <div><b>18</b><span data-i18n="glance.calls">өдрийн дохио</span></div>
-          <div><b>58</b><span data-i18n="glance.symbols">хэрэгслийн өгөгдөл</span></div>
-          <div><b>40</b><span data-i18n="glance.minutes">минут, эхлэлээс тайлан хүртэл</span></div>
-        </div>
-        <p class="aside-note" data-rv data-i18n="glance.note">Алт, Nasdaq 100, газрын тос (WTI), Bitcoin, Ether, EUR/USD — тус бүр 1, 2, 4 хоногийн дохиотой. EUR/USD 2026 оны 11-р сарын 10-нд нэмэгдсэн бөгөөд доорх үр дүнд ороогүй.</p>
-
-        <!-- the daily clock: times are fixed (the run follows the 00:00 UTC daily candle); script.js adds the live countdown -->
-        <div class="clock" data-clock data-rv>
-          <div class="clock-head">
-            <span class="label" data-i18n="clock.label">Өдрийн хуваарь · Улаанбаатарын цагаар (UTC+8)</span>
-            <span class="clock-now" data-clock-now hidden><i data-i18n="clock.ub">Улаанбаатар</i> <b data-ub-time></b> · <i data-i18n="clock.next">дараагийн ажиллагаа хүртэл</i> <b data-ub-next></b></span>
+        <div class="compare" role="table" aria-label="A trading desk by hand and with DeepBeta" data-rv>
+          <div class="cmp-row cmp-head" role="row">
+            <span role="columnheader" data-i18n="diff.col.k">Чиглэл</span>
+            <span role="columnheader" class="cmp-a" data-i18n="diff.col.a">Гараар</span>
+            <span role="columnheader" class="cmp-b" data-i18n="diff.col.b">DeepBeta-тай</span>
           </div>
-          <ol class="clock-line">
-            <li data-at="0"><time>08:00</time><h4 data-i18n="clock.1.h">Өдрийн лаа хаагдана</h4><p data-i18n="clock.1.p">Зургаан зах зээл бүгд 00:00 UTC-д хаагддаг өдрийн лаа ашигладаг.</p></li>
-            <li data-at="5"><time>08:05</time><h4 data-i18n="clock.2.h">58 хэрэгслийн өгөгдөл шинэчлэгдэнэ</h4><p data-i18n="clock.2.p">Үнэ, макро, мэдээ зургаан эх үүсвэрээс орж ирнэ.</p></li>
-            <li data-at="20"><time>08:20</time><h4 data-i18n="clock.3.h">18 дохио гарна</h4><p data-i18n="clock.3.p">Өсөх, буурах эсвэл хүлээх — стоп ба зорилттой. Виртуал данс шинэчлэгдэнэ.</p></li>
-            <li data-at="25"><time>08:25</time><h4 data-i18n="clock.4.h">Демо дансанд позиц нээгдэнэ</h4><p data-i18n="clock.4.p">Хоёр IG демо данс дохиог хүний оролцоогүйгээр арилжаална.</p></li>
-            <li data-at="40"><time>08:40</time><h4 data-i18n="clock.5.h">Өглөөний тайлан илгээгдэнэ</h4><p data-i18n="clock.5.p">PDF тайлан и-мэйлээр ирнэ. Бүх самбар шинэчлэгдсэн байна.</p></li>
-          </ol>
-        </div>
-
-        <!-- three more pipelines -->
-        <div class="block">
-          <header class="block-head">
-            <h3 class="subtitle" data-rv data-i18n="lanes.h3">Зэрэгцээ ажилладаг өөр гурван пайплайн</h3>
-            <p class="chap-sub" data-rv data-i18n="lanes.sub">Гурвуулаа захиалга өгдөггүй. Зөвлөж, ажиглаж, тайлагнадаг.</p>
-          </header>
-          <div class="feats" data-rv>
-            <div class="feat"><span class="tag" data-i18n="lane.opt.tag">10 МИНУТ ТУТАМ</span><h4 data-i18n="lane.opt.h">Опцион</h4><p data-i18n="lane.opt.p">Deribit-ийн бодит арилжаа, FMP-ийн үнэ дээр 20 000 үнийн хувилбар симуляцилж, Bitcoin, Ether-ийн хугацаа бүрт бодит үнэлгээ болон АВАХ / ЗАРАХ / ХҮЛЭЭХ дүгнэлт гаргана.</p></div>
-            <div class="feat"><span class="tag" data-i18n="lane.ai.tag">ТАСРАЛТГҮЙ</span><h4 data-i18n="lane.ai.h">AI агентууд</h4><p data-i18n="lane.ai.p">13 агент 27 RSS эх сурвалж, мэдээний хайлт, 78 техник индикатор, макро өгөгдөл, криптогийн позицийг уншиж, хөрөнгө бүрт нэг ойлгомжтой дүгнэлт гаргана.</p></div>
-            <div class="feat"><span class="tag" data-i18n="lane.mon.tag">МИНУТ ТУТАМ</span><h4 data-i18n="lane.mon.h">Хяналт</h4><p data-i18n="lane.mon.p">Ажил, сервер бүрийг шалгаж, НОГООН / ШАР / УЛААН гэж үнэлэн самбар болон өглөөний тайланд харуулна.</p></div>
+          <div class="cmp-row" role="row">
+            <span class="cmp-k" role="rowheader" data-i18n="diff.1.k">Шийдвэр</span>
+            <span class="cmp-a" role="cell" data-i18n="diff.1.a">Мэдрэмж, мэдээний шуугиан</span>
+            <span class="cmp-b" role="cell" data-i18n="diff.1.b">5 жилийн өгөгдөл дээр шалгагдсан дүрэм, өглөө бүр 18 дохио</span>
+          </div>
+          <div class="cmp-row" role="row">
+            <span class="cmp-k" role="rowheader" data-i18n="diff.2.k">Хамрах хүрээ</span>
+            <span class="cmp-a" role="cell" data-i18n="diff.2.a">Нэг хүн, хэдэн график</span>
+            <span class="cmp-b" role="cell" data-i18n="diff.2.b">6 зах зээл, тус бүрд 180–270 үзүүлэлт, мэдээ уншдаг 13 AI агент</span>
+          </div>
+          <div class="cmp-row" role="row">
+            <span class="cmp-k" role="rowheader" data-i18n="diff.3.k">Эрсдэл</span>
+            <span class="cmp-a" role="cell" data-i18n="diff.3.a">Тогтворгүй хэмжээ, мартагдсан стоп</span>
+            <span class="cmp-b" role="cell" data-i18n="diff.3.b">Арилжаа бүрт 1% эрсдэл; стоп, зорилтыг орохоос өмнө тогтооно</span>
+          </div>
+          <div class="cmp-row" role="row">
+            <span class="cmp-k" role="rowheader" data-i18n="diff.4.k">Хяналт</span>
+            <span class="cmp-a" role="cell" data-i18n="diff.4.a">Сарын эцэст гараар хийсэн тайлан</span>
+            <span class="cmp-b" role="cell" data-i18n="diff.4.b">Өглөөний тайлан, самбарууд, арилжаа бүр бүртгэлтэй</span>
+          </div>
+          <div class="cmp-row" role="row">
+            <span class="cmp-k" role="rowheader" data-i18n="diff.5.k">Нотолгоо</span>
+            <span class="cmp-a" role="cell" data-i18n="diff.5.a">«Надад итгээрэй»</span>
+            <span class="cmp-b" role="cell" data-i18n="diff.5.b">Багц бүрийг зоос шидсэн 2 000 багцтай харьцуулна: ур чадвар уу, аз уу?</span>
           </div>
         </div>
+      </div>
+    </section>
 
-        <!-- integrations: named as plain text; no logos, no implied partnership -->
-        <div class="block">
-          <header class="block-head">
-            <h3 class="subtitle" data-rv data-i18n="flows.h3">Юу орж ирж, юу гардаг вэ</h3>
-            <p class="chap-sub" data-rv data-i18n="flows.sub">Өгөгдөл, мэдээ орж ирнэ; дунд нь feature ба моделүүд ажиллана; захиалга брокер руу гарна.</p>
-          </header>
-          <div class="flows" data-rv>
-            <div class="flow">
-              <span class="label" data-i18n="flows.data">Зах зээлийн өгөгдөл</span>
-              <ul class="chips"><li>FMP</li><li>Binance</li><li>Deribit</li><li>Yahoo Finance</li><li>FRED</li><li>CryptoCompare</li><li>BLS</li></ul>
-            </div>
-            <div class="flow">
-              <span class="label" data-i18n="flows.news">Мэдээ ба хайлт</span>
-              <ul class="chips"><li>27 RSS feeds</li><li>FMP News</li><li>Google News</li><li>Economic calendar</li></ul>
-            </div>
-            <div class="flow">
-              <span class="label" data-i18n="flows.models">Моделийн сан</span>
-              <ul class="chips"><li>LightGBM</li><li>Logistic regression</li><li>Extra-Trees</li><li>XGBoost</li><li>CatBoost</li><li>HistGB</li><li>Random Forest</li><li>DNN</li><li>RNN · LSTM · GRU</li><li>CNN · TCN</li><li>Transformer</li><li>ROCKET</li><li>TS Forest</li><li>KNN-DTW</li><li>Chronos-Bolt</li><li>FinBERT</li><li>Claude</li><li>HAR volatility</li></ul>
-            </div>
-            <div class="flow">
-              <span class="label" data-i18n="flows.orders">Брокер ба биржүүд</span>
-              <ul class="chips"><li>IG</li><li>MetaTrader 5</li><li>Bybit</li><li>Capital.com</li></ul>
-              <p class="flow-note" data-i18n="flows.note">Эдгээр дөрөвт захиалга илгээх код бэлэн. Одоогоор IG демо данс өдөр бүр арилжаалж байна; Binance, Deribit-ийг зөвхөн өгөгдөлд ашигладаг.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- the architecture underneath -->
-        <header class="block-head block-gap">
-          <h3 class="subtitle" data-rv data-i18n="layers.h3">Суурь архитектур</h3>
-          <p class="chap-sub" data-rv data-i18n="stack.sub">Давхарга бүрийг тусад нь тестлэх, солих боломжтой.</p>
+    <!-- 05 · RESULTS · dated figures from the Brainy record, not live data (the full record is on /results/) -->
+    <section id="record" class="chapter" data-chapter="05">
+      <div class="wrap">
+        <header class="chap-head">
+          <p class="chap-tag"><b>05</b><span data-i18n="nav.results">Үр дүн</span></p>
+          <h2 class="title" data-rv data-i18n="rec.h2">Бидний үгэнд бүү итгээрэй.<br>Бүртгэлийг шалгаарай<span class="pt">.</span></h2>
+          <p class="chap-sub" data-rv data-i18n="ev.sub">2026 оны 11-р сарын 9-ний байдлаар гурвуулаа ашигтай, бүгд арилжаа бүрт 1%-ийн эрсдэлтэй. Эдгээр нь богино хугацааны бүртгэл.</p>
         </header>
-        <ol class="pipe" data-pipe>
-          <li class="pipe-step">
-            <span class="pipe-n">01</span>
-            <h3>Data &amp; Feature layer</h3>
-            <p>Tick / bar / fundamentals / macro / news ingest → versioned feature store with point-in-time correctness.</p>
-          </li>
-          <li class="pipe-step">
-            <span class="pipe-n">02</span>
-            <h3>13 ML models</h3>
-            <p>Specialists trained per family, walk-forward and purged-CV validated.</p>
-          </li>
-          <li class="pipe-step">
-            <span class="pipe-n">03</span>
-            <h3>Decision-making layer</h3>
-            <p>Ensembling, regime gating, signal calibration and conviction scoring.</p>
-          </li>
-          <li class="pipe-step">
-            <span class="pipe-n">04</span>
-            <h3>Strategy layer</h3>
-            <p>Horizon, sizing, holding-period and universe rules — per-asset and portfolio.</p>
-          </li>
-          <li class="pipe-step">
-            <span class="pipe-n">05</span>
-            <h3>Risk management</h3>
-            <p>Organization-specific constrained RM (mandate / exposure / liquidity caps) plus standard RM (VaR, drawdown, vol-target, correlation, stress).</p>
-          </li>
-          <li class="pipe-step">
-            <span class="pipe-n">06</span>
-            <h3>Execution layer</h3>
-            <p>SOTA execution with adaptive scheduling, slippage modeling, smart routing and venue selection.</p>
-          </li>
-          <li class="pipe-step">
-            <span class="pipe-n">07</span>
-            <h3>Mitigation &amp; monitoring</h3>
-            <p>Live drift detection, kill-switches, circuit breakers and post-trade attribution.</p>
+
+        <div class="res-grid" data-rv>
+          <div class="res">
+            <span class="label" data-i18n="res.real.k">Бодит мөнгө · алт</span>
+            <div class="res-v">+10.97%</div>
+            <p data-i18n="res.real.p">Бодит мөнгөтэй IG данс дээрх алт, 2026 оны 7-р сарын 8-наас: 62 арилжаа, 67.7% нь ашигтай, хамгийн их уналт −3.32%.</p>
+            <p class="res-m" data-i18n="res.real.m">Про-форма: 9 удаагийн мөнгө оруулалтыг хасч, арилжаа бүрийн үр дүнг тогтмол суурь хөрөнгөд тооцсон.</p>
+          </div>
+          <div class="res">
+            <span class="label" data-i18n="res.demo.k">IG демо данс</span>
+            <div class="res-v">+7.9%</div>
+            <p data-i18n="res.demo.p">Хоёр демо данс 2026 оны 10-р сарын 16-наас дохио бүрийг хүний оролцоогүйгээр арилжаалсан: 123 арилжаа, 64% нь ашигтай, ашиг ÷ алдагдал 1.66.</p>
+            <p class="res-m" data-i18n="res.demo.m">Бодит брокер дээрх виртуал мөнгө; санхүүжилт ба шимтгэлийн дараах дүн.</p>
+          </div>
+          <div class="res">
+            <span class="label" data-i18n="res.paper.k">Виртуал данс</span>
+            <div class="res-v">+15.5%</div>
+            <p data-i18n="res.paper.p">2026 оны 9-р сарын 27-ноос бодит цагт бүртгэсэн: 86 арилжаа, 66% нь ашигтай, хамгийн их уналт −4.3%.</p>
+            <p class="res-m" data-i18n="res.paper.m">6-р сарын 1-нээс хойшхи бүх багц +25.4%, гэхдээ 6–9 сарыг хожим дахин тоглуулсан.</p>
+          </div>
+        </div>
+        <ol class="facts">
+          <li data-rv>
+            <span class="fact-v">98%</span>
+            <h3 data-i18n="fact.2.h">Одоогоор азаас илүү</h3>
+            <p data-i18n="fact.2.p">2026 оны 10-р сарын 6-наас бодит цагт нээсэн виртуал дансны 67 арилжаа зоос шидсэн 2 000 дансны 98%-аас илүү гарсан.</p>
           </li>
         </ol>
-      </div>
-    </section>
-
-    <!-- 05 · PROOF · focus 5 paper book -->
-    <section id="performance" class="chapter" data-chapter="05">
-      <div class="wrap">
-        <header class="chap-head">
-          <p class="chap-tag"><b>05</b><span data-i18n="nav.proof">Нотолгоо</span></p>
-          <h2 class="title" data-rv data-i18n="perf.h2">Бидний үгэнд бүү итгээрэй.<br>Багцыг өөрөө үзээрэй<span class="pt">.</span></h2>
-          <p class="chap-sub" data-rv data-i18n="proof.sub">Түүхэн өгөгдөл дээр шалгасан, демо дансаар баталсан, өдөр бүр хянадаг. Доорх тоо бүр огноо, хязгаарлалттайгаа хамт байна.</p>
-        </header>
-
-        <!-- the four steps to real money -->
-        <ol class="pf-steps four ladder">
-          <li class="pf-step" data-rv>
-            <span class="step">01</span>
-            <h3 data-i18n="ladder.1.h">Бэктест</h3>
-            <p data-i18n="ladder.1.p">5 жилийн өгөгдөл дээр walk-forward аргаар.</p>
-          </li>
-          <li class="pf-step" data-rv style="--d:1">
-            <span class="step">02</span>
-            <h3 data-i18n="ladder.2.h">Виртуал данс</h3>
-            <p data-i18n="ladder.2.p">Симуляцийн багц, 2026 оны 9-р сарын 27-ноос бодит цагт бүртгэж байна.</p>
-          </li>
-          <li class="pf-step" data-rv style="--d:2">
-            <span class="step">03</span>
-            <h3 data-i18n="ladder.3.h">IG демо данс</h3>
-            <p data-i18n="ladder.3.p">Хоёр данс 2026 оны 10-р сарын 16-наас хүний оролцоогүйгээр арилжаалж байна.</p>
-          </li>
-          <li class="pf-step is-locked" data-rv style="--d:3">
-            <span class="step">04<svg viewBox="0 0 16 16" width="13" height="13" aria-hidden="true"><path d="M4.5 7V5a3.5 3.5 0 0 1 7 0v2M3 7h10v7H3z" fill="none" stroke="currentColor" stroke-width="1.4"/></svg></span>
-            <h3 data-i18n="ladder.4.h">Бодит данс</h3>
-            <p data-i18n="ladder.4.p">Зөвхөн арилжаа тус бүрт өгсөн тодорхой тушаалаар. Дөрвөн бие даасан түгжээ роботыг бодит мөнгөнд хүргэхгүй.</p>
-          </li>
-        </ol>
-        <p class="aside-note" data-rv data-i18n="ladder.note">Бодит мөнгө хамгийн сүүлд: модель бүр энэ дөрвөн шатаар өгсөнө.</p>
-
-        <!-- checked every day -->
-        <div class="block">
-          <header class="block-head">
-            <h3 class="subtitle" data-rv data-i18n="checks.h3">Сонгосон модель ч өдөр бүр шалгагдана</h3>
-          </header>
-          <ol class="facts">
-            <li data-rv>
-              <span class="fact-v">1%</span>
-              <h4 data-i18n="check.1.h">Эрсдэл эхэнд</h4>
-              <p data-i18n="check.1.p">Позиц бүрийг стопдоо хүрвэл дансны 1% орчмыг алдахаар хэмждэг бөгөөд зорилт нь стопоос 2 дахин. Стоп баталгаатай биш тул үнийн үсрэлт илүү алдагдал авчирч болно.</p>
-            </li>
-            <li data-rv>
-              <span class="fact-v">63</span>
-              <h4 data-i18n="check.2.h">Өдөр тутмын шалгуур</h4>
-              <p data-i18n="check.2.p">Модель бүрийн сүүлийн 63 дохиог тестийн үр дүнтэй харьцуулна. Зөв таасан хувь медианаас доош бол ШАР, хэт доош бол УЛААН болно.</p>
-            </li>
-            <li data-rv>
-              <span class="fact-v">2,000</span>
-              <h4 data-i18n="check.3.h">Зоос шидэлтийн тест</h4>
-              <p data-i18n="check.3.p">Данс бүрийг цаг хугацаа, хэмжээ, стоп, зардал нь ижил боловч чиглэлийг зоос шидэж сонгосон 2 000 данстай харьцуулна. Ур чадвар уу, аз уу?</p>
-            </li>
-          </ol>
-        </div>
-
-        <!-- results by kind of account · dated figures from the Brainy record, not live data -->
-        <div id="evidence" class="block">
-          <header class="block-head">
-            <h3 class="subtitle" data-rv data-i18n="ev.h3">Нэг хөдөлгүүр, гурван төрлийн данс</h3>
-            <p class="chap-sub" data-rv data-i18n="ev.sub">2026 оны 11-р сарын 9-ний байдлаар гурвуулаа ашигтай, бүгд арилжаа бүрт 1%-ийн эрсдэлтэй. Эдгээр нь богино хугацааны бүртгэл.</p>
-          </header>
-          <div class="res-grid" data-rv>
-            <div class="res">
-              <span class="label" data-i18n="res.real.k">Бодит мөнгө · алт</span>
-              <div class="res-v">+10.97%</div>
-              <p data-i18n="res.real.p">Бодит мөнгөтэй IG данс дээрх алт, 2026 оны 7-р сарын 8-наас: 62 арилжаа, 67.7% нь ашигтай, хамгийн их уналт −3.32%.</p>
-              <p class="res-m" data-i18n="res.real.m">Про-форма: 9 удаагийн мөнгө оруулалтыг хасч, арилжаа бүрийн үр дүнг тогтмол суурь хөрөнгөд тооцсон.</p>
-            </div>
-            <div class="res">
-              <span class="label" data-i18n="res.demo.k">IG демо данс</span>
-              <div class="res-v">+7.9%</div>
-              <p data-i18n="res.demo.p">Хоёр демо данс 2026 оны 10-р сарын 16-наас дохио бүрийг хүний оролцоогүйгээр арилжаалсан: 123 арилжаа, 64% нь ашигтай, ашиг ÷ алдагдал 1.66.</p>
-              <p class="res-m" data-i18n="res.demo.m">Бодит брокер дээрх виртуал мөнгө; санхүүжилт ба шимтгэлийн дараах дүн.</p>
-            </div>
-            <div class="res">
-              <span class="label" data-i18n="res.paper.k">Виртуал данс</span>
-              <div class="res-v">+15.5%</div>
-              <p data-i18n="res.paper.p">2026 оны 9-р сарын 27-ноос бодит цагт бүртгэсэн: 86 арилжаа, 66% нь ашигтай, хамгийн их уналт −4.3%.</p>
-              <p class="res-m" data-i18n="res.paper.m">6-р сарын 1-нээс хойшхи бүх багц +25.4%, гэхдээ 6–9 сарыг хожим дахин тоглуулсан.</p>
-            </div>
-          </div>
-          <ol class="facts">
-            <li data-rv>
-              <span class="fact-v">60 / 60</span>
-              <h4 data-i18n="fact.1.h">Симуляци брокертой таарч байна</h4>
-              <p data-i18n="fact.1.p">Демо данс ба виртуал данс хоёулаа арилжсан 60 дохионд үр дүнгийн тэмдэг 60-уулаа ижил, зөрүү нь арилжаа бүрт 0.10R дотор байв.</p>
-            </li>
-            <li data-rv>
-              <span class="fact-v">98%</span>
-              <h4 data-i18n="fact.2.h">Одоогоор азаас илүү</h4>
-              <p data-i18n="fact.2.p">2026 оны 10-р сарын 6-наас бодит цагт нээсэн виртуал дансны 67 арилжаа зоос шидсэн 2 000 дансны 98%-аас илүү гарсан.</p>
-            </li>
-            <li data-rv>
-              <span class="fact-v">64 · 65%</span>
-              <h4 data-i18n="fact.3.h">Гүйцэтгэл тогтвортой</h4>
-              <p data-i18n="fact.3.p">Ижил дохио авсан хоёр демо данс арилжааныхаа 64% ба 65%-д ашигтай гарсан. Энэ нь автоматжуулалт найдвартайг харуулна; давуу талын хоёр дахь нотолгоо биш.</p>
-            </li>
-          </ol>
-        </div>
-
-        <header class="block-head block-gap stacked">
-          <h3 class="subtitle" data-rv data-i18n="book.h3">Виртуал дансны бүрэн бүртгэл</h3>
-          <p class="chap-sub" data-rv data-i18n="perf.sub">Манай таван фокус бүтээгдэхүүн — GOLD, NAS100, WTI, BTCUSD, ETHUSD-ийн 1, 2, 4 өдрийн хугацаат сигнал бүрийг $100K-ийн загвар (paper) багц дээр шууд 15 минутын үнэ, спред, санхүүжилтийн зардлыг тооцон арилжсан. Энэ нь бодит данс биш, загвар арилжаа — өнгөрсөн гүйцэтгэл ирээдүйн үр дүнг баталгаажуулахгүй.</p>
-        </header>
-
-        <!-- Paper Desk book of the focus 5 — filled by script.js from data/focus-book.json -->
-        <div class="book is-loading" data-book-root>
-          <p class="book-note" data-book="note"></p>
-          <div class="kpi-grid" data-book="kpis"></div>
-
-          <div class="book-grid">
-            <div class="book-card book-chart">
-              <div class="bc-head">
-                <h3 class="bc-title">EQUITY</h3>
-                <div class="seg" role="group" aria-label="Chart view" data-book="view">
-                  <button type="button" data-view="book" class="active" aria-pressed="true">book</button>
-                  <button type="button" data-view="assets" aria-pressed="false">by asset</button>
-                </div>
-                <div class="seg" role="group" aria-label="Resolution" data-book="res">
-                  <button type="button" data-res="1h" aria-pressed="false">1h</button>
-                  <button type="button" data-res="4h" class="active" aria-pressed="true">4h</button>
-                  <button type="button" data-res="1d" aria-pressed="false">1d</button>
-                </div>
-                <a class="btn btn-line btn-sm bc-cta" href="https://brainy.deepbeta.mn/paperdesk/" target="_blank" rel="noopener" data-i18n="perf.cta">Paper desk нээх ↗</a>
-              </div>
-              <div class="bc-legend" data-book="legend"></div>
-              <div class="bc-plot" data-book="plot" tabindex="0" role="group"
-                   aria-label="Paper book equity, drawdown and exposure over time. Use the left and right arrow keys to step through time."></div>
-              <div class="bc-months" data-book="months"></div>
-            </div>
-
-            <aside class="book-side">
-              <div class="book-card">
-                <h3 class="side-title">FOCUS 5 <span class="muted">· P&amp;L by asset</span></h3>
-                <ul class="asset-list" data-book="assets"></ul>
-              </div>
-              <div class="book-card">
-                <h3 class="side-title">EDGE VS COIN-FLIP</h3>
-                <div data-book="coinflip"></div>
-              </div>
-            </aside>
-          </div>
-          <p class="book-empty muted small" hidden>Paper book data is unavailable right now — open the paper desk on Brainy for the live book.</p>
+        <div class="more" data-rv>
+          <a class="btn btn-gold" href="/mn/results/"><b data-i18n="rec.more">Бүрэн бүртгэлийг үзэх</b><i class="arr" aria-hidden="true">→</i></a>
+          <p class="aside-note" data-i18n="rec.note">Виртуал болон демо дансны үр дүн симуляци юм. Өнгөрсөн үр дүн ирээдүйн үр дүнг баталгаажуулахгүй.</p>
         </div>
       </div>
     </section>
 
-    <!-- 06 · BRAINY PLATFORM · desks, access instructions and the endpoint catalogue -->
-    <section id="platform" class="chapter" data-chapter="06">
+    <!-- 06 · FOUNDER -->
+    <section id="founder" class="chapter" data-chapter="06">
       <div class="wrap">
         <header class="chap-head">
-          <p class="chap-tag"><b>06</b><span data-i18n="nav.platform">Платформ</span></p>
-          <h2 class="title" data-rv data-i18n="platform.h2">Бүх desk.<br>Бүх endpoint.<br>Нэг түлхүүр<span class="pt">.</span></h2>
-          <p class="chap-sub" data-rv data-i18n="platform.sub">Нэг нэвтрэх түлхүүрээр арван гурван desk, үйлчилгээ. Desk-ээ хөтөч дээр нээх эсвэл JSON API-г өөрийн кодоос дуудаарай — бүх route-ыг доор ажиллах жишээ холбоосын хамт жагсаав.</p>
+          <p class="chap-tag"><b>06</b><span data-i18n="nav.founder">Үүсгэн байгуулагч</span></p>
+          <h2 class="title" data-rv data-i18n="lead.h2">Моделиудыг бүтээдэг<br>хүн удирддаг<span class="pt">.</span></h2>
         </header>
 
-        <div class="pf-stats" data-rv>
-          <div><b>13</b><span data-i18n="platform.desks">desk ба үйлчилгээ</span></div>
-          <div><b data-pf="total">159</b><span data-i18n="platform.eps">баримтжуулсан API route</span></div>
-          <div><b>1</b><span data-i18n="platform.key">нэвтрэх түлхүүр</span></div>
-        </div>
-
-        <!-- how to connect -->
-        <ol class="pf-steps">
-          <li class="pf-step" data-rv>
-            <span class="step">01</span>
-            <h3 data-i18n="platform.s1h">Нэвтрэх түлхүүр авах</h3>
-            <p data-i18n="platform.s1p">Brainy бол хаалттай платформ. Харилцагч, түншүүд түлхүүрээ <a href="mailto:nyam-ochir@deepbeta.mn">nyam-ochir@deepbeta.mn</a>-ээс авна. Хөрөнгө оруулагчийн түлхүүр зөвхөн investor порталыг (<code>/investor/*</code>) нээнэ.</p>
-          </li>
-          <li class="pf-step" data-rv style="--d:1">
-            <span class="step">02</span>
-            <h3 data-i18n="platform.s2h">Хөтөч дээр</h3>
-            <p data-i18n="platform.s2p">Доорх desk эсвэл endpoint-ийн холбоосыг нээнэ үү. Анх орохад нэвтрэх маягт гарна; түлхүүрээ нэг удаа оруулахад тухайн host дээр 24 цагийн турш нэвтэрсэн хэвээр байна.</p>
-          </li>
-          <li class="pf-step" data-rv style="--d:2">
-            <span class="step">03</span>
-            <h3 data-i18n="platform.s3h">Кодоос</h3>
-            <p data-i18n="platform.s3p">Түлхүүрээ <code>X-Access-Key</code> header-ээр илгээнэ. Нэг удаагийн curl мөрөнд <code>?access_key=</code>, хуучин хэрэгслүүдэд HTTP Basic (дурын хэрэглэгчийн нэр, нууц үг нь түлхүүр) мөн ажиллана. <code>/health</code> нээлттэй.</p>
-          </li>
-        </ol>
-
-        <div class="pf-code book-card">
-          <div class="bc-head">
-            <h3 class="bc-title">QUICK START</h3>
-            <div class="seg" role="group" aria-label="Example language" data-pf="lang">
-              <button type="button" data-lang-code="curl" class="active" aria-pressed="true">curl</button>
-              <button type="button" data-lang-code="python" aria-pressed="false">Python</button>
-              <button type="button" data-lang-code="node" aria-pressed="false">Node.js</button>
-            </div>
-            <button type="button" class="btn btn-line btn-sm pf-copy" data-pf="copy-snippet">copy</button>
-          </div>
-<pre class="pf-pre" data-code="curl"><code>export BRAINY_KEY=…   # your access key: keep it in the environment, never in code
-
-# the paper book behind the performance chart above
-curl -H "X-Access-Key: $BRAINY_KEY" https://brainy.deepbeta.mn/paperdesk/api/overview
-
-# today's model call for one asset, with backtest-aligned TP / SL
-curl -H "X-Access-Key: $BRAINY_KEY" https://brainy.deepbeta.mn/api/inference/GOLD
-
-# the technical desk's full read of one asset
-curl -H "X-Access-Key: $BRAINY_KEY" https://technical.deepbeta.mn/api/asset/GOLD
-
-# health of every agent, service, job and pipeline
-curl -H "X-Access-Key: $BRAINY_KEY" https://agents.deepbeta.mn/api/agents
-
-# live updates as server-sent events (-N: don't buffer)
-curl -N -H "X-Access-Key: $BRAINY_KEY" https://technical.deepbeta.mn/api/stream</code></pre>
-<pre class="pf-pre" data-code="python" hidden><code>import os
-import requests
-
-s = requests.Session()
-s.headers["X-Access-Key"] = os.environ["BRAINY_KEY"]   # never hard-code the key
-
-book = s.get("https://brainy.deepbeta.mn/paperdesk/api/overview", timeout=60).json()
-print(book["equity"]["equity"], book["equity"]["return_pct"])
-
-call = s.get("https://brainy.deepbeta.mn/api/inference/GOLD", timeout=60).json()
-tech = s.get("https://technical.deepbeta.mn/api/asset/GOLD", timeout=60).json()</code></pre>
-<pre class="pf-pre" data-code="node" hidden><code>// Node 18+, server side only: never ship the key to a browser
-const headers = { 'X-Access-Key': process.env.BRAINY_KEY };
-
-const book = await (await fetch('https://brainy.deepbeta.mn/paperdesk/api/overview', { headers })).json();
-console.log(book.equity.equity, book.equity.return_pct);
-
-const call = await (await fetch('https://brainy.deepbeta.mn/api/inference/GOLD', { headers })).json();
-const tech = await (await fetch('https://technical.deepbeta.mn/api/asset/GOLD', { headers })).json();</code></pre>
-          <ul class="pf-notes">
-            <li data-i18n="platform.n1"><b>Path параметрүүд</b> <code>{ }</code> хаалтанд байна. Фокус desk-үүд <code>GOLD</code>, <code>NAS100</code>, <code>WTI</code>, <code>BTCUSD</code>, <code>ETHUSD</code>-г авна; dashboard нь <code>/dashboard/assets</code>-д жагсаасан бүх universe-ийг хамарна.</li>
-            <li data-i18n="platform.n2"><span class="ep-x">compute</span> route нь хүсэлт ирэхэд бэктест эсвэл sweep ажиллуулдаг тул нэг минут хүртэл үргэлжилж болно. <span class="ep-x">stream</span> route нь server-sent event дамжуулна. <span class="ep-x">file</span> route нь CSV / XLSX файл татна.</li>
-            <li data-i18n="platform.n3"><b>POST</b> route-ууд төлөв өөрчилнө (демо захиалга, сургалтын ажил, desk-ийн ажиллагаа). Санаатайгаар ашиглаарай.</li>
-            <li data-i18n="platform.n4"><b>Interactive docs:</b> <a href="https://brainy.deepbeta.mn/docs" target="_blank" rel="noopener">Swagger</a> · <a href="https://brainy.deepbeta.mn/redoc" target="_blank" rel="noopener">ReDoc</a> · <a href="https://brainy.deepbeta.mn/api/inference/schema" target="_blank" rel="noopener">inference row schema</a> · <a href="https://technical.deepbeta.mn/api/docs" target="_blank" rel="noopener">technical desk</a> · <a href="https://brainy.deepbeta.mn/livedash/docs" target="_blank" rel="noopener">live dashboard</a> · <a href="https://brainy.deepbeta.mn/train/docs" target="_blank" rel="noopener">training GUI</a>.</li>
-          </ul>
-        </div>
-
-        <!-- desk directory: endpoint counts and lists are filled by script.js from data/brainy-platform.json -->
-        <div class="svc-grid" data-pf="services">
-          <article class="svc" data-svc="brainy">
-            <div class="svc-top"><span class="svc-tag">CORE</span><span class="svc-host">brainy.deepbeta.mn</span></div>
-            <h3>Brainy dashboard</h3>
-            <p>Monitoring, backtests, model rankings, predictions and live inference across the full asset universe.</p>
-            <div class="svc-links">
-              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/" target="_blank" rel="noopener">Open ↗</a>
-              <a href="https://brainy.deepbeta.mn/docs" target="_blank" rel="noopener">API docs ↗</a>
-              <button type="button" class="svc-eps" data-show="brainy" hidden></button>
-            </div>
-          </article>
-          <article class="svc" data-svc="paperdesk">
-            <div class="svc-top"><span class="svc-tag">TRADING</span><span class="svc-host">brainy.deepbeta.mn/paperdesk</span></div>
-            <h3>Paper Desk</h3>
-            <p>Simulated live book of the five focus products, and the source of the performance chart above: equity, tickets, journal, what-if and risk tracks.</p>
-            <div class="svc-links">
-              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/paperdesk/" target="_blank" rel="noopener">Open ↗</a>
-              <button type="button" class="svc-eps" data-show="paperdesk" hidden></button>
-            </div>
-          </article>
-          <article class="svc" data-svc="tradingview">
-            <div class="svc-top"><span class="svc-tag">CHARTS</span><span class="svc-host">brainy.deepbeta.mn/tradingview</span></div>
-            <h3>Live chart · TradingView</h3>
-            <p>TradingView lightweight-charts view of the focus products with paper-book, backtest and IG tickets and the newest model calls.</p>
-            <div class="svc-links">
-              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/tradingview/" target="_blank" rel="noopener">Open ↗</a>
-              <button type="button" class="svc-eps" data-show="tradingview" hidden></button>
-            </div>
-          </article>
-          <article class="svc" data-svc="technical">
-            <div class="svc-top"><span class="svc-tag">RESEARCH</span><span class="svc-host">technical.deepbeta.mn</span></div>
-            <h3>Technical desk</h3>
-            <p>Indicator consensus, the indicator lab, news, sentiment, macro and crypto-derivatives reads for the focus products, run by the desk's agents.</p>
-            <div class="svc-links">
-              <span class="svc-more"><a href="https://technical.deepbeta.mn/api/docs" target="_blank" rel="noopener">API docs ↗</a></span>
-              <a class="btn btn-line btn-sm" href="https://technical.deepbeta.mn/" target="_blank" rel="noopener">Open ↗</a>
-              <button type="button" class="svc-eps" data-show="technical" hidden></button>
-            </div>
-          </article>
-          <article class="svc" data-svc="agents">
-            <div class="svc-top"><span class="svc-tag">OPERATIONS</span><span class="svc-host">agents.deepbeta.mn</span></div>
-            <h3>Agents board</h3>
-            <p>Health of every agent, service, scheduled job, daemon and pipeline on the platform, with a live activity feed.</p>
-            <div class="svc-links">
-              <a class="btn btn-line btn-sm" href="https://agents.deepbeta.mn/" target="_blank" rel="noopener">Open ↗</a>
-              <button type="button" class="svc-eps" data-show="agents" hidden></button>
-            </div>
-          </article>
-          <article class="svc" data-svc="igtrading">
-            <div class="svc-top"><span class="svc-tag">TRADING</span><span class="svc-host">brainy.deepbeta.mn/ig-trading</span></div>
-            <h3>IG trading</h3>
-            <p>IG demo accounts: holdings, close schedule, performance, venues, the insights pipeline and the daily digest, plus the demo order API.</p>
-            <div class="svc-links">
-              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/ig-trading/" target="_blank" rel="noopener">Open ↗</a>
-              <button type="button" class="svc-eps" data-show="igtrading" hidden></button>
-            </div>
-          </article>
-          <article class="svc" data-svc="options">
-            <div class="svc-top"><span class="svc-tag">RESEARCH</span><span class="svc-host">options.deepbeta.mn</span></div>
-            <h3>Options desk</h3>
-            <p>Crypto options read: squeeze and next move, direction lean, cheap-premium watch, desk calls, term structure and a live signal feed.</p>
-            <div class="svc-links">
-              <a class="btn btn-line btn-sm" href="https://options.deepbeta.mn/" target="_blank" rel="noopener">Open ↗</a>
-              <button type="button" class="svc-eps" data-show="options" hidden></button>
-            </div>
-          </article>
-          <article class="svc" data-svc="focus">
-            <div class="svc-top"><span class="svc-tag">MODELS</span><span class="svc-host">brainy.deepbeta.mn/focus1d</span></div>
-            <h3>Focus products</h3>
-            <p>Train, infer, version and promote the focus products; the 1d / 2d / 4d horizons side by side; the focus dashboard and report.</p>
-            <div class="svc-links">
-              <span class="svc-more"><a href="https://brainy.deepbeta.mn/focus1d/horizons" target="_blank" rel="noopener">horizons ↗</a> <a href="https://brainy.deepbeta.mn/focus_dashboard" target="_blank" rel="noopener">dashboard ↗</a></span>
-              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/focus1d/" target="_blank" rel="noopener">Open ↗</a>
-              <button type="button" class="svc-eps" data-show="focus" hidden></button>
-            </div>
-          </article>
-          <article class="svc" data-svc="investor">
-            <div class="svc-top"><span class="svc-tag">CLIENTS</span><span class="svc-host">brainy.deepbeta.mn/investor</span></div>
-            <h3>Investor portal</h3>
-            <p>Read-only scorecards, best models, backtests and portfolio growth. The only area an investor key opens.</p>
-            <div class="svc-links">
-              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/investor/" target="_blank" rel="noopener">Open ↗</a>
-              <button type="button" class="svc-eps" data-show="investor" hidden></button>
-            </div>
-          </article>
-          <article class="svc" data-svc="livedash">
-            <div class="svc-top"><span class="svc-tag">TRADING</span><span class="svc-host">brainy.deepbeta.mn/livedash</span></div>
-            <h3>Live dashboard</h3>
-            <p>Real-time snapshot of the live accounts: equity, positions, pending orders, divergences and the trading journal.</p>
-            <div class="svc-links">
-              <span class="svc-more"><a href="https://brainy.deepbeta.mn/livedash/docs" target="_blank" rel="noopener">API docs ↗</a></span>
-              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/livedash/" target="_blank" rel="noopener">Open ↗</a>
-              <button type="button" class="svc-eps" data-show="livedash" hidden></button>
-            </div>
-          </article>
-          <article class="svc" data-svc="train">
-            <div class="svc-top"><span class="svc-tag">MODELS</span><span class="svc-host">brainy.deepbeta.mn/train</span></div>
-            <h3>Training GUI</h3>
-            <p>Train, backtest, compare and finalise model configurations, and manage the best-per-ticker table.</p>
-            <div class="svc-links">
-              <span class="svc-more"><a href="https://brainy.deepbeta.mn/train/docs" target="_blank" rel="noopener">API docs ↗</a></span>
-              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/train/" target="_blank" rel="noopener">Open ↗</a>
-              <button type="button" class="svc-eps" data-show="train" hidden></button>
-            </div>
-          </article>
-          <article class="svc" data-svc="monitoring">
-            <div class="svc-top"><span class="svc-tag">OPERATIONS</span><span class="svc-host">brainy.deepbeta.mn/monitoring</span></div>
-            <h3>Server monitor</h3>
-            <p>Traffic, latency, failures, security rejections, pipeline freshness and host resources.</p>
-            <div class="svc-links">
-              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/monitoring/" target="_blank" rel="noopener">Open ↗</a>
-              <button type="button" class="svc-eps" data-show="monitoring" hidden></button>
-            </div>
-          </article>
-          <article class="svc" data-svc="mlflow">
-            <div class="svc-top"><span class="svc-tag">MODELS</span><span class="svc-host">brainy.deepbeta.mn/mlflow</span></div>
-            <h3>MLflow</h3>
-            <p>Experiment tracking for every training run, with the standard MLflow REST API.</p>
-            <div class="svc-links">
-              <a class="btn btn-line btn-sm" href="https://brainy.deepbeta.mn/mlflow/" target="_blank" rel="noopener">Open ↗</a>
-              <button type="button" class="svc-eps" data-show="mlflow" hidden></button>
-            </div>
-          </article>
-        </div>
-
-        <!-- endpoint explorer: filled by script.js from data/brainy-platform.json -->
-        <div class="ep book-card" data-pf="explorer" hidden>
-          <div class="bc-head ep-bar">
-            <h3 class="bc-title">ENDPOINTS</h3>
-            <label class="ep-search">
-              <span class="sr-only">Filter endpoints</span>
-              <input type="search" data-pf="q" placeholder="Filter by path or words…" autocomplete="off" spellcheck="false" />
-            </label>
-            <select data-pf="svc" aria-label="Desk"><option value="">all desks</option></select>
-            <div class="seg" role="group" aria-label="Method" data-pf="method">
-              <button type="button" data-m="" class="active" aria-pressed="true">all</button>
-              <button type="button" data-m="GET" aria-pressed="false">GET</button>
-              <button type="button" data-m="POST" aria-pressed="false">POST</button>
-            </div>
-            <span class="ep-count muted small" data-pf="count" aria-live="polite"></span>
-          </div>
-          <div class="ep-list" data-pf="list"></div>
-          <p class="ep-foot muted small" data-pf="foot"></p>
-        </div>
-      </div>
-    </section>
-
-    <!-- 07 · THE FIRM -->
-    <section id="firm" class="chapter" data-chapter="07">
-      <div class="wrap">
-        <header class="chap-head">
-          <p class="chap-tag"><b>07</b><span data-i18n="nav.firm">Компани</span></p>
-          <h2 class="title" data-rv data-i18n="firm.h2">Бид технологи зардаг.<br>Амлалт биш<span class="pt">.</span></h2>
-        </header>
-
-        <div class="firm-grid">
-          <div id="research" class="firm-about" data-rv>
-            <h3 class="label">Deep Beta Technology LLC</h3>
-            <p class="firm-lead" data-i18n="firm.p">Deep Beta Technology LLC нь байгууллагуудад дэвшилтэт аналитик, санхүүгийн бүтээгдэхүүний бэктест, AI шийдлүүдийг хүргэдэг технологийн компани юм. Манай үйлчилгээ Treasury буюу мөнгөн хөрөнгийн удирдлага, байгууллагын AI шийдлүүд, квант ML ба AI алгоритмын арилжааг хамардаг. Судалгаа, эрсдэл, гүйцэтгэлийн стек нь глобал кросс-ассет зах зээлд зориулсан 13 моделийн machine-learning хөдөлгүүртэй, дотоод "Brainy" платформ дээр бүрэн ажилладаг.</p>
-            <p class="firm-model" data-i18n="firm.model">Бид зөвхөн технологийн нийлүүлэгчийн хувиар ажилладаг: үйлчлүүлэгчид манай шийдэл, үйлчилгээ, квант моделүүдийг лицензийн төлбөрөөр ашигладаг. Бид үйлчлүүлэгчийн данс, хөрөнгийг хэзээ ч кастодид (custody) авдаггүй, ашиг хуваадаггүй.</p>
-          </div>
-          <aside class="founder" data-rv style="--d:1">
-            <h3 class="label" data-i18n="founder.h3">Үүсгэн байгуулагч</h3>
+        <div class="lead-grid">
+          <aside class="founder" data-rv>
             <p class="founder-name" data-i18n="founder.p"><b>Ням-Очир Болд (Nyam-Ochir Bold)</b> Deep Beta Technology LLC-г удирдаж буй квант судлаач, инженер.</p>
             <p class="muted small" data-i18n="founder.note">Deep Beta-г үүсгэн байгуулахаас өмнө Ням-Очир гадаад квант хөрөнгө оруулалтын байгууллагуудтай хамтран ажиллаж, хувьцаа, түүхий эд, форекс, дериватив, опционы зах зээлд өндөр гүйцэтгэлтэй ML стратеги, иж бүрэн бэктест хөгжүүлж байсан. Эдгээр нь үүсгэн байгуулагчийн хувийн хамтын ажиллагаа бөгөөд Deep Beta Technology LLC-ийн түншлэл биш.</p>
             <ul class="links">
@@ -931,67 +427,36 @@ const tech = await (await fetch('https://technical.deepbeta.mn/api/asset/GOLD', 
               <li><a href="https://www.upwork.com/fl/nyamochirbold" target="_blank" rel="noopener">upwork.com/fl/nyamochirbold ↗</a></li>
             </ul>
           </aside>
-        </div>
 
-        <!-- principles -->
-        <div class="block">
-          <header class="block-head">
-            <h3 class="subtitle" data-rv data-i18n="principles.h3">Бидний баримталдаг зарчим</h3>
-          </header>
-          <ol class="principles">
-            <li data-rv>
-              <span class="pr-n">01</span>
-              <h4 data-i18n="pr.1.h">Итгэхээс өмнө нотолгоо</h4>
-              <p data-i18n="pr.1.p">Модель бүрийг бие даан сургаж, walk-forward аргаар баталгаажуулж, Sharpe, Calmar, drawdown, өгөөжөөр эрэмбэлдэг. Зөвхөн сайхан тайлбараар юу ч продакшнд гардаггүй.</p>
-            </li>
-            <li data-rv>
-              <span class="pr-n">02</span>
-              <h4 data-i18n="pr.2.h">Өгөөжөөс өмнө эрсдэл</h4>
-              <p data-i18n="pr.2.p">Мандат, экспожур, хөрвөх чадварын хязгаарыг хөдөлгүүрт хязгаарлалт болгон суулгасан бөгөөд VaR, drawdown, хэлбэлзлийн зорилт, корреляци, стресс тестийн хяналттай хамт ажилладаг.</p>
-            </li>
-            <li data-rv>
-              <span class="pr-n">03</span>
-              <h4 data-i18n="pr.3.h">Угаасаа нээлттэй</h4>
-              <p data-i18n="pr.3.p">Desk бүр API-тай, route бүр баримтжуулагдсан. Энэ хуудсан дээрх загвар арилжааны багцыг шууд ажиллаж буй Paper Desk-ээс, спред болон санхүүжилтийн зардлыг хассан байдлаар экспортолдог.</p>
-            </li>
-            <li data-rv>
-              <span class="pr-n">04</span>
-              <h4 data-i18n="pr.4.h">Солигдохоор бүтээгдсэн</h4>
-              <p data-i18n="pr.4.p">Feature store-оос гүйцэтгэл хүртэлх давхарга бүрийг тусад нь тестлэж, сольж болно. Бүхлээр нь хүлээн авах ёстой хар хайрцаг байхгүй.</p>
-            </li>
-          </ol>
-        </div>
-
-        <!-- founder's former collaborations -->
-        <div id="partners" class="block">
-          <header class="block-head">
-            <h3 class="subtitle" data-rv data-i18n="partners.h2">Үүсгэн байгуулагчийн өмнөх хамтын ажиллагаа</h3>
-            <p class="chap-sub" data-rv data-i18n="partners.sub">Deep Beta Technology LLC байгуулагдахаас өмнө үүсгэн байгуулагчийн хувиараа хамтран ажиллаж байсан байгууллагууд. Эдгээр нь Deep Beta Technology LLC-ийн түншлэл биш.</p>
-          </header>
-          <div class="collab" data-rv>
-            <div class="collab-card">
-              <span class="badge" aria-hidden="true">EIP</span>
-              <div>
-                <h4>EIP Holding</h4>
-                <span class="collab-loc">Norway</span>
-                <p data-i18n="partners.eip">Европ болон дэлхийн санхүүгийн зах зээлд үйл ажиллагаа явуулдаг хөрөнгө оруулалтын холдинг компани.</p>
+          <!-- founder's former collaborations: personal, before DeepBeta; not partnerships of the firm -->
+          <div id="partners" class="lead-collab" data-rv style="--d:1">
+            <h3 class="label" data-i18n="partners.h2">Үүсгэн байгуулагчийн өмнөх хамтын ажиллагаа</h3>
+            <p class="lead-note" data-i18n="partners.sub">Deep Beta Technology LLC байгуулагдахаас өмнө үүсгэн байгуулагчийн хувиараа хамтран ажиллаж байсан байгууллагууд. Эдгээр нь Deep Beta Technology LLC-ийн түншлэл биш.</p>
+            <div class="collab collab--stack">
+              <div class="collab-card">
+                <span class="badge" aria-hidden="true">EIP</span>
+                <div>
+                  <h4>EIP Holding</h4>
+                  <span class="collab-loc">Norway</span>
+                  <p data-i18n="partners.eip">Европ болон дэлхийн санхүүгийн зах зээлд үйл ажиллагаа явуулдаг хөрөнгө оруулалтын холдинг компани.</p>
+                </div>
               </div>
-            </div>
-            <div class="collab-card">
-              <span class="badge" aria-hidden="true">ANNA</span>
-              <div>
-                <h4>Anna Fund</h4>
-                <span class="collab-loc">Norway</span>
-                <p data-i18n="partners.anna">Системтэй стратеги, санхүүгийн инновацид төвлөрсөн альтернатив хөрөнгө оруулалтын сан.</p>
+              <div class="collab-card">
+                <span class="badge" aria-hidden="true">ANNA</span>
+                <div>
+                  <h4>Anna Fund</h4>
+                  <span class="collab-loc">Norway</span>
+                  <p data-i18n="partners.anna">Системтэй стратеги, санхүүгийн инновацид төвлөрсөн альтернатив хөрөнгө оруулалтын сан.</p>
+                </div>
               </div>
-            </div>
-            <div class="collab-card">
-              <span class="badge" aria-hidden="true">DFG</span>
-              <div>
-                <h4>Deerfield Green</h4>
-                <span class="collab-loc">Tokyo · Atlanta</span>
-                <p data-i18n="partners.dfg">Квант хөрөнгө оруулалт, AI стратеги, Номхон далай дамнасан хөрөнгийн удирдлага.</p>
-                <a href="https://www.deerfieldgreen.com/" target="_blank" rel="noopener">deerfieldgreen.com ↗</a>
+              <div class="collab-card">
+                <span class="badge" aria-hidden="true">DFG</span>
+                <div>
+                  <h4>Deerfield Green</h4>
+                  <span class="collab-loc">Tokyo · Atlanta</span>
+                  <p data-i18n="partners.dfg">Квант хөрөнгө оруулалт, AI стратеги, Номхон далай дамнасан хөрөнгийн удирдлага.</p>
+                  <a href="https://www.deerfieldgreen.com/" target="_blank" rel="noopener">deerfieldgreen.com ↗</a>
+                </div>
               </div>
             </div>
           </div>
@@ -999,10 +464,10 @@ const tech = await (await fetch('https://technical.deepbeta.mn/api/asset/GOLD', 
       </div>
     </section>
 
-    <!-- 08 · CONTACT -->
-    <section id="contact" class="chapter cta" data-chapter="08">
+    <!-- 07 · CONTACT -->
+    <section id="contact" class="chapter cta" data-chapter="07">
       <div class="wrap cta-inner">
-        <p class="chap-tag"><b>08</b><span data-i18n="nav.contact">Холбоо барих</span></p>
+        <p class="chap-tag"><b>07</b><span data-i18n="nav.contact">Холбоо барих</span></p>
         <h2 class="display" data-rv data-i18n="cta.h2">Сорьж<br>үзээрэй<span class="pt">.</span></h2>
         <p class="lede" data-rv data-i18n="cta.sub">Brainy платформд нэвтрэх түлхүүр хүсэх эсвэл нотолгоонд тулгуурлан гаргахыг хүсэж буй шийдвэрийнхээ талаар бидэнд бичээрэй. Бид англи, монгол, солонгос хэлээр хариулна.</p>
         <div class="hero-ctas" data-rv>
@@ -1018,25 +483,25 @@ const tech = await (await fetch('https://technical.deepbeta.mn/api/asset/GOLD', 
     <div class="wrap">
       <div class="foot-grid">
         <div class="foot-brand">
-          <a class="wordmark" href="#top" aria-label="Deep Beta Technology LLC home">DeepBeta<span class="pt">.</span></a>
+          <a class="wordmark" href="/mn/#top" aria-label="Deep Beta Technology LLC home">DeepBeta<span class="pt">.</span></a>
           <p data-i18n="foot.tagline">Байгууллагад зориулсан квант ML модель, бэктест, AI шийдлүүд.</p>
           <a class="foot-mail" href="mailto:nyam-ochir@deepbeta.mn">nyam-ochir@deepbeta.mn</a>
           <a class="foot-mail" href="tel:+97688802060">+976 8880 2060</a>
         </div>
         <nav class="foot-col" aria-label="Company">
           <h3 data-i18n="foot.company">Компани</h3>
-          <a href="#thesis" data-i18n="nav.thesis">Үзэл баримтлал</a>
-          <a href="#practice" data-i18n="nav.practice">Чиглэл</a>
-          <a href="#firm" data-i18n="nav.firm">Компани</a>
-          <a href="#contact" data-i18n="nav.contact">Холбоо барих</a>
+          <a href="/mn/#company" data-i18n="foot.about">Бидний тухай</a>
+          <a href="/mn/#services" data-i18n="nav.services">Үйлчилгээ</a>
+          <a href="/mn/#founder" data-i18n="nav.founder">Үүсгэн байгуулагч</a>
+          <a href="/mn/#contact" data-i18n="nav.contact">Холбоо барих</a>
         </nav>
-        <nav class="foot-col" aria-label="Engine">
-          <h3 data-i18n="nav.engine">Хөдөлгүүр</h3>
-          <a href="#models" data-i18n="foot.models">Моделүүд</a>
-          <a href="#features" data-i18n="foot.inputs">Оролт</a>
-          <a href="#assets" data-i18n="foot.markets">Зах зээл</a>
-          <a href="#stack" data-i18n="nav.pipeline">Пайплайн</a>
-          <a href="#performance" data-i18n="nav.proof">Нотолгоо</a>
+        <nav class="foot-col" aria-label="Technology">
+          <h3 data-i18n="nav.technology">Технологи</h3>
+          <a href="/mn/technology/#models" data-i18n="foot.models">Моделүүд</a>
+          <a href="/mn/technology/#features" data-i18n="foot.inputs">Оролт</a>
+          <a href="/mn/technology/#assets" data-i18n="foot.markets">Зах зээл</a>
+          <a href="/mn/technology/#stack" data-i18n="foot.run">Өдрийн ажиллагаа</a>
+          <a href="/mn/results/" data-i18n="nav.results">Үр дүн</a>
         </nav>
         <nav class="foot-col" aria-label="Platform">
           <h3 data-i18n="nav.platform">Платформ</h3>
@@ -1044,7 +509,7 @@ const tech = await (await fetch('https://technical.deepbeta.mn/api/asset/GOLD', 
           <a href="https://brainy.deepbeta.mn/paperdesk/" target="_blank" rel="noopener">Paper Desk</a>
           <a href="https://technical.deepbeta.mn/" target="_blank" rel="noopener">Technical desk</a>
           <a href="https://agents.deepbeta.mn/" target="_blank" rel="noopener">Agents</a>
-          <a href="#platform" data-i18n="foot.api">API ба endpoint</a>
+          <a href="/mn/platform/#api" data-i18n="foot.api">API ба endpoint</a>
         </nav>
         <nav class="foot-col" aria-label="Connect">
           <h3 data-i18n="foot.connect">Холбогдох</h3>
