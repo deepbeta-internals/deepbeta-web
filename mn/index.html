@@ -248,44 +248,46 @@
           <p class="chap-sub" data-rv data-i18n="services.sub">Бидэнтэй хамтран ажиллах гурван арга. Гурвуулаа нэг шалгуураар: эхлээд нотолгоогоо харуулна.</p>
         </header>
 
+        <!-- each row is a <div> whose .practice-go link covers the whole row (styles.css), so a client's
+             logo inside it can be a link of its own: an <a> may not contain another link -->
         <div class="practice">
-          <a class="practice-row" href="/mn/technology/" data-rv>
+          <div class="practice-row" data-rv>
             <span class="practice-n">A</span>
             <h3 data-i18n="practice.a.h">Квант ML ба AI алгоритмын арилжаа</h3>
             <p data-i18n="practice.a.p">Хөрөнгө оруулалтын компаниудад зориулсан арилжааны модель, дохио: 5 жилийн өгөгдөл дээр шалгагдсан, эрсдэлээр хэмжээ нь тогтоогдсон, манай платформ дээр өдөр бүр ажилладаг. Ашгийн хувиар биш, лицензийн төлбөрөөр.</p>
-            <span class="practice-go"><b data-i18n="practice.a.cta">Технологийг үзэх</b><i class="arr" aria-hidden="true">→</i></span>
+            <a class="practice-go" href="/mn/technology/"><b data-i18n="practice.a.cta">Технологийг үзэх</b><i class="arr" aria-hidden="true">→</i></a>
             <div class="practice-case">
               <span class="case-k" data-i18n="case.partner.k">Түнш</span>
               <span class="logo-plate is-withheld" aria-hidden="true"><i></i><i></i><i></i></span>
               <span class="case-t" data-i18n="case.a">Түнш байгууллага манай квант шийдлүүдийг ашигладаг. Нэрийг нь нууцалсан.</span>
             </div>
-          </a>
-          <a class="practice-row" href="#contact" data-rv>
+          </div>
+          <div class="practice-row" data-rv>
             <span class="practice-n">B</span>
             <h3 data-i18n="practice.b.h">Мөнгөн хөрөнгийн удирдлага</h3>
             <p data-i18n="practice.b.p">Хөрвөх чадвар, валют, эрсдэлийн хяналтад зориулсан аналитик. Байгууллагын мөнгөн хөрөнгийг удирддаг Treasury багуудад зориулав.</p>
-            <span class="practice-go"><b data-i18n="practice.talk">Бидэнтэй холбогдох</b><i class="arr" aria-hidden="true">→</i></span>
+            <a class="practice-go" href="#contact"><b data-i18n="practice.talk">Бидэнтэй холбогдох</b><i class="arr" aria-hidden="true">→</i></a>
             <div class="practice-case is-open">
               <span class="case-k" data-i18n="case.open.k">Нээлттэй</span>
               <span class="case-t" data-i18n="case.b">Одоогоор харилцагчгүй. Анхны Treasury төсөлд, тэр дундаа томоохон хамтын ажиллагаанд нээлттэй.</span>
             </div>
-          </a>
-          <a class="practice-row" href="#contact" data-rv>
+          </div>
+          <div class="practice-row" data-rv>
             <span class="practice-n">C</span>
             <h3 data-i18n="practice.c.h">Байгууллагын AI шийдлүүд</h3>
             <p data-i18n="practice.c.p">Таны өгөгдөл, хязгаарлалт, үндэслэлээ тайлбарлах ёстой шийдвэрт тань тохируулан бүтээсэн дэвшилтэт аналитик ба хэрэглээний machine learning.</p>
-            <span class="practice-go"><b data-i18n="practice.talk">Бидэнтэй холбогдох</b><i class="arr" aria-hidden="true">→</i></span>
+            <a class="practice-go" href="#contact"><b data-i18n="practice.talk">Бидэнтэй холбогдох</b><i class="arr" aria-hidden="true">→</i></a>
             <div class="practice-case">
               <span class="case-k" data-i18n="case.partner.k">Түнш</span>
-              <span class="logo-plate" data-i18n="case.tbc.logo"><img src="/logo/clients/tavan-bogd-capital-mn.png" alt="Таван Богд Капитал" width="153" height="46" loading="lazy" decoding="async"></span>
+              <a class="logo-plate" href="https://tavanbogdcapital.com/" target="_blank" rel="noopener" data-i18n="case.tbc.logo"><img src="/logo/clients/tavan-bogd-capital-mn.png" alt="Таван Богд Капитал" width="153" height="46" loading="lazy" decoding="async"></a>
               <span class="case-t" data-i18n="case.c1">Таван Богд Капитал манай AI шийдлүүдийг ашигладаг.</span>
             </div>
             <div class="practice-case">
               <span class="case-k" data-i18n="case.k">Хийсэн ажил</span>
-              <span class="logo-plate"><img src="/logo/clients/unu-munkhiin-ehlel.jpg" alt="Unu Munkhiin Ehlel" width="46" height="46" loading="lazy" decoding="async"></span>
-              <span class="case-t" data-i18n="case.c2">Unu Munkhiin Ehlel-д зориулан IT шийдэл, вэб сайт хөгжүүлсэн.</span>
+              <a class="logo-plate" href="https://art21.mn/" target="_blank" rel="noopener" data-i18n="case.unu.logo"><img src="/logo/clients/unu-munkhiin-ehlel.jpg" alt="Өнө мөнхийн эхлэл ХХК" width="46" height="46" loading="lazy" decoding="async"></a>
+              <span class="case-t" data-i18n="case.c2">Өнө мөнхийн эхлэл ХХК-д зориулан IT шийдэл, вэб сайт хөгжүүлсэн.</span>
             </div>
-          </a>
+          </div>
         </div>
       </div>
     </section>

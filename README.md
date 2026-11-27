@@ -60,11 +60,17 @@ Each page is told as numbered chapters. A chapter is a `<section data-chapter="N
   they drift. Change them in all four files at once. Links to the site's own pages are
   root-absolute (`/#services`, `/results/`); the builder moves them under `/mn/` and `/ko/`.
 
-- **Showcases.** A practice row in `#practice` can end with `.practice-case` lines: the client's
-  mark on a paper plate (`.logo-plate`, files in `logo/clients/`) and one sentence saying what was
-  built. Label the relationship as it is: "Partner" for a firm that applies our solutions
-  (Tavan Bogd Capital), "Showcase" for work built for a client (Unu Munkhiin Ehlel). Name a firm
-  only with their consent, and claim only what is true of the relationship.
+- **Showcases.** A practice row in `#services` can end with `.practice-case` lines: the client's
+  mark (`.logo-plate`, files in `logo/clients/`) and one sentence saying what was built. Marks are
+  shown in their own colours on transparent (no plate behind them; use a transparent PNG), and a
+  mark links to the client's website in a new tab (`<a class="logo-plate" href="…"
+  target="_blank" rel="noopener">`). Each practice row is a `<div>` whose `.practice-go` link
+  covers the row, which is what lets a link sit inside it. Label the relationship as it is:
+  "Partner" for a firm that applies our solutions (Tavan Bogd Capital, tavanbogdcapital.com),
+  "Showcase" for work built for a client (Unu Munkhiin Ekhlel LLC — Өнө мөнхийн эхлэл ХХК in
+  Mongolian — art21.mn). Name a firm only with their consent, and claim only what is true of
+  the relationship. A mark with its own alt text per language gets a `data-i18n` key
+  (`case.tbc.logo`, `case.unu.logo`).
   When a name must stay private, use `.logo-plate.is-withheld` (an abstract blurred mark) and a
   sentence that names nobody. Never blur a real logo with CSS: the page source would still name the firm. A practice with
   no client yet says so (`.practice-case.is-open`). The Mongolian page swaps in the Cyrillic logo

@@ -422,6 +422,11 @@ button { font: inherit; color: inherit; }
   transition: color 0.3s;
 }
 .practice-go b { font-weight: 500; }
+/* the row's own link covers the whole row; links inside it (client logos) sit above that cover */
+.practice-go::after { content: ""; position: absolute; inset: 0; }
+.practice-go:focus-visible { outline: 0; }
+.practice-go:focus-visible::after { outline: 2px solid var(--gold); outline-offset: 2px; }
+.practice-case a { position: relative; z-index: 1; }
 /* showcase line under a practice: who it was built for, or that the practice is still open */
 .practice-case {
   grid-column: 2 / -1; display: flex; align-items: center; flex-wrap: wrap; gap: 10px 18px;
@@ -435,17 +440,25 @@ button { font: inherit; color: inherit; }
 }
 .practice-case.is-open .case-k { color: var(--dot); }
 .practice-case.is-open .case-k::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
-/* client marks sit on a paper plate: their own colours, legible on ink and on the gold hover */
-.logo-plate { display: inline-flex; align-items: center; justify-content: center; min-width: 168px; height: 52px; padding: 0 8px; background: var(--paper); border-radius: 2px; }
-.logo-plate img { width: auto; height: 46px; }
+/* client marks: their own artwork on transparent, in their own colours (no plate behind them).
+   A fixed-width slot keeps the sentences after them in line. A mark that links to the client's
+   website shows a small arrow on hover and focus. */
+.logo-plate { display: inline-flex; align-items: center; gap: 8px; width: 176px; height: 52px; flex: none; }
+.logo-plate img { width: auto; height: 46px; transition: transform 0.25s var(--ease); }
+a.logo-plate { width: auto; min-width: 176px; border-radius: 2px; }
+a.logo-plate::after {
+  content: "↗"; font: 500 13px/1 var(--mono); color: var(--gold);
+  opacity: 0; transform: translate(-4px, 4px); transition: opacity 0.2s, transform 0.2s;
+}
+a.logo-plate:hover img, a.logo-plate:focus-visible img { transform: translateY(-2px); }
+a.logo-plate:hover::after, a.logo-plate:focus-visible::after { opacity: 1; transform: none; }
 /* a withheld name: an abstract blurred mark, deliberately not the firm's logo, so nothing in the
    page (image, alt text or sentence) identifies it */
-.logo-plate.is-withheld { position: relative; width: 168px; overflow: hidden; }
-.logo-plate.is-withheld i { position: absolute; background: #57524a; filter: blur(3.5px); }
-.logo-plate.is-withheld i:nth-child(1) { left: 20px; top: 13px; width: 38px; height: 26px; border-radius: 50%; }
-.logo-plate.is-withheld i:nth-child(2) { left: 68px; top: 14px; width: 80px; height: 10px; border-radius: 2px; }
-.logo-plate.is-withheld i:nth-child(3) { left: 68px; top: 29px; width: 56px; height: 10px; border-radius: 2px; }
-.logo-plate--text { padding: 0 16px; font: 700 14px/1 var(--display); letter-spacing: -0.005em; color: var(--ink); white-space: nowrap; }
+.logo-plate.is-withheld { position: relative; overflow: hidden; }
+.logo-plate.is-withheld i { position: absolute; background: rgba(243, 238, 225, 0.3); filter: blur(3.5px); transition: background 0.3s; }
+.logo-plate.is-withheld i:nth-child(1) { left: 4px; top: 13px; width: 38px; height: 26px; border-radius: 50%; }
+.logo-plate.is-withheld i:nth-child(2) { left: 52px; top: 14px; width: 80px; height: 10px; border-radius: 2px; }
+.logo-plate.is-withheld i:nth-child(3) { left: 52px; top: 29px; width: 56px; height: 10px; border-radius: 2px; }
 .case-t { color: #d2ccba; font-size: 15px; line-height: 1.5; transition: color 0.3s; }
 @media (hover: hover) {
   .practice-row:hover::before { transform: scaleY(1); }
@@ -454,6 +467,8 @@ button { font: inherit; color: inherit; }
   .practice-row:hover .case-k, .practice-row:hover .practice-case.is-open .case-k { color: var(--ink); }
   .practice-row:hover .case-t { color: #2e2608; }
   .practice-row:hover .practice-case { border-top-color: rgba(10, 10, 9, 0.35); }
+  .practice-row:hover a.logo-plate::after { color: var(--ink); }
+  .practice-row:hover .logo-plate.is-withheld i { background: rgba(10, 10, 9, 0.32); }
   .practice-row:hover .arr { transform: translateX(6px); }
 }
 @media (max-width: 980px) {
